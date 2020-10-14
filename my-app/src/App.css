@@ -1,0 +1,23 @@
+.app {
+
+}
+
+.app__info {
+    height: 6vh;
+    background: #D5DEEF;
+}
+
+.app__mainPanel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 40vh;
+    background: #B2CAEE;
+}
+
+.app__addPanel {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    height: 54vh;
+    background: #89AFE0;
+}
+

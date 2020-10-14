@@ -1,0 +1,17 @@
+.team {
+    padding-left: 15%;
+    width: 85%;
+    height: 100%;
+}
+
+.teamInfo {
+    padding-top: 5%;
+}
+
+.teamGamers {
+    display: block;
+    max-height: 230px;
+    overflow-y: scroll;
+}
+
+

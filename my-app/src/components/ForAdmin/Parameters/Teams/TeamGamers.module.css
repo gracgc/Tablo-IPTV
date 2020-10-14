@@ -1,0 +1,8 @@
+.teamGamers {
+    display: grid;
+    grid-template-columns: 15% 35% 25% 20%;
+}
+
+.goalButton {
+    margin-left: 5px;
+}
