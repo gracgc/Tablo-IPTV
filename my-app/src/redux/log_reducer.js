@@ -1,35 +1,56 @@
-// import {tabloAPI} from "../api/api";
+import {logAPI} from "../api/api";
+
 
 const ADD_LOG = 'log/ADD_LOG';
+const SET_LOG_DATA = 'log/SET_LOG_DATA';
 
 let initialState = {
     logData: [
-
+        {item: ""}
     ]
 };
 
 const logReducer = (state = initialState, action) => {
 
-        switch (action.type) {
-            case ADD_LOG:
+    switch (action.type) {
+        case SET_LOG_DATA:
 
-                let newLog = {
-                    item: action.logItem
-                };
+            return {
+                ...state,
+                logData: action.logData
+            };
 
-                return {
-                    ...state,
-                    logData: [...state.logData, newLog]
-                };
+        case ADD_LOG:
 
-            default:
-                return state;
-        }
+            let newLog = {
+                item: action.logItem
+            };
+
+            return {
+                ...state,
+                logData: [...state.logData, newLog]
+            };
+
+        default:
+            return state;
     }
-;
+};
 
+export const setLogDataAC = (logData) => ({type: SET_LOG_DATA, logData});
 export const addLogAC = (logItem) => ({type: ADD_LOG, logItem});
 
+export const getLog = () => async (dispatch) => {
+    let response = await logAPI.getLog();
+    dispatch(setLogDataAC(response));
+};
+
+export const addNewLog = (newLog) => async (dispatch) => {
+    let responce = await logAPI.postLog(newLog);
+    if (responce.resultCode === 0) {
+        dispatch(addLogAC(newLog));
+    }
+
+};
 
 
 export default logReducer;

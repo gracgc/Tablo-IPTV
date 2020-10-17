@@ -5,8 +5,7 @@ import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
 import Tablo from "./Tablo";
 import {addGoalAC} from "../../../redux/teams_reducer";
-import {addLogAC} from "../../../redux/log_reducer";
-
+import {addNewLog} from "../../../redux/log_reducer";
 
 
 const TabloEdit = (props) => {
@@ -24,27 +23,23 @@ const TabloEdit = (props) => {
     const [isDisabled, setIsDisabled] = useState(false);
 
 
-    const addTeamGoal = async (teamType) => {
-        await setIsDisabled(true);
-        await dispatch(addGoalAC(teamType));
-        await stopGame();
+    const addTeamGoal = (teamType) => {
+        setIsDisabled(true);
+        dispatch(addGoalAC(teamType));
+        stopGame();
         if (isRunning) {
-            addLog('Timecode: STOP - GOAL!');
+            dispatch(addNewLog('Timecode: STOP - GOAL!'));
         } else {
-            addLog('Timecode: GOAL!');
+            dispatch(addNewLog('Timecode: GOAL!'));
         }
         setTimeout(() =>
             setIsDisabled(false), 2000
         )
     };
 
-    const addLog = (logItem) => {
-        dispatch(addLogAC(logItem));
-    };
-
     const startGame = () => {
         setIsRunning(true);
-        addLog('Timecode: START')
+        dispatch(addNewLog('Timecode: START'));
     };
 
     const stopGame = () => {
@@ -62,13 +57,13 @@ const TabloEdit = (props) => {
                         <div className={c.gameButtons__Disabled}>
                             Start
                         </div>
-                        <div className={classNames(c.gameButtons__Active, c.gameButtons__stop)} onClick={stopGame}>
+                        <div className={classNames(c.gameButtons__Active, c.gameButtons__stop)} onClick={(e) => stopGame}>
                             Stop
                         </div>
                     </div>
                     :
                     <div className={c.gameButtons}>
-                        <div className={c.gameButtons__Active} onClick={startGame}>
+                        <div className={c.gameButtons__Active} onClick={(e) => startGame}>
                             Start
                         </div>
                         <div className={classNames(c.gameButtons__Disabled, c.gameButtons__stop)}>

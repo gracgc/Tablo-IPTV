@@ -9,7 +9,7 @@ const SET_TEAMS = 'teams/SET_TEAMS';
 let initialState = {
     teams: [
         {
-            name: 'Home',
+            name: 'Name',
             counter: 0,
             teamType: 'home',
             timeOut: 0,
@@ -19,77 +19,11 @@ let initialState = {
                     fullName: 'Gamer 1',
                     status: 'in game',
                     goals: 0
-                },
-                {
-                    id: 2,
-                    fullName: 'Gamer 2',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 3,
-                    fullName: 'Gamer 3',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 4,
-                    fullName: 'Gamer 4',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 5,
-                    fullName: 'Gamer 5',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 6,
-                    fullName: 'Gamer 6',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 7,
-                    fullName: 'Gamer 7',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 8,
-                    fullName: 'Gamer 8',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 9,
-                    fullName: 'Gamer 9',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 10,
-                    fullName: 'Gamer 10',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 11,
-                    fullName: 'Gamer 11',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 12,
-                    fullName: 'Gamer 12',
-                    status: 'in game',
-                    goals: 0
                 }
             ]
         },
         {
-            name: 'Guests',
+            name: 'Name',
             counter: 0,
             teamType: 'guests',
             timeOut: 0,
@@ -99,77 +33,10 @@ let initialState = {
                     fullName: 'Gamer 1',
                     status: 'in game',
                     goals: 0
-                },
-                {
-                    id: 2,
-                    fullName: 'Gamer 2',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 3,
-                    fullName: 'Gamer 3',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 4,
-                    fullName: 'Gamer 4',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 5,
-                    fullName: 'Gamer 5',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 6,
-                    fullName: 'Gamer 6',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 7,
-                    fullName: 'Gamer 7',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 8,
-                    fullName: 'Gamer 8',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 9,
-                    fullName: 'Gamer 9',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 10,
-                    fullName: 'Gamer 10',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 11,
-                    fullName: 'Gamer 11',
-                    status: 'in game',
-                    goals: 0
-                },
-                {
-                    id: 12,
-                    fullName: 'Gamer 12',
-                    status: 'in game',
-                    goals: 0
                 }
             ]
         }
     ]
-    // teams: []
 };
 
 const teamsReducer = (state = initialState, action) => {
@@ -259,7 +126,7 @@ export const addGamerGoalAC = (gamerId, teamType, symbol) => ({type: ADD_GAMER_G
 
 export const getTeams = () => async (dispatch) => {
     let response = await teamsAPI.getTeams();
-    dispatch(setTeamsAC(response.data.teams));
+    dispatch(setTeamsAC(response));
 };
 
 

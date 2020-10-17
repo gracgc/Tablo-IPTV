@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import TabloEdit from "./components/ForAdmin/TabloEdit/TabloEdit";
-import TeamsParameters from "./components/ForAdmin/Parameters/TeamsParameters";
 import Log from "./components/ForAdmin/Log/Log";
+import TeamsParameters from "./components/ForAdmin/Parameters/TeamsParameters";
+
 
 
 function App() {
+
+
     return (
         <div className='app'>
             <div className='app__info'>

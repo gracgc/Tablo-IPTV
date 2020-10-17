@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import c from './TeamGamers.module.css'
 import {useDispatch} from "react-redux";
 import {addGamerGoalAC, changeGamerStatusAC} from "../../../../redux/teams_reducer";
-import {addLogAC} from "../../../../redux/log_reducer";
+import {addLogAC, addNewLog} from "../../../../redux/log_reducer";
 
 
 const TeamGamers = (props) => {
@@ -14,21 +14,18 @@ const TeamGamers = (props) => {
     const changeGamerStatus = (gamerId, teamType) => {
         dispatch(changeGamerStatusAC(gamerId, teamType));
         if (props.status == 'in game') {
-            addLog(`Timecode: ${props.fullName} deleted`)
+            dispatch(addNewLog(`Timecode: ${props.fullName} deleted`))
         } if (props.status == 'deleted') {
-            addLog(`Timecode: ${props.fullName} returns to a game`)
+            dispatch(addNewLog(`Timecode: ${props.fullName} returns to a game`))
         }
 
     };
 
-    const addLog = (logItem) => {
-        dispatch(addLogAC(logItem));
-    };
 
     const addGamerGoal = (gamerId, teamType, symbol) => {
         dispatch(addGamerGoalAC(gamerId, teamType, symbol));
         if (symbol === '+') {
-            addLog(`Timecode: ${props.fullName} gets point`)
+            dispatch(addNewLog(`Timecode: ${props.fullName} gets point`))
         }
     };
 

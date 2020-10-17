@@ -1,30 +1,32 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useMemo, useState} from 'react'
 import c from './TeamsParameters.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import TeamInfo from "./Teams/TeamInfo";
+import {getTeams} from "../../../redux/teams_reducer";
 
 
 
 const TeamsParameters = (props) => {
 
+    const teams = useSelector(
+        state => state.teamsPage.teams
+    );
+
     const dispatch = useDispatch();
 
+    useEffect( () => {
+        dispatch(getTeams());
+    }, []);
+
+    const homeTeamGamers = teams.find(t => t.teamType == 'home').gamers;
+
+    const guestsTeamGamers = teams.find(t => t.teamType == 'guests').gamers;
+
+    const homeTeamInfo = teams.find(t => t.teamType == 'home');
+
+    const guestsTeamInfo = teams.find(t => t.teamType == 'guests');
 
 
-    const homeTeamGamers = useSelector(
-        state => state.teamsPage.teams.find(t => t.teamType == 'home').gamers
-    );
-    const guestsTeamGamers = useSelector(
-        state => state.teamsPage.teams.find(t => t.teamType == 'guests').gamers
-    );
-
-    const homeTeamInfo = useSelector(
-        state => state.teamsPage.teams.find(t => t.teamType == 'home')
-    );
-
-    const guestsTeamInfo = useSelector(
-        state => state.teamsPage.teams.find(t => t.teamType == 'guests')
-    );
 
     return (
         <div className={c.parameters}>
