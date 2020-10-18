@@ -1,0 +1,21 @@
+.savedGames {
+    background: #77cde0;
+    width: 100%;
+    height: 100%;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+.navButton {
+    display: inline-flex;
+    margin-bottom: 5%;
+    padding: 5%;
+    font-weight: bold;
+    font-size: 150%;
+    border: solid 2px black;
+}
+
+

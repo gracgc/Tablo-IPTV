@@ -25,3 +25,18 @@ export const logAPI = {
             })
     }
 };
+
+export const gameAPI = {
+    getGame(gameNumber) {
+        return axios.get(`http://localhost:5000/api/game/${gameNumber}`)
+            .then(responce => {
+                return responce.data
+            })
+    },
+    getSavedGames() {
+        return axios.get(`http://localhost:5000/api/savedGames`)
+            .then(responce => {
+                return responce.data
+            })
+    }
+};

@@ -38,7 +38,4 @@ router.post('/', cors(), function (req, res) {
 router.options('/', cors());
 
 
-
-
-
 module.exports = router;

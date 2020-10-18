@@ -3,12 +3,14 @@ import thunkMiddleware from "redux-thunk";
 import tabloReducer from "./tablo_reducer";
 import teamsReducer from "./teams_reducer";
 import logReducer from "./log_reducer";
+import gamesReducer from "./games_reducer";
 
 
 let reducers = combineReducers({
     // tabloPage: tabloReducer,
     teamsPage: teamsReducer,
-    logPage: logReducer
+    logPage: logReducer,
+    gamesPage: gamesReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
