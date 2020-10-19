@@ -46,7 +46,6 @@ const teamsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 teams: action.teams
-
             };
 
         case ADD_GOAL:
@@ -124,8 +123,8 @@ export const addGoalAC = (teamType) => ({type: ADD_GOAL, teamType});
 export const changeGamerStatusAC = (gamerId, teamType) => ({type: CHANGE_GAMER_STATUS, gamerId, teamType});
 export const addGamerGoalAC = (gamerId, teamType, symbol) => ({type: ADD_GAMER_GOAL, gamerId, teamType, symbol});
 
-export const getTeams = () => async (dispatch) => {
-    let response = await teamsAPI.getTeams();
+export const getTeams = (gameNumber) => async (dispatch) => {
+    let response = await teamsAPI.getTeams(gameNumber);
     dispatch(setTeamsAC(response));
 };
 

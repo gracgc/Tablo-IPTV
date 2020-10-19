@@ -1,0 +1,20 @@
+.formControl.error input,
+.formControl.error textarea
+{
+    border: solid #e0223b 2px;
+}
+
+.formControl.error div
+{
+    color: #e0223b;
+}
+
+.formSummaryError {
+    border: #e0223b 1px solid;
+    padding: 5px;
+    color: red;
+}
+
+.blockArea  {
+    display: inline-flex;
+}

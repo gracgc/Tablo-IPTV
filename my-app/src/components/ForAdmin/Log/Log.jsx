@@ -3,9 +3,13 @@ import c from './Log.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import LogItem from "./LogItem";
 import {getLog} from "../../../redux/log_reducer";
+import {withRouter} from "react-router-dom";
+import {compose} from "redux";
 
 
 const Log = (props) => {
+
+    let gameNumber = props.match.params.gameNumber;
 
     const logData = useSelector(
         state => state.logPage.logData
@@ -14,7 +18,7 @@ const Log = (props) => {
     const dispatch = useDispatch();
 
     useEffect( () => {
-        dispatch(getLog());
+        dispatch(getLog(gameNumber));
     }, [logData.length]);
 
     return (
@@ -27,4 +31,4 @@ const Log = (props) => {
     )
 };
 
-export default Log;
+export default compose(withRouter)(Log);

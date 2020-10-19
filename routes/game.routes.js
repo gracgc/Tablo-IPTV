@@ -34,9 +34,20 @@ router.get('/:gameNumber', function (req, res) {
 router.post('/', cors(), function (req, res) {
     try {
 
+        let data = fs.readFileSync(path.join(__dirname + `/DB/saved_games.json`));
+        let DB = JSON.parse(data);
+
         let gameName = req.body.gameName;
         let gameNumber = req.body.gameNumber;
         let gameType = req.body.gameType;
+
+        let newSave = {
+            gameName: gameName,
+            gameNumber: gameNumber,
+            gameType: gameType
+        };
+
+        DB.savedGames.push(newSave);
 
         let newGame = {
             gameInfo: {
@@ -47,18 +58,21 @@ router.post('/', cors(), function (req, res) {
                 gameTime: 0
             },
             gameLog: [],
-            teams: [],
-            _id: uuidv4()
+            teams: []
         };
 
         if (!gameName || !gameNumber || !gameType) {
             res.send({resultCode: 10});
             console.log('Not enought data')
         } else {
-            let json = JSON.stringify(newGame);
+            let newGameJson = JSON.stringify(newGame);
+            let newSaveJson = JSON.stringify(DB);
 
             fs.writeFileSync(path.join(__dirname +
-                `/DB/game_${newGame.gameInfo.gameNumber}.json`), json, 'utf8');
+                `/DB/game_${newGame.gameInfo.gameNumber}.json`), newGameJson, 'utf8');
+
+            fs.writeFileSync(path.join(__dirname +
+                `/DB/saved_games.json`), newSaveJson, 'utf8');
 
             res.send({resultCode: 0})
         }

@@ -3,10 +3,14 @@ import c from './TeamsParameters.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import TeamInfo from "./Teams/TeamInfo";
 import {getTeams} from "../../../redux/teams_reducer";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
 
 
 
 const TeamsParameters = (props) => {
+
+    let gameNumber = props.match.params.gameNumber;
 
     const teams = useSelector(
         state => state.teamsPage.teams
@@ -15,7 +19,7 @@ const TeamsParameters = (props) => {
     const dispatch = useDispatch();
 
     useEffect( () => {
-        dispatch(getTeams());
+        dispatch(getTeams(gameNumber));
     }, []);
 
     const homeTeamGamers = teams.find(t => t.teamType == 'home').gamers;
@@ -43,4 +47,4 @@ const TeamsParameters = (props) => {
     )
 };
 
-export default TeamsParameters;
+export default compose(withRouter)(TeamsParameters);

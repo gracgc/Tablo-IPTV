@@ -39,8 +39,7 @@ router.post('/', cors(), function (req, res) {
         let game = {
             gameName: gameName,
             gameNumber: gameNumber,
-            gameType: gameType,
-            _id: uuidv4()
+            gameType: gameType
         };
 
         DB.savedGames.push(game);

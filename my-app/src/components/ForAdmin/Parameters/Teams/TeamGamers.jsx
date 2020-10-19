@@ -3,9 +3,13 @@ import c from './TeamGamers.module.css'
 import {useDispatch} from "react-redux";
 import {addGamerGoalAC, changeGamerStatusAC} from "../../../../redux/teams_reducer";
 import {addLogAC, addNewLog} from "../../../../redux/log_reducer";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
 
 
 const TeamGamers = (props) => {
+
+    let gameNumber = props.match.params.gameNumber;
 
     const dispatch = useDispatch();
 
@@ -14,9 +18,9 @@ const TeamGamers = (props) => {
     const changeGamerStatus = (gamerId, teamType) => {
         dispatch(changeGamerStatusAC(gamerId, teamType));
         if (props.status == 'in game') {
-            dispatch(addNewLog(`Timecode: ${props.fullName} deleted`))
+            dispatch(addNewLog(gameNumber,`Timecode: ${props.fullName} deleted`))
         } if (props.status == 'deleted') {
-            dispatch(addNewLog(`Timecode: ${props.fullName} returns to a game`))
+            dispatch(addNewLog(gameNumber,`Timecode: ${props.fullName} returns to a game`))
         }
 
     };
@@ -25,7 +29,7 @@ const TeamGamers = (props) => {
     const addGamerGoal = (gamerId, teamType, symbol) => {
         dispatch(addGamerGoalAC(gamerId, teamType, symbol));
         if (symbol === '+') {
-            dispatch(addNewLog(`Timecode: ${props.fullName} gets point`))
+            dispatch(addNewLog(gameNumber,`Timecode: ${props.fullName} gets point`))
         }
     };
 
@@ -79,4 +83,4 @@ const TeamGamers = (props) => {
     )
 };
 
-export default TeamGamers;
+export default compose(withRouter)(TeamGamers);

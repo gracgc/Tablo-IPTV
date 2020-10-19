@@ -4,13 +4,15 @@ import tabloReducer from "./tablo_reducer";
 import teamsReducer from "./teams_reducer";
 import logReducer from "./log_reducer";
 import gamesReducer from "./games_reducer";
+import {reducer as formReducer} from "redux-form";
 
 
 let reducers = combineReducers({
     // tabloPage: tabloReducer,
     teamsPage: teamsReducer,
     logPage: logReducer,
-    gamesPage: gamesReducer
+    gamesPage: gamesReducer,
+    form: formReducer
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

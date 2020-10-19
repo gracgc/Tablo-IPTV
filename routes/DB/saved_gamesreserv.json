@@ -4,11 +4,6 @@
       "gameName": "gameName",
       "gameNumber": 1,
       "gameType": "gameType"
-    },
-    {
-      "gameName": "123",
-      "gameNumber": 2,
-      "gameType": "123"
     }
   ]
 }

@@ -6,9 +6,14 @@ import {useDispatch, useSelector} from "react-redux";
 import Tablo from "./Tablo";
 import {addGoalAC} from "../../../redux/teams_reducer";
 import {addNewLog} from "../../../redux/log_reducer";
+import {compose} from "redux";
+import {withRouter} from "react-router-dom";
 
 
 const TabloEdit = (props) => {
+
+
+    let gameNumber = props.match.params.gameNumber;
 
     const dispatch = useDispatch();
 
@@ -28,9 +33,9 @@ const TabloEdit = (props) => {
         dispatch(addGoalAC(teamType));
         stopGame();
         if (isRunning) {
-            dispatch(addNewLog('Timecode: STOP - GOAL!'));
+            dispatch(addNewLog(gameNumber,'Timecode: STOP - GOAL!'));
         } else {
-            dispatch(addNewLog('Timecode: GOAL!'));
+            dispatch(addNewLog(gameNumber,'Timecode: GOAL!'));
         }
         setTimeout(() =>
             setIsDisabled(false), 2000
@@ -39,13 +44,13 @@ const TabloEdit = (props) => {
 
     const startGame = () => {
         setIsRunning(true);
-        dispatch(addNewLog('Timecode: START'));
+        dispatch(addNewLog(gameNumber,'Timecode: START'));
     };
 
     const stopGame = () => {
         setIsRunning(false)
     };
-
+debugger
     return (
         <div className={c.tabloEdit}>
             <div className={c.tablo}>
@@ -90,4 +95,4 @@ const TabloEdit = (props) => {
     )
 };
 
-export default TabloEdit;
+export default compose(withRouter)(TabloEdit);

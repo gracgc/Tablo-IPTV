@@ -10,8 +10,8 @@ a {
 }
 
 
-.navButton {
-    position: relative;
+.navBackButton {
+    position: absolute;
     float: right;
     right: 3%;
     top: 85%;

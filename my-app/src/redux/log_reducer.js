@@ -39,13 +39,13 @@ const logReducer = (state = initialState, action) => {
 export const setLogDataAC = (logData) => ({type: SET_LOG_DATA, logData});
 export const addLogAC = (logItem) => ({type: ADD_LOG, logItem});
 
-export const getLog = () => async (dispatch) => {
-    let response = await logAPI.getLog();
+export const getLog = (gameNumber) => async (dispatch) => {
+    let response = await logAPI.getLog(gameNumber);
     dispatch(setLogDataAC(response));
 };
 
-export const addNewLog = (newLog) => async (dispatch) => {
-    let responce = await logAPI.postLog(newLog);
+export const addNewLog = (gameNumber,newLog) => async (dispatch) => {
+    let responce = await logAPI.postLog(gameNumber, newLog);
     if (responce.resultCode === 0) {
         dispatch(addLogAC(newLog));
     }

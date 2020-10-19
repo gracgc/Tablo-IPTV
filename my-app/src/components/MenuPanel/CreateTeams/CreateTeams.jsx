@@ -7,6 +7,6 @@ const CreateTeams = (props) => {
             <div className={c.settings}>Settings </div>
         </div>
     )
-}
+};
 
 export default CreateTeams;

@@ -3,8 +3,8 @@ import * as axios from "axios";
 
 
 export const teamsAPI = {
-    getTeams() {
-        return axios.get(`http://localhost:5000/api/teams`)
+    getTeams(gameNumber) {
+        return axios.get(`http://localhost:5000/api/teams/${gameNumber}`)
             .then(responce => {
                 return responce.data
             })
@@ -12,14 +12,14 @@ export const teamsAPI = {
 };
 
 export const logAPI = {
-    getLog() {
-        return axios.get(`http://localhost:5000/api/log`)
+    getLog(gameNumber) {
+        return axios.get(`http://localhost:5000/api/log/${gameNumber}`)
             .then(responce => {
                 return responce.data
             })
     },
-    postLog(newLog) {
-        return axios.post(`http://localhost:5000/api/log`, {item: newLog})
+    postLog(gameNumber, newLog) {
+        return axios.post(`http://localhost:5000/api/log/${gameNumber}`, {item: newLog})
             .then(responce => {
                 return responce.data
             })
@@ -35,6 +35,12 @@ export const gameAPI = {
     },
     getSavedGames() {
         return axios.get(`http://localhost:5000/api/savedGames`)
+            .then(responce => {
+                return responce.data
+            })
+    },
+    createNewGame(gameName, gameNumber, gameType) {
+        return axios.post(`http://localhost:5000/api/game`, {gameName, gameNumber, gameType})
             .then(responce => {
                 return responce.data
             })

@@ -19,9 +19,12 @@ const SavedGames = (props) => {
 
     return (
         <div className={c.savedGames}>
-            {savedGames.map(sg => <SavedGame savedGames={sg}/>)}
-            <NavLink to="/" className={c.hov} activeClassName={c.activeLink}>
-                <div className={c.navButton}>
+            <div className={c.navbar}>
+                {savedGames.map(sg => <SavedGame savedGames={sg}/>)}
+            </div>
+
+            <NavLink to="/">
+                <div className={c.navBackButton}>
                     Back to menu
                 </div>
             </NavLink>

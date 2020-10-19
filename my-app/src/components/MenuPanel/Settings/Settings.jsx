@@ -7,7 +7,7 @@ const Settings = (props) => {
         <div className={c.settings}>
             <div>Settings </div>
             <NavLink to="/" className={c.hov} activeClassName={c.activeLink}>
-                <div className={c.navButton}>
+                <div className={c.navBackButton}>
                     Back to menu
                 </div>
             </NavLink>

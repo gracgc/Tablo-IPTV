@@ -2,6 +2,7 @@ import {gameAPI} from "../api/api";
 
 const SET_GAME_DATA = 'games/SET_GAME_DATA';
 const SET_SAVED_GAMES = 'games/SET_SAVED_GAMES';
+const CREATE_NEW_GAME = 'games/CREATE_NEW_GAME';
 
 let initialState = {
     gameData: {
@@ -37,19 +38,36 @@ const gamesReducer = (state = initialState, action) => {
                 savedGames: action.savedGames
             };
 
+        case CREATE_NEW_GAME:
+
+            let newGame = {
+                gameName: action.gameName,
+                gameNumber: action.gameNumber,
+                gameType: action.gameType
+            };
+
+            return {
+                ...state,
+                savedGames: [...state.savedGames, newGame]
+            };
+
         default:
             return state;
     }
 };
 
 export const setGameDataAC = (gameData) => ({type: SET_GAME_DATA, gameData});
-export const setSavedGamesAC = (savesGames) => ({type: SET_SAVED_GAMES, savesGames});
+export const setSavedGamesAC = (savedGames) => ({type: SET_SAVED_GAMES, savedGames});
+export const createNewGameAC = (gameName, gameNumber, gameType) =>
+    ({type: CREATE_NEW_GAME, gameName, gameNumber, gameType});
+
 
 
 export const getGame = (gameNumber) => async (dispatch) => {
     let response = await gameAPI.getGame(gameNumber);
-
-    dispatch(setGameDataAC(response));
+    if (response.resultCode === 0) {
+        dispatch(setGameDataAC(response));
+    }
 };
 
 export const getSavedGames = () => async (dispatch) => {
@@ -59,5 +77,11 @@ export const getSavedGames = () => async (dispatch) => {
     }
 };
 
+export const createNewGame = (gameName, gameNumber, gameType) => async (dispatch) => {
+    let response = await gameAPI.createNewGame(gameName, gameNumber, gameType);
+    if (response.resultCode === 0) {
+        dispatch(createNewGameAC(gameName, gameNumber, gameType));
+    }
+};
 
 export default gamesReducer;
