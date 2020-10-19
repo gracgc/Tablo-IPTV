@@ -9,25 +9,27 @@ import {createNewGame} from "../../../redux/games_reducer";
 
 const CreateGameForm = (props) => {
     return (
-        <div className={c.createGame}>
+        <div>
             <form onSubmit={props.handleSubmit}>
-                <div>
-                    <Field placeholder={'GameName'} name={'gameName'}
-                           validate={[required]}
-                           component={Input}/>
+                <div className={c.createGameInputPanel}>
+                    <div className={c.createGameInput}>
+                        <Field placeholder={'GameName'} name={'gameName'}
+                               validate={[required]}
+                               component={Input}/>
+                    </div>
+                    <div className={c.createGameInput}>
+                        <Field placeholder={'GameNumber'} name={'gameNumber'}
+                               validate={[required]}
+                               component={Input}/>
+                    </div>
+                    <div className={c.createGameInput}>
+                        <Field placeholder={'GameType'} name={'gameType'}
+                               validate={[required]}
+                               component={Input}/>
+                    </div>
                 </div>
-                <div style={{marginTop: "10px"}}>
-                    <Field placeholder={'GameNumber'} name={'gameNumber'}
-                           validate={[required]}
-                           component={Input}/>
-                </div>
-                <div style={{marginTop: "10px"}}>
-                    <Field placeholder={'GameType'} name={'gameType'}
-                           validate={[required]}
-                           component={Input}/>
-                </div>
-                <div style={{marginTop: "10px"}}>
-                    <button>Create new game</button>
+                <div className={c.createGameInput}>
+                    <button className={c.createGameButton}>Create new game</button>
                 </div>
             </form>
         </div>
@@ -37,28 +39,27 @@ const CreateGameForm = (props) => {
 const CreateGameReduxForm = reduxForm({form: 'createGame'})(CreateGameForm);
 
 
-
 const CreateGame = (props) => {
 
     let dispatch = useDispatch();
 
 
-
     const onSubmit = (formData) => {
         dispatch(createNewGame(formData.gameName, +formData.gameNumber, formData.gameType));
     }
-        return (
-            <div className={c.settings}>
-                <div>
-                    <CreateGameReduxForm onSubmit={onSubmit}/>
-                </div>
-                <NavLink to="/" className={c.hov} activeClassName={c.activeLink}>
-                    <div className={c.navBackButton}>
-                        Back to menu
-                    </div>
-                </NavLink>
+    return (
+        <div className={c.createGame}>
+            <span className={c.menuTitle}>Create new game</span>
+            <div className={c.createGamePanel}>
+                <CreateGameReduxForm onSubmit={onSubmit}/>
             </div>
-        )
+            <NavLink to="/">
+                <div className={c.navBackButton}>
+                    Back to menu
+                </div>
+            </NavLink>
+        </div>
+    )
 };
 
 export default CreateGame;

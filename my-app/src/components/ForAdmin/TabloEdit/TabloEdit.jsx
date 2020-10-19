@@ -50,7 +50,7 @@ const TabloEdit = (props) => {
     const stopGame = () => {
         setIsRunning(false)
     };
-debugger
+
     return (
         <div className={c.tabloEdit}>
             <div className={c.tablo}>

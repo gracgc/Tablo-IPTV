@@ -13,15 +13,16 @@ a {
 .navbar {
     position: relative;
     left: 10%;
-    top: 10%;
-    width: 40%;
+    top: 20%;
+    width: 50%;
+    height: 40%;
+    overflow: auto;
 }
 
 .navButton {
-    display: inline-flex;
-    margin-bottom: 5%;
-    padding: 3%;
-    width: 100%;
+    margin-bottom: 1%;
+    padding: 2%;
+    width: 90%;
     font-weight: bold;
     font-size: 150%;
     border: solid 2px black;
@@ -40,4 +41,15 @@ a {
     border: solid 2px black;
 }
 
+.menuTitle {
+    position: relative;
+    font-weight: bold;
+    font-size: 300%;
+    left: 10%;
+    top: 10%;
+}
 
+.nameAndType {
+    position: relative;
+    float: right;
+}

@@ -9,6 +9,13 @@ a {
     text-decoration: none;
 }
 
+.menuTitle {
+    position: relative;
+    font-weight: bold;
+    font-size: 300%;
+    left: 10%;
+    top: 5%;
+}
 
 .navBackButton {
     position: absolute;
@@ -21,4 +28,37 @@ a {
     font-weight: bold;
     font-size: 100%;
     border: solid 2px black;
+}
+
+.createGameInput {
+
+}
+
+.createGameButton {
+    position: absolute;
+
+    top: 100%;
+    width: 30%;
+    text-align: center;
+    padding: 1%;
+    font-weight: bold;
+    font-size: 100%;
+    border: solid 2px black;
+}
+
+.createGameInputPanel {
+    position: relative;
+    top: 10%;
+    border: 1px solid black;
+    width: 30%;
+    height: 30%;
+}
+
+.createGamePanel {
+    position: relative;
+    left: 10%;
+    top: 10%;
+    /*border: 1px solid black;*/
+    width: 80%;
+    height: 60%;
 }

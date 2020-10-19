@@ -19,6 +19,8 @@ const SavedGames = (props) => {
 
     return (
         <div className={c.savedGames}>
+            <span className={c.menuTitle}>Saved Games</span>
+
             <div className={c.navbar}>
                 {savedGames.map(sg => <SavedGame savedGames={sg}/>)}
             </div>
@@ -30,6 +32,6 @@ const SavedGames = (props) => {
             </NavLink>
         </div>
     )
-}
+};
 
 export default SavedGames;

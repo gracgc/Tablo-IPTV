@@ -7,7 +7,10 @@ const SavedGame = (props) => {
         <div>
             <NavLink to={'/adminPanel/' + props.savedGames.gameNumber}>
                 <div className={c.navButton}>
-                    {props.savedGames.gameName} {props.savedGames.gameNumber} {props.savedGames.gameType}
+                    {props.savedGames.gameNumber}
+                    <div className={c.nameAndType}>
+                        {props.savedGames.gameName} — {props.savedGames.gameType}
+                    </div>
                 </div>
             </NavLink>
         </div>

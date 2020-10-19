@@ -2,10 +2,15 @@ import React, {useEffect} from 'react'
 import c from './Info.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {getGame} from "../../../redux/games_reducer";
+import {withRouter} from "react-router-dom";
+import {compose} from "redux";
 
 
 
 const Info = (props) => {
+
+    let gameNumber = props.match.params.gameNumber;
+
 
     const gameData = useSelector(
         state => state.gamesPage.gameData
@@ -14,7 +19,7 @@ const Info = (props) => {
     const dispatch = useDispatch();
 
     useEffect( () => {
-        dispatch(getGame(1));
+        dispatch(getGame(gameNumber));
     }, []);
 
     return (
@@ -25,4 +30,4 @@ const Info = (props) => {
     )
 };
 
-export default Info;
+export default compose(withRouter)(Info);

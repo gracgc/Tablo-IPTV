@@ -16,5 +16,15 @@
 }
 
 .blockArea  {
-    display: inline-flex;
+    display: block;
+    height: 60px;
 }
+
+.formControl input,
+.formControl textarea
+{
+    height: 50%;
+    width: 90%;
+}
+
+
