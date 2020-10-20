@@ -6,14 +6,7 @@
     "gameStatus": "Not going",
     "gameTime": 0
   },
-  "gameLog": [
-    {
-      "item": "Timecode: GOAL!"
-    },
-    {
-      "item": "Timecode: GOAL!"
-    }
-  ],
+  "gameLog": [],
   "teams": [
     {
       "name": "Home",
@@ -23,7 +16,7 @@
       "gamers": [
         {
           "id": 1,
-          "fullName": "Gamer 1",
+          "fullName": "asd",
           "status": "in game",
           "goals": 0
         },

@@ -36,8 +36,7 @@ a {
 
 .createGameButton {
     position: absolute;
-
-    top: 100%;
+    top: 120%;
     width: 30%;
     text-align: center;
     padding: 1%;
@@ -47,18 +46,32 @@ a {
 }
 
 .createGameInputPanel {
-    position: relative;
-    top: 10%;
     border: 1px solid black;
-    width: 30%;
-    height: 30%;
+}
+
+.createTeamsInputPanel {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    border: 1px solid black;
 }
 
 .createGamePanel {
-    position: relative;
+    position: absolute;
     left: 10%;
-    top: 10%;
-    /*border: 1px solid black;*/
+    top: 20%;
     width: 80%;
-    height: 60%;
+}
+
+.createForm {
+    display: grid;
+    grid-template-columns: 35% 65%;
+    width: 100%;
+}
+
+.homeTeam {
+
+}
+
+.guestsTeam {
+
 }
