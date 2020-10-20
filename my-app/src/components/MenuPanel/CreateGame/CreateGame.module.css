@@ -36,7 +36,7 @@ a {
 
 .createGameButton {
     position: absolute;
-    top: 120%;
+    top: 110%;
     width: 30%;
     text-align: center;
     padding: 1%;
@@ -46,13 +46,12 @@ a {
 }
 
 .createGameInputPanel {
-    border: 1px solid black;
+
 }
 
 .createTeamsInputPanel {
     display: grid;
     grid-template-columns: 50% 50%;
-    border: 1px solid black;
 }
 
 .createGamePanel {
@@ -74,4 +73,40 @@ a {
 
 .guestsTeam {
 
+}
+
+.homeGamers {
+    overflow-y: auto;
+    height: 280px;
+}
+
+.addDeleteGamerButtons {
+    display: inline-flex;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.addGamerButton {
+    background: lightgreen;
+    text-align: center;
+    width: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 20px;
+    box-sizing: border-box;
+    border: 2px solid black;
+    font-size: 150%;
+    cursor: pointer;
+}
+
+.deleteGamerButton {
+    background: #e0223b;
+    text-align: center;
+    width: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    border: 2px solid black;
+    font-size: 150%;
+    cursor: pointer;
 }

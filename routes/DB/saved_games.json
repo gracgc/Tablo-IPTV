@@ -1,1 +1,14 @@
-{"savedGames":[{"gameName":"gameName","gameNumber":1,"gameType":"gameType"},{"gameName":"123","gameNumber":2,"gameType":"123"},{"gameName":"jojoj","gameNumber":3,"gameType":"jojojo"}]}
+{
+  "savedGames": [
+    {
+      "gameName": "gameName",
+      "gameNumber": 1,
+      "gameType": "gameType"
+    },
+    {
+      "gameName": "123",
+      "gameNumber": 2,
+      "gameType": "123"
+    }
+  ]
+}
