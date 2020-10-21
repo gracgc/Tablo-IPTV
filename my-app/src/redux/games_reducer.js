@@ -1,4 +1,4 @@
-import {gameAPI} from "../api/api";
+import {gameAPI, teamsAPI} from "../api/api";
 
 const SET_GAME_DATA = 'games/SET_GAME_DATA';
 const SET_SAVED_GAMES = 'games/SET_SAVED_GAMES';
@@ -77,9 +77,11 @@ export const getSavedGames = () => async (dispatch) => {
     }
 };
 
-export const createNewGame = (gameName, gameNumber, gameType) => async (dispatch) => {
-    let response = await gameAPI.createNewGame(gameName, gameNumber, gameType);
-    if (response.resultCode === 0) {
+export const createNewGame =
+    (gameName, gameNumber, gameType, homeName, homeGamers, guestsName, guestsGamers) => async (dispatch) => {
+    let responseGame = await gameAPI.createNewGame(gameName, gameNumber, gameType);
+    let responseTeam = await teamsAPI.createTeams(gameNumber, homeName, homeGamers, guestsName, guestsGamers);
+    if (responseGame.resultCode === 0 && responseTeam.resultCode === 0) {
         dispatch(createNewGameAC(gameName, gameNumber, gameType));
     }
 };

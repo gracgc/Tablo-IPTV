@@ -21,7 +21,7 @@ a {
     position: absolute;
     float: right;
     right: 3%;
-    top: 85%;
+    top: 90%;
     width: 10%;
     text-align: center;
     padding: 1%;
@@ -36,7 +36,8 @@ a {
 
 .createGameButton {
     position: absolute;
-    top: 110%;
+    top: 105%;
+    left: 5%;
     width: 30%;
     text-align: center;
     padding: 1%;
@@ -52,6 +53,7 @@ a {
 .createTeamsInputPanel {
     display: grid;
     grid-template-columns: 50% 50%;
+    grid-column-gap: 3%;
 }
 
 .createGamePanel {
@@ -109,4 +111,15 @@ a {
     border: 2px solid black;
     font-size: 150%;
     cursor: pointer;
+}
+
+.homeGamer {
+    display: grid;
+    grid-template-columns: 83% 10%;
+    grid-column-gap: 3%;
+}
+
+.formTitle {
+    padding-bottom: 10px;
+    font-size: 120%;
 }

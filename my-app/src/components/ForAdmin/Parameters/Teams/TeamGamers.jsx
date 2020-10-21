@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import c from './TeamGamers.module.css'
 import {useDispatch} from "react-redux";
-import {addGamerGoalAC, changeGamerStatusAC} from "../../../../redux/teams_reducer";
-import {addLogAC, addNewLog} from "../../../../redux/log_reducer";
+import {changeGamerStatus, changeGamerStatusAC, gamerGoal} from "../../../../redux/teams_reducer";
+import {addNewLog} from "../../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
@@ -11,30 +11,31 @@ const TeamGamers = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
+
     const dispatch = useDispatch();
 
     const [isGamerGoalEdit, setIsGamerGoalEdit] = useState(false);
 
-    const changeGamerStatus = (gamerId, teamType) => {
-        dispatch(changeGamerStatusAC(gamerId, teamType));
-        if (props.status == 'in game') {
+    const changeStatus = (gameNumber, teamType, gamerId, gamerStatus) => {
+        dispatch(changeGamerStatus(gameNumber, teamType, gamerId, gamerStatus));
+        if (props.status === 'in game') {
             dispatch(addNewLog(gameNumber,`Timecode: ${props.fullName} deleted`))
-        } if (props.status == 'deleted') {
+        } if (props.status === 'deleted') {
             dispatch(addNewLog(gameNumber,`Timecode: ${props.fullName} returns to a game`))
         }
 
     };
 
 
-    const addGamerGoal = (gamerId, teamType, symbol) => {
-        dispatch(addGamerGoalAC(gamerId, teamType, symbol));
+    const addGamerGoal = (gameNumber, teamType, id, symbol) => {
+        dispatch(gamerGoal(gameNumber, teamType, id, symbol));
         if (symbol === '+') {
             dispatch(addNewLog(gameNumber,`Timecode: ${props.fullName} gets point`))
         }
     };
 
     const gamerGoalEdit = () => {
-        if (isGamerGoalEdit == false) {
+        if (isGamerGoalEdit === false) {
             setIsGamerGoalEdit(true)
         } else {
             setIsGamerGoalEdit(false)
@@ -52,7 +53,7 @@ const TeamGamers = (props) => {
                 {props.fullName}
             </div>
             <div style={{cursor: 'pointer'}} onClick={(e) => {
-                changeGamerStatus(props.number, props.teamType)
+                changeStatus(gameNumber, props.teamType, props.number, props.status)
             }}>
                 {props.status}
             </div>
@@ -65,13 +66,13 @@ const TeamGamers = (props) => {
                     <div style={{display: 'inline-flex'}}>
                         <button className={c.goalButton}
                                 onClick={(e) => {
-                                    addGamerGoal(props.number, props.teamType, '+')
+                                    addGamerGoal(gameNumber, props.teamType, props.number, '+')
                                 }}>
                             +1
                         </button>
                         <button className={c.goalButton}
                                 onClick={(e) => {
-                                    addGamerGoal(props.number, props.teamType, '-')
+                                    addGamerGoal(gameNumber, props.teamType, props.number, '-')
                                 }}>
                             -1
                         </button>

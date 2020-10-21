@@ -8,7 +8,26 @@ export const teamsAPI = {
             .then(responce => {
                 return responce.data
             })
-    }
+    },
+    createTeams(gameNumber, homeName, homeGamers, guestsName, guestsGamers) {
+        return axios.post(`http://localhost:5000/api/teams/${gameNumber}`,
+            {homeName, homeGamers, guestsName, guestsGamers})
+            .then(responce => {
+                return responce.data
+            })
+    },
+    gamerGoal(gameNumber, teamType, id, symbol) {
+        return axios.put(`http://localhost:5000/api/teams/gamerGoal/${gameNumber}`, {teamType, id, symbol})
+            .then(responce => {
+                return responce.data
+            })
+    },
+    gamerStatus(gameNumber, teamType, id, gamerStatus) {
+        return axios.put(`http://localhost:5000/api/teams/gamerStatus/${gameNumber}`, {teamType, id, gamerStatus})
+            .then(responce => {
+                return responce.data
+            })
+    },
 };
 
 export const logAPI = {
@@ -18,8 +37,8 @@ export const logAPI = {
                 return responce.data
             })
     },
-    postLog(gameNumber, newLog) {
-        return axios.post(`http://localhost:5000/api/log/${gameNumber}`, {item: newLog})
+    postLog(gameNumber, newLogItem) {
+        return axios.post(`http://localhost:5000/api/log/${gameNumber}`, {newLogItem})
             .then(responce => {
                 return responce.data
             })

@@ -49,6 +49,7 @@ const TabloEdit = (props) => {
 
     const stopGame = () => {
         setIsRunning(false)
+        dispatch(addNewLog(gameNumber,'Timecode: STOP'));
     };
 
     return (
@@ -62,13 +63,13 @@ const TabloEdit = (props) => {
                         <div className={c.gameButtons__Disabled}>
                             Start
                         </div>
-                        <div className={classNames(c.gameButtons__Active, c.gameButtons__stop)} onClick={(e) => stopGame}>
+                        <div className={classNames(c.gameButtons__Active, c.gameButtons__stop)} onClick={(e) => stopGame()}>
                             Stop
                         </div>
                     </div>
                     :
                     <div className={c.gameButtons}>
-                        <div className={c.gameButtons__Active} onClick={(e) => startGame}>
+                        <div className={c.gameButtons__Active} onClick={(e) => startGame()}>
                             Start
                         </div>
                         <div className={classNames(c.gameButtons__Disabled, c.gameButtons__stop)}>

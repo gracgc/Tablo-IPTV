@@ -58,6 +58,7 @@ const teamsReducer = (state = initialState, action) => {
                     return t;
                 })
             };
+
         case CHANGE_GAMER_STATUS:
             return {
                 ...state,
@@ -120,12 +121,27 @@ const teamsReducer = (state = initialState, action) => {
 
 export const setTeamsAC = (teams) => ({type: SET_TEAMS, teams});
 export const addGoalAC = (teamType) => ({type: ADD_GOAL, teamType});
-export const changeGamerStatusAC = (gamerId, teamType) => ({type: CHANGE_GAMER_STATUS, gamerId, teamType});
-export const addGamerGoalAC = (gamerId, teamType, symbol) => ({type: ADD_GAMER_GOAL, gamerId, teamType, symbol});
+export const changeGamerStatusAC = (gamerId, teamType) => ({type: CHANGE_GAMER_STATUS, teamType, gamerId});
+export const addGamerGoalAC = (gamerId, teamType, symbol) => ({type: ADD_GAMER_GOAL, teamType, gamerId, symbol});
+
 
 export const getTeams = (gameNumber) => async (dispatch) => {
     let response = await teamsAPI.getTeams(gameNumber);
     dispatch(setTeamsAC(response));
+};
+
+export const gamerGoal = (gameNumber, teamType, id, symbol) => async (dispatch) => {
+    let response = await teamsAPI.gamerGoal(gameNumber, teamType, id, symbol);
+    if (response.resultCode === 0) {
+        dispatch(addGamerGoalAC(teamType, id, symbol));
+    }
+};
+
+export const changeGamerStatus = (gameNumber, teamType, id, gamerStatus) => async (dispatch) => {
+    let response = await teamsAPI.gamerStatus(gameNumber, teamType, id, gamerStatus);
+    if (response.resultCode === 0) {
+        dispatch(changeGamerStatusAC(teamType, id));
+    }
 };
 
 
