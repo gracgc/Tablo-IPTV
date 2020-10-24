@@ -26,5 +26,5 @@ export const Input = (props) => {
 
 export const InputReadOnly = (props) => {
     const {input, meta, child, ...restProps} = props;
-    return <FormControl {...props}><input readOnly={true} {...input} {...restProps} /></FormControl>
+    return <FormControl {...props}><input readOnly={true} {...input} {...restProps}/></FormControl>
 };

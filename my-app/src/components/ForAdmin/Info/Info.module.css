@@ -4,5 +4,18 @@
     display: inline-flex;
 }
 
+.nameAndType {
+    position: absolute;
+    left: 3%;
+    font-size: 160%;
+}
+
+.statusAndTime {
+    position: absolute;
+    right: 3%;
+    padding-left: 3%;
+    font-size: 160%;
+}
+
 
 

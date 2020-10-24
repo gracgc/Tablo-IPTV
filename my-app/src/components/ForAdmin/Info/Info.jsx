@@ -24,7 +24,13 @@ const Info = (props) => {
 
     return (
         <div className={c.info}>
-            {gameData.gameName} {gameData.gameStatus} {gameData.gameType} 00:00:00
+            <div className={c.nameAndType}>
+                <strong>{gameData.gameName}</strong> — {gameData.gameType}
+            </div>
+            <div className={c.statusAndTime}>
+               <strong>Status</strong>: {gameData.gameStatus} — <strong>Time</strong>: 00:00:00
+            </div>
+
         </div>
 
     )

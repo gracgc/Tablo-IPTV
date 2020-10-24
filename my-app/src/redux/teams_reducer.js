@@ -53,7 +53,15 @@ const teamsReducer = (state = initialState, action) => {
                 ...state,
                 teams: state.teams.map(t => {
                     if (t.teamType === action.teamType) {
-                        return {...t, counter: t.counter + 1}
+                        if (action.symbol === '+') {
+                            return {...t, counter: t.counter + 1}
+                        } if (action.symbol === '-') {
+                            if (t.counter > 0) {
+                                return {...t, counter: t.counter - 1}
+                            } else {
+                                return  {...t}
+                            }
+                        }
                     }
                     return t;
                 })
@@ -120,7 +128,7 @@ const teamsReducer = (state = initialState, action) => {
 };
 
 export const setTeamsAC = (teams) => ({type: SET_TEAMS, teams});
-export const addGoalAC = (teamType) => ({type: ADD_GOAL, teamType});
+export const addGoalAC = (teamType, symbol) => ({type: ADD_GOAL, teamType, symbol});
 export const changeGamerStatusAC = (gamerId, teamType) => ({type: CHANGE_GAMER_STATUS, teamType, gamerId});
 export const addGamerGoalAC = (gamerId, teamType, symbol) => ({type: ADD_GAMER_GOAL, teamType, gamerId, symbol});
 
@@ -134,6 +142,13 @@ export const gamerGoal = (gameNumber, teamType, id, symbol) => async (dispatch) 
     let response = await teamsAPI.gamerGoal(gameNumber, teamType, id, symbol);
     if (response.resultCode === 0) {
         dispatch(addGamerGoalAC(teamType, id, symbol));
+    }
+};
+
+export const teamGoal = (gameNumber, teamType, symbol) => async (dispatch) => {
+    let response = await teamsAPI.teamGoal(gameNumber, teamType, symbol);
+    if (response.resultCode === 0) {
+        dispatch(addGoalAC(teamType, symbol));
     }
 };
 

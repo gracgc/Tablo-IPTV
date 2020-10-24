@@ -5,3 +5,16 @@
     width: 100%;
     box-sizing: border-box;
 }
+
+.navBackButton {
+    position: absolute;
+    float: right;
+    right: 3%;
+    top: 90%;
+    width: 10%;
+    text-align: center;
+    padding: 1%;
+    font-weight: bold;
+    font-size: 100%;
+    border: solid 2px black;
+}

@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import TeamInfo from "./Teams/TeamInfo";
 import {getTeams} from "../../../redux/teams_reducer";
 import {compose} from "redux";
-import {withRouter} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 
 
 
@@ -42,6 +42,11 @@ const TeamsParameters = (props) => {
                 <TeamInfo teamGamers={guestsTeamGamers} teamCounter={guestsTeamInfo.counter}
                           name={guestsTeamInfo.name} timeOut={guestsTeamInfo.timeOut} teamType={guestsTeamInfo.teamType}/>
             </div>
+            <NavLink to="/">
+                <div className={c.navBackButton}>
+                    Back to menu
+                </div>
+            </NavLink>
         </div>
 
     )

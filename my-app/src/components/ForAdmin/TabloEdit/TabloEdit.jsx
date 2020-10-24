@@ -4,14 +4,13 @@ import {useState, useEffect} from 'react';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
 import Tablo from "./Tablo";
-import {addGoalAC} from "../../../redux/teams_reducer";
+import {addGoalAC, teamGoal} from "../../../redux/teams_reducer";
 import {addNewLog} from "../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
 
 const TabloEdit = (props) => {
-
 
     let gameNumber = props.match.params.gameNumber;
 
@@ -30,8 +29,8 @@ const TabloEdit = (props) => {
 
     const addTeamGoal = (teamType) => {
         setIsDisabled(true);
-        dispatch(addGoalAC(teamType));
-        stopGame();
+        dispatch(teamGoal(gameNumber, teamType, '+'));
+        setIsRunning(false);
         if (isRunning) {
             dispatch(addNewLog(gameNumber,'Timecode: STOP - GOAL!'));
         } else {
@@ -48,7 +47,7 @@ const TabloEdit = (props) => {
     };
 
     const stopGame = () => {
-        setIsRunning(false)
+        setIsRunning(false);
         dispatch(addNewLog(gameNumber,'Timecode: STOP'));
     };
 

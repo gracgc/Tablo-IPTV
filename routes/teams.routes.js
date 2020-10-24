@@ -4,8 +4,6 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 
-// import { v4 as uuidv4 } from 'uuid';
-
 
 router.get('/:gameNumber', function (req, res) {
     try {
@@ -93,7 +91,8 @@ router.put('/gamerGoal/:gameNumber', cors(), function (req, res) {
                 .gamers.find((g) => g.id === id);
             if (symbol === '+') {
                 gamer.goals = gamer.goals + 1;
-            } if (symbol === '-') {
+            }
+            if (symbol === '-') {
                 if (gamer.goals > 0) {
                     gamer.goals = gamer.goals - 1;
                 } else {
@@ -115,6 +114,47 @@ router.put('/gamerGoal/:gameNumber', cors(), function (req, res) {
     }
 });
 
+router.put('/teamGoal/:gameNumber', cors(), function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+        let teamType = req.body.teamType;
+        let symbol = req.body.symbol;
+
+
+        if (!gameNumber && !teamType && !symbol) {
+            res.send({resultCode: 10});
+            console.log('Not enought data');
+        } else {
+            const team = DB.teams.find((team) => team.teamType === teamType);
+            if (symbol === '+') {
+                team.counter = team.counter + 1;
+            }
+            if (symbol === '-') {
+                if (team.counter > 0) {
+                    team.counter = team.counter - 1;
+                } else {
+                    return
+                }
+            }
+        }
+
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname +
+            `/DB/game_${gameNumber}.json`), json, 'utf8');
+
+        res.send({resultCode: 0})
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
 router.put('/gamerStatus/:gameNumber', cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
@@ -124,7 +164,7 @@ router.put('/gamerStatus/:gameNumber', cors(), function (req, res) {
 
         let teamType = req.body.teamType;
         let id = req.body.id;
-        let gamerStatus = req.body.gamerStatus
+        let gamerStatus = req.body.gamerStatus;
 
 
         if (!gameNumber && !teamType && !id) {
@@ -135,7 +175,8 @@ router.put('/gamerStatus/:gameNumber', cors(), function (req, res) {
                 .gamers.find((g) => g.id === id);
             if (gamerStatus === "in game") {
                 gamer.status = "deleted";
-            } if (gamerStatus === "deleted") {
+            }
+            if (gamerStatus === "deleted") {
                 gamer.status = "in game";
             }
 
@@ -152,7 +193,6 @@ router.put('/gamerStatus/:gameNumber', cors(), function (req, res) {
         console.log(e)
     }
 });
-
 
 
 router.options('/', cors());

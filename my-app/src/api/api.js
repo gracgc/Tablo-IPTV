@@ -22,12 +22,18 @@ export const teamsAPI = {
                 return responce.data
             })
     },
+    teamGoal(gameNumber, teamType, symbol) {
+        return axios.put(`http://localhost:5000/api/teams/teamGoal/${gameNumber}`, {teamType, symbol})
+            .then(responce => {
+                return responce.data
+            })
+    },
     gamerStatus(gameNumber, teamType, id, gamerStatus) {
         return axios.put(`http://localhost:5000/api/teams/gamerStatus/${gameNumber}`, {teamType, id, gamerStatus})
             .then(responce => {
                 return responce.data
             })
-    },
+    }
 };
 
 export const logAPI = {
