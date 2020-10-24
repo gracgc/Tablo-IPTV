@@ -13,10 +13,19 @@ const TeamInfo = (props) => {
                 Team Name: {props.name} <br/>
                 Points: {props.teamCounter} <br/>
                 TimeOut: {props.timeOut} <br/>
-                <strong>Gamers:</strong>
+                <div className={c.tableInfo} >
+                    <div>
+                        <strong>Gamers:</strong>
+                    </div>
+                    <div>
+                        On Field
+                    </div>
+                </div>
             </div>
             <div className={c.teamGamers}>
-                {props.teamGamers.map(htg => <TeamGamers key={htg.id} number={htg.id} fullName={htg.fullName}
+                {props.teamGamers.map(htg => <TeamGamers key={htg.id} id={htg.id} number={htg.gamerNumber}
+                                                         onField={htg.onField}
+                                                         fullName={htg.fullName}
                                                          status={htg.status} goals={htg.goals}
                                                          teamType={props.teamType}/>)}
             </div>

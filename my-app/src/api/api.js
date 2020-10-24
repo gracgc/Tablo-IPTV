@@ -33,6 +33,12 @@ export const teamsAPI = {
             .then(responce => {
                 return responce.data
             })
+    },
+    gamerOnField(gameNumber, teamType, id, onField) {
+        return axios.put(`http://localhost:5000/api/teams/onField/${gameNumber}`, {teamType, id, onField})
+            .then(responce => {
+                return responce.data
+            })
     }
 };
 

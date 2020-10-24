@@ -14,4 +14,9 @@
     overflow-y: scroll;
 }
 
+.tableInfo {
+    display: grid;
+    grid-template-columns: 60% 40%;
+}
+
 

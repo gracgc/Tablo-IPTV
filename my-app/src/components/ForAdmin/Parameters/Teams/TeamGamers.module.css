@@ -1,6 +1,7 @@
 .teamGamers {
     display: grid;
-    grid-template-columns: 15% 35% 25% 20%;
+    grid-template-columns: 15% 35% 20% 10% 15%;
+    border-top: black 1px solid;
 }
 
 .goalButton {
