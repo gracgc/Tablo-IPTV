@@ -33,6 +33,7 @@ app.use('/api/teams', require('./routes/teams.routes'));
 app.use('/api/log', require('./routes/log.routes'));
 app.use('/api/game', require('./routes/game.routes'));
 app.use('/api/savedGames', require('./routes/savedGames.routes'));
+app.use('/api/time', require('./routes/time.routes'));
 
 
 
