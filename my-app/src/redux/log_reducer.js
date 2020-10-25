@@ -37,12 +37,14 @@ export const addLogAC = (newLogItem) => ({type: ADD_LOG, newLogItem});
 
 export const getLog = (gameNumber) => async (dispatch) => {
     let response = await logAPI.getLog(gameNumber);
-    dispatch(setLogDataAC(response));
+    if (response.resultCode === 0) {
+        dispatch(setLogDataAC(response));
+    }
 };
 
 export const addNewLog = (gameNumber, newLogItem) => async (dispatch) => {
-    let responce = await logAPI.postLog(gameNumber, newLogItem);
-    if (responce.resultCode === 0) {
+    let response = await logAPI.postLog(gameNumber, newLogItem);
+    if (response.resultCode === 0) {
         dispatch(addLogAC(newLogItem));
     }
 

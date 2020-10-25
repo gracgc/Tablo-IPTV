@@ -77,3 +77,18 @@ export const gameAPI = {
             })
     }
 };
+
+export const tabloAPI = {
+    getTime() {
+        return axios.get(`http://localhost:5000/api/time`)
+            .then(responce => {
+                return responce.data
+            })
+    },
+    updateTimeDif(timeDif) {
+        return axios.put(`http://localhost:5000/api/time`, {timeDif})
+            .then(responce => {
+                return responce.data
+            })
+    }
+};

@@ -8,7 +8,7 @@ import {reducer as formReducer} from "redux-form";
 
 
 let reducers = combineReducers({
-    // tabloPage: tabloReducer,
+    tabloPage: tabloReducer,
     teamsPage: teamsReducer,
     logPage: logReducer,
     gamesPage: gamesReducer,
