@@ -7,7 +7,6 @@ const UPDATE_TIMEDIF_DATA = 'time/UPDATE_TIMEDIF_DATA';
 
 let initialState = {
     timeData: {
-        time: null,
         timeDif: null
     }
 };
