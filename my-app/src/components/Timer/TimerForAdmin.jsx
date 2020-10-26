@@ -9,15 +9,15 @@ const TimerForAdmin = (props) => {
     const [milliseconds, setMilliseconds] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
 
-    // let fetchData = async () => {
-    //     const result = await axios.get(
-    //         `http://localhost:5000/api/timer`
-    //     );
-    //
-    //     setMinutes(result.data.minutes);
-    //     setSeconds(result.data.seconds);
-    //     setMilliseconds(result.data.milliseconds);
-    // };
+    let fetchData = async () => {
+        const result = await axios.get(
+            `http://localhost:5000/api/timer`
+        );
+
+        setMinutes(result.data.minutes);
+        setSeconds(result.data.seconds);
+        setMilliseconds(result.data.milliseconds);
+    };
     //
     // let fetchDataUpdate = async (minutes, seconds, milliseconds) => {
     //     await axios.put(

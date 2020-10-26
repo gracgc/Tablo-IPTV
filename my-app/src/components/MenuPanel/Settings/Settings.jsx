@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
 import c from './Settings.module.css'
 import {NavLink} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {updateTimeDif} from "../../../redux/tablo_reducer";
 import Settings1 from "./Settings1";
+
+
 
 
 const Settings = (props) => {
@@ -15,7 +17,7 @@ const Settings = (props) => {
     let [timeDif, setTimeDif] = useState();
     let [timeMem, setTimeMem] = useState(0);
 
-    let [deadLine, setDeadLine] = useState(5000);
+    let [deadLine, setDeadLine] = useState(50000);
     let [timeMemTimer, setTimeMemTimer] = useState(deadLine);
 
     let millisecondsStopwatch = timeDif % 1000;
@@ -34,7 +36,7 @@ const Settings = (props) => {
     };
 
     useEffect(() => {
-        setTimeout(async () => {
+        setInterval(async () => {
             if (isRunning) {
                 if (timeDif > deadLine) {
                     await setIsRunning(false);
@@ -48,7 +50,7 @@ const Settings = (props) => {
                 }
             }
         }, 1000)
-    }, [timeDif, currentTime]);
+    }, [currentTime]);
 
 
     let start = () => {
@@ -59,6 +61,7 @@ const Settings = (props) => {
     let stop = () => {
         setIsRunning(false);
         setTimeMem(timeDif);
+        dispatch(updateTimeDif(timeDif));
     };
 
     let reset = async () => {

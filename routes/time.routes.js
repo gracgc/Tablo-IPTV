@@ -5,6 +5,7 @@ const path = require('path');
 const cors = require('cors');
 
 
+
 router.get('/', function (req, res) {
     try {
         let data = fs.readFileSync(path.join(__dirname + `/DB/time.json`));

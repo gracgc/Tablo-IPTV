@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from "react";
 import c from './Settings.module.css'
-import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getTimeData, updateTimeDif} from "../../../redux/tablo_reducer";
-import Settings from "./Settings";
+import {getTimeData} from "../../../redux/tablo_reducer";
 
 
 const Settings1 = (props) => {
@@ -14,20 +12,17 @@ const Settings1 = (props) => {
         (state => state.tabloPage.timeData.timeDif)
     );
 
-    // useEffect(() => {
-    //     dispatch(getTimeData())
-    // });
 
     let isRunning = true;
 
     useEffect(() => {
-        dispatch(getTimeData());
-        setInterval(() => {
-            if (isRunning) {
-                dispatch(getTimeData())
-            }
-        }, 500);
-    }, [time]);
+        // setInterval(() => {
+        //     if (isRunning) {
+        //         dispatch(getTimeData())
+        //     }
+        // }, 1000);
+    }, []);
+
 
     let millisecondsStopwatch = time % 1000;
     let secondsStopwatch = Math.floor(time/1000) % 60;
@@ -36,7 +31,7 @@ const Settings1 = (props) => {
 
     return (
         <div className={c.settings}>
-            {/*{time}<br/>*/}
+            {time}<br/>
             ___ <br/>
             ___ <br/>
             ___ <br/>
@@ -44,7 +39,7 @@ const Settings1 = (props) => {
             ___ <br/>
                 {minutesStopwatch || '0'}
                 :{secondsStopwatch || '0'}
-                {/*:{millisecondsStopwatch || '0'}*/}
+                :{millisecondsStopwatch || '0'}
         </div>
     )
 };
