@@ -7,7 +7,9 @@ const UPDATE_TIMEDIF_DATA = 'time/UPDATE_TIMEDIF_DATA';
 
 let initialState = {
     timeData: {
-        timeDif: null
+        timeDif: null,
+        timeMem: null,
+        timeMemTimer: null
     }
 };
 
@@ -38,7 +40,7 @@ const timeReducer = (state = initialState, action) => {
 };
 
 export const setTimeDataAC = (timeData) => ({type: SET_TIME_DATA, timeData});
-export const updateTimeDifAC = (timeDif) => ({type: UPDATE_TIMEDIF_DATA, timeDif});
+export const updateTimeDifAC = (timeDif, timeMem, timeMemTimer) => ({type: UPDATE_TIMEDIF_DATA, timeDif, timeMem, timeMemTimer});
 
 export const getTimeData = () => async (dispatch) => {
     let response = await tabloAPI.getTime();
@@ -47,10 +49,10 @@ export const getTimeData = () => async (dispatch) => {
     }
 };
 
-export const updateTimeDif = (timeDif) => async (dispatch) => {
-    let response = await tabloAPI.updateTimeDif(timeDif);
+export const updateTimeDif = (timeDif, timeMem, timeMemTimer) => async (dispatch) => {
+    let response = await tabloAPI.updateTimeDif(timeDif, timeMem, timeMemTimer);
     if (response.resultCode === 0) {
-        await dispatch(updateTimeDifAC(timeDif));
+        await dispatch(updateTimeDifAC(timeDif, timeMem, timeMemTimer));
     }
 };
 

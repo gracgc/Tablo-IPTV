@@ -85,8 +85,8 @@ export const tabloAPI = {
                 return responce.data
             })
     },
-    updateTimeDif(timeDif) {
-        return axios.put(`http://localhost:5000/api/time`, {timeDif})
+    updateTimeDif(timeDif, timeMem, timeMemTimer) {
+        return axios.put(`http://localhost:5000/api/time`, {timeDif, timeMem, timeMemTimer})
             .then(responce => {
                 return responce.data
             })

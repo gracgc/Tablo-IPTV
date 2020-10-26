@@ -26,15 +26,19 @@ router.put('/', function (req, res) {
         let DB = JSON.parse(data);
 
         let timeDif = req.body.timeDif;
+        let timeMem = req.body.timeMem;
+        let timeMemTimer = req.body.timeMemTimer;
 
         DB.timeData.timeDif = timeDif;
+        DB.timeData.timeMem = timeMem;
+        DB.timeData.timeMemTimer = timeMemTimer;
 
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname + `/DB/time.json`), json, 'utf8');
 
 
-        if (!timeDif) {
+        if (!timeDif || !timeMem) {
             res.send({resultCode: 10});
             console.log('Not enought data')
         } else {
