@@ -6,8 +6,6 @@ import {updateTimeDif} from "../../../redux/tablo_reducer";
 import Settings1 from "./Settings1";
 
 
-
-
 const Settings = (props) => {
 
     let dispatch = useDispatch();
@@ -17,16 +15,16 @@ const Settings = (props) => {
     let [timeDif, setTimeDif] = useState();
     let [timeMem, setTimeMem] = useState(0);
 
-    let [deadLine, setDeadLine] = useState(50000);
+    let [deadLine, setDeadLine] = useState(180000);
     let [timeMemTimer, setTimeMemTimer] = useState(deadLine);
 
     let millisecondsStopwatch = timeDif % 1000;
-    let secondsStopwatch = Math.floor(timeDif/1000) % 60;
-    let minutesStopwatch = Math.floor(timeDif/(1000*60));
+    let secondsStopwatch = Math.floor(timeDif / 1000) % 60;
+    let minutesStopwatch = Math.floor(timeDif / (1000 * 60));
 
     let millisecondsTimer = timeMemTimer % 1000;
-    let secondsTimer = Math.floor(timeMemTimer/1000) % 60;
-    let minutesTimer = Math.floor(timeMemTimer/(1000*60));
+    let secondsTimer = Math.floor(timeMemTimer / 1000) % 60;
+    let minutesTimer = Math.floor(timeMemTimer / (1000 * 60));
 
 
     const [isRunning, setIsRunning] = useState(false);
@@ -36,7 +34,7 @@ const Settings = (props) => {
     };
 
     useEffect(() => {
-        setInterval(async () => {
+        const interval = setInterval(async () => {
             if (isRunning) {
                 if (timeDif > deadLine) {
                     await setIsRunning(false);
@@ -48,9 +46,13 @@ const Settings = (props) => {
                     setTimeDif(timeMem + (Date.now() - currentTime));
                     setTimeMemTimer(deadLine - timeDif)
                 }
+            } else {
+                clearInterval(interval)
             }
-        }, 1000)
-    }, [currentTime]);
+        }, 500);
+
+        return () => clearInterval(interval);
+    });
 
 
     let start = () => {
@@ -70,7 +72,6 @@ const Settings = (props) => {
         setTimeDif(0);
         setTimeMemTimer(deadLine);
     };
-
 
 
     return (

@@ -16,12 +16,14 @@ const Settings1 = (props) => {
     let isRunning = true;
 
     useEffect(() => {
-        // setInterval(() => {
-        //     if (isRunning) {
-        //         dispatch(getTimeData())
-        //     }
-        // }, 1000);
-    }, []);
+        let interval = setInterval(() => {
+            if (isRunning) {
+                dispatch(getTimeData())
+            }
+        }, 100);
+
+        return () => clearInterval(interval);
+    });
 
 
     let millisecondsStopwatch = time % 1000;
@@ -31,7 +33,7 @@ const Settings1 = (props) => {
 
     return (
         <div className={c.settings}>
-            {time}<br/>
+            {/*{time}<br/>*/}
             ___ <br/>
             ___ <br/>
             ___ <br/>
