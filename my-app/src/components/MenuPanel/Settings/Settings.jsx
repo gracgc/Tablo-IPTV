@@ -16,7 +16,7 @@ const Settings = (props) => {
 
     let [currentTime, setCurrentTime] = useState();
 
-    let [deadLine, setDeadLine] = useState(100000);
+    let [deadLine, setDeadLine] = useState(1200000);
 
     let [timeDif, setTimeDif] = useState();
     let [timeMem, setTimeMem] = useState(timeMemServer);
@@ -45,7 +45,7 @@ const Settings = (props) => {
             } else {
                 clearTimeout(interval)
             }
-        }, 200);
+        }, 300);
 
         return () => clearInterval(interval);
     });

@@ -16,9 +16,8 @@ const Settings1 = (props) => {
 
     const timeTimer = timeData.timeMemTimer;
 
-    const timeStopwatch2 = props.timeDif;
+    
 
-    const timeTimer2 = props.timeMemTimer;
 
 
     let isRunning = true;
@@ -28,7 +27,7 @@ const Settings1 = (props) => {
             if (isRunning) {
                 dispatch(getTimeData())
             }
-        }, 1000);
+        }, 100);
 
         return () => clearInterval(interval);
     });
@@ -42,36 +41,19 @@ const Settings1 = (props) => {
     let secondsTimer = Math.floor(timeTimer / 1000) % 60;
     let minutesTimer = Math.floor(timeTimer / (1000 * 60));
 
-    let millisecondsStopwatch2 = timeStopwatch2 % 1000;
-    let secondsStopwatch2 = Math.floor(timeStopwatch2 / 1000) % 60;
-    let minutesStopwatch2 = Math.floor(timeStopwatch2 / (1000 * 60));
-
-    let millisecondsTimer2 = timeTimer2 % 1000;
-    let secondsTimer2 = Math.floor(timeTimer2 / 1000) % 60;
-    let minutesTimer2 = Math.floor(timeTimer2 / (1000 * 60));
-
 
     return (
         <div className={c.settings}>
-            {/*/!*{timeStopwatch}<br/>*!/*/}
-            {/*{minutesStopwatch || '0'}*/}
-            {/*:{secondsStopwatch || '0'}*/}
-            {/*:{millisecondsStopwatch || '0'}*/}
-            {/*<br/><br/><br/>*/}
-            {/*/!*{timeTimer}<br/>*!/*/}
-            {/*{minutesTimer || '0'}*/}
-            {/*:{secondsTimer || '0'}*/}
-            {/*:{millisecondsTimer || '0'}*/}
-            <br/><br/><br/><br/><br/>
             {/*{timeStopwatch}<br/>*/}
-            {minutesStopwatch2 || '0'}
-            :{secondsStopwatch2 || '0'}
-            :{millisecondsStopwatch2 || '0'}
+            {minutesStopwatch || '0'}
+            :{secondsStopwatch || '0'}
+            {/*:{millisecondsStopwatch || '0'}*/}
             <br/><br/><br/>
             {/*{timeTimer}<br/>*/}
-            {minutesTimer2 || '0'}
-            :{secondsTimer2 || '0'}
-            :{millisecondsTimer2 || '0'}
+            {minutesTimer || '0'}
+            :{secondsTimer || '0'}
+            {/*:{millisecondsTimer || '0'}*/}
+
         </div>
     )
 };
