@@ -16,11 +16,11 @@ const Settings = (props) => {
 
     let [currentTime, setCurrentTime] = useState();
 
+    let [deadLine, setDeadLine] = useState(100000);
+
     let [timeDif, setTimeDif] = useState();
     let [timeMem, setTimeMem] = useState(timeMemServer);
-    let [timeMemTimer, setTimeMemTimer] = useState();
-
-    let [deadLine, setDeadLine] = useState(100000);
+    let [timeMemTimer, setTimeMemTimer] = useState(deadLine);
 
     const [isRunning, setIsRunning] = useState(false);
 
@@ -51,6 +51,8 @@ const Settings = (props) => {
     });
 
 
+
+
     let start = () => {
         setIsRunning(true);
         getCurrentTime()
@@ -58,17 +60,21 @@ const Settings = (props) => {
 
     let stop = () => {
         setIsRunning(false);
-        setTimeMem(timeMem + (Date.now() - currentTime));
+
         dispatch(updateTimeDif(timeMem + (Date.now() - currentTime),
             timeMem + (Date.now() - currentTime),
             deadLine - (timeMem + (Date.now() - currentTime))));
+
+        setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
+        setTimeDif(timeMem + (Date.now() - currentTime));
+        setTimeMem(timeMem + (Date.now() - currentTime));
     };
 
     let reset = () => {
+        setTimeDif(0);
         setTimeMem(0);
         setTimeMemTimer(deadLine);
         dispatch(updateTimeDif(0, 0, deadLine));
-
     };
 
 
@@ -79,7 +85,7 @@ const Settings = (props) => {
                 <button onClick={(e) => start()}>Start</button>
                 <button onClick={(e) => stop()}>Stop</button>
                 <button onClick={(e) => reset()}>Reset</button>
-                <Settings1/>
+                <Settings1 timeDif={timeDif} timeMem={timeMem} timeMemTimer={timeMemTimer} isRunning={isRunning}/>
             </div>
             <NavLink to="/" className={c.hov} activeClassName={c.activeLink}>
                 <div className={c.navBackButton}>
