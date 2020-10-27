@@ -10,18 +10,19 @@ const Settings = (props) => {
 
     let dispatch = useDispatch();
 
-
-    let [currentTime, setCurrentTime] = useState();
-    let [timeDif, setTimeDif] = useState();
-
-    let timeMem = useSelector(
+    let timeMemServer = useSelector(
         (state => state.tabloPage.timeData.timeMem)
     );
 
-    let [timeMemTimer, setTimeMemTimer] = useState();
+    let [currentTime, setCurrentTime] = useState();
+
+    // let [timeDif, setTimeDif] = useState();
+    // let [timeMem, setTimeMem] = useState(timeMemServer);
+    // let [timeMemTimer, setTimeMemTimer] = useState();
+
+    let [[timeDif, timeMem, timeMemTimer], setTimeData] = useState([null, timeMemServer, null]);
 
     let [deadLine, setDeadLine] = useState(10000);
-
 
     const [isRunning, setIsRunning] = useState(false);
 
@@ -31,17 +32,17 @@ const Settings = (props) => {
     };
 
     useEffect(() => {
-        const interval = setTimeout(async () => {
+        const interval = setTimeout(() => {
             if (isRunning) {
                 if (timeDif > deadLine) {
-                    await setIsRunning(false);
+                    setIsRunning(false);
                     setTimeDif(deadLine);
                     dispatch(updateTimeDif(deadLine, deadLine, 0));
                 } else {
-                    await setTimeDif(timeMem + (Date.now() - currentTime));
+                    setTimeDif(timeMem + (Date.now() - currentTime));
+                    setTimeMemTimer(deadLine - timeDif);
                     dispatch(updateTimeDif(timeMem + (Date.now() - currentTime), timeMem,
                         deadLine - (timeMem + (Date.now() - currentTime))));
-                    setTimeMemTimer(deadLine - timeDif);
                 }
             } else {
                 clearTimeout(interval)
@@ -59,12 +60,15 @@ const Settings = (props) => {
 
     let stop = async () => {
         await setIsRunning(false);
+        await setTimeMem(timeDif);
         dispatch(updateTimeDif(timeDif, timeDif, timeMemTimer));
     };
 
     let reset = async () => {
+        await setTimeMem(0);
+        await setTimeMemTimer(deadLine);
         dispatch(updateTimeDif(0, 0, deadLine));
-        setTimeMemTimer(deadLine);
+
     };
 
 

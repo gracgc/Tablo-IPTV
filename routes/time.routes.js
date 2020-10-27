@@ -5,7 +5,6 @@ const path = require('path');
 const cors = require('cors');
 
 
-
 router.get('/', function (req, res) {
     try {
         let data = fs.readFileSync(path.join(__dirname + `/DB/time.json`));
@@ -37,13 +36,8 @@ router.put('/', function (req, res) {
 
         fs.writeFileSync(path.join(__dirname + `/DB/time.json`), json, 'utf8');
 
+        res.send({resultCode: 0})
 
-        if (!timeDif || !timeMem) {
-            res.send({resultCode: 10});
-            console.log('Not enought data')
-        } else {
-            res.send({resultCode: 0})
-        }
     } catch (e) {
         console.log(e)
     }

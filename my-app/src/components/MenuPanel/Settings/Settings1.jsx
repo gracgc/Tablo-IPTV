@@ -35,20 +35,21 @@ const Settings1 = (props) => {
     let minutesStopwatch = Math.floor(timeStopwatch / (1000 * 60));
 
     let millisecondsTimer = timeTimer % 1000;
-    let secondsTimer = Math.floor(timeTimer / 1000) % 60;
+    let secondsTimer = Math.ceil(timeTimer / 1000) % 60;
     let minutesTimer = Math.floor(timeTimer / (1000 * 60));
 
 
     return (
         <div className={c.settings}>
-            {timeStopwatch}<br/>
+            {/*{timeStopwatch}<br/>*/}
             {minutesStopwatch || '0'}
             :{secondsStopwatch || '0'}
-            :{millisecondsStopwatch || '0'}<br/><br/><br/><br/><br/>
-            {timeTimer}<br/>
+            {/*:{millisecondsStopwatch || '0'}*/}
+            <br/><br/><br/><br/><br/>
+            {/*{timeTimer}<br/>*/}
             {minutesTimer || '0'}
             :{secondsTimer || '0'}
-            :{millisecondsTimer || '0'}
+            {/*:{millisecondsTimer || '0'}*/}
         </div>
     )
 };
