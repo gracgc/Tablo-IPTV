@@ -1,33 +1,35 @@
 import React, {useEffect, useState} from "react";
 import c from './Settings.module.css'
 import {useDispatch, useSelector} from "react-redux";
+import * as axios from "axios";
 import {getTimeData} from "../../../redux/tablo_reducer";
 
 
 const Settings1 = (props) => {
 
-    let dispatch = useDispatch();
-
-    const timeData = useSelector(
-        (state => state.tabloPage.timeData)
-    );
-
-    const timeStopwatch = timeData.timeDif;
-
-    const timeTimer = timeData.timeMemTimer;
-
-    
+    const [timeStopwatch, setTimeStopwatch] = useState();
+    const [timeTimer, setTimeTimer] = useState();
 
 
+    const getTime = () => {
+        return axios.get(`http://localhost:5000/api/time`)
+            .then(responce => {
+                return responce.data
+            })
+    };
 
     let isRunning = true;
 
     useEffect(() => {
         let interval = setInterval(() => {
             if (isRunning) {
-                dispatch(getTimeData())
+                getTime().then(r => {
+                        setTimeStopwatch(r.timeData.timeDif);
+                        setTimeTimer(r.timeData.timeMemTimer)
+                    }
+                )
             }
-        }, 100);
+        }, 150);
 
         return () => clearInterval(interval);
     });
@@ -47,12 +49,12 @@ const Settings1 = (props) => {
             {/*{timeStopwatch}<br/>*/}
             {minutesStopwatch || '0'}
             :{secondsStopwatch || '0'}
-            {/*:{millisecondsStopwatch || '0'}*/}
+            :{millisecondsStopwatch || '0'}
             <br/><br/><br/>
             {/*{timeTimer}<br/>*/}
             {minutesTimer || '0'}
             :{secondsTimer || '0'}
-            {/*:{millisecondsTimer || '0'}*/}
+            :{millisecondsTimer || '0'}
 
         </div>
     )

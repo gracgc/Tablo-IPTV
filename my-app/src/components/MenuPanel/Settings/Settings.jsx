@@ -32,7 +32,7 @@ const Settings = (props) => {
     useEffect(() => {
         const interval = setTimeout(() => {
             if (isRunning) {
-                if (timeDif > deadLine) {
+                if (timeMem + (Date.now() - currentTime) > deadLine) {
                     setIsRunning(false);
                     setTimeDif(deadLine);
                     dispatch(updateTimeDif(deadLine, deadLine, 0));
@@ -45,7 +45,7 @@ const Settings = (props) => {
             } else {
                 clearTimeout(interval)
             }
-        }, 300);
+        }, 200);
 
         return () => clearInterval(interval);
     });
