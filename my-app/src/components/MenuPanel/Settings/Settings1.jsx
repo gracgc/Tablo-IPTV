@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from "react";
 import c from './Settings.module.css'
-import {useDispatch, useSelector} from "react-redux";
 import * as axios from "axios";
-import {getTimeData} from "../../../redux/tablo_reducer";
 
 
 const Settings1 = (props) => {
@@ -46,12 +44,10 @@ const Settings1 = (props) => {
 
     return (
         <div className={c.settings}>
-            {/*{timeStopwatch}<br/>*/}
             {minutesStopwatch || '0'}
             :{secondsStopwatch || '0'}
             :{millisecondsStopwatch || '0'}
             <br/><br/><br/>
-            {/*{timeTimer}<br/>*/}
             {minutesTimer || '0'}
             :{secondsTimer || '0'}
             :{millisecondsTimer || '0'}

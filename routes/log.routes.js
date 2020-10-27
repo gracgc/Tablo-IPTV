@@ -5,8 +5,6 @@ const path = require('path');
 const cors = require('cors');
 
 
-
-
 router.get('/:gameNumber', function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
@@ -18,13 +16,11 @@ router.get('/:gameNumber', function (req, res) {
             res.send({resultCode: 10});
             console.log('Incorrect address')
         } else {
-            DB.gameLog.resultCode = 0;
             res.send(DB.gameLog)
         }
     } catch (e) {
         console.log(e)
     }
-
 });
 
 router.post('/:gameNumber', cors(), function (req, res) {

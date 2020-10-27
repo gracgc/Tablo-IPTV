@@ -11,7 +11,6 @@ const TeamGamers = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
-
     const dispatch = useDispatch();
 
     const [isGamerGoalEdit, setIsGamerGoalEdit] = useState(false);

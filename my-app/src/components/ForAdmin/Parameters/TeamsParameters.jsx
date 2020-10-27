@@ -20,7 +20,7 @@ const TeamsParameters = (props) => {
 
     useEffect( () => {
         dispatch(getTeams(gameNumber));
-    }, [teams]);
+    }, []);
 
     const homeTeamGamers = teams.find(t => t.teamType == 'home').gamers;
 
