@@ -16,13 +16,11 @@ const Settings = (props) => {
 
     let [currentTime, setCurrentTime] = useState();
 
-    // let [timeDif, setTimeDif] = useState();
-    // let [timeMem, setTimeMem] = useState(timeMemServer);
-    // let [timeMemTimer, setTimeMemTimer] = useState();
+    let [timeDif, setTimeDif] = useState();
+    let [timeMem, setTimeMem] = useState(timeMemServer);
+    let [timeMemTimer, setTimeMemTimer] = useState();
 
-    let [[timeDif, timeMem, timeMemTimer], setTimeData] = useState([null, timeMemServer, null]);
-
-    let [deadLine, setDeadLine] = useState(10000);
+    let [deadLine, setDeadLine] = useState(100000);
 
     const [isRunning, setIsRunning] = useState(false);
 
@@ -47,26 +45,28 @@ const Settings = (props) => {
             } else {
                 clearTimeout(interval)
             }
-        }, 500);
+        }, 200);
 
         return () => clearInterval(interval);
     });
 
 
-    let start = async () => {
-        await setIsRunning(true);
+    let start = () => {
+        setIsRunning(true);
         getCurrentTime()
     };
 
-    let stop = async () => {
-        await setIsRunning(false);
-        await setTimeMem(timeDif);
-        dispatch(updateTimeDif(timeDif, timeDif, timeMemTimer));
+    let stop = () => {
+        setIsRunning(false);
+        setTimeMem(timeMem + (Date.now() - currentTime));
+        dispatch(updateTimeDif(timeMem + (Date.now() - currentTime),
+            timeMem + (Date.now() - currentTime),
+            deadLine - (timeMem + (Date.now() - currentTime))));
     };
 
-    let reset = async () => {
-        await setTimeMem(0);
-        await setTimeMemTimer(deadLine);
+    let reset = () => {
+        setTimeMem(0);
+        setTimeMemTimer(deadLine);
         dispatch(updateTimeDif(0, 0, deadLine));
 
     };

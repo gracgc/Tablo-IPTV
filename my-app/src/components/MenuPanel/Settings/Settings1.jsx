@@ -8,13 +8,13 @@ const Settings1 = (props) => {
 
     let dispatch = useDispatch();
 
-    const timeStopwatch = useSelector(
-        (state => state.tabloPage.timeData.timeDif)
+    const timeData = useSelector(
+        (state => state.tabloPage.timeData)
     );
 
-    const timeTimer = useSelector(
-        (state => state.tabloPage.timeData.timeMemTimer)
-    );
+    const timeStopwatch = timeData.timeDif;
+
+    const timeTimer = timeData.timeMemTimer;
 
 
     let isRunning = true;
@@ -24,7 +24,7 @@ const Settings1 = (props) => {
             if (isRunning) {
                 dispatch(getTimeData())
             }
-        }, 100);
+        }, 50);
 
         return () => clearInterval(interval);
     });
@@ -35,7 +35,7 @@ const Settings1 = (props) => {
     let minutesStopwatch = Math.floor(timeStopwatch / (1000 * 60));
 
     let millisecondsTimer = timeTimer % 1000;
-    let secondsTimer = Math.ceil(timeTimer / 1000) % 60;
+    let secondsTimer = Math.floor(timeTimer / 1000) % 60;
     let minutesTimer = Math.floor(timeTimer / (1000 * 60));
 
 
@@ -44,12 +44,12 @@ const Settings1 = (props) => {
             {/*{timeStopwatch}<br/>*/}
             {minutesStopwatch || '0'}
             :{secondsStopwatch || '0'}
-            {/*:{millisecondsStopwatch || '0'}*/}
+            :{millisecondsStopwatch || '0'}
             <br/><br/><br/><br/><br/>
             {/*{timeTimer}<br/>*/}
             {minutesTimer || '0'}
             :{secondsTimer || '0'}
-            {/*:{millisecondsTimer || '0'}*/}
+            :{millisecondsTimer || '0'}
         </div>
     )
 };
