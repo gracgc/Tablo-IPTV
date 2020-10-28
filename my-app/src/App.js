@@ -7,6 +7,7 @@ import Menu from "./components/MenuPanel/Menu/Menu";
 import CreateGame from "./components/MenuPanel/CreateGame/CreateGame";
 import SavedGames from "./components/MenuPanel/SavedGames/SavedGames";
 import Settings from "./components/MenuPanel/Settings/Settings";
+import Settings00 from "./components/MenuPanel/Settings2/Settings00";
 
 
 
@@ -25,7 +26,7 @@ function App() {
                 <Route exact path='/adminPanel/:gameNumber?'
                        render={() => <AdminPanel/>}/>
                 <Route path='/savedGames' render={() => <SavedGames/>}/>
-                <Route path='/settings' render={() => <Settings/>}/>
+                <Route path='/settings' render={() => <Settings00/>}/>
             </Switch>
         </div>
     )
