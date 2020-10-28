@@ -41,7 +41,44 @@ router.put('/', function (req, res) {
     } catch (e) {
         console.log(e)
     }
+});
 
+router.put('/isRunning', function (req, res) {
+    try {
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/time.json`));
+        let DB = JSON.parse(data);
+
+        let isRunnung = req.body.isRunning;
+        let currentTime = req.body.currentTime;
+
+        let dif = Date.now() - currentTime;
+
+        DB.isRunning = isRunnung;
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname + `/DB/time.json`), json, 'utf8');
+
+        res.send({dif: dif})
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.post('/dif', function (req, res) {
+    try {
+
+        let currentTime = req.body.currentTime;
+
+        let dif = Date.now() - currentTime;
+
+        res.send({dif: dif})
+
+    } catch (e) {
+        console.log(e)
+    }
 });
 
 

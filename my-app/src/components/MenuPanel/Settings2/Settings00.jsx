@@ -82,10 +82,10 @@ const Settings00 = (props) => {
         <div className={c.settings}>
             <div>Settings</div>
             <div>
-                <button onClick={(e) => start()}>Start</button>
-                <button onClick={(e) => stop()}>Stop</button>
-                <button onClick={(e) => reset()}>Reset</button>
-                <Settings01 timeDif={timeDif} timeMem={timeMem} timeMemTimer={timeMemTimer} isRunning={isRunning}/>
+                {/*<button onClick={(e) => start()}>Start</button>*/}
+                {/*<button onClick={(e) => stop()}>Stop</button>*/}
+                {/*<button onClick={(e) => reset()}>Reset</button>*/}
+                <Settings01/>
             </div>
             <NavLink to="/" className={c.hov} activeClassName={c.activeLink}>
                 <div className={c.navBackButton}>
