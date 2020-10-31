@@ -81,7 +81,7 @@ const Settings01 = (props) => {
                             setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
                         }
                     }
-                }, 50);
+                }, 1000);
                 return () => clearInterval(interval);
             }
         );
