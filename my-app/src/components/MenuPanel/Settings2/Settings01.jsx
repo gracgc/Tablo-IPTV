@@ -9,10 +9,14 @@ const Settings01 = (props) => {
         let [isRunningServer, setIsRunningServer] = useState(false);
         let [isRunningMem, setIsRunningMem] = useState(false);
 
+        let [tick, setTick] = useState(50);
+
         let [currentTime, setCurrentTime] = useState(Date.now());
 
 
         let [deadLine, setDeadLine] = useState(1200000);
+
+        let [dif, setDif] = useState();
 
         let [timeDif, setTimeDif] = useState();
         let [timeMem, setTimeMem] = useState(0);
@@ -49,14 +53,16 @@ const Settings01 = (props) => {
             getTimerStatus().then(r => {
                     setIsRunningServer(r.isRunning);
                     setIsRunningMem(r.isRunning);
-                    if (r.isRunning !== isRunningMem) {
+                    if (r.isRunning !== isRunningServer) {
                         if (r.isRunning === true) {
-                            setCurrentTime(Date.now());
+                            setDif(Date.now() - r.runningTime);
+                            setCurrentTime(r.runningTime);
                         }
                         if (r.isRunning === false) {
-                            setTimeDif(timeMem + r.timeData.timeDif);
-                            setTimeMem(r.timeData.timeMem);
-                            setTimeMemTimer(r.timeData.timeMemTimer);
+                            setDif(Date.now() - r.runningTime);
+                            setTimeDif(timeMem + r.timeData.timeDif + dif);
+                            setTimeMem(r.timeData.timeMem + dif);
+                            setTimeMemTimer(r.timeData.timeMemTimer - dif);
                         }
                     }
                 }
@@ -81,7 +87,7 @@ const Settings01 = (props) => {
                             setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
                         }
                     }
-                }, 1000);
+                }, tick);
                 return () => clearInterval(interval);
             }
         );
@@ -121,7 +127,8 @@ const Settings01 = (props) => {
                 :{millisecondsTimer || '0'}
                 <br/><br/><br/>
                 {isRunningServer ? 'yes' : 'no'}
-
+                <br/>
+                Dif: {dif}
             </div>
         )
     }
