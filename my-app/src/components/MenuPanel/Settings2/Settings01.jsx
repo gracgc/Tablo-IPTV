@@ -11,7 +11,6 @@ const Settings01 = (props) => {
 
         let [currentTime, setCurrentTime] = useState(Date.now());
 
-        let [dif, setDif] = useState(0);
 
         let [deadLine, setDeadLine] = useState(1200000);
 
@@ -37,17 +36,10 @@ const Settings01 = (props) => {
                 });
         };
 
-        const putTimerStatus = (isRunning) => {
-            return axios.put(`http://localhost:5000/api/time/isRunning`, {isRunning})
+        const putTimerStatus = (isRunning, timeDif, timeMem, timeMemTimer) => {
+            return axios.put(`http://localhost:5000/api/time/isRunning`, {isRunning, timeDif, timeMem, timeMemTimer})
         };
 
-
-        const getTimerDif = (currentTime) => {
-            return axios.post(`http://localhost:5000/api/time/dif`, {currentTime})
-                .then(responce => {
-                    return responce.data
-                });
-        };
 
         let getCurrentTimeData = () => {
             setCurrentTime(Date.now());
@@ -57,18 +49,18 @@ const Settings01 = (props) => {
             getTimerStatus().then(r => {
                     setIsRunningServer(r.isRunning);
                     setIsRunningMem(r.isRunning);
-                    return r.isRunning
-                }
-            ).then(r => {
-                if (r !== isRunningMem) {
-                    getTimerDif(Date.now())
-                        .then(r => setDif(r.dif + 25));
-                    setCurrentTime(Date.now());
-                    if (r === false) {
-                        setTimeMem(timeMem + (Date.now() - currentTime));
+                    if (r.isRunning !== isRunningMem) {
+                        if (r.isRunning === true) {
+                            setCurrentTime(Date.now());
+                        }
+                        if (r.isRunning === false) {
+                            setTimeDif(timeMem + r.timeData.timeDif);
+                            setTimeMem(r.timeData.timeMem);
+                            setTimeMemTimer(r.timeData.timeMemTimer);
+                        }
                     }
                 }
-            })
+            )
         };
 
 
@@ -79,27 +71,14 @@ const Settings01 = (props) => {
                     }
 
                     if (isCheck && isRunningServer) {
-                        getTimerStatus().then(r => {
-                                setIsRunningServer(r.isRunning);
-                                setIsRunningMem(r.isRunning);
-                                return r.isRunning
-                            }
-                        ).then(r => {
-                            if (r !== isRunningMem) {
-
-                                setCurrentTime(Date.now());
-                                if (r === false) {
-                                    setTimeMem(timeMem + (Date.now() - currentTime));
-                                }
-                            }
-                        })
+                        checkTimerStatus();
 
                         if (timeDif > deadLine) {
                             putTimerStatus(false);
                             setTimeDif(deadLine);
                         } else {
-                            setTimeDif(timeMem + (Date.now() + dif - currentTime));
-                            setTimeMemTimer(deadLine - (timeMem + (Date.now() + dif - currentTime)));
+                            setTimeDif(timeMem + (Date.now() - currentTime));
+                            setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
                         }
                     }
                 }, 50);
@@ -113,13 +92,16 @@ const Settings01 = (props) => {
         };
 
         let stop = () => {
-            putTimerStatus(false);
+            putTimerStatus(false,
+                Date.now() - currentTime,
+                timeMem + (Date.now() - currentTime),
+                deadLine - (timeMem + (Date.now() - currentTime)));
         };
 
         let reset = () => {
             setTimeDif(0);
             setTimeMem(0);
-            setTimeMemTimer(deadLine);
+            setTimeMemTimer(deadLine)
         };
 
 
@@ -139,8 +121,7 @@ const Settings01 = (props) => {
                 :{millisecondsTimer || '0'}
                 <br/><br/><br/>
                 {isRunningServer ? 'yes' : 'no'}
-                <br/>
-                Delta: {dif}
+
             </div>
         )
     }
