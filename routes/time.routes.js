@@ -52,12 +52,13 @@ router.put('/isRunning', function (req, res) {
         let timeDif = req.body.timeDif;
         let timeMem = req.body.timeMem;
         let timeMemTimer = req.body.timeMemTimer;
+        let currentLocalTime = req.body.currentLocalTime;
 
         DB.isRunning = isRunning;
         DB.timeData.timeDif = timeDif;
         DB.timeData.timeMem = timeMem;
         DB.timeData.timeMemTimer = timeMemTimer;
-        DB.runningTime = new Date(2011, 0, 1, 0, 0, 0, 0);
+        DB.runningTime = currentLocalTime;
 
         let json = JSON.stringify(DB);
 

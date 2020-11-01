@@ -39,21 +39,16 @@ const Settings01 = (props) => {
                 });
         };
 
-        const putTimerStatus = (isRunning, timeDif, timeMem, timeMemTimer) => {
+        const putTimerStatus = (isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer) => {
             return axios.put(`http://localhost:5000/api/time/isRunning`, {
                 isRunning,
+                currentLocalTime,
                 timeDif,
                 timeMem,
                 timeMemTimer
             })
         };
 
-        const getDif = (currentLocalTime) => {
-            return axios.put(`http://localhost:5000/api/time/dif`, {currentLocalTime})
-                .then(responce => {
-                    return responce.data
-                });
-        };
 
 
         let checkTimerStatus = (isStarted) => {
@@ -72,12 +67,7 @@ const Settings01 = (props) => {
                     }
                     if (r.isRunning !== isRunningServer) {
                         if (r.isRunning === true) {
-                            getDif(Date.now()).then(r => {
-                                setPing(Date.now() - r.currentLocalTime);
-                                setDif(r.dif)
-                            });
-
-                            setCurrentTime(r.runningTime + dif);
+                            setCurrentTime(r.runningTime);
                         }
                         if (r.isRunning === false) {
                             setTimeMem(r.timeData.timeMem);
@@ -113,18 +103,18 @@ const Settings01 = (props) => {
 
 
         let start = () => {
-            putTimerStatus(true);
+            putTimerStatus(true, Date.now());
         };
 
         let stop = () => {
-            putTimerStatus(false,
+            putTimerStatus(false, Date.now(),
                 Date.now() - currentTime,
                 timeMem + (Date.now() - currentTime),
                 deadLine - (timeMem + (Date.now() - currentTime)));
         };
 
         let reset = () => {
-            putTimerStatus(false,
+            putTimerStatus(false, Date.now(),
                 0,
                 0,
                 deadLine);
@@ -147,10 +137,6 @@ const Settings01 = (props) => {
                 :{millisecondsTimer || '0'}
                 <br/><br/><br/>
                 {isRunningServer ? 'yes' : 'no'}
-                <br/>
-                Dif:{dif}
-                <br/>
-                Ping:{ping}
             </div>
         )
     }
