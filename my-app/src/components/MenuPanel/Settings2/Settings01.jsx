@@ -5,18 +5,13 @@ import * as axios from "axios";
 
 const Settings01 = (props) => {
 
-
         let [isRunningServer, setIsRunningServer] = useState(false);
-        let [isRunningMem, setIsRunningMem] = useState(false);
 
-        let [tick, setTick] = useState(50);
+        let [tick, setTick] = useState(100);
 
         let [currentTime, setCurrentTime] = useState(Date.now());
 
-
         let [deadLine, setDeadLine] = useState(1200000);
-
-        let [dif, setDif] = useState();
 
         let [timeDif, setTimeDif] = useState();
         let [timeMem, setTimeMem] = useState(0);
@@ -40,33 +35,44 @@ const Settings01 = (props) => {
                 });
         };
 
-        const putTimerStatus = (isRunning, timeDif, timeMem, timeMemTimer) => {
-            return axios.put(`http://localhost:5000/api/time/isRunning`, {isRunning, timeDif, timeMem, timeMemTimer})
+        const putTimerStatus = (isRunning, timeDif, timeMem, timeMemTimer, deadLine) => {
+            return axios.put(`http://localhost:5000/api/time/isRunning`, {
+                isRunning,
+                timeDif,
+                timeMem,
+                timeMemTimer,
+                deadLine
+            })
         };
 
-
-        let getCurrentTimeData = () => {
-            setCurrentTime(Date.now());
-        };
 
         let checkTimerStatus = (isStarted) => {
             getTimerStatus().then(r => {
                     setIsRunningServer(r.isRunning);
-                    setIsRunningMem(r.isRunning);
+                    return r
+                }
+            )
+                .then(r => {
+                    if (r.isRunning === isRunningServer) {
+                        if (r.isRunning === false) {
+                            setTimeMem(r.timeData.timeMem);
+                            setTimeDif(r.timeData.timeMem);
+                            setTimeMemTimer(r.timeData.timeMemTimer);
+                        }
+                    }
                     if (r.isRunning !== isRunningServer) {
                         if (r.isRunning === true) {
-                            setDif(Date.now() - r.runningTime);
                             setCurrentTime(r.runningTime);
                         }
                         if (r.isRunning === false) {
-                            setDif(Date.now() - r.runningTime);
-                            setTimeDif(timeMem + r.timeData.timeDif + dif);
-                            setTimeMem(r.timeData.timeMem + dif);
-                            setTimeMemTimer(r.timeData.timeMemTimer - dif);
+                            setTimeMem(r.timeData.timeMem);
+                            setTimeDif(r.timeData.timeMem);
+                            setTimeMemTimer(r.timeData.timeMemTimer);
                         }
                     }
-                }
-            )
+                })
+
+
         };
 
 
@@ -105,9 +111,10 @@ const Settings01 = (props) => {
         };
 
         let reset = () => {
-            setTimeDif(0);
-            setTimeMem(0);
-            setTimeMemTimer(deadLine)
+            putTimerStatus(false,
+                0,
+                0,
+                deadLine);
         };
 
 
@@ -127,8 +134,6 @@ const Settings01 = (props) => {
                 :{millisecondsTimer || '0'}
                 <br/><br/><br/>
                 {isRunningServer ? 'yes' : 'no'}
-                <br/>
-                Dif: {dif}
             </div>
         )
     }
