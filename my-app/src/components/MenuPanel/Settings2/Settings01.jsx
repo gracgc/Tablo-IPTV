@@ -68,6 +68,7 @@ const Settings01 = (props) => {
                     if (r.isRunning !== isRunningServer) {
                         if (r.isRunning === true) {
                             setCurrentTime(r.runningTime);
+                            setDif(Date.now() - r.runningTime)
                         }
                         if (r.isRunning === false) {
                             setTimeMem(r.timeData.timeMem);
@@ -137,6 +138,8 @@ const Settings01 = (props) => {
                 :{millisecondsTimer || '0'}
                 <br/><br/><br/>
                 {isRunningServer ? 'yes' : 'no'}
+                <br/>
+                Dif:{dif}
             </div>
         )
     }
