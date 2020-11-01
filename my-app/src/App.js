@@ -9,6 +9,7 @@ import SavedGames from "./components/MenuPanel/SavedGames/SavedGames";
 import Settings from "./components/MenuPanel/Settings/Settings";
 import Settings00 from "./components/MenuPanel/Settings2/Settings00";
 import Settings01 from "./components/MenuPanel/Settings2/Settings01";
+import Tablo from "./components/ForAdmin/TabloEdit/Tablo";
 
 
 
@@ -28,6 +29,7 @@ function App() {
                        render={() => <AdminPanel/>}/>
                 <Route path='/savedGames' render={() => <SavedGames/>}/>
                 <Route path='/settings' render={() => <Settings01/>}/>
+                <Route path='/tabloClient' render={() => <Tablo/>}/>
             </Switch>
         </div>
     )

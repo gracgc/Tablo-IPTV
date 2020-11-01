@@ -35,13 +35,12 @@ const Settings01 = (props) => {
                 });
         };
 
-        const putTimerStatus = (isRunning, timeDif, timeMem, timeMemTimer, deadLine) => {
+        const putTimerStatus = (isRunning, timeDif, timeMem, timeMemTimer) => {
             return axios.put(`http://localhost:5000/api/time/isRunning`, {
                 isRunning,
                 timeDif,
                 timeMem,
-                timeMemTimer,
-                deadLine
+                timeMemTimer
             })
         };
 
@@ -71,8 +70,6 @@ const Settings01 = (props) => {
                         }
                     }
                 })
-
-
         };
 
 

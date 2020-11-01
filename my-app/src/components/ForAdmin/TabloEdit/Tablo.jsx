@@ -7,7 +7,7 @@ const Tablo = (props) => {
     return (
         <div className={c.tablo}>
             <div className={c.time}>
-                00:00:00
+                {props.minutesTimer}:{props.secondsTimer}
             </div>
             <div className={c.counters}>
                 <div className={c.counter}>

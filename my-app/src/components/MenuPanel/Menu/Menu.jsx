@@ -25,6 +25,11 @@ const Menu = (props) => {
                             Settings
                         </div>
                     </NavLink>
+                    <NavLink to="/tabloClient" className={c.hov} activeClassName={c.activeLink}>
+                        <div className={c.navButton}>
+                            TABLO FOR CLIENT 'TEMP BUTTON'
+                        </div>
+                    </NavLink>
                 </div>
             </div>
         </div>
