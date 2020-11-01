@@ -1,0 +1,90 @@
+.tabloEdit {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    top: 5%;
+}
+
+.tablo {
+    position: relative;
+    float: right;
+    background-color: white;
+    height: 92%;
+    width: 60%;
+    right: 20px;
+}
+
+.allButtons {
+    position: relative;
+    width: 30%;
+    text-align: center;
+    font-weight: bold;
+    left: 20px;
+    cursor: pointer;
+}
+
+.gameButtons {
+    font-size: 120%;
+}
+
+
+.gameButtons__Disabled {
+    opacity: 40%;
+    background: #3A5985;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    pointer-events: none;
+}
+
+.gameButtons__Active {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background: #F1F4FB;
+    box-sizing: border-box;
+    border: 2px solid #130757;
+}
+
+.gameButtons__stop {
+    margin-top: 5%;
+}
+
+.beepButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+    font-size: 100%;
+    margin-top: 12px;
+}
+
+.beepButtons_beep {
+    box-sizing: border-box;
+    border: 1px #3A5985 solid;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.goalButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+    font-size: 100%;
+    margin-top: 12px;
+}
+
+.goalButtons_goal {
+    box-sizing: border-box;
+    background: #77cde0;
+    border: black solid 1px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.home {
+    border-bottom: #fc8b8b solid 3px;
+}
+
+.guests {
+    border-bottom: #232961 solid 3px;
+}
+
+

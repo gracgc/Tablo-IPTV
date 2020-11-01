@@ -6,10 +6,10 @@ import AdminPanel from "./components/ForAdmin/AdminPanel";
 import Menu from "./components/MenuPanel/Menu/Menu";
 import CreateGame from "./components/MenuPanel/CreateGame/CreateGame";
 import SavedGames from "./components/MenuPanel/SavedGames/SavedGames";
-import Settings from "./components/MenuPanel/Settings/Settings";
-import Settings00 from "./components/MenuPanel/Settings2/Settings00";
 import Settings01 from "./components/MenuPanel/Settings2/Settings01";
-import Tablo from "./components/ForAdmin/TabloEdit/Tablo";
+import TabloEdit from "./components/ForAdmin/TabloEdit/TabloEdit";
+import TabloEditClient from "./components/ForClient/TabloEdit/TabloEditClient";
+
 
 
 
@@ -29,7 +29,7 @@ function App() {
                        render={() => <AdminPanel/>}/>
                 <Route path='/savedGames' render={() => <SavedGames/>}/>
                 <Route path='/settings' render={() => <Settings01/>}/>
-                <Route path='/tabloClient' render={() => <Tablo/>}/>
+                <Route path='/tabloClient' render={() => <TabloEditClient/>}/>
             </Switch>
         </div>
     )

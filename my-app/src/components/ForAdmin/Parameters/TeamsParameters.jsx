@@ -18,9 +18,13 @@ const TeamsParameters = (props) => {
 
     const dispatch = useDispatch();
 
-    useEffect( () => {
-        dispatch(getTeams(gameNumber));
-    }, []);
+    useEffect(() => {
+            let interval = setInterval(() => {
+                dispatch(getTeams(gameNumber))
+            }, 2000);
+            return () => clearInterval(interval);
+        }
+    );
 
     const homeTeamGamers = teams.find(t => t.teamType == 'home').gamers;
 

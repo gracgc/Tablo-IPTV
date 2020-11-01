@@ -1,17 +1,15 @@
 import React from 'react'
 import c from './TabloEdit.module.css'
 import {useState, useEffect} from 'react';
-import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
 import Tablo from "./Tablo";
-import {teamGoal} from "../../../redux/teams_reducer";
-import {addNewLog} from "../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
+import {getTeams} from "../../../redux/teams_reducer";
 
 
-const TabloEdit = (props) => {
+const TabloEditClient = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
@@ -90,6 +88,7 @@ const TabloEdit = (props) => {
             })
     };
 
+
     useEffect(() => {
             let interval = setInterval(() => {
                 if (isCheck) {
@@ -100,7 +99,7 @@ const TabloEdit = (props) => {
                     checkTimerStatus();
 
                     if (timeDif >= deadLine) {
-                        putTimerStatus(false, 0, deadLine, 0 );
+                        putTimerStatus(false, 0, deadLine, 0);
                         setTimeDif(deadLine);
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
@@ -113,77 +112,12 @@ const TabloEdit = (props) => {
     );
 
 
-    const addTeamGoal = (teamType) => {
-
-        if (isRunningServer) {
-            dispatch(teamGoal(gameNumber, teamType, '+'));
-            putTimerStatus(false,
-                Date.now() - currentTime,
-                timeMem + (Date.now() - currentTime),
-                deadLine - (timeMem + (Date.now() - currentTime)));
-            dispatch(addNewLog(gameNumber,'Timecode: STOP - GOAL!'));
-        } else {
-            dispatch(teamGoal(gameNumber, teamType, '+'));
-            dispatch(addNewLog(gameNumber,'Timecode: GOAL!'));
-        }
-    };
-
-    const startGame = () => {
-        putTimerStatus(true);
-        dispatch(addNewLog(gameNumber,'Timecode: START'));
-    };
-
-    const stopGame = () => {
-        putTimerStatus(false,
-            Date.now() - currentTime,
-            timeMem + (Date.now() - currentTime),
-            deadLine - (timeMem + (Date.now() - currentTime)));
-        dispatch(addNewLog(gameNumber,'Timecode: STOP'));
-    };
-
     return (
         <div className={c.tabloEdit}>
-            <div className={c.tablo}>
-                <Tablo secondsTimer={secondsTimer} minutesTimer={minutesTimer}
-                       homeCounter={homeCounter} guestsCounter={guestsCounter}/>
-            </div>
-            <div className={c.allButtons}>
-                {isRunningServer ?
-                    <div className={c.gameButtons}>
-                        <div className={c.gameButtons__Disabled}>
-                            Start
-                        </div>
-                        <div className={classNames(c.gameButtons__Active, c.gameButtons__stop)} onClick={(e) => stopGame()}>
-                            Stop
-                        </div>
-                    </div>
-                    :
-                    <div className={c.gameButtons}>
-                        <div className={c.gameButtons__Active} onClick={(e) => startGame()}>
-                            Start
-                        </div>
-                        <div className={classNames(c.gameButtons__Disabled, c.gameButtons__stop)}>
-                            Stop
-                        </div>
-                    </div>
-                }
-                <div className={c.beepButtons}>
-                    <div className={c.beepButtons_beep}>Beep</div>
-                    <div className={c.beepButtons_beep}>Beeeep</div>
-                </div>
-                <div className={c.goalButtons}>
-                    <button onClick={(e) => addTeamGoal('home')}
-                         className={classNames(c.goalButtons_goal, c.home)}>
-                        Goal
-                    </button>
-                    <button onClick={(e) => addTeamGoal('guests')}
-                         className={classNames(c.goalButtons_goal, c.guests)}>
-                        Goal
-                    </button>
-                </div>
-            </div>
+            <Tablo secondsTimer={secondsTimer} minutesTimer={minutesTimer}
+                   homeCounter={homeCounter} guestsCounter={guestsCounter}/>
         </div>
     )
 };
 
-export default compose(withRouter)(TabloEdit);
+export default compose(withRouter)(TabloEditClient);

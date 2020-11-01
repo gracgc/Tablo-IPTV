@@ -48,16 +48,16 @@ router.put('/isRunning', function (req, res) {
         let data = fs.readFileSync(path.join(__dirname + `/DB/time.json`));
         let DB = JSON.parse(data);
 
-        let isRunnung = req.body.isRunning;
+        let isRunning = req.body.isRunning;
         let timeDif = req.body.timeDif;
         let timeMem = req.body.timeMem;
         let timeMemTimer = req.body.timeMemTimer;
 
-        DB.isRunning = isRunnung;
+        DB.isRunning = isRunning;
         DB.timeData.timeDif = timeDif;
         DB.timeData.timeMem = timeMem;
         DB.timeData.timeMemTimer = timeMemTimer;
-        DB.runningTime = Date.now();
+        DB.runningTime = new Date(2011, 0, 1, 0, 0, 0, 0);
 
         let json = JSON.stringify(DB);
 
@@ -70,14 +70,15 @@ router.put('/isRunning', function (req, res) {
     }
 });
 
-router.post('/dif', function (req, res) {
+router.put('/dif', function (req, res) {
     try {
 
-        let currentTime = req.body.currentTime;
+        let currentLocalTime = req.body.currentLocalTime;
 
-        let dif = Date.now() - currentTime;
+        let dif = new Date(2011, 0, 1, 0, 0, 0, 0) - currentLocalTime;
 
-        res.send({dif: dif})
+
+        res.send({currentLocalTime: currentLocalTime, dif: dif})
 
     } catch (e) {
         console.log(e)

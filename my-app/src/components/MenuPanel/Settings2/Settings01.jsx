@@ -9,6 +9,10 @@ const Settings01 = (props) => {
 
         let [tick, setTick] = useState(100);
 
+        let [dif, setDif] = useState();
+
+        let [ping, setPing] = useState();
+
         let [currentTime, setCurrentTime] = useState(Date.now());
 
         let [deadLine, setDeadLine] = useState(1200000);
@@ -44,6 +48,13 @@ const Settings01 = (props) => {
             })
         };
 
+        const getDif = (currentLocalTime) => {
+            return axios.put(`http://localhost:5000/api/time/dif`, {currentLocalTime})
+                .then(responce => {
+                    return responce.data
+                });
+        };
+
 
         let checkTimerStatus = (isStarted) => {
             getTimerStatus().then(r => {
@@ -61,7 +72,12 @@ const Settings01 = (props) => {
                     }
                     if (r.isRunning !== isRunningServer) {
                         if (r.isRunning === true) {
-                            setCurrentTime(r.runningTime);
+                            getDif(Date.now()).then(r => {
+                                setPing(Date.now() - r.currentLocalTime);
+                                setDif(r.dif)
+                            });
+
+                            setCurrentTime(r.runningTime + dif);
                         }
                         if (r.isRunning === false) {
                             setTimeMem(r.timeData.timeMem);
@@ -131,6 +147,10 @@ const Settings01 = (props) => {
                 :{millisecondsTimer || '0'}
                 <br/><br/><br/>
                 {isRunningServer ? 'yes' : 'no'}
+                <br/>
+                Dif:{dif}
+                <br/>
+                Ping:{ping}
             </div>
         )
     }
