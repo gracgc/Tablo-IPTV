@@ -59,6 +59,7 @@ router.put('/isRunning', function (req, res) {
         DB.timeData.timeMem = timeMem;
         DB.timeData.timeMemTimer = timeMemTimer;
         DB.runningTime = currentLocalTime;
+        // DB.runningTime = new Date(2011, 0, 1, 0, 0, 0, 0).getTime() - currentLocalTime;
 
         let json = JSON.stringify(DB);
 

@@ -51,7 +51,7 @@ const Settings01 = (props) => {
 
 
 
-        let checkTimerStatus = (isStarted) => {
+        let checkTimerStatus = () => {
             getTimerStatus().then(r => {
                     setIsRunningServer(r.isRunning);
                     return r
@@ -68,7 +68,6 @@ const Settings01 = (props) => {
                     if (r.isRunning !== isRunningServer) {
                         if (r.isRunning === true) {
                             setCurrentTime(r.runningTime);
-                            setDif(Date.now() - r.runningTime)
                         }
                         if (r.isRunning === false) {
                             setTimeMem(r.timeData.timeMem);
@@ -85,7 +84,6 @@ const Settings01 = (props) => {
                     if (isCheck) {
                         checkTimerStatus()
                     }
-
                     if (isCheck && isRunningServer) {
                         checkTimerStatus();
 
@@ -104,7 +102,7 @@ const Settings01 = (props) => {
 
 
         let start = () => {
-            putTimerStatus(true, Date.now());
+            putTimerStatus(true, Date.now(), timeDif, timeMem, timeMemTimer);
         };
 
         let stop = () => {
@@ -120,7 +118,6 @@ const Settings01 = (props) => {
                 0,
                 deadLine);
         };
-
 
         return (
             <div className={c.settings}>
