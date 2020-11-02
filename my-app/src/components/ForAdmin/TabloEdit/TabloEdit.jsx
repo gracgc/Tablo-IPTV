@@ -7,7 +7,7 @@ import Tablo from "./Tablo";
 import {teamGoal} from "../../../redux/teams_reducer";
 import {addNewLog} from "../../../redux/log_reducer";
 import {compose} from "redux";
-import {withRouter} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 import * as axios from "axios";
 
 
@@ -30,7 +30,7 @@ const TabloEdit = (props) => {
 
     let [currentTime, setCurrentTime] = useState(Date.now());
 
-    let [deadLine, setDeadLine] = useState(10000);
+    let [deadLine, setDeadLine] = useState(1200000);
 
     let [timeDif, setTimeDif] = useState();
     let [timeMem, setTimeMem] = useState(0);
@@ -54,9 +54,10 @@ const TabloEdit = (props) => {
             });
     };
 
-    const putTimerStatus = (isRunning, timeDif, timeMem, timeMemTimer) => {
+    const putTimerStatus = (isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer) => {
         return axios.put(`http://localhost:5000/api/time/isRunning`, {
             isRunning,
+            currentLocalTime,
             timeDif,
             timeMem,
             timeMemTimer
@@ -117,7 +118,7 @@ const TabloEdit = (props) => {
 
         if (isRunningServer) {
             dispatch(teamGoal(gameNumber, teamType, '+'));
-            putTimerStatus(false,
+            putTimerStatus(false, Date.now(),
                 Date.now() - currentTime,
                 timeMem + (Date.now() - currentTime),
                 deadLine - (timeMem + (Date.now() - currentTime)));
@@ -129,12 +130,12 @@ const TabloEdit = (props) => {
     };
 
     const startGame = () => {
-        putTimerStatus(true);
+        putTimerStatus(true, Date.now(), timeDif, timeMem, timeMemTimer);
         dispatch(addNewLog(gameNumber,'Timecode: START'));
     };
 
     const stopGame = () => {
-        putTimerStatus(false,
+        putTimerStatus(false, Date.now(),
             Date.now() - currentTime,
             timeMem + (Date.now() - currentTime),
             deadLine - (timeMem + (Date.now() - currentTime)));

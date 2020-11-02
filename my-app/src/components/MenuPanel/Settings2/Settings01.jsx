@@ -9,10 +9,6 @@ const Settings01 = (props) => {
 
         let [tick, setTick] = useState(100);
 
-        let [dif, setDif] = useState();
-
-        let [ping, setPing] = useState();
-
         let [currentTime, setCurrentTime] = useState(Date.now());
 
         let [deadLine, setDeadLine] = useState(1200000);
@@ -135,8 +131,6 @@ const Settings01 = (props) => {
                 :{millisecondsTimer || '0'}
                 <br/><br/><br/>
                 {isRunningServer ? 'yes' : 'no'}
-                <br/>
-                Dif:{dif}
             </div>
         )
     }

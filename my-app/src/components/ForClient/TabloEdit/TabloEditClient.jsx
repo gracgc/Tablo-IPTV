@@ -15,6 +15,11 @@ const TabloEditClient = (props) => {
 
     const dispatch = useDispatch();
 
+    // useEffect(() => {
+    //         dispatch(getTeams(gameNumber))
+    //     }
+    // );
+
     const homeCounter = useSelector(
         (state => state.teamsPage.teams.find(t => t.teamType == 'home').counter)
     );
@@ -28,7 +33,7 @@ const TabloEditClient = (props) => {
 
     let [currentTime, setCurrentTime] = useState(Date.now());
 
-    let [deadLine, setDeadLine] = useState(10000);
+    let [deadLine, setDeadLine] = useState(1200000);
 
     let [timeDif, setTimeDif] = useState();
     let [timeMem, setTimeMem] = useState(0);
@@ -52,9 +57,10 @@ const TabloEditClient = (props) => {
             });
     };
 
-    const putTimerStatus = (isRunning, timeDif, timeMem, timeMemTimer) => {
+    const putTimerStatus = (isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer) => {
         return axios.put(`http://localhost:5000/api/time/isRunning`, {
             isRunning,
+            currentLocalTime,
             timeDif,
             timeMem,
             timeMemTimer
@@ -93,10 +99,12 @@ const TabloEditClient = (props) => {
             let interval = setInterval(() => {
                 if (isCheck) {
                     checkTimerStatus()
+                    dispatch(getTeams(1));
                 }
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus();
+                    dispatch(getTeams(1));
 
                     if (timeDif >= deadLine) {
                         putTimerStatus(false, 0, deadLine, 0);

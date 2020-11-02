@@ -21,7 +21,7 @@ const TeamsParameters = (props) => {
     useEffect(() => {
             let interval = setInterval(() => {
                 dispatch(getTeams(gameNumber))
-            }, 2000);
+            }, 1000);
             return () => clearInterval(interval);
         }
     );

@@ -7,7 +7,6 @@ import Menu from "./components/MenuPanel/Menu/Menu";
 import CreateGame from "./components/MenuPanel/CreateGame/CreateGame";
 import SavedGames from "./components/MenuPanel/SavedGames/SavedGames";
 import Settings01 from "./components/MenuPanel/Settings2/Settings01";
-import TabloEdit from "./components/ForAdmin/TabloEdit/TabloEdit";
 import TabloEditClient from "./components/ForClient/TabloEdit/TabloEditClient";
 
 
