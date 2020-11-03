@@ -54,11 +54,17 @@ router.post('/', cors(), function (req, res) {
                 gameNumber: gameNumber,
                 gameType: gameType,
                 gameStatus: "Not going",
-                gameTime: 0
+                gameTime: {
+                    timeData: {timeMem: 0, timeDif: 0, timeMemTimer: 1200000},
+                    dif: null,
+                    isRunning: false,
+                    runningTime: 0
+                }
             },
             gameLog: [],
             teams: []
         };
+
 
         if (!gameName || !gameNumber || !gameType) {
             res.send({resultCode: 10});
@@ -76,11 +82,12 @@ router.post('/', cors(), function (req, res) {
             res.send({resultCode: 0})
         }
 
-    } catch (e) {
+    } catch
+        (e) {
         console.log(e)
     }
-});
-
+})
+;
 
 
 router.options('/', cors());

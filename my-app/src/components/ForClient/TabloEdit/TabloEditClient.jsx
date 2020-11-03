@@ -13,6 +13,8 @@ const TabloEditClient = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
+
+    debugger
     const dispatch = useDispatch();
 
     // useEffect(() => {
@@ -98,13 +100,13 @@ const TabloEditClient = (props) => {
     useEffect(() => {
             let interval = setInterval(() => {
                 if (isCheck) {
-                    checkTimerStatus()
-                    dispatch(getTeams(1));
+                    checkTimerStatus();
+                    dispatch(getTeams(gameNumber));
                 }
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus();
-                    dispatch(getTeams(1));
+                    dispatch(getTeams(gameNumber))
 
                     if (timeDif >= deadLine) {
                         putTimerStatus(false, 0, deadLine, 0);
