@@ -5,13 +5,15 @@ const path = require('path');
 const cors = require('cors');
 
 
-router.get('/', function (req, res) {
+router.get('/:gameNumber', function (req, res) {
     try {
-        let data = fs.readFileSync(path.join(__dirname + `/DB/time.json`));
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
         DB.resultCode = 0;
-        res.send(DB)
+        res.send(DB.gameInfo.gameTime)
     } catch (e) {
         console.log(e)
     }
@@ -42,10 +44,11 @@ router.put('/', function (req, res) {
     }
 });
 
-router.put('/isRunning', function (req, res) {
+router.put('/isRunning/:gameNumber', function (req, res) {
     try {
+        let gameNumber = req.params.gameNumber;
 
-        let data = fs.readFileSync(path.join(__dirname + `/DB/time.json`));
+        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
         let isRunning = req.body.isRunning;
@@ -54,16 +57,16 @@ router.put('/isRunning', function (req, res) {
         let timeMemTimer = req.body.timeMemTimer;
         let currentLocalTime = req.body.currentLocalTime;
 
-        DB.isRunning = isRunning;
-        DB.timeData.timeDif = timeDif;
-        DB.timeData.timeMem = timeMem;
-        DB.timeData.timeMemTimer = timeMemTimer;
-        DB.runningTime = currentLocalTime;
+        DB.gameInfo.gameTime.isRunning = isRunning;
+        DB.gameInfo.gameTime.timeData.timeDif = timeDif;
+        DB.gameInfo.gameTime.timeData.timeMem = timeMem;
+        DB.gameInfo.gameTime.timeData.timeMemTimer = timeMemTimer;
+        DB.gameInfo.gameTime.runningTime = currentLocalTime;
         // DB.runningTime = new Date(2011, 0, 1, 0, 0, 0, 0).getTime() - currentLocalTime;
 
         let json = JSON.stringify(DB);
 
-        fs.writeFileSync(path.join(__dirname + `/DB/time.json`), json, 'utf8');
+        fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
         res.send({resultCode: 0})
 

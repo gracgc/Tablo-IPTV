@@ -42,25 +42,20 @@ const TabloEditClient = (props) => {
     let [timeMemTimer, setTimeMemTimer] = useState(deadLine);
 
 
-    let millisecondsStopwatch = timeDif % 1000;
-    let secondsStopwatch = Math.floor(timeDif / 1000) % 60;
-    let minutesStopwatch = Math.floor(timeDif / (1000 * 60));
-
-    let millisecondsTimer = timeMemTimer % 1000;
     let secondsTimer = Math.floor(timeMemTimer / 1000) % 60;
     let minutesTimer = Math.floor(timeMemTimer / (1000 * 60));
 
     let isCheck = true;
 
-    const getTimerStatus = () => {
-        return axios.get(`http://localhost:5000/api/time`)
+    const getTimerStatus = (gameNumber) => {
+        return axios.get(`http://localhost:5000/api/time/${gameNumber}`)
             .then(responce => {
                 return responce.data
             });
     };
 
-    const putTimerStatus = (isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer) => {
-        return axios.put(`http://localhost:5000/api/time/isRunning`, {
+    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer) => {
+        return axios.put(`http://localhost:5000/api/time/isRunning/${gameNumber}`, {
             isRunning,
             currentLocalTime,
             timeDif,
@@ -69,8 +64,8 @@ const TabloEditClient = (props) => {
         })
     };
 
-    let checkTimerStatus = () => {
-        getTimerStatus().then(r => {
+    let checkTimerStatus = (gameNumber) => {
+        getTimerStatus(gameNumber).then(r => {
                 setIsRunningServer(r.isRunning);
                 return r
             }
@@ -100,16 +95,16 @@ const TabloEditClient = (props) => {
     useEffect(() => {
             let interval = setInterval(() => {
                 if (isCheck) {
-                    checkTimerStatus();
+                    checkTimerStatus(gameNumber);
                     dispatch(getTeams(gameNumber));
                 }
 
                 if (isCheck && isRunningServer) {
-                    checkTimerStatus();
+                    checkTimerStatus(gameNumber);
                     dispatch(getTeams(gameNumber))
 
                     if (timeDif >= deadLine) {
-                        putTimerStatus(false, 0, deadLine, 0);
+                        putTimerStatus(gameNumber, false, 0, deadLine, 0);
                         setTimeDif(deadLine);
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
