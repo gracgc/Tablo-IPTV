@@ -13,7 +13,7 @@ router.get('/:gameNumber', function (req, res) {
         let DB = JSON.parse(data);
 
         DB.resultCode = 0;
-        res.send(DB.gameInfo.gameTime)
+        res.send(DB.gameInfo)
     } catch (e) {
         console.log(e)
     }
@@ -56,12 +56,19 @@ router.put('/isRunning/:gameNumber', function (req, res) {
         let timeMem = req.body.timeMem;
         let timeMemTimer = req.body.timeMemTimer;
         let currentLocalTime = req.body.currentLocalTime;
+        let period = req.body.period;
 
         DB.gameInfo.gameTime.isRunning = isRunning;
+        if (isRunning === false) {
+            DB.gameInfo.gameStatus = "Not going"
+        } else {
+            DB.gameInfo.gameStatus = "Going"
+        }
         DB.gameInfo.gameTime.timeData.timeDif = timeDif;
         DB.gameInfo.gameTime.timeData.timeMem = timeMem;
         DB.gameInfo.gameTime.timeData.timeMemTimer = timeMemTimer;
         DB.gameInfo.gameTime.runningTime = currentLocalTime;
+        DB.gameInfo.period = period;
         // DB.runningTime = new Date(2011, 0, 1, 0, 0, 0, 0).getTime() - currentLocalTime;
 
         let json = JSON.stringify(DB);

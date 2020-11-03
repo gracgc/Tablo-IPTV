@@ -37,6 +37,9 @@ const TabloEdit = (props) => {
     let [timeMem, setTimeMem] = useState(0);
     let [timeMemTimer, setTimeMemTimer] = useState(deadLine);
 
+    let secondsStopwatch = Math.floor(timeDif / 1000) % 60;
+    let minutesStopwatch = Math.floor(timeDif / (1000 * 60));
+
     let secondsTimer = Math.floor(timeMemTimer / 1000) % 60;
     let minutesTimer = Math.floor(timeMemTimer / (1000 * 60));
 
@@ -50,39 +53,40 @@ const TabloEdit = (props) => {
             });
     };
 
-    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer) => {
+    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer, period) => {
         return axios.put(`http://localhost:5000/api/time/isRunning/${gameNumber}`, {
             gameNumber,
             isRunning,
             currentLocalTime,
             timeDif,
             timeMem,
-            timeMemTimer
+            timeMemTimer,
+            period
         })
     };
 
     let checkTimerStatus = (gameNumber) => {
         getTimerStatus(gameNumber).then(r => {
-                setIsRunningServer(r.isRunning);
+                setIsRunningServer(r.gameTime.isRunning);
                 return r
             }
         )
             .then(r => {
-                if (r.isRunning === isRunningServer) {
-                    if (r.isRunning === false) {
-                        setTimeMem(r.timeData.timeMem);
-                        setTimeDif(r.timeData.timeMem);
-                        setTimeMemTimer(r.timeData.timeMemTimer);
+                if (r.gameTime.isRunning === isRunningServer) {
+                    if (r.gameTime.isRunning === false) {
+                        setTimeMem(r.gameTime.timeData.timeMem);
+                        setTimeDif(r.gameTime.timeData.timeMem);
+                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
                     }
                 }
-                if (r.isRunning !== isRunningServer) {
-                    if (r.isRunning === true) {
-                        setCurrentTime(r.runningTime);
+                if (r.gameTime.isRunning !== isRunningServer) {
+                    if (r.gameTime.isRunning === true) {
+                        setCurrentTime(r.gameTime.runningTime);
                     }
-                    if (r.isRunning === false) {
-                        setTimeMem(r.timeData.timeMem);
-                        setTimeDif(r.timeData.timeMem);
-                        setTimeMemTimer(r.timeData.timeMemTimer);
+                    if (r.gameTime.isRunning === false) {
+                        setTimeMem(r.gameTime.timeData.timeMem);
+                        setTimeDif(r.gameTime.timeData.timeMem);
+                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
                     }
                 }
             })
@@ -101,7 +105,7 @@ const TabloEdit = (props) => {
                         putTimerStatus(gameNumber, false, Date.now(),
                             0,
                             0,
-                            deadLine);
+                            deadLine, period + 1);
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
                         setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
@@ -121,16 +125,19 @@ const TabloEdit = (props) => {
                 Date.now() - currentTime,
                 timeMem + (Date.now() - currentTime),
                 deadLine - (timeMem + (Date.now() - currentTime)));
-            dispatch(addNewLog(gameNumber,`${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} - STOP - GOAL!`));
+            dispatch(addNewLog(gameNumber,
+                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP - GOAL!`));
         } else {
             dispatch(teamGoal(gameNumber, teamType, '+'));
-            dispatch(addNewLog(gameNumber,`${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} - GOAL!`));
+            dispatch(addNewLog(gameNumber,
+                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - GOAL!`));
         }
     };
 
     const startGame = () => {
         putTimerStatus(gameNumber ,true, Date.now(), timeDif, timeMem, timeMemTimer);
-        dispatch(addNewLog(gameNumber,`${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} - START`));
+        dispatch(addNewLog(gameNumber,
+            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - START`));
     };
 
     const stopGame = () => {
@@ -138,7 +145,8 @@ const TabloEdit = (props) => {
             Date.now() - currentTime,
             timeMem + (Date.now() - currentTime),
             deadLine - (timeMem + (Date.now() - currentTime)));
-        dispatch(addNewLog(gameNumber,`${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} - STOP`));
+        dispatch(addNewLog(gameNumber,
+            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP`));
     };
 
     return (

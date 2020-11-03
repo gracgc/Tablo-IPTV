@@ -12,7 +12,7 @@ const TeamsParameters = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
-    let [timeMemTimer, setTimeMemTimer] = useState();
+    let [timeMem, setTimeMem] = useState();
 
     let [isRunningServer, setIsRunningServer] = useState();
 
@@ -33,8 +33,8 @@ const TeamsParameters = (props) => {
             let interval = setInterval(() => {
                 dispatch(getTeams(gameNumber));
                 getTimerStatus(gameNumber).then(r => {
-                        setTimeMemTimer(r.timeData.timeMemTimer);
-                        setIsRunningServer(r.isRunning)
+                        setTimeMem(r.gameTime.timeData.timeMem);
+                        setIsRunningServer(r.gameTime.isRunning)
                     }
                 );
             }, 1000);
@@ -54,12 +54,12 @@ const TeamsParameters = (props) => {
     return (
         <div className={c.parameters}>
             <div>
-                <TeamInfo timeMemTimer={timeMemTimer} isRunningServer={isRunningServer}
+                <TeamInfo timeMem={timeMem} isRunningServer={isRunningServer}
                           teamGamers={homeTeamGamers} teamCounter={homeTeamInfo.counter}
                           name={homeTeamInfo.name} timeOut={homeTeamInfo.timeOut} teamType={homeTeamInfo.teamType}/>
             </div>
             <div>
-                <TeamInfo timeMemTimer={timeMemTimer} isRunningServer={isRunningServer}
+                <TeamInfo timeMem={timeMem} isRunningServer={isRunningServer}
                           teamGamers={guestsTeamGamers} teamCounter={guestsTeamInfo.counter}
                           name={guestsTeamInfo.name} timeOut={guestsTeamInfo.timeOut}
                           teamType={guestsTeamInfo.teamType}/>

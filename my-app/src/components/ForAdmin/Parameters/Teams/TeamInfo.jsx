@@ -23,7 +23,7 @@ const TeamInfo = (props) => {
                 </div>
             </div>
             <div className={c.teamGamers}>
-                {props.teamGamers.map(htg => <TeamGamers key={htg.id} timeMemTimer={props.timeMemTimer}
+                {props.teamGamers.map(htg => <TeamGamers key={htg.id} timeMem={props.timeMem}
                                                          isRunningServer={props.isRunningServer}
                                                          id={htg.id}
                                                          number={htg.gamerNumber}

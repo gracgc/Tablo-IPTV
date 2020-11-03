@@ -16,20 +16,22 @@ const TeamGamers = (props) => {
     const [isGamerGoalEdit, setIsGamerGoalEdit] = useState(false);
 
 
-    let secondsTimer = Math.floor(props.timeMemTimer / 1000) % 60;
-    let minutesTimer = Math.floor(props.timeMemTimer / (1000 * 60));
+    let secondsStopwatch = Math.floor(props.timeMem / 1000) % 60;
+    let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60));
+
+
 
 
     const changeStatus = (gameNumber, teamType, gamerId, gamerStatus) => {
         dispatch(changeGamerStatus(gameNumber, teamType, gamerId, gamerStatus));
         if (props.status === 'in game') {
             dispatch(addNewLog(gameNumber,
-                `${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} -
+                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
                  ${props.fullName} deleted`))
         }
         if (props.status === 'deleted') {
             dispatch(addNewLog(gameNumber,
-                `${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} -
+                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
                  ${props.fullName} returns to a game`))
         }
     };
@@ -38,12 +40,12 @@ const TeamGamers = (props) => {
         dispatch(gamerOnField(gameNumber, teamType, gamerId, onField));
         if (props.onField === true) {
             dispatch(addNewLog(gameNumber,
-                `${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} -
+                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
                  ${props.fullName} goes to the bench`))
         }
         if (props.onField === false) {
             dispatch(addNewLog(gameNumber,
-                `${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} -
+                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
                  ${props.fullName} returns on field`))
         }
     };
@@ -53,7 +55,7 @@ const TeamGamers = (props) => {
         dispatch(gamerGoal(gameNumber, teamType, id, symbol));
         if (symbol === '+') {
             dispatch(addNewLog(gameNumber,
-                `${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} -
+                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
                  ${props.fullName} gets point`))
         }
     };

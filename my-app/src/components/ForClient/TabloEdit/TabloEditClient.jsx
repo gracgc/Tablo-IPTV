@@ -59,26 +59,26 @@ const TabloEditClient = (props) => {
 
     let checkTimerStatus = (gameNumber) => {
         getTimerStatus(gameNumber).then(r => {
-                setIsRunningServer(r.isRunning);
+                setIsRunningServer(r.gameTime.isRunning);
                 return r
             }
         )
             .then(r => {
-                if (r.isRunning === isRunningServer) {
-                    if (r.isRunning === false) {
-                        setTimeMem(r.timeData.timeMem);
-                        setTimeDif(r.timeData.timeMem);
-                        setTimeMemTimer(r.timeData.timeMemTimer);
+                if (r.gameTime.isRunning === isRunningServer) {
+                    if (r.gameTime.isRunning === false) {
+                        setTimeMem(r.gameTime.timeData.timeMem);
+                        setTimeDif(r.gameTime.timeData.timeMem);
+                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
                     }
                 }
-                if (r.isRunning !== isRunningServer) {
+                if (r.gameTime.isRunning !== isRunningServer) {
                     if (r.isRunning === true) {
-                        setCurrentTime(r.runningTime);
+                        setCurrentTime(r.gameTime.runningTime);
                     }
-                    if (r.isRunning === false) {
-                        setTimeMem(r.timeData.timeMem);
-                        setTimeDif(r.timeData.timeMem);
-                        setTimeMemTimer(r.timeData.timeMemTimer);
+                    if (r.gameTime.isRunning === false) {
+                        setTimeMem(r.gameTime.timeData.timeMem);
+                        setTimeDif(r.gameTime.timeData.timeMem);
+                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
                     }
                 }
             })

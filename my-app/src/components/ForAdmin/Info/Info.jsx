@@ -18,13 +18,15 @@ const Info = (props) => {
 
     const dispatch = useDispatch();
 
-    let [isRunningServer, setIsRunningServer] = useState(false);
+    let [isRunningServer, setIsRunningServer] = useState();
 
     let [tick, setTick] = useState(100);
 
     let [currentTime, setCurrentTime] = useState(Date.now());
 
     let [deadLine, setDeadLine] = useState(1200000);
+
+    let [period, setPeriod] = useState();
 
     let [timeDif, setTimeDif] = useState();
     let [timeMem, setTimeMem] = useState(0);
@@ -54,26 +56,27 @@ const Info = (props) => {
 
     let checkTimerStatus = (gameNumber) => {
         getTimerStatus(gameNumber).then(r => {
-                setIsRunningServer(r.isRunning);
+                setIsRunningServer(r.gameTime.isRunning);
+                setPeriod(r.period);
                 return r
             }
         )
             .then(r => {
-                if (r.isRunning === isRunningServer) {
-                    if (r.isRunning === false) {
-                        setTimeMem(r.timeData.timeMem);
-                        setTimeDif(r.timeData.timeMem);
-                        setTimeMemTimer(r.timeData.timeMemTimer);
+                if (r.gameTime.isRunning === isRunningServer) {
+                    if (r.gameTime.isRunning === false) {
+                        setTimeMem(r.gameTime.timeData.timeMem);
+                        setTimeDif(r.gameTime.timeData.timeMem);
+                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
                     }
                 }
-                if (r.isRunning !== isRunningServer) {
+                if (r.gameTime.isRunning !== isRunningServer) {
                     if (r.isRunning === true) {
-                        setCurrentTime(r.runningTime);
+                        setCurrentTime(r.gameTime.runningTime);
                     }
-                    if (r.isRunning === false) {
-                        setTimeMem(r.timeData.timeMem);
-                        setTimeDif(r.timeData.timeMem);
-                        setTimeMemTimer(r.timeData.timeMemTimer);
+                    if (r.gameTime.isRunning === false) {
+                        setTimeMem(r.gameTime.timeData.timeMem);
+                        setTimeDif(r.gameTime.timeData.timeMem);
+                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
                     }
                 }
             })
@@ -95,7 +98,7 @@ const Info = (props) => {
                         putTimerStatus(gameNumber, false, Date.now(),
                             0,
                             0,
-                            deadLine);
+                            deadLine)
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
                         setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
@@ -112,7 +115,8 @@ const Info = (props) => {
                 <strong>{gameData.gameName}</strong> — {gameData.gameType}
             </div>
             <div className={c.statusAndTime}>
-               <strong>Status</strong>: {gameData.gameStatus} — <strong>Time</strong>
+                <strong>Period {gameData.period} {''}</strong>
+                — <strong>Status</strong>: {gameData.gameStatus} — <strong>Time</strong>
                 : {minutesStopwatch}:{secondsStopwatch < 10 ? '0' : ''}{secondsStopwatch}
             </div>
 
