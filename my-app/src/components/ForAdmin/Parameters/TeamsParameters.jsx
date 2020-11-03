@@ -5,12 +5,16 @@ import TeamInfo from "./Teams/TeamInfo";
 import {getTeams} from "../../../redux/teams_reducer";
 import {compose} from "redux";
 import {NavLink, withRouter} from "react-router-dom";
-
+import * as axios from "axios";
 
 
 const TeamsParameters = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
+
+    let [timeMemTimer, setTimeMemTimer] = useState();
+
+    let [isRunningServer, setIsRunningServer] = useState();
 
     const teams = useSelector(
         state => state.teamsPage.teams
@@ -18,9 +22,21 @@ const TeamsParameters = (props) => {
 
     const dispatch = useDispatch();
 
+    const getTimerStatus = (gameNumber) => {
+        return axios.get(`http://localhost:5000/api/time/${gameNumber}`)
+            .then(responce => {
+                return responce.data
+            });
+    };
+
     useEffect(() => {
             let interval = setInterval(() => {
-                dispatch(getTeams(gameNumber))
+                dispatch(getTeams(gameNumber));
+                getTimerStatus(gameNumber).then(r => {
+                        setTimeMemTimer(r.timeData.timeMemTimer);
+                        setIsRunningServer(r.isRunning)
+                    }
+                );
             }, 1000);
             return () => clearInterval(interval);
         }
@@ -35,16 +51,18 @@ const TeamsParameters = (props) => {
     const guestsTeamInfo = teams.find(t => t.teamType == 'guests');
 
 
-
     return (
         <div className={c.parameters}>
             <div>
-                <TeamInfo teamGamers={homeTeamGamers} teamCounter={homeTeamInfo.counter}
+                <TeamInfo timeMemTimer={timeMemTimer} isRunningServer={isRunningServer}
+                          teamGamers={homeTeamGamers} teamCounter={homeTeamInfo.counter}
                           name={homeTeamInfo.name} timeOut={homeTeamInfo.timeOut} teamType={homeTeamInfo.teamType}/>
             </div>
             <div>
-                <TeamInfo teamGamers={guestsTeamGamers} teamCounter={guestsTeamInfo.counter}
-                          name={guestsTeamInfo.name} timeOut={guestsTeamInfo.timeOut} teamType={guestsTeamInfo.teamType}/>
+                <TeamInfo timeMemTimer={timeMemTimer} isRunningServer={isRunningServer}
+                          teamGamers={guestsTeamGamers} teamCounter={guestsTeamInfo.counter}
+                          name={guestsTeamInfo.name} timeOut={guestsTeamInfo.timeOut}
+                          teamType={guestsTeamInfo.teamType}/>
             </div>
             <NavLink to="/">
                 <div className={c.navBackButton}>

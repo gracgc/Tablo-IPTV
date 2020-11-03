@@ -13,14 +13,7 @@ const TabloEditClient = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
-
-    debugger
     const dispatch = useDispatch();
-
-    // useEffect(() => {
-    //         dispatch(getTeams(gameNumber))
-    //     }
-    // );
 
     const homeCounter = useSelector(
         (state => state.teamsPage.teams.find(t => t.teamType == 'home').counter)
@@ -104,8 +97,10 @@ const TabloEditClient = (props) => {
                     dispatch(getTeams(gameNumber));
 
                     if (timeDif >= deadLine) {
-                        putTimerStatus(gameNumber, false, 0, deadLine, 0);
-                        setTimeDif(deadLine);
+                        putTimerStatus(gameNumber, false, Date.now(),
+                            0,
+                            0,
+                            deadLine);
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
                         setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));

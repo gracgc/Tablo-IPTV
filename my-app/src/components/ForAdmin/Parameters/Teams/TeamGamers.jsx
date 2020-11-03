@@ -15,21 +15,36 @@ const TeamGamers = (props) => {
 
     const [isGamerGoalEdit, setIsGamerGoalEdit] = useState(false);
 
+
+    let secondsTimer = Math.floor(props.timeMemTimer / 1000) % 60;
+    let minutesTimer = Math.floor(props.timeMemTimer / (1000 * 60));
+
+
     const changeStatus = (gameNumber, teamType, gamerId, gamerStatus) => {
         dispatch(changeGamerStatus(gameNumber, teamType, gamerId, gamerStatus));
         if (props.status === 'in game') {
-            dispatch(addNewLog(gameNumber,`Timecode: ${props.fullName} deleted`))
-        } if (props.status === 'deleted') {
-            dispatch(addNewLog(gameNumber,`Timecode: ${props.fullName} returns to a game`))
+            dispatch(addNewLog(gameNumber,
+                `${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} -
+                 ${props.fullName} deleted`))
+        }
+        if (props.status === 'deleted') {
+            dispatch(addNewLog(gameNumber,
+                `${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} -
+                 ${props.fullName} returns to a game`))
         }
     };
 
     const changeGamerOnField = (gameNumber, teamType, gamerId, onField) => {
         dispatch(gamerOnField(gameNumber, teamType, gamerId, onField));
         if (props.onField === true) {
-            dispatch(addNewLog(gameNumber,`Timecode: ${props.fullName} goes to the bench`))
-        } if (props.onField === false) {
-            dispatch(addNewLog(gameNumber,`Timecode: ${props.fullName} returns on field`))
+            dispatch(addNewLog(gameNumber,
+                `${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} -
+                 ${props.fullName} goes to the bench`))
+        }
+        if (props.onField === false) {
+            dispatch(addNewLog(gameNumber,
+                `${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} -
+                 ${props.fullName} returns on field`))
         }
     };
 
@@ -37,7 +52,9 @@ const TeamGamers = (props) => {
     const addGamerGoal = (gameNumber, teamType, id, symbol) => {
         dispatch(gamerGoal(gameNumber, teamType, id, symbol));
         if (symbol === '+') {
-            dispatch(addNewLog(gameNumber,`Timecode: ${props.fullName} gets point`))
+            dispatch(addNewLog(gameNumber,
+                `${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} -
+                 ${props.fullName} gets point`))
         }
     };
 
@@ -47,7 +64,6 @@ const TeamGamers = (props) => {
         } else {
             setIsGamerGoalEdit(false)
         }
-
     };
 
 
@@ -59,20 +75,32 @@ const TeamGamers = (props) => {
             <div>
                 {props.fullName}
             </div>
-            <div style={{cursor: 'pointer'}} onClick={(e) => {
-                changeStatus(gameNumber, props.teamType, props.id, props.status)
-            }}>
-                {props.status}
-            </div>
-            <div style={{cursor: 'pointer'}} onClick={(e) => {
-                changeGamerOnField(gameNumber, props.teamType, props.id, props.onField)}}>
-                {props.onField && '✓' || '✘'}
-            </div>
+            {!props.isRunningServer
+                ? <div style={{cursor: 'pointer'}} onClick={(e) => {
+                    changeStatus(gameNumber, props.teamType, props.id, props.status)
+                }}>
+                    {props.status}
+                </div>
+                : <div style={{cursor: 'wait'}}>
+                    {props.status}
+                </div>
+            }
+            {!props.isRunningServer
+                ? <div style={{cursor: 'pointer'}} onClick={(e) => {
+                    changeGamerOnField(gameNumber, props.teamType, props.id, props.onField)
+                }}>
+                    {props.onField && '✓' || '✘'}
+                </div>
+                : <div style={{cursor: 'wait'}}>
+                    {props.onField && '✓' || '✘'}
+                </div>
+            }
+
+
             <div style={{display: 'inline-flex'}}>
                 <div style={{cursor: 'pointer'}} onClick={(e) => gamerGoalEdit()}>
                     {props.goals}
                 </div>
-
                 {isGamerGoalEdit ?
                     <div style={{display: 'inline-flex'}}>
                         <button className={c.goalButton}

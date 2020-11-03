@@ -98,8 +98,10 @@ const TabloEdit = (props) => {
                     checkTimerStatus(gameNumber);
 
                     if (timeDif >= deadLine) {
-                        putTimerStatus(gameNumber,false, 0, deadLine, 0 );
-                        setTimeDif(deadLine);
+                        putTimerStatus(gameNumber, false, Date.now(),
+                            0,
+                            0,
+                            deadLine);
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
                         setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
