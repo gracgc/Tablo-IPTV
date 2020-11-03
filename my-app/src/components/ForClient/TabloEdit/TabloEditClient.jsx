@@ -101,7 +101,7 @@ const TabloEditClient = (props) => {
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus(gameNumber);
-                    dispatch(getTeams(gameNumber))
+                    dispatch(getTeams(gameNumber));
 
                     if (timeDif >= deadLine) {
                         putTimerStatus(gameNumber, false, 0, deadLine, 0);

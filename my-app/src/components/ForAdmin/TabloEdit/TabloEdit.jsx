@@ -7,7 +7,7 @@ import Tablo from "./Tablo";
 import {teamGoal} from "../../../redux/teams_reducer";
 import {addNewLog} from "../../../redux/log_reducer";
 import {compose} from "redux";
-import {NavLink, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import * as axios from "axios";
 
 
@@ -20,6 +20,7 @@ const TabloEdit = (props) => {
     const homeCounter = useSelector(
         (state => state.teamsPage.teams.find(t => t.teamType == 'home').counter)
     );
+
     const guestsCounter = useSelector(
         (state => state.teamsPage.teams.find(t => t.teamType == 'guests').counter)
     );
@@ -38,6 +39,7 @@ const TabloEdit = (props) => {
 
     let secondsTimer = Math.floor(timeMemTimer / 1000) % 60;
     let minutesTimer = Math.floor(timeMemTimer / (1000 * 60));
+
 
     let isCheck = true;
 
@@ -117,16 +119,16 @@ const TabloEdit = (props) => {
                 Date.now() - currentTime,
                 timeMem + (Date.now() - currentTime),
                 deadLine - (timeMem + (Date.now() - currentTime)));
-            dispatch(addNewLog(gameNumber,'Timecode: STOP - GOAL!'));
+            dispatch(addNewLog(gameNumber,`${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} - STOP - GOAL!`));
         } else {
             dispatch(teamGoal(gameNumber, teamType, '+'));
-            dispatch(addNewLog(gameNumber,'Timecode: GOAL!'));
+            dispatch(addNewLog(gameNumber,`${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} - GOAL!`));
         }
     };
 
     const startGame = () => {
         putTimerStatus(gameNumber ,true, Date.now(), timeDif, timeMem, timeMemTimer);
-        dispatch(addNewLog(gameNumber,'Timecode: START'));
+        dispatch(addNewLog(gameNumber,`${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} - START`));
     };
 
     const stopGame = () => {
@@ -134,7 +136,7 @@ const TabloEdit = (props) => {
             Date.now() - currentTime,
             timeMem + (Date.now() - currentTime),
             deadLine - (timeMem + (Date.now() - currentTime)));
-        dispatch(addNewLog(gameNumber,'Timecode: STOP'));
+        dispatch(addNewLog(gameNumber,`${minutesTimer}:${secondsTimer < 10 ? '0' : ''}${secondsTimer} - STOP`));
     };
 
     return (
