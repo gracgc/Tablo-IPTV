@@ -11,20 +11,20 @@ const Log = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
-    const logData = useSelector(
-        state => state.logPage.logData
+    const gameLog = useSelector(
+        state => state.logPage.logData.gameLog
     );
 
     const dispatch = useDispatch();
 
     useEffect( () => {
         dispatch(getLog(gameNumber));
-    }, [logData.length]);
+    }, [gameLog.length]);
 
     return (
         <div className={c.log}>
             <div className={c.logWindow}>
-                {logData.map(l => <LogItem logItem={l.item}/>)}
+                {gameLog.map(l => <LogItem logItem={l.item}/>)}
             </div>
         </div>
 

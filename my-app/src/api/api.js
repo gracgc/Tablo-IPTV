@@ -54,6 +54,18 @@ export const logAPI = {
             .then(responce => {
                 return responce.data
             })
+    },
+    postTempLog(gameNumber, newLogItem) {
+        return axios.post(`http://localhost:5000/api/log/temp/${gameNumber}`, {newLogItem})
+            .then(responce => {
+                return responce.data
+            })
+    },
+    postConsLog(gameNumber, newLogItem) {
+        return axios.post(`http://localhost:5000/api/log/cons/${gameNumber}`, {newLogItem})
+            .then(responce => {
+                return responce.data
+            })
     }
 };
 

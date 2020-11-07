@@ -16,7 +16,7 @@ router.get('/:gameNumber', function (req, res) {
             res.send({resultCode: 10});
             console.log('Incorrect address')
         } else {
-            res.send(DB.gameLog)
+            res.send(DB.logData)
         }
     } catch (e) {
         console.log(e)
@@ -36,7 +36,7 @@ router.post('/:gameNumber', cors(), function (req, res) {
             item: newLogItem
         };
 
-        DB.gameLog.push(newLog);
+        DB.logData.gameLog.push(newLog);
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
@@ -51,7 +51,66 @@ router.post('/:gameNumber', cors(), function (req, res) {
     } catch (e) {
         console.log(e)
     }
+});
 
+router.post('/temp/:gameNumber', cors(), function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+        let newLogItem = req.body.newLogItem;
+
+        let newLog = {
+            item: newLogItem
+        };
+
+        DB.logData.tabloLog.tempLog.push(newLog);
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
+
+        if (!gameNumber) {
+            res.send({resultCode: 10});
+            console.log('Incorrect address')
+        } else {
+            res.send({resultCode: 0})
+        }
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.post('/cons/:gameNumber', cors(), function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+        let newLogItem = req.body.newLogItem;
+
+        let newLog = {
+            item: newLogItem
+        };
+
+        DB.logData.tabloLog.consLog.push(newLog);
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
+
+        if (!gameNumber) {
+            res.send({resultCode: 10});
+            console.log('Incorrect address')
+        } else {
+            res.send({resultCode: 0})
+        }
+
+    } catch (e) {
+        console.log(e)
+    }
 });
 
 router.options('/', cors());

@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
 import Tablo from "./Tablo";
 import {teamGoal} from "../../../redux/teams_reducer";
-import {addNewLog} from "../../../redux/log_reducer";
+import {addNewLog, addNewTempLog, getLog} from "../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
@@ -32,6 +32,16 @@ const TabloEdit = (props) => {
     const guestsTeam = useSelector(
         (state => state.teamsPage.teams.find(t => t.teamType === 'guests'))
     );
+
+    const gameTempLog = useSelector(
+        state => state.logPage.logData.tabloLog.tempLog[state.logPage.logData.tabloLog.tempLog.length - 1].item
+    );
+
+    const gameTempLogDep = useSelector(
+        state => state.logPage.logData.tabloLog.tempLog
+    );
+
+    let [isShowLog, setIsShowLog] = useState(false);
 
     let [isRunningServer, setIsRunningServer] = useState(false);
 
@@ -104,15 +114,26 @@ const TabloEdit = (props) => {
             })
     };
 
+
+    useEffect(() => {
+        dispatch(getLog(gameNumber));
+        setIsShowLog(true);
+        setTimeout(() => {
+            setIsShowLog(false);
+        }, 5000)
+    }, [gameTempLogDep.length]);
+
+
     useEffect(() => {
         getTimerStatus(gameNumber).then(r => {
                 setTimeMem(r.gameTime.timeData.timeMem);
                 setTimeDif(r.gameTime.timeData.timeMem);
                 setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
-            setPeriod(r.period);
+                setPeriod(r.period);
             }
         );
     }, []);
+
 
     useEffect(() => {
             let interval = setInterval(() => {
@@ -130,6 +151,8 @@ const TabloEdit = (props) => {
                             deadLine, period + 1);
                         dispatch(addNewLog(gameNumber,
                             `End of ${period} period`));
+                        dispatch(addNewTempLog(gameNumber,
+                            `End of ${period} period`))
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
                         setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
@@ -140,9 +163,7 @@ const TabloEdit = (props) => {
         }
     );
 
-
     const addTeamGoal = (teamType, teamName) => {
-
         if (isRunningServer) {
             dispatch(teamGoal(gameNumber, teamType, '+'));
             putTimerStatus(gameNumber, false, Date.now(),
@@ -151,21 +172,25 @@ const TabloEdit = (props) => {
                 deadLine - (timeMem + (Date.now() - currentTime)), period);
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP - GOAL for ${teamName}!`));
+            dispatch(addNewTempLog(gameNumber,
+                `GOAL for ${teamName}!`))
         } else {
             dispatch(teamGoal(gameNumber, teamType, '+'));
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - GOAL for ${teamName}!`));
+            dispatch(addNewTempLog(gameNumber,
+                `GOAL for ${teamName}!`))
         }
     };
 
     const startGame = () => {
-        putTimerStatus(gameNumber ,true, Date.now(), timeDif, timeMem, timeMemTimer, period);
+        putTimerStatus(gameNumber, true, Date.now(), timeDif, timeMem, timeMemTimer, period);
         dispatch(addNewLog(gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - START`));
     };
 
     const stopGame = () => {
-        putTimerStatus(gameNumber,false, Date.now(),
+        putTimerStatus(gameNumber, false, Date.now(),
             Date.now() - currentTime,
             timeMem + (Date.now() - currentTime),
             deadLine - (timeMem + (Date.now() - currentTime)), period);
@@ -176,7 +201,8 @@ const TabloEdit = (props) => {
     return (
         <div className={c.tabloEdit}>
             <div className={c.tablo}>
-                <Tablo secondsTimer={secondsTimer} minutesTimer={minutesTimer}
+                <Tablo isShowLog={isShowLog} gameTempLog={gameTempLog}
+                    secondsTimer={secondsTimer} minutesTimer={minutesTimer}
                        homeCounter={homeCounter} guestsCounter={guestsCounter}/>
             </div>
             <div className={c.allButtons}>
@@ -185,7 +211,8 @@ const TabloEdit = (props) => {
                         <div className={c.gameButtons__Disabled}>
                             Start
                         </div>
-                        <div className={classNames(c.gameButtons__Active, c.gameButtons__stop)} onClick={(e) => stopGame()}>
+                        <div className={classNames(c.gameButtons__Active, c.gameButtons__stop)}
+                             onClick={(e) => stopGame()}>
                             Stop
                         </div>
                     </div>
@@ -205,11 +232,11 @@ const TabloEdit = (props) => {
                 </div>
                 <div className={c.goalButtons}>
                     <button onClick={(e) => addTeamGoal('home', homeTeam.name)}
-                         className={classNames(c.goalButtons_goal, c.home)}>
+                            className={classNames(c.goalButtons_goal, c.home)}>
                         Goal
                     </button>
                     <button onClick={(e) => addTeamGoal('guests', guestsTeam.name)}
-                         className={classNames(c.goalButtons_goal, c.guests)}>
+                            className={classNames(c.goalButtons_goal, c.guests)}>
                         Goal
                     </button>
                 </div>

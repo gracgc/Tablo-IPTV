@@ -1,6 +1,6 @@
 .tablo {
     display: grid;
-    grid-template-rows: 70% 30%;
+    grid-template-rows: 40% 30% 30%;
     background-color: white;
     height: 90%;
     width: 100%;

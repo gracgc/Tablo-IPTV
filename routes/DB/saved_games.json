@@ -1,14 +1,9 @@
 {
   "savedGames": [
     {
-      "gameName": "gameName",
+      "gameName": "New Game",
       "gameNumber": 1,
-      "gameType": "gameType"
-    },
-    {
-      "gameName": "123",
-      "gameNumber": 2,
-      "gameType": "123"
+      "gameType": "Classic Hockey"
     }
   ]
 }

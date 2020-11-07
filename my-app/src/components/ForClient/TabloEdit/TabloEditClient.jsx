@@ -6,7 +6,7 @@ import Tablo from "./Tablo";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
-import {addNewLog} from "../../../redux/log_reducer";
+import {addNewLog, getLog} from "../../../redux/log_reducer";
 import {getTeams} from "../../../redux/teams_reducer";
 
 
@@ -22,6 +22,16 @@ const TabloEditClient = (props) => {
     const guestsCounter = useSelector(
         (state => state.teamsPage.teams.find(t => t.teamType == 'guests').counter)
     );
+
+    const gameTempLog = useSelector(
+        state => state.logPage.logData.tabloLog.tempLog[state.logPage.logData.tabloLog.tempLog.length - 1].item
+    );
+
+    const gameTempLogDep = useSelector(
+        state => state.logPage.logData.tabloLog.tempLog
+    );
+
+    let [isShowLog, setIsShowLog] = useState(false);
 
     let [isRunningServer, setIsRunningServer] = useState(false);
 
@@ -91,6 +101,14 @@ const TabloEditClient = (props) => {
     };
 
     useEffect(() => {
+        dispatch(getLog(gameNumber));
+        setIsShowLog(true);
+        setTimeout(() => {
+            setIsShowLog(false);
+        }, 5000)
+    }, [gameTempLogDep.length]);
+
+    useEffect(() => {
         getTimerStatus(gameNumber).then(r => {
                 setTimeMem(r.gameTime.timeData.timeMem);
                 setTimeDif(r.gameTime.timeData.timeMem);
@@ -104,12 +122,14 @@ const TabloEditClient = (props) => {
             let interval = setInterval(() => {
                 if (isCheck) {
                     checkTimerStatus(gameNumber);
-                    dispatch(getTeams(gameNumber))
+                    dispatch(getTeams(gameNumber));
+                    dispatch(getLog(gameNumber));
                 }
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus(gameNumber);
                     dispatch(getTeams(gameNumber));
+                    dispatch(getLog(gameNumber));
 
                     if (timeDif >= deadLine) {
                         putTimerStatus(gameNumber, false, Date.now(),
@@ -131,7 +151,8 @@ const TabloEditClient = (props) => {
 
     return (
         <div className={c.tabloEdit}>
-            <Tablo secondsTimer={secondsTimer} minutesTimer={minutesTimer}
+            <Tablo isShowLog={isShowLog} gameTempLog={gameTempLog}
+                   secondsTimer={secondsTimer} minutesTimer={minutesTimer}
                    homeCounter={homeCounter} guestsCounter={guestsCounter}/>
         </div>
     )
