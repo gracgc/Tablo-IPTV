@@ -25,7 +25,6 @@ const TeamInfo = (props) => {
             <div className={c.teamGamers}>
                 {props.teamGamers.map(htg => <TeamGamers key={htg.id} timeMem={props.timeMem}
                                                          period={props.period}
-                                                         isRunningServer={props.isRunningServer}
                                                          id={htg.id}
                                                          number={htg.gamerNumber}
                                                          onField={htg.onField}

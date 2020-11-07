@@ -7,6 +7,7 @@ import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
 import {addNewLog} from "../../../redux/log_reducer";
+import {getTeams} from "../../../redux/teams_reducer";
 
 
 const TabloEditClient = (props) => {
@@ -102,11 +103,13 @@ const TabloEditClient = (props) => {
     useEffect(() => {
             let interval = setInterval(() => {
                 if (isCheck) {
-                    checkTimerStatus(gameNumber)
+                    checkTimerStatus(gameNumber);
+                    dispatch(getTeams(gameNumber))
                 }
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus(gameNumber);
+                    dispatch(getTeams(gameNumber));
 
                     if (timeDif >= deadLine) {
                         putTimerStatus(gameNumber, false, Date.now(),

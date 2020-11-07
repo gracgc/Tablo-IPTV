@@ -74,27 +74,18 @@ const TeamGamers = (props) => {
             <div>
                 {props.fullName}
             </div>
-            {!props.isRunningServer
-                ? <div style={{cursor: 'pointer'}} onClick={(e) => {
-                    changeStatus(gameNumber, props.teamType, props.id, props.status)
-                }}>
-                    {props.status}
-                </div>
-                : <div style={{cursor: 'wait'}}>
-                    {props.status}
-                </div>
-            }
-            {!props.isRunningServer
-                ? <div style={{cursor: 'pointer'}} onClick={(e) => {
-                    changeGamerOnField(gameNumber, props.teamType, props.id, props.onField)
-                }}>
-                    {props.onField && '✓' || '✘'}
-                </div>
-                : <div style={{cursor: 'wait'}}>
-                    {props.onField && '✓' || '✘'}
-                </div>
-            }
 
+            <div style={{cursor: 'pointer'}} onClick={(e) => {
+                changeStatus(gameNumber, props.teamType, props.id, props.status)
+            }}>
+                {props.status}
+            </div>
+
+            <div style={{cursor: 'pointer'}} onClick={(e) => {
+                changeGamerOnField(gameNumber, props.teamType, props.id, props.onField)
+            }}>
+                {props.onField && '✓' || '✘'}
+            </div>
 
             <div style={{display: 'inline-flex'}}>
                 <div style={{cursor: 'pointer'}} onClick={(e) => gamerGoalEdit()}>

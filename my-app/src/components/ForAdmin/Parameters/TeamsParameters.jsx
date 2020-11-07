@@ -45,24 +45,24 @@ const TeamsParameters = (props) => {
         }
     );
 
-    const homeTeamGamers = teams.find(t => t.teamType == 'home').gamers;
+    const homeTeamGamers = teams.find(t => t.teamType === 'home').gamers;
 
-    const guestsTeamGamers = teams.find(t => t.teamType == 'guests').gamers;
+    const guestsTeamGamers = teams.find(t => t.teamType === 'guests').gamers;
 
-    const homeTeamInfo = teams.find(t => t.teamType == 'home');
+    const homeTeamInfo = teams.find(t => t.teamType === 'home');
 
-    const guestsTeamInfo = teams.find(t => t.teamType == 'guests');
+    const guestsTeamInfo = teams.find(t => t.teamType === 'guests');
 
 
     return (
         <div className={c.parameters}>
             <div>
-                <TeamInfo period={period} timeMem={timeMem} isRunningServer={isRunningServer}
+                <TeamInfo period={period} timeMem={timeMem}
                           teamGamers={homeTeamGamers} teamCounter={homeTeamInfo.counter}
                           name={homeTeamInfo.name} timeOut={homeTeamInfo.timeOut} teamType={homeTeamInfo.teamType}/>
             </div>
             <div>
-                <TeamInfo period={period} timeMem={timeMem} isRunningServer={isRunningServer}
+                <TeamInfo period={period} timeMem={timeMem}
                           teamGamers={guestsTeamGamers} teamCounter={guestsTeamInfo.counter}
                           name={guestsTeamInfo.name} timeOut={guestsTeamInfo.timeOut}
                           teamType={guestsTeamInfo.teamType}/>

@@ -18,11 +18,19 @@ const TabloEdit = (props) => {
     const dispatch = useDispatch();
 
     const homeCounter = useSelector(
-        (state => state.teamsPage.teams.find(t => t.teamType == 'home').counter)
+        (state => state.teamsPage.teams.find(t => t.teamType === 'home').counter)
     );
 
     const guestsCounter = useSelector(
-        (state => state.teamsPage.teams.find(t => t.teamType == 'guests').counter)
+        (state => state.teamsPage.teams.find(t => t.teamType === 'guests').counter)
+    );
+
+    const homeTeam = useSelector(
+        (state => state.teamsPage.teams.find(t => t.teamType === 'home'))
+    );
+
+    const guestsTeam = useSelector(
+        (state => state.teamsPage.teams.find(t => t.teamType === 'guests'))
     );
 
     let [isRunningServer, setIsRunningServer] = useState(false);
@@ -133,7 +141,7 @@ const TabloEdit = (props) => {
     );
 
 
-    const addTeamGoal = (teamType) => {
+    const addTeamGoal = (teamType, teamName) => {
 
         if (isRunningServer) {
             dispatch(teamGoal(gameNumber, teamType, '+'));
@@ -142,11 +150,11 @@ const TabloEdit = (props) => {
                 timeMem + (Date.now() - currentTime),
                 deadLine - (timeMem + (Date.now() - currentTime)), period);
             dispatch(addNewLog(gameNumber,
-                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP - GOAL!`));
+                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP - GOAL for ${teamName}!`));
         } else {
             dispatch(teamGoal(gameNumber, teamType, '+'));
             dispatch(addNewLog(gameNumber,
-                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - GOAL!`));
+                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - GOAL for ${teamName}!`));
         }
     };
 
@@ -196,11 +204,11 @@ const TabloEdit = (props) => {
                     <div className={c.beepButtons_beep}>Beeeep</div>
                 </div>
                 <div className={c.goalButtons}>
-                    <button onClick={(e) => addTeamGoal('home')}
+                    <button onClick={(e) => addTeamGoal('home', homeTeam.name)}
                          className={classNames(c.goalButtons_goal, c.home)}>
                         Goal
                     </button>
-                    <button onClick={(e) => addTeamGoal('guests')}
+                    <button onClick={(e) => addTeamGoal('guests', guestsTeam.name)}
                          className={classNames(c.goalButtons_goal, c.guests)}>
                         Goal
                     </button>
