@@ -53,3 +53,24 @@ a {
     position: relative;
     float: right;
 }
+
+.navButtonAdmin{
+    border: 2px solid black;
+    background-color: #232961;
+    color:white;
+    text-align: center;
+}
+
+.navButtonClient{
+    border: 2px solid black;
+    background-color: #D5DEEF;
+    text-align: center;
+}
+
+.tabloChose{
+    display: grid;
+    grid-template-columns: 45% 20%;
+    grid-column-gap: 10%;
+    padding-top: 3%;
+    border-top: 2px solid black;
+}
