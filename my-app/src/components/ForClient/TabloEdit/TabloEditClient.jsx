@@ -6,7 +6,7 @@ import Tablo from "./Tablo";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
-import {getTeams} from "../../../redux/teams_reducer";
+import {addNewLog} from "../../../redux/log_reducer";
 
 
 const TabloEditClient = (props) => {
@@ -25,6 +25,8 @@ const TabloEditClient = (props) => {
     let [isRunningServer, setIsRunningServer] = useState(false);
 
     let [tick, setTick] = useState(100);
+
+    let [period, setPeriod] = useState();
 
     let [currentTime, setCurrentTime] = useState(Date.now());
 
@@ -47,13 +49,14 @@ const TabloEditClient = (props) => {
             });
     };
 
-    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer) => {
+    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer, period) => {
         return axios.put(`http://localhost:5000/api/time/isRunning/${gameNumber}`, {
             isRunning,
             currentLocalTime,
             timeDif,
             timeMem,
-            timeMemTimer
+            timeMemTimer,
+            period
         })
     };
 
@@ -69,38 +72,49 @@ const TabloEditClient = (props) => {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
                         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                        setPeriod(r.period)
                     }
                 }
                 if (r.gameTime.isRunning !== isRunningServer) {
-                    if (r.isRunning === true) {
+                    if (r.gameTime.isRunning === true) {
                         setCurrentTime(r.gameTime.runningTime);
                     }
                     if (r.gameTime.isRunning === false) {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
                         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                        setPeriod(r.period);
                     }
                 }
             })
     };
 
+    useEffect(() => {
+        getTimerStatus(gameNumber).then(r => {
+                setTimeMem(r.gameTime.timeData.timeMem);
+                setTimeDif(r.gameTime.timeData.timeMem);
+                setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                setPeriod(r.period);
+            }
+        );
+    }, []);
 
     useEffect(() => {
             let interval = setInterval(() => {
                 if (isCheck) {
-                    checkTimerStatus(gameNumber);
-                    dispatch(getTeams(gameNumber));
+                    checkTimerStatus(gameNumber)
                 }
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus(gameNumber);
-                    dispatch(getTeams(gameNumber));
 
                     if (timeDif >= deadLine) {
                         putTimerStatus(gameNumber, false, Date.now(),
                             0,
                             0,
-                            deadLine);
+                            deadLine, period + 1);
+                        dispatch(addNewLog(gameNumber,
+                            `End of ${period} period`));
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
                         setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));

@@ -15,11 +15,8 @@ const TeamGamers = (props) => {
 
     const [isGamerGoalEdit, setIsGamerGoalEdit] = useState(false);
 
-
     let secondsStopwatch = Math.floor(props.timeMem / 1000) % 60;
-    let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60));
-
-
+    let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60)) + (props.period - 1) * 20;
 
 
     const changeStatus = (gameNumber, teamType, gamerId, gamerStatus) => {

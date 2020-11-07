@@ -29,6 +29,8 @@ const TabloEdit = (props) => {
 
     let [tick, setTick] = useState(100);
 
+    let [period, setPeriod] = useState();
+
     let [currentTime, setCurrentTime] = useState(Date.now());
 
     let [deadLine, setDeadLine] = useState(1200000);
@@ -38,7 +40,7 @@ const TabloEdit = (props) => {
     let [timeMemTimer, setTimeMemTimer] = useState(deadLine);
 
     let secondsStopwatch = Math.floor(timeDif / 1000) % 60;
-    let minutesStopwatch = Math.floor(timeDif / (1000 * 60));
+    let minutesStopwatch = Math.floor(timeDif / (1000 * 60)) + (period - 1) * 20;
 
     let secondsTimer = Math.floor(timeMemTimer / 1000) % 60;
     let minutesTimer = Math.floor(timeMemTimer / (1000 * 60));
@@ -77,6 +79,7 @@ const TabloEdit = (props) => {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
                         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                        setPeriod(r.period)
                     }
                 }
                 if (r.gameTime.isRunning !== isRunningServer) {
@@ -87,10 +90,21 @@ const TabloEdit = (props) => {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
                         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                        setPeriod(r.period);
                     }
                 }
             })
     };
+
+    useEffect(() => {
+        getTimerStatus(gameNumber).then(r => {
+                setTimeMem(r.gameTime.timeData.timeMem);
+                setTimeDif(r.gameTime.timeData.timeMem);
+                setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+            setPeriod(r.period);
+            }
+        );
+    }, []);
 
     useEffect(() => {
             let interval = setInterval(() => {
@@ -106,6 +120,8 @@ const TabloEdit = (props) => {
                             0,
                             0,
                             deadLine, period + 1);
+                        dispatch(addNewLog(gameNumber,
+                            `End of ${period} period`));
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
                         setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
@@ -124,7 +140,7 @@ const TabloEdit = (props) => {
             putTimerStatus(gameNumber, false, Date.now(),
                 Date.now() - currentTime,
                 timeMem + (Date.now() - currentTime),
-                deadLine - (timeMem + (Date.now() - currentTime)));
+                deadLine - (timeMem + (Date.now() - currentTime)), period);
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP - GOAL!`));
         } else {
@@ -135,7 +151,7 @@ const TabloEdit = (props) => {
     };
 
     const startGame = () => {
-        putTimerStatus(gameNumber ,true, Date.now(), timeDif, timeMem, timeMemTimer);
+        putTimerStatus(gameNumber ,true, Date.now(), timeDif, timeMem, timeMemTimer, period);
         dispatch(addNewLog(gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - START`));
     };
@@ -144,7 +160,7 @@ const TabloEdit = (props) => {
         putTimerStatus(gameNumber,false, Date.now(),
             Date.now() - currentTime,
             timeMem + (Date.now() - currentTime),
-            deadLine - (timeMem + (Date.now() - currentTime)));
+            deadLine - (timeMem + (Date.now() - currentTime)), period);
         dispatch(addNewLog(gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP`));
     };

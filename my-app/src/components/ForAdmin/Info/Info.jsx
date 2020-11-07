@@ -7,7 +7,6 @@ import {compose} from "redux";
 import * as axios from "axios";
 
 
-
 const Info = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
@@ -33,7 +32,7 @@ const Info = (props) => {
     let [timeMemTimer, setTimeMemTimer] = useState(deadLine);
 
     let secondsStopwatch = Math.floor(timeDif / 1000) % 60;
-    let minutesStopwatch = Math.floor(timeDif / (1000 * 60));
+    let minutesStopwatch = Math.floor(timeDif / (1000 * 60)) + (period - 1) * 20;
 
     let isCheck = true;
 
@@ -44,20 +43,20 @@ const Info = (props) => {
             });
     };
 
-    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer) => {
+    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer, period) => {
         return axios.put(`http://localhost:5000/api/time/isRunning/${gameNumber}`, {
             isRunning,
             currentLocalTime,
             timeDif,
             timeMem,
-            timeMemTimer
+            timeMemTimer,
+            period
         })
     };
 
     let checkTimerStatus = (gameNumber) => {
         getTimerStatus(gameNumber).then(r => {
                 setIsRunningServer(r.gameTime.isRunning);
-                setPeriod(r.period);
                 return r
             }
         )
@@ -67,20 +66,32 @@ const Info = (props) => {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
                         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                        setPeriod(r.period)
                     }
                 }
                 if (r.gameTime.isRunning !== isRunningServer) {
-                    if (r.isRunning === true) {
+                    if (r.gameTime.isRunning === true) {
                         setCurrentTime(r.gameTime.runningTime);
                     }
                     if (r.gameTime.isRunning === false) {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
                         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                        setPeriod(r.period);
                     }
                 }
             })
     };
+
+    useEffect(() => {
+        getTimerStatus(gameNumber).then(r => {
+                setTimeMem(r.gameTime.timeData.timeMem);
+                setTimeDif(r.gameTime.timeData.timeMem);
+                setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                setPeriod(r.period);
+            }
+        );
+    }, []);
 
 
     useEffect(() => {
@@ -98,7 +109,7 @@ const Info = (props) => {
                         putTimerStatus(gameNumber, false, Date.now(),
                             0,
                             0,
-                            deadLine)
+                            deadLine, period + 1)
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
                         setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
