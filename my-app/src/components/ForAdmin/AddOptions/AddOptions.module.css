@@ -1,0 +1,27 @@
+.addOptions {
+    margin-top: 5%;
+    margin-left: 5%;
+    padding-left: 5%;
+    padding-top: 5%;
+    width: 85%;
+    height: 65%;
+    background-color: #a4e2ed;
+    border: solid 2px #435373;
+    display: inline-flex;
+}
+
+.overtimeButton {
+    border: 1px solid;
+    background-color: #d1fff5;
+    cursor: pointer;
+    padding: 5px 20px;
+    margin-right: 20px;
+}
+
+.overtimeButtons {
+    display: inline-flex;
+    margin-top: 5%;
+}
+
+
+

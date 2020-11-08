@@ -5,6 +5,7 @@ import {getGame} from "../../../redux/games_reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import * as axios from "axios";
+import {addNewLog, addNewTempLog} from "../../../redux/log_reducer";
 
 
 const Info = (props) => {
@@ -23,13 +24,12 @@ const Info = (props) => {
 
     let [currentTime, setCurrentTime] = useState(Date.now());
 
-    let [deadLine, setDeadLine] = useState(1200000);
+    let [deadLine, setDeadLine] = useState();
 
     let [period, setPeriod] = useState();
 
     let [timeDif, setTimeDif] = useState();
     let [timeMem, setTimeMem] = useState(0);
-    let [timeMemTimer, setTimeMemTimer] = useState(deadLine);
 
     let secondsStopwatch = Math.floor(timeDif / 1000) % 60;
     let minutesStopwatch = Math.floor(timeDif / (1000 * 60)) + (period - 1) * 20;
@@ -43,13 +43,14 @@ const Info = (props) => {
             });
     };
 
-    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer, period) => {
+    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer, deadline, period) => {
         return axios.put(`http://localhost:5000/api/time/isRunning/${gameNumber}`, {
             isRunning,
             currentLocalTime,
             timeDif,
             timeMem,
             timeMemTimer,
+            deadLine,
             period
         })
     };
@@ -65,7 +66,6 @@ const Info = (props) => {
                     if (r.gameTime.isRunning === false) {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
-                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
                         setPeriod(r.period)
                     }
                 }
@@ -76,7 +76,6 @@ const Info = (props) => {
                     if (r.gameTime.isRunning === false) {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
-                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
                         setPeriod(r.period);
                     }
                 }
@@ -87,7 +86,7 @@ const Info = (props) => {
         getTimerStatus(gameNumber).then(r => {
                 setTimeMem(r.gameTime.timeData.timeMem);
                 setTimeDif(r.gameTime.timeData.timeMem);
-                setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                setDeadLine(r.gameTime.timeData.deadLine);
                 setPeriod(r.period);
             }
         );
@@ -106,13 +105,36 @@ const Info = (props) => {
                     dispatch(getGame(gameNumber));
 
                     if (timeDif >= deadLine) {
-                        putTimerStatus(gameNumber, false, Date.now(),
-                            0,
-                            0,
-                            deadLine, period + 1)
+                        if (period === 3) {
+                            putTimerStatus(gameNumber, false, Date.now(),
+                                0,
+                                0,
+                                0, 0, period + 1);
+                            dispatch(addNewLog(gameNumber,
+                                `End of ${period} period`));
+                            dispatch(addNewTempLog(gameNumber,
+                                `End of ${period} period`))
+                        } if (period > 3) {
+                            putTimerStatus(gameNumber, false, Date.now(),
+                                0,
+                                0,
+                                0, 0, period);
+                            dispatch(addNewLog(gameNumber,
+                                `End of overtime`));
+                            dispatch(addNewTempLog(gameNumber,
+                                `End of overtime`))
+                        } else {
+                            putTimerStatus(gameNumber, false, Date.now(),
+                                0,
+                                0,
+                                deadLine, deadLine, period + 1);
+                            dispatch(addNewLog(gameNumber,
+                                `End of ${period} period`));
+                            dispatch(addNewTempLog(gameNumber,
+                                `End of ${period} period`))
+                        }
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
-                        setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
                     }
                 }
             }, tick);
@@ -126,7 +148,7 @@ const Info = (props) => {
                 <strong>{gameData.gameName}</strong> — {gameData.gameType}
             </div>
             <div className={c.statusAndTime}>
-                <strong>Period {gameData.period} {''}</strong>
+                {period > 3 && <strong>Overtime {''}</strong> || <strong>Period {gameData.period} {''}</strong>}
                 — <strong>Status</strong>: {gameData.gameStatus} — <strong>Time</strong>
                 : {minutesStopwatch}:{secondsStopwatch < 10 ? '0' : ''}{secondsStopwatch}
             </div>

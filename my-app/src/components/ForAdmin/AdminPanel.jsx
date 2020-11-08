@@ -4,6 +4,7 @@ import TeamsParameters from "./Parameters/TeamsParameters";
 import TabloEdit from "./TabloEdit/TabloEdit";
 import Log from "./Log/Log";
 import Info from "./Info/Info";
+import AddOptions from "./AddOptions/AddOptions";
 
 
 
@@ -28,7 +29,7 @@ const AdminPanel = (props) => {
                     <TeamsParameters/>
                 </div>
                 <div>
-
+                    <AddOptions/>
                 </div>
             </div>
         </div>

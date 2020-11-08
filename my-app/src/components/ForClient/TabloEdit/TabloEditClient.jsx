@@ -6,7 +6,7 @@ import Tablo from "./Tablo";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
-import {addNewLog, getLog} from "../../../redux/log_reducer";
+import {addNewLog, addNewTempLog, getLog} from "../../../redux/log_reducer";
 import {getTeams} from "../../../redux/teams_reducer";
 
 
@@ -41,7 +41,7 @@ const TabloEditClient = (props) => {
 
     let [currentTime, setCurrentTime] = useState(Date.now());
 
-    let [deadLine, setDeadLine] = useState(1200000);
+    let [deadLine, setDeadLine] = useState();
 
     let [timeDif, setTimeDif] = useState();
     let [timeMem, setTimeMem] = useState(0);
@@ -60,13 +60,14 @@ const TabloEditClient = (props) => {
             });
     };
 
-    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer, period) => {
+    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer, deadLine, period) => {
         return axios.put(`http://localhost:5000/api/time/isRunning/${gameNumber}`, {
             isRunning,
             currentLocalTime,
             timeDif,
             timeMem,
             timeMemTimer,
+            deadLine,
             period
         })
     };
@@ -83,6 +84,7 @@ const TabloEditClient = (props) => {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
                         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                        setDeadLine(r.gameTime.timeData.deadLine);
                         setPeriod(r.period)
                     }
                 }
@@ -94,6 +96,7 @@ const TabloEditClient = (props) => {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
                         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                        setDeadLine(r.gameTime.timeData.deadLine);
                         setPeriod(r.period);
                     }
                 }
@@ -113,6 +116,7 @@ const TabloEditClient = (props) => {
                 setTimeMem(r.gameTime.timeData.timeMem);
                 setTimeDif(r.gameTime.timeData.timeMem);
                 setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                setDeadLine(r.gameTime.timeData.deadLine);
                 setPeriod(r.period);
             }
         );
@@ -132,12 +136,34 @@ const TabloEditClient = (props) => {
                     dispatch(getLog(gameNumber));
 
                     if (timeDif >= deadLine) {
-                        putTimerStatus(gameNumber, false, Date.now(),
-                            0,
-                            0,
-                            deadLine, period + 1);
-                        dispatch(addNewLog(gameNumber,
-                            `End of ${period} period`));
+                        if (period === 3) {
+                            putTimerStatus(gameNumber, false, Date.now(),
+                                0,
+                                0,
+                                0, 0, period + 1);
+                            dispatch(addNewLog(gameNumber,
+                                `End of ${period} period`));
+                            dispatch(addNewTempLog(gameNumber,
+                                `End of ${period} period`))
+                        } if (period > 3) {
+                            putTimerStatus(gameNumber, false, Date.now(),
+                                0,
+                                0,
+                                0, 0, period);
+                            dispatch(addNewLog(gameNumber,
+                                `End of overtime`));
+                            dispatch(addNewTempLog(gameNumber,
+                                `End of overtime`))
+                        } else {
+                            putTimerStatus(gameNumber, false, Date.now(),
+                                0,
+                                0,
+                                deadLine, deadLine, period + 1);
+                            dispatch(addNewLog(gameNumber,
+                                `End of ${period} period`));
+                            dispatch(addNewTempLog(gameNumber,
+                                `End of ${period} period`))
+                        }
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
                         setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));

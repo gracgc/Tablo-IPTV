@@ -19,31 +19,6 @@ router.get('/:gameNumber', function (req, res) {
     }
 });
 
-router.put('/', function (req, res) {
-    try {
-
-        let data = fs.readFileSync(path.join(__dirname + `/DB/time.json`));
-        let DB = JSON.parse(data);
-
-        let timeDif = req.body.timeDif;
-        let timeMem = req.body.timeMem;
-        let timeMemTimer = req.body.timeMemTimer;
-
-        DB.timeData.timeDif = timeDif;
-        DB.timeData.timeMem = timeMem;
-        DB.timeData.timeMemTimer = timeMemTimer;
-
-        let json = JSON.stringify(DB);
-
-        fs.writeFileSync(path.join(__dirname + `/DB/time.json`), json, 'utf8');
-
-        res.send({resultCode: 0})
-
-    } catch (e) {
-        console.log(e)
-    }
-});
-
 router.put('/isRunning/:gameNumber', function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
@@ -56,6 +31,7 @@ router.put('/isRunning/:gameNumber', function (req, res) {
         let timeMem = req.body.timeMem;
         let timeMemTimer = req.body.timeMemTimer;
         let currentLocalTime = req.body.currentLocalTime;
+        let deadLine = req.body.deadLine;
         let period = req.body.period;
 
         DB.gameInfo.gameTime.isRunning = isRunning;
@@ -67,9 +43,40 @@ router.put('/isRunning/:gameNumber', function (req, res) {
         DB.gameInfo.gameTime.timeData.timeDif = timeDif;
         DB.gameInfo.gameTime.timeData.timeMem = timeMem;
         DB.gameInfo.gameTime.timeData.timeMemTimer = timeMemTimer;
+        DB.gameInfo.gameTime.timeData.deadLine = deadLine;
         DB.gameInfo.gameTime.runningTime = currentLocalTime;
         DB.gameInfo.period = period;
         // DB.runningTime = new Date(2011, 0, 1, 0, 0, 0, 0).getTime() - currentLocalTime;
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
+
+        res.send({resultCode: 0})
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.put('/deadline/:gameNumber', function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+
+        let deadLine = req.body.deadLine;
+        let timeMemTimer = req.body.timeMemTimer;
+        let timeDif = req.body.timeDif;
+        let timeMem = req.body.timeMem;
+
+
+        DB.gameInfo.gameTime.timeData.deadLine = deadLine;
+        DB.gameInfo.gameTime.timeData.timeMemTimer = timeMemTimer;
+        DB.gameInfo.gameTime.timeData.timeDif = timeDif;
+        DB.gameInfo.gameTime.timeData.timeMem = timeMem;
 
         let json = JSON.stringify(DB);
 

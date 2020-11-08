@@ -51,7 +51,7 @@ const TabloEdit = (props) => {
 
     let [currentTime, setCurrentTime] = useState(Date.now());
 
-    let [deadLine, setDeadLine] = useState(1200000);
+    let [deadLine, setDeadLine] = useState();
 
     let [timeDif, setTimeDif] = useState();
     let [timeMem, setTimeMem] = useState(0);
@@ -73,14 +73,14 @@ const TabloEdit = (props) => {
             });
     };
 
-    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer, period) => {
+    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer, deadline, period) => {
         return axios.put(`http://localhost:5000/api/time/isRunning/${gameNumber}`, {
-            gameNumber,
             isRunning,
             currentLocalTime,
             timeDif,
             timeMem,
             timeMemTimer,
+            deadLine,
             period
         })
     };
@@ -97,6 +97,7 @@ const TabloEdit = (props) => {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
                         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                        setDeadLine(r.gameTime.timeData.deadLine);
                         setPeriod(r.period)
                     }
                 }
@@ -108,6 +109,7 @@ const TabloEdit = (props) => {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
                         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                        setDeadLine(r.gameTime.timeData.deadLine);
                         setPeriod(r.period);
                     }
                 }
@@ -129,9 +131,10 @@ const TabloEdit = (props) => {
                 setTimeMem(r.gameTime.timeData.timeMem);
                 setTimeDif(r.gameTime.timeData.timeMem);
                 setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                setDeadLine(r.gameTime.timeData.deadLine);
                 setPeriod(r.period);
             }
-        );
+        )
     }, []);
 
 
@@ -145,14 +148,34 @@ const TabloEdit = (props) => {
                     checkTimerStatus(gameNumber);
 
                     if (timeDif >= deadLine) {
-                        putTimerStatus(gameNumber, false, Date.now(),
-                            0,
-                            0,
-                            deadLine, period + 1);
-                        dispatch(addNewLog(gameNumber,
-                            `End of ${period} period`));
-                        dispatch(addNewTempLog(gameNumber,
-                            `End of ${period} period`))
+                        if (period === 3) {
+                            putTimerStatus(gameNumber, false, Date.now(),
+                                0,
+                                0,
+                                0, 0, period + 1);
+                            dispatch(addNewLog(gameNumber,
+                                `End of ${period} period`));
+                            dispatch(addNewTempLog(gameNumber,
+                                `End of ${period} period`))
+                        } if (period > 3) {
+                            putTimerStatus(gameNumber, false, Date.now(),
+                                0,
+                                0,
+                                0, 0, period);
+                            dispatch(addNewLog(gameNumber,
+                                `End of overtime`));
+                            dispatch(addNewTempLog(gameNumber,
+                                `End of overtime`))
+                        } else {
+                            putTimerStatus(gameNumber, false, Date.now(),
+                                0,
+                                0,
+                                deadLine, deadLine, period + 1);
+                            dispatch(addNewLog(gameNumber,
+                                `End of ${period} period`));
+                            dispatch(addNewTempLog(gameNumber,
+                                `End of ${period} period`))
+                        }
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
                         setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
@@ -169,7 +192,7 @@ const TabloEdit = (props) => {
             putTimerStatus(gameNumber, false, Date.now(),
                 Date.now() - currentTime,
                 timeMem + (Date.now() - currentTime),
-                deadLine - (timeMem + (Date.now() - currentTime)), period);
+                deadLine - (timeMem + (Date.now() - currentTime)), deadLine, period);
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP - GOAL for ${teamName}!`));
             dispatch(addNewTempLog(gameNumber,
@@ -184,7 +207,7 @@ const TabloEdit = (props) => {
     };
 
     const startGame = () => {
-        putTimerStatus(gameNumber, true, Date.now(), timeDif, timeMem, timeMemTimer, period);
+        putTimerStatus(gameNumber, true, Date.now(), timeDif, timeMem, timeMemTimer, deadLine, period);
         dispatch(addNewLog(gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - START`));
     };
@@ -193,7 +216,7 @@ const TabloEdit = (props) => {
         putTimerStatus(gameNumber, false, Date.now(),
             Date.now() - currentTime,
             timeMem + (Date.now() - currentTime),
-            deadLine - (timeMem + (Date.now() - currentTime)), period);
+            deadLine - (timeMem + (Date.now() - currentTime)), deadLine, period);
         dispatch(addNewLog(gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP`));
     };
@@ -202,7 +225,7 @@ const TabloEdit = (props) => {
         <div className={c.tabloEdit}>
             <div className={c.tablo}>
                 <Tablo isShowLog={isShowLog} gameTempLog={gameTempLog}
-                    secondsTimer={secondsTimer} minutesTimer={minutesTimer}
+                       secondsTimer={secondsTimer} minutesTimer={minutesTimer}
                        homeCounter={homeCounter} guestsCounter={guestsCounter}/>
             </div>
             <div className={c.allButtons}>

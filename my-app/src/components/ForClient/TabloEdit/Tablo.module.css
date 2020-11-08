@@ -1,6 +1,6 @@
 .tablo {
     display: grid;
-    grid-template-rows: 40% 30% 20%;
+    grid-template-rows: 45% 25% 20%;
     background-color: white;
     height: 100%;
     width: 100%;
@@ -25,4 +25,9 @@
     text-align: center;
     padding-top: 5%;
     font-size: 500%;
+}
+
+.tempLog {
+    text-align: center;
+    font-size: 250%;
 }
