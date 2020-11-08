@@ -27,12 +27,15 @@ const Info = (props) => {
     let [deadLine, setDeadLine] = useState();
 
     let [period, setPeriod] = useState();
+    let [smallOvertime, setSmallOvertime] = useState();
+    let [bigOvertime, setBigOvertime] = useState();
 
     let [timeDif, setTimeDif] = useState();
-    let [timeMem, setTimeMem] = useState(0);
+    let [timeMem, setTimeMem] = useState();
+    let [timeMemTimer, setTimeMemTimer] = useState();
 
     let secondsStopwatch = Math.floor(timeDif / 1000) % 60;
-    let minutesStopwatch = Math.floor(timeDif / (1000 * 60)) + (period - 1) * 20;
+    let minutesStopwatch = Math.floor(timeDif / (1000 * 60)) + (period - 1) * 20 + (smallOvertime * 5) + (bigOvertime * 20);
 
     let isCheck = true;
 
@@ -43,7 +46,8 @@ const Info = (props) => {
             });
     };
 
-    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer, deadline, period) => {
+    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif,
+                            timeMem, timeMemTimer, deadline, period, smallOvertime, bigOvertime) => {
         return axios.put(`http://localhost:5000/api/time/isRunning/${gameNumber}`, {
             isRunning,
             currentLocalTime,
@@ -51,7 +55,9 @@ const Info = (props) => {
             timeMem,
             timeMemTimer,
             deadLine,
-            period
+            period,
+            smallOvertime,
+            bigOvertime
         })
     };
 
@@ -66,7 +72,11 @@ const Info = (props) => {
                     if (r.gameTime.isRunning === false) {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
-                        setPeriod(r.period)
+                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                        setDeadLine(r.gameTime.timeData.deadLine);
+                        setPeriod(r.period);
+                        setSmallOvertime(r.smallOvertime);
+                        setBigOvertime(r.bigOvertime);
                     }
                 }
                 if (r.gameTime.isRunning !== isRunningServer) {
@@ -76,7 +86,11 @@ const Info = (props) => {
                     if (r.gameTime.isRunning === false) {
                         setTimeMem(r.gameTime.timeData.timeMem);
                         setTimeDif(r.gameTime.timeData.timeMem);
+                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                        setDeadLine(r.gameTime.timeData.deadLine);
                         setPeriod(r.period);
+                        setSmallOvertime(r.smallOvertime);
+                        setBigOvertime(r.bigOvertime);
                     }
                 }
             })
@@ -88,6 +102,8 @@ const Info = (props) => {
                 setTimeDif(r.gameTime.timeData.timeMem);
                 setDeadLine(r.gameTime.timeData.deadLine);
                 setPeriod(r.period);
+                setSmallOvertime(r.smallOvertime);
+                setBigOvertime(r.bigOvertime);
             }
         );
     }, []);
@@ -97,7 +113,7 @@ const Info = (props) => {
             let interval = setInterval(() => {
                 if (isCheck) {
                     checkTimerStatus(gameNumber);
-                    dispatch(getGame(gameNumber));
+                    dispatch(getGame(gameNumber))
                 }
 
                 if (isCheck && isRunningServer) {
@@ -109,20 +125,25 @@ const Info = (props) => {
                             putTimerStatus(gameNumber, false, Date.now(),
                                 0,
                                 0,
-                                0, 0, period + 1);
+                                0, 0, period + 1, smallOvertime, bigOvertime);
                             dispatch(addNewLog(gameNumber,
                                 `End of ${period} period`));
                             dispatch(addNewTempLog(gameNumber,
                                 `End of ${period} period`))
-                        } if (period > 3) {
-                            putTimerStatus(gameNumber, false, Date.now(),
-                                0,
-                                0,
-                                0, 0, period);
-                            dispatch(addNewLog(gameNumber,
-                                `End of overtime`));
-                            dispatch(addNewTempLog(gameNumber,
-                                `End of overtime`))
+                        }
+                        if (period > 3) {
+                            if (deadLine === 300000) {
+                                putTimerStatus(gameNumber, false, Date.now(),
+                                    0,
+                                    0,
+                                    0, 0, period, smallOvertime + 1, bigOvertime);
+                            }
+                            if (deadLine === 1200000) {
+                                putTimerStatus(gameNumber, false, Date.now(),
+                                    0,
+                                    0,
+                                    0, 0, period, smallOvertime, bigOvertime + 1);
+                            }
                         } else {
                             putTimerStatus(gameNumber, false, Date.now(),
                                 0,
@@ -135,6 +156,7 @@ const Info = (props) => {
                         }
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
+                        setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
                     }
                 }
             }, tick);

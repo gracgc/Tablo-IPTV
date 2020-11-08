@@ -23,7 +23,7 @@ const AddOptions = (props) => {
     };
 
     const putNewDeadLine = (deadLine) => {
-        putDeadline(gameNumber, deadLine, deadLine,0,0)
+        putDeadline(gameNumber, deadLine, deadLine, 0, 0)
     };
 
     return (
@@ -31,7 +31,7 @@ const AddOptions = (props) => {
             <div>
                 <div><strong style={{fontSize: "120%"}}>Add Time</strong></div>
                 <div className={c.overtimeButtons}>
-                    <div className={c.overtimeButton} onClick={(e) => putNewDeadLine(5000)}>
+                    <div className={c.overtimeButton} onClick={(e) => putNewDeadLine(300000)}>
                         5 min
                     </div>
                     <div className={c.overtimeButton} onClick={(e) => putNewDeadLine(1200000)}>

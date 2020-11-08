@@ -38,14 +38,16 @@ const TabloEditClient = (props) => {
     let [tick, setTick] = useState(100);
 
     let [period, setPeriod] = useState();
+    let [smallOvertime, setSmallOvertime] = useState();
+    let [bigOvertime, setBigOvertime] = useState();
 
     let [currentTime, setCurrentTime] = useState(Date.now());
 
     let [deadLine, setDeadLine] = useState();
 
     let [timeDif, setTimeDif] = useState();
-    let [timeMem, setTimeMem] = useState(0);
-    let [timeMemTimer, setTimeMemTimer] = useState(deadLine);
+    let [timeMem, setTimeMem] = useState();
+    let [timeMemTimer, setTimeMemTimer] = useState();
 
 
     let secondsTimer = Math.floor(timeMemTimer / 1000) % 60;
@@ -60,7 +62,8 @@ const TabloEditClient = (props) => {
             });
     };
 
-    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif, timeMem, timeMemTimer, deadLine, period) => {
+    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif,
+                            timeMem, timeMemTimer, deadline, period, smallOvertime, bigOvertime) => {
         return axios.put(`http://localhost:5000/api/time/isRunning/${gameNumber}`, {
             isRunning,
             currentLocalTime,
@@ -68,7 +71,9 @@ const TabloEditClient = (props) => {
             timeMem,
             timeMemTimer,
             deadLine,
-            period
+            period,
+            smallOvertime,
+            bigOvertime
         })
     };
 
@@ -85,7 +90,9 @@ const TabloEditClient = (props) => {
                         setTimeDif(r.gameTime.timeData.timeMem);
                         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
                         setDeadLine(r.gameTime.timeData.deadLine);
-                        setPeriod(r.period)
+                        setPeriod(r.period);
+                        setSmallOvertime(r.smallOvertime);
+                        setBigOvertime(r.bigOvertime);
                     }
                 }
                 if (r.gameTime.isRunning !== isRunningServer) {
@@ -98,6 +105,8 @@ const TabloEditClient = (props) => {
                         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
                         setDeadLine(r.gameTime.timeData.deadLine);
                         setPeriod(r.period);
+                        setSmallOvertime(r.smallOvertime);
+                        setBigOvertime(r.bigOvertime);
                     }
                 }
             })
@@ -118,6 +127,8 @@ const TabloEditClient = (props) => {
                 setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
                 setDeadLine(r.gameTime.timeData.deadLine);
                 setPeriod(r.period);
+                setSmallOvertime(r.smallOvertime);
+                setBigOvertime(r.bigOvertime);
             }
         );
     }, []);
@@ -125,35 +136,44 @@ const TabloEditClient = (props) => {
     useEffect(() => {
             let interval = setInterval(() => {
                 if (isCheck) {
-                    checkTimerStatus(gameNumber);
-                    dispatch(getTeams(gameNumber));
-                    dispatch(getLog(gameNumber));
+                    checkTimerStatus(gameNumber)
                 }
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus(gameNumber);
-                    dispatch(getTeams(gameNumber));
-                    dispatch(getLog(gameNumber));
 
                     if (timeDif >= deadLine) {
                         if (period === 3) {
                             putTimerStatus(gameNumber, false, Date.now(),
                                 0,
                                 0,
-                                0, 0, period + 1);
+                                0, 0, period + 1, smallOvertime, bigOvertime);
                             dispatch(addNewLog(gameNumber,
                                 `End of ${period} period`));
                             dispatch(addNewTempLog(gameNumber,
                                 `End of ${period} period`))
-                        } if (period > 3) {
-                            putTimerStatus(gameNumber, false, Date.now(),
-                                0,
-                                0,
-                                0, 0, period);
-                            dispatch(addNewLog(gameNumber,
-                                `End of overtime`));
-                            dispatch(addNewTempLog(gameNumber,
-                                `End of overtime`))
+                        }
+                        if (period > 3) {
+                            if (deadLine === 300000) {
+                                putTimerStatus(gameNumber, false, Date.now(),
+                                    0,
+                                    0,
+                                    0, 0, period, smallOvertime + 1, bigOvertime);
+                                dispatch(addNewLog(gameNumber,
+                                    `End of overtime`));
+                                dispatch(addNewTempLog(gameNumber,
+                                    `End of overtime`))
+                            }
+                            if (deadLine === 1200000) {
+                                putTimerStatus(gameNumber, false, Date.now(),
+                                    0,
+                                    0,
+                                    0, 0, period, smallOvertime, bigOvertime + 1);
+                                dispatch(addNewLog(gameNumber,
+                                    `End of overtime`));
+                                dispatch(addNewTempLog(gameNumber,
+                                    `End of overtime`))
+                            }
                         } else {
                             putTimerStatus(gameNumber, false, Date.now(),
                                 0,

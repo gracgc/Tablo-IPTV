@@ -33,6 +33,8 @@ router.put('/isRunning/:gameNumber', function (req, res) {
         let currentLocalTime = req.body.currentLocalTime;
         let deadLine = req.body.deadLine;
         let period = req.body.period;
+        let smallOvertime = req.body.smallOvertime;
+        let bigOvertime = req.body.bigOvertime;
 
         DB.gameInfo.gameTime.isRunning = isRunning;
         if (isRunning === false) {
@@ -46,6 +48,8 @@ router.put('/isRunning/:gameNumber', function (req, res) {
         DB.gameInfo.gameTime.timeData.deadLine = deadLine;
         DB.gameInfo.gameTime.runningTime = currentLocalTime;
         DB.gameInfo.period = period;
+        DB.gameInfo.smallOvertime = smallOvertime;
+        DB.gameInfo.bigOvertime = bigOvertime;
         // DB.runningTime = new Date(2011, 0, 1, 0, 0, 0, 0).getTime() - currentLocalTime;
 
         let json = JSON.stringify(DB);
