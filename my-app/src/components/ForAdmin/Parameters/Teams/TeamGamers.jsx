@@ -88,7 +88,7 @@ const TeamGamers = (props) => {
             <div style={{cursor: 'pointer'}} onClick={(e) => {
                 changeGamerOnField(gameNumber, props.teamType, props.id, props.onField)
             }}>
-                {props.onField && '✓' || '✘'}
+                {props.onField ? '✓' : '✘'}
             </div>
 
             <div style={{display: 'inline-flex'}}>

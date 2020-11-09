@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import c from './AddOptions.module.css'
-import {useDispatch, useSelector} from "react-redux";
-import {getGame} from "../../../redux/games_reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import * as axios from "axios";
-import {addNewLog, addNewTempLog} from "../../../redux/log_reducer";
+
 
 
 const AddOptions = (props) => {

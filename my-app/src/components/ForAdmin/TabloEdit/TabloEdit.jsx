@@ -4,11 +4,12 @@ import {useState, useEffect} from 'react';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
 import Tablo from "./Tablo";
-import {teamGoal} from "../../../redux/teams_reducer";
+import {getTeams, teamGoal} from "../../../redux/teams_reducer";
 import {addNewLog, addNewTempLog, getLog} from "../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
+import {getGame} from "../../../redux/games_reducer";
 
 
 const TabloEdit = (props) => {
@@ -37,9 +38,14 @@ const TabloEdit = (props) => {
         state => state.logPage.logData.tabloLog.tempLog[state.logPage.logData.tabloLog.tempLog.length - 1].item
     );
 
+    const gameConsLog = useSelector(
+        state => state.logPage.logData.tabloLog.consLog
+    );
+
     const gameTempLogDep = useSelector(
         state => state.logPage.logData.tabloLog.tempLog
     );
+
 
     let [isShowLog, setIsShowLog] = useState(false);
 
@@ -127,7 +133,6 @@ const TabloEdit = (props) => {
 
 
     useEffect(() => {
-        dispatch(getLog(gameNumber));
         setIsShowLog(true);
         setTimeout(() => {
             setIsShowLog(false);
@@ -145,18 +150,21 @@ const TabloEdit = (props) => {
                 setSmallOvertime(r.smallOvertime);
                 setBigOvertime(r.bigOvertime);
             }
-        )
+        );
+        dispatch(getLog(gameNumber))
     }, []);
 
 
     useEffect(() => {
             let interval = setInterval(() => {
                 if (isCheck) {
-                    checkTimerStatus(gameNumber)
+                    checkTimerStatus(gameNumber);
+                    dispatch(getLog(gameNumber))
                 }
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus(gameNumber);
+                    dispatch(getLog(gameNumber));
 
                     if (timeDif >= deadLine) {
                         if (period === 3) {
@@ -248,7 +256,7 @@ const TabloEdit = (props) => {
     return (
         <div className={c.tabloEdit}>
             <div className={c.tablo}>
-                <Tablo isShowLog={isShowLog} gameTempLog={gameTempLog}
+                <Tablo isShowLog={isShowLog} gameTempLog={gameTempLog} gameConsLog={gameConsLog}
                        secondsTimer={secondsTimer} minutesTimer={minutesTimer}
                        homeCounter={homeCounter} guestsCounter={guestsCounter}/>
             </div>

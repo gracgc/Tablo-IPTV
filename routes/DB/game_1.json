@@ -22,28 +22,22 @@
   "logData": {
     "gameLog": [
       {
-        "item": "0:00 - START"
+        "item": "0:07 - GOAL for Guests!"
       },
       {
-        "item": "0:07 - STOP"
-      },
-      {
-        "item": "0:07 -\n                 qwe goes to the bench"
-      },
-      {
-        "item": "0:07 -\n                 Gamer 2 goes to the bench"
-      },
-      {
-        "item": "0:07 -\n                 Gamer 2 returns on field"
+        "item": "0:07 - GOAL for Guests!"
       },
       {
         "item": "0:07 - GOAL for Home!"
       },
       {
+        "item": "0:07 - GOAL for Guests!"
+      },
+      {
         "item": "0:07 - GOAL for Home!"
       },
       {
-        "item": "0:07 -\n                 Gamer 2 goes to the bench"
+        "item": "0:07 - GOAL for Guests!"
       }
     ],
     "tabloLog": {
@@ -52,27 +46,42 @@
           "item": ""
         },
         {
-          "item": "qwe goes to the bench"
+          "item": "GOAL for Home!"
         },
         {
-          "item": "Gamer 2 goes to the bench"
+          "item": "GOAL for Guests!"
         },
         {
-          "item": "Gamer 2 returns on field"
+          "item": "GOAL for Guests!"
         },
         {
           "item": "GOAL for Home!"
         },
         {
+          "item": "GOAL for Guests!"
+        },
+        {
           "item": "GOAL for Home!"
         },
         {
-          "item": "Gamer 2 goes to the bench"
+          "item": "GOAL for Guests!"
         }
       ],
       "consLog": [
         {
           "item": ""
+        },
+        {
+          "item": "test"
+        },
+        {
+          "item": "test"
+        },
+        {
+          "item": "test"
+        },
+        {
+          "item": "test"
         }
       ]
     }
@@ -80,7 +89,7 @@
   "teams": [
     {
       "name": "Home",
-      "counter": 9,
+      "counter": 13,
       "teamType": "home",
       "timeOut": 0,
       "gamers": [
@@ -196,7 +205,7 @@
     },
     {
       "name": "Guests",
-      "counter": 2,
+      "counter": 6,
       "teamType": "guests",
       "timeOut": 0,
       "gamers": [

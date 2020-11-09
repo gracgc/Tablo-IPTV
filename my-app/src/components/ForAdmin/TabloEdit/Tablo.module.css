@@ -1,6 +1,6 @@
 .tablo {
     display: grid;
-    grid-template-rows: 45% 25% 30%;
+    grid-template-rows: 25% 15% 30% 20%;
     background-color: white;
     height: 90%;
     width: 100%;
@@ -24,7 +24,7 @@
 
 .time {
     text-align: center;
-    padding-top: 5%;
+    padding-top: 2%;
     font-size: 250%;
 }
 

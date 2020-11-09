@@ -79,7 +79,7 @@ const CreateGameForm = (props) => {
                             <div className={c.formTitle}>Gamers</div>
                             <div className={c.homeGamers}>
                                 {props.numberOfHomePlayers.map(n => <div className={c.homeGamer}>
-                                    <Field placeholder={(n <= 6) && `Home Gamer ${n} (On field)` ||
+                                    <Field placeholder={(n <= 6) ? `Home Gamer ${n} (On field)` :
                                     (n > 6) && `Home Gamer ${n} (In reserve)`} name={`homeGamer${n}`}
                                            validate={[required]}
                                            component={Input}/>
@@ -112,7 +112,7 @@ const CreateGameForm = (props) => {
                             <div className={c.formTitle}>Gamers</div>
                             <div className={c.homeGamers}>
                                 {props.numberOfGuestsPlayers.map(n => <div className={c.homeGamer}>
-                                    <Field placeholder={(n <= 6) && `Guests Gamer ${n} (On field)` ||
+                                    <Field placeholder={(n <= 6) ? `Guests Gamer ${n} (On field)` :
                                     (n > 6) && `Guests Gamer ${n} (In reserve)`} name={`guestsGamer${n}`}
                                            validate={[required]}
                                            component={Input}/>
@@ -175,7 +175,7 @@ const CreateGame = (props) => {
                 fullName: eval(`formData.homeGamer${n}`),
                 gamerNumber: eval(`formData.homeNumber${n}`),
                 status: "in game",
-                onField: (n <= 6) && true || (n > 6) && false,
+                onField: (n <= 6) ? true : (n > 6) && false,
                 goals: 0,
                 timeOfPenalty: 0
             })),
@@ -185,7 +185,7 @@ const CreateGame = (props) => {
                 fullName: eval(`formData.guestsGamer${n}`),
                 gamerNumber: eval(`formData.guestsNumber${n}`),
                 status: "in game",
-                onField: (n <= 6) && true || (n > 6) && false,
+                onField: (n <= 6) && true ? (n > 6) : false,
                 goals: 0,
                 timeOfPenalty: 0
             }))

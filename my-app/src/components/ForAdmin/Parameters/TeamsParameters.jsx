@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import c from './TeamsParameters.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import TeamInfo from "./Teams/TeamInfo";
@@ -15,8 +15,6 @@ const TeamsParameters = (props) => {
     let [timeMem, setTimeMem] = useState();
 
     let [period, setPeriod] = useState();
-
-    let [isRunningServer, setIsRunningServer] = useState();
 
     const teams = useSelector(
         state => state.teamsPage.teams
@@ -36,7 +34,6 @@ const TeamsParameters = (props) => {
                 dispatch(getTeams(gameNumber));
                 getTimerStatus(gameNumber).then(r => {
                         setTimeMem(r.gameTime.timeData.timeMem);
-                        setIsRunningServer(r.gameTime.isRunning);
                         setPeriod(r.period)
                     }
                 );

@@ -1,15 +1,18 @@
 import React from 'react'
-import c from './Tablo.module.css'
+import c from './TabloClient.module.css'
 
 
-const Tablo = (props) => {
+const TabloClient = (props) => {
 
     return (
         <div className={c.tablo}>
             <div className={c.time}>
                 {props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}{props.secondsTimer}
             </div>
-            {props.isShowLog && <div className={c.tempLog}>{props.gameTempLog}</div> || <div></div>}
+            {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> : <div></div>}
+            <div>
+                {props.gameConsLog.map(gcl => gcl.item !== '' ? <div className={c.consLog}>{gcl.item}</div> : <span></span>)}
+            </div>
             <div className={c.counters}>
                 <div className={c.counter}>
                     {props.homeCounter} <br/>
@@ -26,4 +29,4 @@ const Tablo = (props) => {
     )
 };
 
-export default Tablo;
+export default TabloClient;

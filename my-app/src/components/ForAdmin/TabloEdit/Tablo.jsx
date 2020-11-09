@@ -9,7 +9,10 @@ const Tablo = (props) => {
             <div className={c.time}>
                 {props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}{props.secondsTimer}
             </div>
-            {props.isShowLog && <div className={c.tempLog}>{props.gameTempLog}</div> || <div></div>}
+            {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> : <div></div>}
+            <div>
+                {props.gameConsLog.map(gcl => gcl.item !== '' ? <div className={c.consLog}>{gcl.item}</div> : <span></span>)}
+            </div>
             <div className={c.counters}>
                 <div className={c.counter}>
                     {props.homeCounter} <br/>

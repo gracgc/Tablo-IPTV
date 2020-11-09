@@ -63,7 +63,7 @@ const logReducer = (state = initialState, action) => {
                     ...state.logData,
                     tabloLog: {
                         ...state.tabloLog,
-                        tempLog: [...state.logData.tabloLog.consLog, action.newLogItem]
+                        consLog: [...state.logData.tabloLog.consLog, action.newLogItem]
                     }
                 }
             };

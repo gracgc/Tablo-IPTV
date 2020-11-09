@@ -2,7 +2,7 @@ import React from 'react'
 import c from './TabloEdit.module.css'
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import Tablo from "./Tablo";
+import TabloClient from "./TabloClient";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
@@ -17,14 +17,18 @@ const TabloEditClient = (props) => {
     const dispatch = useDispatch();
 
     const homeCounter = useSelector(
-        (state => state.teamsPage.teams.find(t => t.teamType == 'home').counter)
+        (state => state.teamsPage.teams.find(t => t.teamType === 'home').counter)
     );
     const guestsCounter = useSelector(
-        (state => state.teamsPage.teams.find(t => t.teamType == 'guests').counter)
+        (state => state.teamsPage.teams.find(t => t.teamType === 'guests').counter)
     );
 
     const gameTempLog = useSelector(
         state => state.logPage.logData.tabloLog.tempLog[state.logPage.logData.tabloLog.tempLog.length - 1].item
+    );
+
+    const gameConsLog = useSelector(
+        state => state.logPage.logData.tabloLog.consLog
     );
 
     const gameTempLogDep = useSelector(
@@ -113,7 +117,6 @@ const TabloEditClient = (props) => {
     };
 
     useEffect(() => {
-        dispatch(getLog(gameNumber));
         setIsShowLog(true);
         setTimeout(() => {
             setIsShowLog(false);
@@ -131,17 +134,21 @@ const TabloEditClient = (props) => {
                 setBigOvertime(r.bigOvertime);
             }
         );
+        dispatch(getTeams(gameNumber));
+        dispatch(getLog(gameNumber))
     }, []);
 
     useEffect(() => {
             let interval = setInterval(() => {
                 if (isCheck) {
                     checkTimerStatus(gameNumber);
+                    dispatch(getTeams(gameNumber));
                     dispatch(getLog(gameNumber))
                 }
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus(gameNumber);
+                    dispatch(getTeams(gameNumber));
                     dispatch(getLog(gameNumber));
 
                     if (timeDif >= deadLine) {
@@ -199,9 +206,9 @@ const TabloEditClient = (props) => {
 
     return (
         <div className={c.tabloEdit}>
-            <Tablo isShowLog={isShowLog} gameTempLog={gameTempLog}
-                   secondsTimer={secondsTimer} minutesTimer={minutesTimer}
-                   homeCounter={homeCounter} guestsCounter={guestsCounter}/>
+            <TabloClient isShowLog={isShowLog} gameTempLog={gameTempLog} gameConsLog={gameConsLog}
+                         secondsTimer={secondsTimer} minutesTimer={minutesTimer}
+                         homeCounter={homeCounter} guestsCounter={guestsCounter}/>
         </div>
     )
 };
