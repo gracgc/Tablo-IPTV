@@ -11,7 +11,7 @@ const TabloClient = (props) => {
             </div>
             {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> : <div></div>}
             <div>
-                {props.gameConsLog.map(gcl => gcl.item !== '' ? <div className={c.consLog}>{gcl.item}</div> : <span></span>)}
+                {props.gameConsLog.map(gcl => gcl.item !== '' && <div className={c.consLog}>{gcl.item}</div>)}
             </div>
             <div className={c.counters}>
                 <div className={c.counter}>
@@ -23,9 +23,7 @@ const TabloClient = (props) => {
                     Guests
                 </div>
             </div>
-
         </div>
-
     )
 };
 

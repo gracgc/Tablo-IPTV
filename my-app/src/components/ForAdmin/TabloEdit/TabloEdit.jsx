@@ -9,7 +9,6 @@ import {addNewLog, addNewTempLog, getLog} from "../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
-import {getGame} from "../../../redux/games_reducer";
 
 
 const TabloEdit = (props) => {
@@ -70,6 +69,9 @@ const TabloEdit = (props) => {
 
     let secondsTimer = Math.floor(timeMemTimer / 1000) % 60;
     let minutesTimer = Math.floor(timeMemTimer / (1000 * 60));
+
+    let [secondsPenaltyTimer, setSecondsPenaltyTimer] = useState();
+    let [minutesPenaltyTimer, setMinutesPenaltyTimer] = useState();
 
 
     let isCheck = true;
