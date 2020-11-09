@@ -11,7 +11,7 @@ const Tablo = (props) => {
             </div>
             {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> : <div></div>}
             <div>
-                {props.gameConsLog.map(gcl => gcl.item !== '' ? <div className={c.consLog}>{gcl.item}</div> : <span></span>)}
+                {props.gameConsLog && props.gameConsLog.map(gcl => gcl.item !== '' ? <div className={c.consLog}>{gcl.item}</div> : <span></span>)}
             </div>
             <div className={c.counters}>
                 <div className={c.counter}>

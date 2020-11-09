@@ -228,7 +228,7 @@ const TabloEdit = (props) => {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP - GOAL for ${teamName}!`));
             dispatch(addNewTempLog(gameNumber,
-                `GOAL for ${teamName}!`))
+                `GOAL for ${teamName}!`));
         } else {
             dispatch(teamGoal(gameNumber, teamType, '+'));
             dispatch(addNewLog(gameNumber,
