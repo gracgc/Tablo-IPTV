@@ -7,7 +7,6 @@
     height: 65%;
     background-color: #a4e2ed;
     border: solid 2px #435373;
-    display: inline-flex;
 }
 
 .overtimeButton {
@@ -20,7 +19,8 @@
 
 .overtimeButtons {
     display: inline-flex;
-    margin-top: 5%;
+    margin-top: 3%;
+    margin-bottom: 3%;
 }
 
 

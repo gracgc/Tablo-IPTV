@@ -39,6 +39,31 @@ const AddOptions = (props) => {
                     </div>
                 </div>
             </div>
+            <div>
+                <div><strong style={{fontSize: "120%"}}>Penalty</strong></div>
+                <div className={c.overtimeButtons}>
+                    <div className={c.overtimeButton}>
+                        2'
+                    </div>
+                    <div className={c.overtimeButton}>
+                        2'+2'
+                    </div>
+                    <div className={c.overtimeButton}>
+                        5'
+                    </div>
+                </div>
+                <div className={c.overtimeButtons}>
+                    <div className={c.overtimeButton}>
+                        10'
+                    </div>
+                    <div className={c.overtimeButton}>
+                        Match
+                    </div>
+                    <div className={c.overtimeButton}>
+                        Bullet
+                    </div>
+                </div>
+            </div>
         </div>
 
     )
