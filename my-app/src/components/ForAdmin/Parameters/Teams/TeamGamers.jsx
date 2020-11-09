@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import c from './TeamGamers.module.css'
 import {useDispatch} from "react-redux";
 import {changeGamerStatus, gamerGoal, gamerOnField} from "../../../../redux/teams_reducer";
-import {addNewLog} from "../../../../redux/log_reducer";
+import {addNewLog, addNewTempLog} from "../../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
@@ -38,12 +38,16 @@ const TeamGamers = (props) => {
         if (props.onField === true) {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
-                 ${props.fullName} goes to the bench`))
+                 ${props.fullName} goes to the bench`));
+            dispatch(addNewTempLog(gameNumber,
+                `${props.fullName} goes to the bench`))
         }
         if (props.onField === false) {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
-                 ${props.fullName} returns on field`))
+                 ${props.fullName} returns on field`));
+            dispatch(addNewTempLog(gameNumber,
+                `${props.fullName} returns on field`))
         }
     };
 

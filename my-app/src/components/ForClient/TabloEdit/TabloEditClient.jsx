@@ -136,11 +136,13 @@ const TabloEditClient = (props) => {
     useEffect(() => {
             let interval = setInterval(() => {
                 if (isCheck) {
-                    checkTimerStatus(gameNumber)
+                    checkTimerStatus(gameNumber);
+                    dispatch(getLog(gameNumber))
                 }
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus(gameNumber);
+                    dispatch(getLog(gameNumber));
 
                     if (timeDif >= deadLine) {
                         if (period === 3) {

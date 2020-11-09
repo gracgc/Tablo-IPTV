@@ -194,7 +194,7 @@ const TabloEdit = (props) => {
                             putTimerStatus(gameNumber, false, Date.now(),
                                 0,
                                 0,
-                                deadLine, deadLine, period + 1);
+                                deadLine, deadLine, period + 1, smallOvertime, bigOvertime);
                             dispatch(addNewLog(gameNumber,
                                 `End of ${period} period`));
                             dispatch(addNewTempLog(gameNumber,
