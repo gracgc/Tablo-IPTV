@@ -176,7 +176,8 @@ const CreateGame = (props) => {
                 gamerNumber: eval(`formData.homeNumber${n}`),
                 status: "in game",
                 onField: (n <= 6) && true || (n > 6) && false,
-                goals: 0
+                goals: 0,
+                timeOfPenalty: 0
             })),
             formData.guestsTeamName,
             numberOfGuestsPlayers.map(n => ({
@@ -185,7 +186,8 @@ const CreateGame = (props) => {
                 gamerNumber: eval(`formData.guestsNumber${n}`),
                 status: "in game",
                 onField: (n <= 6) && true || (n > 6) && false,
-                goals: 0
+                goals: 0,
+                timeOfPenalty: 0
             }))
         ));
         setSuccessMessage(true);
