@@ -1,5 +1,6 @@
 import React from 'react'
 import c from './Tablo.module.css'
+import TabloEvent from "./TabloEvent";
 
 
 const Tablo = (props) => {
@@ -16,7 +17,9 @@ const Tablo = (props) => {
             </div>
             {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> : <div></div>}
             <div>
-                {props.gameConsLog && props.gameConsLog.map(gcl => gcl.item !== '' && <div className={c.consLog}>{gcl.item}</div>)}
+                {props.gameConsLog && props.gameConsLog.map(gcl => gcl.item !== '' && <TabloEvent key={gcl.id}
+                    item={gcl.item} id={gcl.id} teamType={gcl.teamType}
+                />)}
             </div>
             <div className={c.counters}>
                 <div className={c.counter}>

@@ -91,10 +91,12 @@ router.post('/cons/:gameNumber', cors(), function (req, res) {
         let DB = JSON.parse(data);
 
         let gamerId = req.body.gamerId;
+        let teamType = req.body.teamType;
         let newLogItem = req.body.newLogItem;
 
         let newLog = {
             id: gamerId,
+            teamType: teamType,
             item: newLogItem
         };
 

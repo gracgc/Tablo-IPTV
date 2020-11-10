@@ -15,14 +15,36 @@ let initialState = {
             counter: 0,
             teamType: 'home',
             timeOut: 0,
-            gamers: []
+            gamers: [
+                {
+                    "id": 1,
+                    "fullName": "Name",
+                    "gamerNumber": "00",
+                    "status": "deleted",
+                    "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                }
+            ]
         },
         {
             name: 'Name',
             counter: 0,
             teamType: 'guests',
             timeOut: 0,
-            gamers: []
+            gamers: [
+                {
+                    "id": 1,
+                    "fullName": "Name",
+                    "gamerNumber": "00",
+                    "status": "deleted",
+                    "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                }
+            ]
         }
     ]
 };
@@ -112,7 +134,7 @@ const teamsReducer = (state = initialState, action) => {
                             return {
                                 ...t, gamers: t.gamers.map(g => {
                                     if (g.id === action.gamerId) {
-                                            return {...g, penalty: action.timeOfPenalty}
+                                            return {...g, penalty: action.timeOfPenalty, whenWasPenalty: action.whenWasPenalty}
                                     }
                                     return g;
                                 })
@@ -161,7 +183,8 @@ export const setTeamsAC = (teams) => ({type: SET_TEAMS, teams});
 export const addGoalAC = (teamType, symbol) => ({type: ADD_GOAL, teamType, symbol});
 export const changeGamerStatusAC = (gamerId, teamType) => ({type: CHANGE_GAMER_STATUS, teamType, gamerId});
 export const gamerOnFieldAC = (gamerId, teamType) => ({type: GAMER_ON_FIELD, teamType, gamerId});
-export const deleteGamerAC = (gamerId, teamType, timeOfPenalty) => ({type: DELETE_GAMER, teamType, gamerId, timeOfPenalty});
+export const deleteGamerAC = (gamerId, teamType, timeOfPenalty, whenWasPenalty) => (
+    {type: DELETE_GAMER, teamType, gamerId, timeOfPenalty, whenWasPenalty});
 export const addGamerGoalAC = (gamerId, teamType, symbol) => ({type: ADD_GAMER_GOAL, teamType, gamerId, symbol});
 
 
@@ -198,8 +221,8 @@ export const gamerOnField = (gameNumber, teamType, id, onField) => async (dispat
     }
 };
 
-export const deleteGamer = (gameNumber, teamType, id, timeOfPenalty) => async (dispatch) => {
-    let response = await teamsAPI.deleteGamer(gameNumber, teamType, id, timeOfPenalty);
+export const deleteGamer = (gameNumber, teamType, id, timeOfPenalty, whenWasPenalty) => async (dispatch) => {
+    let response = await teamsAPI.deleteGamer(gameNumber, teamType, id, timeOfPenalty, whenWasPenalty);
     if (response.resultCode === 0) {
         dispatch(deleteGamerAC(teamType, id));
     }

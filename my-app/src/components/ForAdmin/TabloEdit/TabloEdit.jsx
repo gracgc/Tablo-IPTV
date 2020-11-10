@@ -44,7 +44,7 @@ const TabloEdit = (props) => {
     const gameTempLogDep = useSelector(
         state => state.logPage.logData.tabloLog.tempLog
     );
-debugger
+
 
     let [isShowLog, setIsShowLog] = useState(false);
 

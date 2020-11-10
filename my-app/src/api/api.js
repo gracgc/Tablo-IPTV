@@ -40,8 +40,8 @@ export const teamsAPI = {
                 return responce.data
             })
     },
-    deleteGamer(gameNumber, teamType, id, timeOfPenalty) {
-        return axios.put(`http://localhost:5000/api/teams/penalty/${gameNumber}`, {teamType, id, timeOfPenalty})
+    deleteGamer(gameNumber, teamType, id, timeOfPenalty, whenWasPenalty) {
+        return axios.put(`http://localhost:5000/api/teams/penalty/${gameNumber}`, {teamType, id, timeOfPenalty, whenWasPenalty})
             .then(responce => {
                 return responce.data
             })
@@ -67,8 +67,8 @@ export const logAPI = {
                 return responce.data
             })
     },
-    postConsLog(gameNumber, gamerId, newLogItem) {
-        return axios.post(`http://localhost:5000/api/log/cons/${gameNumber}`, {gamerId, newLogItem})
+    postConsLog(gameNumber, gamerId, teamType, newLogItem) {
+        return axios.post(`http://localhost:5000/api/log/cons/${gameNumber}`, {gamerId, teamType, newLogItem})
             .then(responce => {
                 return responce.data
             })

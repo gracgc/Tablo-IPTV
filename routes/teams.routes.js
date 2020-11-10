@@ -238,6 +238,7 @@ router.put('/penalty/:gameNumber', cors(), function (req, res) {
         let teamType = req.body.teamType;
         let id = req.body.id;
         let timeOfPenalty = req.body.timeOfPenalty;
+        let whenWasPenalty = req.body.whenWasPenalty;
 
 
         if (!gameNumber && !teamType && !id) {
@@ -247,6 +248,7 @@ router.put('/penalty/:gameNumber', cors(), function (req, res) {
             const gamer = DB.teams.find((team) => team.teamType === teamType)
                 .gamers.find((g) => g.id === id);
             gamer.timeOfPenalty = timeOfPenalty;
+            gamer.whenWasPenalty = whenWasPenalty;
 
 
             let json = JSON.stringify(DB);

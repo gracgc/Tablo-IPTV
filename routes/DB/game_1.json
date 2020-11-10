@@ -6,14 +6,14 @@
     "gameStatus": "Not going",
     "gameTime": {
       "timeData": {
-        "timeDif": 7267,
-        "timeMem": 7267,
-        "timeMemTimer": 1192733,
+        "timeDif": 1196,
+        "timeMem": 8463,
+        "timeMemTimer": 1191537,
         "deadLine": 1200000
       },
       "dif": null,
       "isRunning": false,
-      "runningTime": 1604912729778
+      "runningTime": 1605018706371
     },
     "period": 1,
     "smallOvertime": 0,
@@ -50,6 +50,45 @@
       },
       {
         "item": "0:07 -\n                 Gamer 3 deleted for "
+      },
+      {
+        "item": "0:07 -\n                 Gamer 4 returns to a game"
+      },
+      {
+        "item": "0:07 -\n                 Gamer 3 returns to a game"
+      },
+      {
+        "item": "0:07 -\n                 Gamer 2 returns to a game"
+      },
+      {
+        "item": "0:07 -\n                 qwe returns to a game"
+      },
+      {
+        "item": "0:07 -\n                 qwe returns on field"
+      },
+      {
+        "item": "0:07 - START"
+      },
+      {
+        "item": "0:08 - STOP"
+      },
+      {
+        "item": "0:08 -\n                 qwe deleted for "
+      },
+      {
+        "item": "0:08 -\n                 Gamer 2 deleted for "
+      },
+      {
+        "item": "0:08 -\n                 Gamer 3 deleted for "
+      },
+      {
+        "item": "0:08 -\n                 qwe goes to the bench"
+      },
+      {
+        "item": "0:08 -\n                 qwe returns on field"
+      },
+      {
+        "item": "0:08 -\n                 Gamer 5 deleted for "
       }
     ],
     "tabloLog": {
@@ -62,10 +101,35 @@
         },
         {
           "item": "GOAL for Guests!"
+        },
+        {
+          "item": "Gamer 4 returns to a game"
+        },
+        {
+          "item": "Gamer 3 returns to a game"
+        },
+        {
+          "item": "Gamer 2 returns to a game"
+        },
+        {
+          "item": "qwe returns to a game"
+        },
+        {
+          "item": "qwe returns on field"
+        },
+        {
+          "item": "qwe goes to the bench"
+        },
+        {
+          "item": "qwe returns on field"
         }
       ],
       "consLog": [
-
+        {
+          "id": 1,
+          "teamType": "home",
+          "item": "qwe deleted for "
+        }
       ]
     }
   },
@@ -81,10 +145,10 @@
           "fullName": "qwe",
           "gamerNumber": "00",
           "status": "deleted",
-          "onField": false,
+          "onField": true,
           "goals": 0,
-          "timeOfPenalty": 0,
-          "whenWasPenalty": 0
+          "timeOfPenalty": 5000,
+          "whenWasPenalty": 8463
         },
         {
           "id": 2,
@@ -93,8 +157,8 @@
           "status": "deleted",
           "onField": true,
           "goals": 0,
-          "timeOfPenalty": 0,
-          "whenWasPenalty": 0
+          "timeOfPenalty": 5000,
+          "whenWasPenalty": 8463
         },
         {
           "id": 3,
@@ -104,13 +168,13 @@
           "onField": true,
           "goals": 0,
           "timeOfPenalty": 5000,
-          "whenWasPenalty": 0
+          "whenWasPenalty": 8463
         },
         {
           "id": 4,
           "fullName": "Gamer 4",
           "gamerNumber": "00",
-          "status": "deleted",
+          "status": "in game",
           "onField": true,
           "goals": 0,
           "timeOfPenalty": 0,
@@ -120,11 +184,11 @@
           "id": 5,
           "fullName": "Gamer 5",
           "gamerNumber": "00",
-          "status": "in game",
+          "status": "deleted",
           "onField": true,
           "goals": 0,
-          "timeOfPenalty": 0,
-          "whenWasPenalty": 0
+          "timeOfPenalty": 5000,
+          "whenWasPenalty": 8463
         },
         {
           "id": 6,
