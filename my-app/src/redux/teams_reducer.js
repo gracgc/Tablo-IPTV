@@ -5,6 +5,7 @@ const CHANGE_GAMER_STATUS = 'teams/CHANGE_GAMER_STATUS';
 const ADD_GAMER_GOAL = 'teams/ADD_GAMER_GOAL';
 const SET_TEAMS = 'teams/SET_TEAMS';
 const GAMER_ON_FIELD = 'teams/GAMER_ON_FIELD';
+const DELETE_GAMER = 'teams/DELETE_GAMER';
 
 
 let initialState = {
@@ -103,6 +104,25 @@ const teamsReducer = (state = initialState, action) => {
                 )
             };
 
+        case DELETE_GAMER:
+            return {
+                ...state,
+                teams: state.teams.map(t => {
+                        if (t.teamType === action.teamType) {
+                            return {
+                                ...t, gamers: t.gamers.map(g => {
+                                    if (g.id === action.gamerId) {
+                                            return {...g, penalty: action.timeOfPenalty}
+                                    }
+                                    return g;
+                                })
+                            }
+                        }
+                        return t;
+                    }
+                )
+            };
+
         case ADD_GAMER_GOAL:
             return {
                 ...state,
@@ -141,6 +161,7 @@ export const setTeamsAC = (teams) => ({type: SET_TEAMS, teams});
 export const addGoalAC = (teamType, symbol) => ({type: ADD_GOAL, teamType, symbol});
 export const changeGamerStatusAC = (gamerId, teamType) => ({type: CHANGE_GAMER_STATUS, teamType, gamerId});
 export const gamerOnFieldAC = (gamerId, teamType) => ({type: GAMER_ON_FIELD, teamType, gamerId});
+export const deleteGamerAC = (gamerId, teamType, timeOfPenalty) => ({type: DELETE_GAMER, teamType, gamerId, timeOfPenalty});
 export const addGamerGoalAC = (gamerId, teamType, symbol) => ({type: ADD_GAMER_GOAL, teamType, gamerId, symbol});
 
 
@@ -174,6 +195,13 @@ export const gamerOnField = (gameNumber, teamType, id, onField) => async (dispat
     let response = await teamsAPI.gamerOnField(gameNumber, teamType, id, onField);
     if (response.resultCode === 0) {
         dispatch(gamerOnFieldAC(teamType, id));
+    }
+};
+
+export const deleteGamer = (gameNumber, teamType, id, timeOfPenalty) => async (dispatch) => {
+    let response = await teamsAPI.deleteGamer(gameNumber, teamType, id, timeOfPenalty);
+    if (response.resultCode === 0) {
+        dispatch(deleteGamerAC(teamType, id));
     }
 };
 

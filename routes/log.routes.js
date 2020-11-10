@@ -90,9 +90,11 @@ router.post('/cons/:gameNumber', cors(), function (req, res) {
         let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
+        let gamerId = req.body.gamerId;
         let newLogItem = req.body.newLogItem;
 
         let newLog = {
+            id: gamerId,
             item: newLogItem
         };
 

@@ -177,7 +177,8 @@ const CreateGame = (props) => {
                 status: "in game",
                 onField: (n <= 6) ? true : (n > 6) && false,
                 goals: 0,
-                timeOfPenalty: 0
+                timeOfPenalty: 0,
+                whenWasPenalty: 0
             })),
             formData.guestsTeamName,
             numberOfGuestsPlayers.map(n => ({
@@ -187,7 +188,8 @@ const CreateGame = (props) => {
                 status: "in game",
                 onField: (n <= 6) && true ? (n > 6) : false,
                 goals: 0,
-                timeOfPenalty: 0
+                timeOfPenalty: 0,
+                whenWasPenalty: 0
             }))
         ));
         setSuccessMessage(true);

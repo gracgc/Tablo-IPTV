@@ -49,7 +49,7 @@ const logReducer = (state = initialState, action) => {
                 logData: {
                     ...state.logData,
                     tabloLog: {
-                        ...state.tabloLog,
+                        ...state.logData.tabloLog,
                         tempLog: [...state.logData.tabloLog.tempLog, action.newLogItem]
                     }
                 }
@@ -62,8 +62,8 @@ const logReducer = (state = initialState, action) => {
                 logData: {
                     ...state.logData,
                     tabloLog: {
-                        ...state.tabloLog,
-                        consLog: [...state.logData.tabloLog.consLog, action.newLogItem]
+                        ...state.logData.tabloLog,
+                        consLog: [...state.logData.tabloLog.consLog, action.payload]
                     }
                 }
             };
@@ -76,7 +76,7 @@ const logReducer = (state = initialState, action) => {
 export const setLogDataAC = (logData) => ({type: SET_LOG_DATA, logData});
 export const addLogAC = (newLogItem) => ({type: ADD_LOG, newLogItem});
 export const addTempTabloLogAC = (newLogItem) => ({type: ADD_TEMP_TABLO_LOG, newLogItem});
-export const addConsTabloLogAC = (newLogItem) => ({type: ADD_CONS_TABLO_LOG, newLogItem});
+export const addConsTabloLogAC = (gamerId, newLogItem) => ({type: ADD_CONS_TABLO_LOG, payload: {gamerId, newLogItem}});
 
 export const getLog = (gameNumber) => async (dispatch) => {
     let response = await logAPI.getLog(gameNumber);
@@ -99,10 +99,10 @@ export const addNewTempLog = (gameNumber, newLogItem) => async (dispatch) => {
     }
 };
 
-export const addNewConsLog = (gameNumber, newLogItem) => async (dispatch) => {
-    let response = await logAPI.postConsLog(gameNumber, newLogItem);
+export const addNewConsLog = (gameNumber, gamerId, newLogItem) => async (dispatch) => {
+    let response = await logAPI.postConsLog(gameNumber, gamerId, newLogItem);
     if (response.resultCode === 0) {
-        dispatch(addConsTabloLogAC(newLogItem));
+        dispatch(addConsTabloLogAC(gamerId, newLogItem));
     }
 };
 

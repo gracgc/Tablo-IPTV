@@ -67,7 +67,7 @@ router.post('/', cors(), function (req, res) {
             gameLog: [],
             tabloLog: {
                 tempLog:[{item: ''}],
-                consLog: [{item: ''}]
+                consLog: []
             },
             teams: []
         };

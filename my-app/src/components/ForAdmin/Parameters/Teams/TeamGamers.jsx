@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import c from './TeamGamers.module.css'
 import {useDispatch} from "react-redux";
-import {changeGamerStatus, gamerGoal, gamerOnField} from "../../../../redux/teams_reducer";
-import {addNewLog, addNewTempLog} from "../../../../redux/log_reducer";
+import {changeGamerStatus, deleteGamer, gamerGoal, gamerOnField} from "../../../../redux/teams_reducer";
+import {addNewConsLog, addNewLog, addNewTempLog} from "../../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
@@ -24,12 +24,15 @@ const TeamGamers = (props) => {
         if (props.status === 'in game') {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
-                 ${props.fullName} deleted`))
+                 ${props.fullName} deleted for `));
+            dispatch(addNewConsLog(gameNumber, gamerId, `${props.fullName} deleted for `));
+            dispatch(deleteGamer(gameNumber, teamType, gamerId, 5000))
         }
         if (props.status === 'deleted') {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
-                 ${props.fullName} returns to a game`))
+                 ${props.fullName} returns to a game`));
+            dispatch(addNewTempLog(gameNumber, `${props.fullName} returns to a game`))
         }
     };
 

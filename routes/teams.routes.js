@@ -228,6 +228,40 @@ router.put('/onField/:gameNumber', cors(), function (req, res) {
     }
 });
 
+router.put('/penalty/:gameNumber', cors(), function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+        let teamType = req.body.teamType;
+        let id = req.body.id;
+        let timeOfPenalty = req.body.timeOfPenalty;
+
+
+        if (!gameNumber && !teamType && !id) {
+            res.send({resultCode: 10});
+            console.log('Not enought data');
+        } else {
+            const gamer = DB.teams.find((team) => team.teamType === teamType)
+                .gamers.find((g) => g.id === id);
+            gamer.timeOfPenalty = timeOfPenalty;
+
+
+            let json = JSON.stringify(DB);
+
+            fs.writeFileSync(path.join(__dirname +
+                `/DB/game_${gameNumber}.json`), json, 'utf8');
+
+            res.send(DB)
+        }
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
 
 router.options('/', cors());
 
