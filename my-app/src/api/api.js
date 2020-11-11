@@ -72,6 +72,12 @@ export const logAPI = {
             .then(responce => {
                 return responce.data
             })
+    },
+    deleteConsLog(gameNumber, deletedItem) {
+        return axios.delete(`http://localhost:5000/api/log/cons/${gameNumber}`, {deletedItem})
+            .then(responce => {
+                return responce.data
+            })
     }
 };
 

@@ -13,6 +13,7 @@ const TeamsParameters = (props) => {
     let gameNumber = props.match.params.gameNumber;
 
     let [timeMem, setTimeMem] = useState();
+    let [timeMemTimer, setTimeMemTimer] = useState();
 
     let [period, setPeriod] = useState();
 
@@ -38,6 +39,7 @@ const TeamsParameters = (props) => {
                 dispatch(getTeams(gameNumber));
                 getTimerStatus(gameNumber).then(r => {
                         setTimeMem(r.gameTime.timeData.timeMem);
+                    setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
                         setPeriod(r.period)
                     }
                 );
@@ -58,12 +60,12 @@ const TeamsParameters = (props) => {
     return (
         <div className={c.parameters}>
             <div>
-                <TeamInfo period={period} timeMem={timeMem}
+                <TeamInfo period={period} timeMem={timeMem} timeMemTimer={timeMemTimer}
                           teamGamers={homeTeamGamers} teamCounter={homeTeamInfo.counter}
                           name={homeTeamInfo.name} timeOut={homeTeamInfo.timeOut} teamType={homeTeamInfo.teamType}/>
             </div>
             <div>
-                <TeamInfo period={period} timeMem={timeMem}
+                <TeamInfo period={period} timeMem={timeMem} timeMemTimer={timeMemTimer}
                           teamGamers={guestsTeamGamers} teamCounter={guestsTeamInfo.counter}
                           name={guestsTeamInfo.name} timeOut={guestsTeamInfo.timeOut}
                           teamType={guestsTeamInfo.teamType}/>

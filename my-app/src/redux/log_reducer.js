@@ -1,10 +1,13 @@
 import {logAPI} from "../api/api";
 
+import removeItems from 'remove-array-items';
+
 
 const ADD_LOG = 'log/ADD_LOG';
 const SET_LOG_DATA = 'log/SET_LOG_DATA';
 const ADD_TEMP_TABLO_LOG = 'ADD_TEMP_TABLO_LOG';
 const ADD_CONS_TABLO_LOG = 'ADD_CONS_TABLO_LOG';
+const DELETE_CONS_TABLO_LOG = 'DELETE_CONS_TABLO_LOG';
 
 let initialState = {
     logData: {
@@ -68,6 +71,22 @@ const logReducer = (state = initialState, action) => {
                 }
             };
 
+        case DELETE_CONS_TABLO_LOG:
+
+            let newConsLog = state.logData.tabloLog.consLog;
+            removeItems(newConsLog, action.deletedItem, 1);
+
+            return {
+                ...state,
+                logData: {
+                    ...state.logData,
+                    tabloLog: {
+                        ...state.logData.tabloLog,
+                        consLog: newConsLog
+                    }
+                }
+            };
+
         default:
             return state;
     }
@@ -78,6 +97,7 @@ export const addLogAC = (newLogItem) => ({type: ADD_LOG, newLogItem});
 export const addTempTabloLogAC = (newLogItem) => ({type: ADD_TEMP_TABLO_LOG, newLogItem});
 export const addConsTabloLogAC = (gamerId, teamType, newLogItem) => ({type: ADD_CONS_TABLO_LOG,
     payload: {id: gamerId, teamType: teamType, item: newLogItem}});
+export const deleteConsTabloLogAC = (deletedItem) => ({type: DELETE_CONS_TABLO_LOG, deletedItem});
 
 export const getLog = (gameNumber) => async (dispatch) => {
     let response = await logAPI.getLog(gameNumber);
@@ -104,6 +124,13 @@ export const addNewConsLog = (gameNumber, gamerId, teamType, newLogItem) => asyn
     let response = await logAPI.postConsLog(gameNumber, gamerId, teamType, newLogItem);
     if (response.resultCode === 0) {
         dispatch(addConsTabloLogAC(gamerId, teamType, newLogItem));
+    }
+};
+
+export const deleteConsLog = (gameNumber, deletedItem) => async (dispatch) => {
+    let response = await logAPI.deleteConsLog(gameNumber, deletedItem);
+    if (response.resultCode === 0) {
+        dispatch(deleteConsTabloLogAC(deletedItem));
     }
 };
 

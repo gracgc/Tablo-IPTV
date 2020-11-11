@@ -3,6 +3,7 @@ const router = Router();
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const removeItems = require('remove-array-items');
 
 
 router.get('/:gameNumber', function (req, res) {
@@ -101,6 +102,33 @@ router.post('/cons/:gameNumber', cors(), function (req, res) {
         };
 
         DB.logData.tabloLog.consLog.push(newLog);
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
+
+        if (!gameNumber) {
+            res.send({resultCode: 10});
+            console.log('Incorrect address')
+        } else {
+            res.send({resultCode: 0})
+        }
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.delete('/cons/:gameNumber', cors(), function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+        let deletedItem = req.body.deletedItem;
+
+        removeItems(DB.logData.tabloLog.consLog, deletedItem, 1);
+
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');

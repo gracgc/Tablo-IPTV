@@ -70,8 +70,6 @@ const TabloEdit = (props) => {
     let secondsTimer = Math.floor(timeMemTimer / 1000) % 60;
     let minutesTimer = Math.floor(timeMemTimer / (1000 * 60));
 
-    let [secondsPenaltyTimer, setSecondsPenaltyTimer] = useState();
-    let [minutesPenaltyTimer, setMinutesPenaltyTimer] = useState();
 
 
     let isCheck = true;
@@ -260,7 +258,8 @@ const TabloEdit = (props) => {
             <div className={c.tablo}>
                 <Tablo isShowLog={isShowLog} gameTempLog={gameTempLog} gameConsLog={gameConsLog}
                        secondsTimer={secondsTimer} minutesTimer={minutesTimer}
-                       homeCounter={homeCounter} guestsCounter={guestsCounter}/>
+                       homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
+                       gameNumber={gameNumber}/>
             </div>
             <div className={c.allButtons}>
                 {isRunningServer ?

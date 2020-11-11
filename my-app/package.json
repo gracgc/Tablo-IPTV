@@ -18,7 +18,8 @@
     "react-timer-hook": "^2.0.3",
     "redux": "^4.0.5",
     "redux-form": "^8.3.6",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "remove-array-items": "^2.0.1"
   },
   "scripts": {
     "start": "react-scripts start",

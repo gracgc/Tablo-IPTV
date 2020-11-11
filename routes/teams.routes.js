@@ -186,7 +186,7 @@ router.put('/gamerStatus/:gameNumber', cors(), function (req, res) {
             fs.writeFileSync(path.join(__dirname +
                 `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-            res.send(DB)
+            res.send({resultCode: 0})
         }
 
     } catch (e) {
@@ -220,7 +220,7 @@ router.put('/onField/:gameNumber', cors(), function (req, res) {
             fs.writeFileSync(path.join(__dirname +
                 `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-            res.send(DB)
+            res.send({resultCode: 0})
         }
 
     } catch (e) {

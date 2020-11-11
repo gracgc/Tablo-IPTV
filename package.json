@@ -21,5 +21,8 @@
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
     "uuid": "^8.3.1"
+  },
+  "dependencies": {
+    "remove-array-items": "^2.0.1"
   }
 }
