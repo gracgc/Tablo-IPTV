@@ -76,7 +76,8 @@ const logReducer = (state = initialState, action) => {
 export const setLogDataAC = (logData) => ({type: SET_LOG_DATA, logData});
 export const addLogAC = (newLogItem) => ({type: ADD_LOG, newLogItem});
 export const addTempTabloLogAC = (newLogItem) => ({type: ADD_TEMP_TABLO_LOG, newLogItem});
-export const addConsTabloLogAC = (gamerId, teamType, newLogItem) => ({type: ADD_CONS_TABLO_LOG, payload: {gamerId, teamType, newLogItem}});
+export const addConsTabloLogAC = (gamerId, teamType, newLogItem) => ({type: ADD_CONS_TABLO_LOG,
+    payload: {id: gamerId, teamType: teamType, item: newLogItem}});
 
 export const getLog = (gameNumber) => async (dispatch) => {
     let response = await logAPI.getLog(gameNumber);

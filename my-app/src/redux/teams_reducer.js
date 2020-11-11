@@ -18,10 +18,250 @@ let initialState = {
             gamers: [
                 {
                     "id": 1,
-                    "fullName": "Name",
+                    "fullName": "Gamer 1",
                     "gamerNumber": "00",
                     "status": "deleted",
                     "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 5000,
+                    "whenWasPenalty": 8463
+                },
+                {
+                    "id": 2,
+                    "fullName": "Gamer 2",
+                    "gamerNumber": "00",
+                    "status": "deleted",
+                    "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 5000,
+                    "whenWasPenalty": 8463
+                },
+                {
+                    "id": 3,
+                    "fullName": "Gamer 3",
+                    "gamerNumber": "00",
+                    "status": "deleted",
+                    "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 5000,
+                    "whenWasPenalty": 8463
+                },
+                {
+                    "id": 4,
+                    "fullName": "Gamer 4",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 5,
+                    "fullName": "Gamer 5",
+                    "gamerNumber": "00",
+                    "status": "deleted",
+                    "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 5000,
+                    "whenWasPenalty": 8463
+                },
+                {
+                    "id": 6,
+                    "fullName": "Gamer 6",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 7,
+                    "fullName": "Gamer 7",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 8,
+                    "fullName": "Gamer 8",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 9,
+                    "fullName": "Gamer 9",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 10,
+                    "fullName": "Gamer 10",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 11,
+                    "fullName": "Gamer 11",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 12,
+                    "fullName": "Gamer 12",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 13,
+                    "fullName": "Gamer 13",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 14,
+                    "fullName": "Gamer 14",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 15,
+                    "fullName": "Gamer 15",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 16,
+                    "fullName": "Gamer 16",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 17,
+                    "fullName": "Gamer 17",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 18,
+                    "fullName": "Gamer 18",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 19,
+                    "fullName": "Gamer 19",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 20,
+                    "fullName": "Gamer 20",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 21,
+                    "fullName": "Gamer 21",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 22,
+                    "fullName": "Gamer 22",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 23,
+                    "fullName": "Gamer 23",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 24,
+                    "fullName": "Gamer 24",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 25,
+                    "fullName": "Gamer 25",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
                     "goals": 0,
                     "timeOfPenalty": 0,
                     "whenWasPenalty": 0
@@ -36,10 +276,250 @@ let initialState = {
             gamers: [
                 {
                     "id": 1,
-                    "fullName": "Name",
+                    "fullName": "Gamer 1",
                     "gamerNumber": "00",
                     "status": "deleted",
                     "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 5000,
+                    "whenWasPenalty": 8463
+                },
+                {
+                    "id": 2,
+                    "fullName": "Gamer 2",
+                    "gamerNumber": "00",
+                    "status": "deleted",
+                    "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 5000,
+                    "whenWasPenalty": 8463
+                },
+                {
+                    "id": 3,
+                    "fullName": "Gamer 3",
+                    "gamerNumber": "00",
+                    "status": "deleted",
+                    "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 5000,
+                    "whenWasPenalty": 8463
+                },
+                {
+                    "id": 4,
+                    "fullName": "Gamer 4",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 5,
+                    "fullName": "Gamer 5",
+                    "gamerNumber": "00",
+                    "status": "deleted",
+                    "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 5000,
+                    "whenWasPenalty": 8463
+                },
+                {
+                    "id": 6,
+                    "fullName": "Gamer 6",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": true,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 7,
+                    "fullName": "Gamer 7",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 8,
+                    "fullName": "Gamer 8",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 9,
+                    "fullName": "Gamer 9",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 10,
+                    "fullName": "Gamer 10",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 11,
+                    "fullName": "Gamer 11",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 12,
+                    "fullName": "Gamer 12",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 13,
+                    "fullName": "Gamer 13",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 14,
+                    "fullName": "Gamer 14",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 15,
+                    "fullName": "Gamer 15",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 16,
+                    "fullName": "Gamer 16",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 17,
+                    "fullName": "Gamer 17",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 18,
+                    "fullName": "Gamer 18",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 19,
+                    "fullName": "Gamer 19",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 20,
+                    "fullName": "Gamer 20",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 21,
+                    "fullName": "Gamer 21",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 22,
+                    "fullName": "Gamer 22",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 23,
+                    "fullName": "Gamer 23",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 24,
+                    "fullName": "Gamer 24",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
+                    "goals": 0,
+                    "timeOfPenalty": 0,
+                    "whenWasPenalty": 0
+                },
+                {
+                    "id": 25,
+                    "fullName": "Gamer 25",
+                    "gamerNumber": "00",
+                    "status": "in game",
+                    "onField": false,
                     "goals": 0,
                     "timeOfPenalty": 0,
                     "whenWasPenalty": 0

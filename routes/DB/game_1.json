@@ -22,113 +22,31 @@
   "logData": {
     "gameLog": [
       {
-        "item": "0:07 -\n                 Gamer 5 returns to a game"
+        "item": "0:08 -\n                 Gamer 6 deleted for "
       },
       {
-        "item": "0:07 -\n                 qwe deleted"
+        "item": "0:08 -\n                 Gamer 7 deleted for "
       },
       {
-        "item": "0:07 -\n                 qwe returns to a game"
-      },
-      {
-        "item": "0:07 -\n                 Gamer 2 deleted"
-      },
-      {
-        "item": "0:07 -\n                 Gamer 2 returns to a game"
-      },
-      {
-        "item": "0:07 -\n                 qwe deleted"
-      },
-      {
-        "item": "0:07 -\n                 Gamer 2 deleted"
-      },
-      {
-        "item": "0:07 -\n                 Gamer 4 deleted for "
-      },
-      {
-        "item": "0:07 - GOAL for Guests!"
-      },
-      {
-        "item": "0:07 -\n                 Gamer 3 deleted for "
-      },
-      {
-        "item": "0:07 -\n                 Gamer 4 returns to a game"
-      },
-      {
-        "item": "0:07 -\n                 Gamer 3 returns to a game"
-      },
-      {
-        "item": "0:07 -\n                 Gamer 2 returns to a game"
-      },
-      {
-        "item": "0:07 -\n                 qwe returns to a game"
-      },
-      {
-        "item": "0:07 -\n                 qwe returns on field"
-      },
-      {
-        "item": "0:07 - START"
-      },
-      {
-        "item": "0:08 - STOP"
-      },
-      {
-        "item": "0:08 -\n                 qwe deleted for "
-      },
-      {
-        "item": "0:08 -\n                 Gamer 2 deleted for "
-      },
-      {
-        "item": "0:08 -\n                 Gamer 3 deleted for "
-      },
-      {
-        "item": "0:08 -\n                 qwe goes to the bench"
-      },
-      {
-        "item": "0:08 -\n                 qwe returns on field"
-      },
-      {
-        "item": "0:08 -\n                 Gamer 5 deleted for "
+        "item": "0:08 -\n                 Gamer 8 deleted for "
       }
     ],
     "tabloLog": {
       "tempLog": [
         {
           "item": ""
-        },
-        {
-          "item": "Gamer 2 returns to a game"
-        },
-        {
-          "item": "GOAL for Guests!"
-        },
-        {
-          "item": "Gamer 4 returns to a game"
-        },
-        {
-          "item": "Gamer 3 returns to a game"
-        },
-        {
-          "item": "Gamer 2 returns to a game"
-        },
-        {
-          "item": "qwe returns to a game"
-        },
-        {
-          "item": "qwe returns on field"
-        },
-        {
-          "item": "qwe goes to the bench"
-        },
-        {
-          "item": "qwe returns on field"
         }
       ],
       "consLog": [
         {
           "id": 1,
           "teamType": "home",
-          "item": "qwe deleted for "
+          "item": "Gamer 1 deleted for "
+        },
+        {
+          "id": 4,
+          "teamType": "home",
+          "item": "Gamer 4 deleted for "
         }
       ]
     }
@@ -142,7 +60,7 @@
       "gamers": [
         {
           "id": 1,
-          "fullName": "qwe",
+          "fullName": "Gamer 1",
           "gamerNumber": "00",
           "status": "deleted",
           "onField": true,
@@ -174,11 +92,11 @@
           "id": 4,
           "fullName": "Gamer 4",
           "gamerNumber": "00",
-          "status": "in game",
+          "status": "deleted",
           "onField": true,
           "goals": 0,
-          "timeOfPenalty": 0,
-          "whenWasPenalty": 0
+          "timeOfPenalty": 5000,
+          "whenWasPenalty": 8463
         },
         {
           "id": 5,
@@ -194,31 +112,31 @@
           "id": 6,
           "fullName": "Gamer 6",
           "gamerNumber": "00",
-          "status": "in game",
+          "status": "deleted",
           "onField": true,
           "goals": 0,
-          "timeOfPenalty": 0,
-          "whenWasPenalty": 0
+          "timeOfPenalty": 5000,
+          "whenWasPenalty": 8463
         },
         {
           "id": 7,
           "fullName": "Gamer 7",
           "gamerNumber": "00",
-          "status": "in game",
+          "status": "deleted",
           "onField": false,
           "goals": 0,
-          "timeOfPenalty": 0,
-          "whenWasPenalty": 0
+          "timeOfPenalty": 5000,
+          "whenWasPenalty": 8463
         },
         {
           "id": 8,
           "fullName": "Gamer 8",
           "gamerNumber": "00",
-          "status": "in game",
+          "status": "deleted",
           "onField": false,
           "goals": 0,
-          "timeOfPenalty": 0,
-          "whenWasPenalty": 0
+          "timeOfPenalty": 5000,
+          "whenWasPenalty": 8463
         },
         {
           "id": 9,

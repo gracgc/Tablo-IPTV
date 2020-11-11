@@ -30,6 +30,10 @@ const TeamsParameters = (props) => {
     };
 
     useEffect(() => {
+        dispatch(getTeams(gameNumber));
+    }, []);
+
+    useEffect(() => {
             let interval = setInterval(() => {
                 dispatch(getTeams(gameNumber));
                 getTimerStatus(gameNumber).then(r => {
