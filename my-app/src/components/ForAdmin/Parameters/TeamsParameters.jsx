@@ -43,7 +43,7 @@ const TeamsParameters = (props) => {
                         setPeriod(r.period)
                     }
                 );
-            }, 1000);
+            }, 500);
             return () => clearInterval(interval);
         }
     );

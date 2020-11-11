@@ -26,13 +26,14 @@ const TeamGamers = (props) => {
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
                  ${props.fullName} deleted for `));
             dispatch(addNewConsLog(gameNumber, gamerId, teamType, `${props.fullName} deleted for `));
-            dispatch(deleteGamer(gameNumber, teamType, gamerId, 5000, props.timeMemTimer))
+            dispatch(deleteGamer(gameNumber, teamType, gamerId, 10000, props.timeMemTimer))
         }
         if (props.status === 'deleted') {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
                  ${props.fullName} returns to a game`));
-            dispatch(addNewTempLog(gameNumber, `${props.fullName} returns to a game`))
+            dispatch(addNewTempLog(gameNumber, `${props.fullName} returns to a game`));
+            dispatch(deleteGamer(gameNumber, teamType, gamerId, 0, 0))
         }
     };
 

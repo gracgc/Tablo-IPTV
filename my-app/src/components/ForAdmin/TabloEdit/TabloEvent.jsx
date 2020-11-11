@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import c from './Tablo.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {addNewTempLog, deleteConsLog} from "../../../redux/log_reducer";
-import {changeGamerStatus} from "../../../redux/teams_reducer";
+import {changeGamerStatus, deleteGamer} from "../../../redux/teams_reducer";
 
 
 const TabloEvent = (props) => {
@@ -19,18 +19,24 @@ const TabloEvent = (props) => {
     let minutesTimerOfDeletedGamer =
         Math.floor((props.timeMemTimer - deletedGamer.whenWasPenalty + deletedGamer.timeOfPenalty) / (1000 * 60));
 
+    const shouldPenaltyStop = secondsTimerOfDeletedGamer < 0 && minutesTimerOfDeletedGamer < 0;
+
 
     useEffect(() => {
-        if (minutesTimerOfDeletedGamer <= 0 && secondsTimerOfDeletedGamer <= 0) {
+        if (shouldPenaltyStop) {
+            dispatch(changeGamerStatus(props.gameNumber, props.teamType, deletedGamer.id, deletedGamer.status));
+            dispatch(deleteGamer(props.gameNumber, props.teamType, deletedGamer.id, 0, 0));
             dispatch(deleteConsLog(props.gameNumber, deletedGamer));
-            dispatch(changeGamerStatus(props.gameNumber, deletedGamer.teamType, deletedGamer.id, deletedGamer.status));
             dispatch(addNewTempLog(props.gameNumber, `${deletedGamer.fullName} returns to a game`))
         }
-    });
+    }, [shouldPenaltyStop]);
+
 
     return (
         <div className={c.consLog}>
-            {props.item} : {minutesTimerOfDeletedGamer}:{secondsTimerOfDeletedGamer}{deletedGamer.status}
+            {props.item} : {minutesTimerOfDeletedGamer <= 0 ? 0 : minutesTimerOfDeletedGamer}
+            :
+            {secondsTimerOfDeletedGamer < 1 ? 0 : secondsTimerOfDeletedGamer}
         </div>
     )
 };
