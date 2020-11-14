@@ -526,7 +526,8 @@ let initialState = {
                 }
             ]
         }
-    ]
+    ],
+    timeOfPenalty: 0
 };
 
 const teamsReducer = (state = initialState, action) => {
@@ -567,11 +568,9 @@ const teamsReducer = (state = initialState, action) => {
                                     if (g.id === action.gamerId) {
                                         if (g.status === 'in game') {
                                             return {...g, status: 'deleted'}
-                                        }
-                                        if (g.status === 'deleted') {
+                                        } else {
                                             return {...g, status: 'in game'}
                                         }
-
                                     }
                                     return g;
                                 })
@@ -661,7 +660,7 @@ const teamsReducer = (state = initialState, action) => {
 
 export const setTeamsAC = (teams) => ({type: SET_TEAMS, teams});
 export const addGoalAC = (teamType, symbol) => ({type: ADD_GOAL, teamType, symbol});
-export const changeGamerStatusAC = (gamerId, teamType) => ({type: CHANGE_GAMER_STATUS, teamType, gamerId});
+export const changeGamerStatusAC = (teamType, gamerId) => ({type: CHANGE_GAMER_STATUS, teamType, gamerId});
 export const gamerOnFieldAC = (gamerId, teamType) => ({type: GAMER_ON_FIELD, teamType, gamerId});
 export const deleteGamerAC = (gamerId, teamType, timeOfPenalty, whenWasPenalty) => (
     {type: DELETE_GAMER, teamType, gamerId, timeOfPenalty, whenWasPenalty});
@@ -687,8 +686,8 @@ export const teamGoal = (gameNumber, teamType, symbol) => async (dispatch) => {
     }
 };
 
-export const changeGamerStatus = (gameNumber, teamType, id, gamerStatus) => async (dispatch) => {
-    let response = await teamsAPI.gamerStatus(gameNumber, teamType, id, gamerStatus);
+export const changeGamerStatus = (gameNumber, teamType, id) => async (dispatch) => {
+    let response = await teamsAPI.gamerStatus(gameNumber, teamType, id);
     if (response.resultCode === 0) {
         dispatch(changeGamerStatusAC(teamType, id));
     }

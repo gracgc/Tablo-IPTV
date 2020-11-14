@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import c from './TeamGamers.module.css'
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {changeGamerStatus, deleteGamer, gamerGoal, gamerOnField} from "../../../../redux/teams_reducer";
-import {addNewConsLog, addNewLog, addNewTempLog} from "../../../../redux/log_reducer";
+import {addNewConsLog, addNewLog, addNewTempLog, deleteConsLog, getLog} from "../../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
@@ -18,22 +18,30 @@ const TeamGamers = (props) => {
     let secondsStopwatch = Math.floor(props.timeMem / 1000) % 60;
     let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60)) + (props.period - 1) * 20;
 
+    const consLog = useSelector(
+        state => state.logPage.logData.tabloLog.consLog
+    );
 
-    const changeStatus = (gameNumber, teamType, gamerId, gamerStatus) => {
-        dispatch(changeGamerStatus(gameNumber, teamType, gamerId, gamerStatus));
+    const timeOfPenalty = useSelector(
+        state => state.teamsPage.timeOfPenalty
+    );
+
+
+    const changeStatus = (gameNumber, teamType, gamerId) => {
+        dispatch(changeGamerStatus(gameNumber, teamType, gamerId));
         if (props.status === 'in game') {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
                  ${props.fullName} deleted for `));
             dispatch(addNewConsLog(gameNumber, gamerId, teamType, `${props.fullName} deleted for `));
-            dispatch(deleteGamer(gameNumber, teamType, gamerId, 10000, props.timeMemTimer))
+            dispatch(deleteGamer(gameNumber, teamType, gamerId, 10000, props.timeMemTimer));
         }
         if (props.status === 'deleted') {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
                  ${props.fullName} returns to a game`));
             dispatch(addNewTempLog(gameNumber, `${props.fullName} returns to a game`));
-            dispatch(deleteGamer(gameNumber, teamType, gamerId, 0, 0))
+            dispatch(deleteConsLog(gameNumber, consLog.findIndex(c => c.id === props.id && c.teamType === props.teamType)));
         }
     };
 
@@ -84,7 +92,7 @@ const TeamGamers = (props) => {
             </div>
 
             <div style={{cursor: 'pointer'}} onClick={(e) => {
-                changeStatus(gameNumber, props.teamType, props.id, props.status)
+                changeStatus(gameNumber, props.teamType, props.id)
             }}>
                 {props.status}
             </div>

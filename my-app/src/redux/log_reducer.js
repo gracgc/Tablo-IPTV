@@ -5,9 +5,9 @@ import removeItems from 'remove-array-items';
 
 const ADD_LOG = 'log/ADD_LOG';
 const SET_LOG_DATA = 'log/SET_LOG_DATA';
-const ADD_TEMP_TABLO_LOG = 'ADD_TEMP_TABLO_LOG';
-const ADD_CONS_TABLO_LOG = 'ADD_CONS_TABLO_LOG';
-const DELETE_CONS_TABLO_LOG = 'DELETE_CONS_TABLO_LOG';
+const ADD_TEMP_TABLO_LOG = 'log/ADD_TEMP_TABLO_LOG';
+const ADD_CONS_TABLO_LOG = 'log/ADD_CONS_TABLO_LOG';
+const DELETE_CONS_TABLO_LOG = 'log/DELETE_CONS_TABLO_LOG';
 
 let initialState = {
     logData: {
@@ -41,7 +41,7 @@ const logReducer = (state = initialState, action) => {
                 ...state,
                 logData: {
                     ...state.logData,
-                    gameLog: [...state.logData.gameLog, action.newLogItem]
+                    gameLog: [...state.logData.gameLog, {item: action.newLogItem}]
                 }
             };
 
@@ -53,7 +53,7 @@ const logReducer = (state = initialState, action) => {
                     ...state.logData,
                     tabloLog: {
                         ...state.logData.tabloLog,
-                        tempLog: [...state.logData.tabloLog.tempLog, action.newLogItem]
+                        tempLog: [...state.logData.tabloLog.tempLog, {item: action.newLogItem}]
                     }
                 }
             };
@@ -73,8 +73,8 @@ const logReducer = (state = initialState, action) => {
 
         case DELETE_CONS_TABLO_LOG:
 
-            let newConsLog = state.logData.tabloLog.consLog;
-            removeItems(newConsLog, action.deletedItem, 1);
+            let newConsLog = [...state.logData.tabloLog.consLog];
+            newConsLog.splice(action.deletedItem, 1);
 
             return {
                 ...state,

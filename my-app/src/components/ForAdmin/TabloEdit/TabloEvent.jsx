@@ -9,25 +9,28 @@ const TabloEvent = (props) => {
 
     let dispatch = useDispatch();
 
+    const consLog = useSelector(
+        state => state.logPage.logData.tabloLog.consLog
+    );
+
     const deletedGamer = useSelector(
         state => state.teamsPage.teams.find(t => t.teamType === props.teamType).gamers.find(g => g.id === props.id)
     );
-
 
     let secondsTimerOfDeletedGamer =
         Math.floor((props.timeMemTimer - deletedGamer.whenWasPenalty + deletedGamer.timeOfPenalty) / 1000) % 60;
     let minutesTimerOfDeletedGamer =
         Math.floor((props.timeMemTimer - deletedGamer.whenWasPenalty + deletedGamer.timeOfPenalty) / (1000 * 60));
 
-    const shouldPenaltyStop = secondsTimerOfDeletedGamer < 0 && minutesTimerOfDeletedGamer < 0;
+    const shouldPenaltyStop = props.timeMemTimer - deletedGamer.whenWasPenalty + deletedGamer.timeOfPenalty <= 0;
 
 
     useEffect(() => {
-        if (shouldPenaltyStop) {
-            dispatch(changeGamerStatus(props.gameNumber, props.teamType, deletedGamer.id, deletedGamer.status));
-            dispatch(deleteGamer(props.gameNumber, props.teamType, deletedGamer.id, 0, 0));
-            dispatch(deleteConsLog(props.gameNumber, deletedGamer));
-            dispatch(addNewTempLog(props.gameNumber, `${deletedGamer.fullName} returns to a game`))
+        if (shouldPenaltyStop || props.timeMemTimer <= 0) {
+            dispatch(deleteConsLog(props.gameNumber, consLog.findIndex(c => c.id === deletedGamer.id && c.teamType === props.teamType)));
+            dispatch(addNewTempLog(props.gameNumber, `${deletedGamer.fullName} returns to a game`));
+            dispatch(changeGamerStatus(props.gameNumber, props.teamType, deletedGamer.id));
+            dispatch(deleteGamer(props.gameNumber, props.teamType, deletedGamer.id, 0, 0))
         }
     }, [shouldPenaltyStop]);
 
@@ -36,7 +39,8 @@ const TabloEvent = (props) => {
         <div className={c.consLog}>
             {props.item} : {minutesTimerOfDeletedGamer <= 0 ? 0 : minutesTimerOfDeletedGamer}
             :
-            {secondsTimerOfDeletedGamer < 1 ? 0 : secondsTimerOfDeletedGamer}
+            {secondsTimerOfDeletedGamer < 1 ? 0 : secondsTimerOfDeletedGamer} {consLog
+            .findIndex(c => c.id === deletedGamer.id && c.teamType === props.teamType)} {shouldPenaltyStop.toString()}
         </div>
     )
 };

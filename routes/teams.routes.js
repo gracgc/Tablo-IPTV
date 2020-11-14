@@ -164,30 +164,24 @@ router.put('/gamerStatus/:gameNumber', cors(), function (req, res) {
 
         let teamType = req.body.teamType;
         let id = req.body.id;
-        let gamerStatus = req.body.gamerStatus;
 
 
-        if (!gameNumber && !teamType && !id) {
-            res.send({resultCode: 10});
-            console.log('Not enought data');
+        let gamer = DB.teams.find(team => team.teamType === teamType)
+            .gamers.find(g => g.id === id);
+
+        if (gamer.status === 'deleted') {
+            gamer.status = 'in game';
         } else {
-            const gamer = DB.teams.find((team) => team.teamType === teamType)
-                .gamers.find((g) => g.id === id);
-            if (gamerStatus === "in game") {
-                gamer.status = "deleted";
-            }
-            if (gamerStatus === "deleted") {
-                gamer.status = "in game";
-            }
-
-
-            let json = JSON.stringify(DB);
-
-            fs.writeFileSync(path.join(__dirname +
-                `/DB/game_${gameNumber}.json`), json, 'utf8');
-
-            res.send({resultCode: 0})
+            gamer.status = 'deleted';
         }
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname +
+            `/DB/game_${gameNumber}.json`), json, 'utf8');
+
+        res.send({resultCode: 0})
+
 
     } catch (e) {
         console.log(e)

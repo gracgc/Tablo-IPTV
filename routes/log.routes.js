@@ -118,7 +118,7 @@ router.post('/cons/:gameNumber', cors(), function (req, res) {
     }
 });
 
-router.delete('/cons/:gameNumber', cors(), function (req, res) {
+router.put('/cons/:gameNumber', cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -127,18 +127,15 @@ router.delete('/cons/:gameNumber', cors(), function (req, res) {
 
         let deletedItem = req.body.deletedItem;
 
-        removeItems(DB.logData.tabloLog.consLog, deletedItem, 1);
+        DB.logData.tabloLog.consLog.splice(deletedItem, 1);
+
 
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-        if (!gameNumber) {
-            res.send({resultCode: 10});
-            console.log('Incorrect address')
-        } else {
-            res.send({resultCode: 0})
-        }
+        res.send({resultCode: 0})
+
 
     } catch (e) {
         console.log(e)

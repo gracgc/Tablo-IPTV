@@ -28,8 +28,8 @@ export const teamsAPI = {
                 return responce.data
             })
     },
-    gamerStatus(gameNumber, teamType, id, gamerStatus) {
-        return axios.put(`http://localhost:5000/api/teams/gamerStatus/${gameNumber}`, {teamType, id, gamerStatus})
+    gamerStatus(gameNumber, teamType, id) {
+        return axios.put(`http://localhost:5000/api/teams/gamerStatus/${gameNumber}`, {teamType, id})
             .then(responce => {
                 return responce.data
             })
@@ -74,7 +74,7 @@ export const logAPI = {
             })
     },
     deleteConsLog(gameNumber, deletedItem) {
-        return axios.delete(`http://localhost:5000/api/log/cons/${gameNumber}`, {deletedItem})
+        return axios.put(`http://localhost:5000/api/log/cons/${gameNumber}`, {deletedItem})
             .then(responce => {
                 return responce.data
             })
