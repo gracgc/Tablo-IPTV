@@ -39,8 +39,7 @@ const TabloEvent = (props) => {
         <div className={c.consLog}>
             {props.item} : {minutesTimerOfDeletedGamer <= 0 ? 0 : minutesTimerOfDeletedGamer}
             :
-            {secondsTimerOfDeletedGamer < 1 ? 0 : secondsTimerOfDeletedGamer} {consLog
-            .findIndex(c => c.id === deletedGamer.id && c.teamType === props.teamType)} {shouldPenaltyStop.toString()}
+            {secondsTimerOfDeletedGamer < 10 ? '0' : ''}{secondsTimerOfDeletedGamer < 1 ? 0 : secondsTimerOfDeletedGamer}
         </div>
     )
 };

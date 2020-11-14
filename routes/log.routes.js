@@ -3,7 +3,6 @@ const router = Router();
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
-const removeItems = require('remove-array-items');
 
 
 router.get('/:gameNumber', function (req, res) {

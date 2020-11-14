@@ -6,6 +6,7 @@ const ADD_GAMER_GOAL = 'teams/ADD_GAMER_GOAL';
 const SET_TEAMS = 'teams/SET_TEAMS';
 const GAMER_ON_FIELD = 'teams/GAMER_ON_FIELD';
 const DELETE_GAMER = 'teams/DELETE_GAMER';
+const SET_TIME_OF_PENALTY = 'teams/SET_TIME_OF_PENALTY';
 
 
 let initialState = {
@@ -539,6 +540,12 @@ const teamsReducer = (state = initialState, action) => {
                 teams: action.teams
             };
 
+        case SET_TIME_OF_PENALTY:
+            return {
+                ...state,
+                timeOfPenalty: action.timeOfPenalty
+            };
+
         case ADD_GOAL:
             return {
                 ...state,
@@ -659,6 +666,7 @@ const teamsReducer = (state = initialState, action) => {
 };
 
 export const setTeamsAC = (teams) => ({type: SET_TEAMS, teams});
+export const setTineOfPenaltyAC = (timeOfPenalty) => ({type: SET_TIME_OF_PENALTY, timeOfPenalty});
 export const addGoalAC = (teamType, symbol) => ({type: ADD_GOAL, teamType, symbol});
 export const changeGamerStatusAC = (teamType, gamerId) => ({type: CHANGE_GAMER_STATUS, teamType, gamerId});
 export const gamerOnFieldAC = (gamerId, teamType) => ({type: GAMER_ON_FIELD, teamType, gamerId});

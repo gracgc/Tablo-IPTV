@@ -7,3 +7,13 @@
 .goalButton {
     margin-left: 5px;
 }
+
+.timeOfPenalty {
+    position: absolute;
+    z-index: 1000;
+    border: solid 1px;
+    background-color: antiquewhite;
+    padding: 2px;
+    margin-left: 60px;
+    margin-top: -20px;
+}

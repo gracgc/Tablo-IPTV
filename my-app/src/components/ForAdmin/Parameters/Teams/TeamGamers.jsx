@@ -1,7 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import c from './TeamGamers.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {changeGamerStatus, deleteGamer, gamerGoal, gamerOnField} from "../../../../redux/teams_reducer";
+import {
+    changeGamerStatus,
+    deleteGamer,
+    gamerGoal,
+    gamerOnField,
+    setTineOfPenaltyAC
+} from "../../../../redux/teams_reducer";
 import {addNewConsLog, addNewLog, addNewTempLog, deleteConsLog, getLog} from "../../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
@@ -14,6 +20,8 @@ const TeamGamers = (props) => {
     const dispatch = useDispatch();
 
     const [isGamerGoalEdit, setIsGamerGoalEdit] = useState(false);
+
+    const [showHelper, setShowHelper] = useState(false);
 
     let secondsStopwatch = Math.floor(props.timeMem / 1000) % 60;
     let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60)) + (props.period - 1) * 20;
@@ -34,7 +42,8 @@ const TeamGamers = (props) => {
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
                  ${props.fullName} deleted for `));
             dispatch(addNewConsLog(gameNumber, gamerId, teamType, `${props.fullName} deleted for `));
-            dispatch(deleteGamer(gameNumber, teamType, gamerId, 10000, props.timeMemTimer));
+            dispatch(deleteGamer(gameNumber, teamType, gamerId, timeOfPenalty, props.timeMemTimer));
+            dispatch(setTineOfPenaltyAC(0))
         }
         if (props.status === 'deleted') {
             dispatch(addNewLog(gameNumber,
@@ -90,12 +99,22 @@ const TeamGamers = (props) => {
             <div>
                 {props.fullName}
             </div>
+            {timeOfPenalty === 0 && props.status === 'in game'
+                ? <div style={{cursor: 'help'}} onMouseOver={(e) => {
+                    setShowHelper(true)
+                }} onMouseLeave={(e) => {
+                    setShowHelper(false)
+                }}>
+                    {showHelper && <span className={c.timeOfPenalty}>Chose Time Of Penalty</span>}
+                    {props.status}
+                </div>
+                : <div style={{cursor: 'pointer'}} onClick={(e) => {
+                    changeStatus(gameNumber, props.teamType, props.id)
+                }}>
+                    {props.status}
+                </div>
+            }
 
-            <div style={{cursor: 'pointer'}} onClick={(e) => {
-                changeStatus(gameNumber, props.teamType, props.id)
-            }}>
-                {props.status}
-            </div>
 
             <div style={{cursor: 'pointer'}} onClick={(e) => {
                 changeGamerOnField(gameNumber, props.teamType, props.id, props.onField)
