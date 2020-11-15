@@ -15,7 +15,7 @@ let initialState = {
             name: 'Name',
             counter: 0,
             teamType: 'home',
-            timeOut: 0,
+            timeOut: false,
             gamers: [
                 {
                     "id": 1,
@@ -273,7 +273,7 @@ let initialState = {
             name: 'Name',
             counter: 0,
             teamType: 'guests',
-            timeOut: 0,
+            timeOut: false,
             gamers: [
                 {
                     "id": 1,

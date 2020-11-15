@@ -5,8 +5,6 @@ import TeamGamers from "./TeamGamers";
 
 const TeamInfo = (props) => {
 
-
-
     return (
         <div className={c.team}>
             <div className={c.teamInfo}>

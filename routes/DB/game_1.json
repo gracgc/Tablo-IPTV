@@ -31,8 +31,7 @@
     "bigOvertime": 0
   },
   "logData": {
-    "gameLog": [
-    ],
+    "gameLog": [],
     "tabloLog": {
       "tempLog": [
         {
@@ -48,7 +47,7 @@
       "name": "Home",
       "counter": 16,
       "teamType": "home",
-      "timeOut": 0,
+      "timeOut": false,
       "gamers": [
         {
           "id": 1,
@@ -176,7 +175,7 @@
       "name": "Guests",
       "counter": 12,
       "teamType": "guests",
-      "timeOut": 0,
+      "timeOut": false,
       "gamers": [
         {
           "id": 1,

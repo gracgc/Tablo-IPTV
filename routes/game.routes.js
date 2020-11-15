@@ -70,10 +70,17 @@ router.post('/', cors(), function (req, res) {
                     }
                 }
             },
-            gameLog: [],
-            tabloLog: {
-                tempLog:[{item: ''}],
-                consLog: []
+            logData: {
+                gameLog: [],
+                tabloLog: {
+                    tempLog: [
+                        {
+                            item: ""
+                        }
+                    ],
+                    consLog: [
+                    ]
+                }
             },
             teams: []
         };

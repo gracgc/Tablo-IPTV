@@ -40,14 +40,14 @@ router.post('/:gameNumber', cors(), function (req, res) {
                 "name": homeName,
                 "counter": 0,
                 "teamType": "home",
-                "timeOut": 0,
+                "timeOut": false,
                 "gamers": homeGamers
             },
             {
                 "name": guestsName,
                 "counter": 0,
                 "teamType": "guests",
-                "timeOut": 0,
+                "timeOut": false,
                 "gamers": guestsGamers
             }
         ];

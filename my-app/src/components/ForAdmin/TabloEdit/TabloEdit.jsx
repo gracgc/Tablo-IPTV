@@ -4,7 +4,7 @@ import {useState, useEffect} from 'react';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
 import Tablo from "./Tablo";
-import {getTeams, teamGoal} from "../../../redux/teams_reducer";
+import {teamGoal} from "../../../redux/teams_reducer";
 import {addNewLog, addNewTempLog, getLog} from "../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";

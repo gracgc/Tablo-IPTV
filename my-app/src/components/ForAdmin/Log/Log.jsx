@@ -18,7 +18,6 @@ const Log = (props) => {
                 {gameLog.map(l => <LogItem logItem={l.item}/>)}
             </div>
         </div>
-
     )
 };
 
