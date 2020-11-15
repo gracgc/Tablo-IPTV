@@ -9,6 +9,7 @@ const Tablo = (props) => {
     return (
         <div className={c.tablo}>
             <div className={c.time}>
+                {props.secondsTimerTimeout} seconds
                 {props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}{props.secondsTimer}
             </div>
             {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> : <div></div>}

@@ -62,13 +62,17 @@ const TeamsParameters = (props) => {
             <div>
                 <TeamInfo period={period} timeMem={timeMem} timeMemTimer={timeMemTimer}
                           teamGamers={homeTeamGamers} teamCounter={homeTeamInfo.counter}
-                          name={homeTeamInfo.name} timeOut={homeTeamInfo.timeOut} teamType={homeTeamInfo.teamType}/>
+                          name={homeTeamInfo.name} timeOut={homeTeamInfo.timeOut} teamType={homeTeamInfo.teamType}
+                          gameNumber={gameNumber}
+                />
             </div>
             <div>
                 <TeamInfo period={period} timeMem={timeMem} timeMemTimer={timeMemTimer}
                           teamGamers={guestsTeamGamers} teamCounter={guestsTeamInfo.counter}
                           name={guestsTeamInfo.name} timeOut={guestsTeamInfo.timeOut}
-                          teamType={guestsTeamInfo.teamType}/>
+                          teamType={guestsTeamInfo.teamType}
+                          gameNumber={gameNumber}
+                />
             </div>
             <NavLink to="/">
                 <div className={c.navBackButton}>

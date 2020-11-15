@@ -19,6 +19,20 @@ router.get('/:gameNumber', function (req, res) {
     }
 });
 
+router.get('/timeout/:gameNumber', function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+        DB.resultCode = 0;
+        res.send(DB.gameInfo.gameTime.timeoutData)
+    } catch (e) {
+        console.log(e)
+    }
+});
+
 router.put('/isRunning/:gameNumber', function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
@@ -50,6 +64,42 @@ router.put('/isRunning/:gameNumber', function (req, res) {
         DB.gameInfo.period = period;
         DB.gameInfo.smallOvertime = smallOvertime;
         DB.gameInfo.bigOvertime = bigOvertime;
+        // DB.runningTime = new Date(2011, 0, 1, 0, 0, 0, 0).getTime() - currentLocalTime;
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
+
+        res.send({resultCode: 0})
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.put('/isRunningTimeout/:gameNumber', function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+        let isRunning = req.body.isRunning;
+        let timeDif = req.body.timeDif;
+        let timeMem = req.body.timeMem;
+        let timeMemTimer = req.body.timeMemTimer;
+        let currentLocalTime = req.body.currentLocalTime;
+        let deadLine = req.body.deadLine;
+
+
+        DB.gameInfo.gameTime.timeoutData.isRunning = isRunning;
+        DB.gameInfo.gameTime.timeoutData.timeData.timeDif = timeDif;
+        DB.gameInfo.gameTime.timeoutData.timeData.timeMem = timeMem;
+        DB.gameInfo.gameTime.timeoutData.timeData.timeMemTimer = timeMemTimer;
+        DB.gameInfo.gameTime.timeoutData.timeData.deadLine = deadLine;
+        DB.gameInfo.gameTime.timeoutData.runningTime = currentLocalTime;
+
+
         // DB.runningTime = new Date(2011, 0, 1, 0, 0, 0, 0).getTime() - currentLocalTime;
 
         let json = JSON.stringify(DB);
