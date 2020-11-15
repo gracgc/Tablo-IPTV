@@ -13,7 +13,18 @@
       },
       "dif": null,
       "isRunning": false,
-      "runningTime": 1605430346137
+      "runningTime": 1605430346137,
+      "timeoutData": {
+        "timeData": {
+          "timeDif": 0,
+          "timeMem": 0,
+          "timeMemTimer": 30000,
+          "deadLine": 30000
+        },
+        "dif": null,
+        "isRunning": false,
+        "runningTime": 0
+      }
     },
     "period": 3,
     "smallOvertime": 0,
@@ -21,7 +32,6 @@
   },
   "logData": {
     "gameLog": [
-
     ],
     "tabloLog": {
       "tempLog": [
@@ -30,7 +40,6 @@
         }
       ],
       "consLog": [
-
       ]
     }
   },
