@@ -5,10 +5,9 @@ import {
     changeGamerStatus,
     deleteGamer,
     gamerGoal,
-    gamerOnField,
-    setTineOfPenaltyAC
+    gamerOnField, setTimeOfPenaltyAC
 } from "../../../../redux/teams_reducer";
-import {addNewConsLog, addNewLog, addNewTempLog, deleteConsLog, getLog} from "../../../../redux/log_reducer";
+import {addNewConsLog, addNewLog, addNewTempLog, deleteConsLog} from "../../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
@@ -43,7 +42,7 @@ const TeamGamers = (props) => {
                  ${props.fullName} deleted for `));
             dispatch(addNewConsLog(gameNumber, gamerId, teamType, `${props.fullName} deleted for `));
             dispatch(deleteGamer(gameNumber, teamType, gamerId, timeOfPenalty, props.timeMemTimer));
-            dispatch(setTineOfPenaltyAC(0))
+            dispatch(setTimeOfPenaltyAC(0))
         }
         if (props.status === 'deleted') {
             dispatch(addNewLog(gameNumber,

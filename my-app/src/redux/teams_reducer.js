@@ -666,7 +666,7 @@ const teamsReducer = (state = initialState, action) => {
 };
 
 export const setTeamsAC = (teams) => ({type: SET_TEAMS, teams});
-export const setTineOfPenaltyAC = (timeOfPenalty) => ({type: SET_TIME_OF_PENALTY, timeOfPenalty});
+export const setTimeOfPenaltyAC = (timeOfPenalty) => ({type: SET_TIME_OF_PENALTY, timeOfPenalty});
 export const addGoalAC = (teamType, symbol) => ({type: ADD_GOAL, teamType, symbol});
 export const changeGamerStatusAC = (teamType, gamerId) => ({type: CHANGE_GAMER_STATUS, teamType, gamerId});
 export const gamerOnFieldAC = (gamerId, teamType) => ({type: GAMER_ON_FIELD, teamType, gamerId});

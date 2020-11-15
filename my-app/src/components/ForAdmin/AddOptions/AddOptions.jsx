@@ -4,7 +4,7 @@ import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import * as axios from "axios";
 import {useDispatch, useSelector} from "react-redux";
-import {setTineOfPenaltyAC} from "../../../redux/teams_reducer";
+import {setTimeOfPenaltyAC} from "../../../redux/teams_reducer";
 
 
 
@@ -49,27 +49,27 @@ const AddOptions = (props) => {
             <div>
                 <div><strong style={{fontSize: "120%"}}>Penalty</strong></div>
                 <div className={c.overtimeButtons}>
-                    <div className={c.overtimeButton} onClick={(e) => dispatch(setTineOfPenaltyAC(120000))}>
+                    <div className={c.overtimeButton} onClick={(e) => dispatch(setTimeOfPenaltyAC(120000))}>
                         2'
                     </div>
-                    <div className={c.overtimeButton} onClick={(e) => dispatch(setTineOfPenaltyAC(240000))}>
+                    <div className={c.overtimeButton} onClick={(e) => dispatch(setTimeOfPenaltyAC(240000))}>
                         2'+2'
                     </div>
-                    <div className={c.overtimeButton} onClick={(e) => dispatch(setTineOfPenaltyAC(300000))}>
+                    <div className={c.overtimeButton} onClick={(e) => dispatch(setTimeOfPenaltyAC(300000))}>
                         5'
                     </div>
                 </div>
                 <div className={c.overtimeButtons}>
-                    <div className={c.overtimeButton} onClick={(e) => dispatch(setTineOfPenaltyAC(600000))}>
+                    <div className={c.overtimeButton} onClick={(e) => dispatch(setTimeOfPenaltyAC(600000))}>
                         10'
                     </div>
-                    <div className={c.overtimeButton} onClick={(e) => dispatch(setTineOfPenaltyAC(6000000))}>
+                    <div className={c.overtimeButton} onClick={(e) => dispatch(setTimeOfPenaltyAC(6000000))}>
                         Match
                     </div>
                     {/*<div className={c.overtimeButton}>*/}
                     {/*    Bullet*/}
                     {/*</div>*/}
-                    <div className={c.overtimeButton} onClick={(e) => dispatch(setTineOfPenaltyAC(10000))}>
+                    <div className={c.overtimeButton} onClick={(e) => dispatch(setTimeOfPenaltyAC(10000))}>
                         TEST
                     </div>
                 </div>
