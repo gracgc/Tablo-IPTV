@@ -82,6 +82,8 @@ const TabloEdit = (props) => {
 
     let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
 
+    let isCheck = true;
+
     const getTimerStatus = (gameNumber) => {
         return axios.get(`http://localhost:5000/api/time/${gameNumber}`)
             .then(responce => {
@@ -219,15 +221,17 @@ const TabloEdit = (props) => {
     useEffect(() => {
             let interval = setInterval(() => {
 
+                if (isCheck) {
                     checkTimerStatus(gameNumber);
                     checkTimeoutStatus(gameNumber);
                     dispatch(getLog(gameNumber));
+                    setTick(100)
+                }
 
-                if (isRunningServer) {
+                if (isCheck && isRunningServer) {
                     checkTimerStatus(gameNumber);
                     checkTimeoutStatus(gameNumber);
                     dispatch(getLog(gameNumber));
-                    debugger
 
                     if (timeDif >= deadLine) {
                         if (period === 3) {
@@ -238,7 +242,8 @@ const TabloEdit = (props) => {
                             dispatch(addNewLog(gameNumber,
                                 `End of ${period} period`));
                             dispatch(addNewTempLog(gameNumber,
-                                `End of ${period} period`))
+                                `End of ${period} period`));
+                            setTick(2000)
                         }
                         if (period > 3) {
                             if (deadLine === 300000) {
@@ -249,7 +254,8 @@ const TabloEdit = (props) => {
                                 dispatch(addNewLog(gameNumber,
                                     `End of overtime`));
                                 dispatch(addNewTempLog(gameNumber,
-                                    `End of overtime`))
+                                    `End of overtime`));
+                                setTick(2000)
                             }
                             if (deadLine === 1200000) {
                                 putTimerStatus(gameNumber, false, Date.now(),
@@ -259,7 +265,8 @@ const TabloEdit = (props) => {
                                 dispatch(addNewLog(gameNumber,
                                     `End of overtime`));
                                 dispatch(addNewTempLog(gameNumber,
-                                    `End of overtime`))
+                                    `End of overtime`));
+                                setTick(2000)
                             }
                         } else {
                             putTimerStatus(gameNumber, false, Date.now(),
@@ -269,27 +276,29 @@ const TabloEdit = (props) => {
                             dispatch(addNewLog(gameNumber,
                                 `End of ${period} period`));
                             dispatch(addNewTempLog(gameNumber,
-                                `End of ${period} period`))
+                                `End of ${period} period`));
+                            setTick(2000)
                         }
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
                         setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
                     }
                 }
-                if (isRunningServerTimeout) {
+                if (isCheck && isRunningServerTimeout) {
                     checkTimerStatus(gameNumber);
                     checkTimeoutStatus(gameNumber);
                     dispatch(getLog(gameNumber));
 
-                    if (timeDifTimeout >= deadLineTimeout) {
+                    if (timeMemTimerTimeout <= 0) {
                         putTimeoutStatus(gameNumber, false, Date.now(),
                             0,
                             0,
-                            deadLineTimeout, deadLineTimeout);
+                            0, 0);
                         dispatch(addNewLog(gameNumber,
                             `End of timeout`));
                         dispatch(addNewTempLog(gameNumber,
-                            `End of timeout`))
+                            `End of timeout`));
+                        setTick(5000)
                     } else {
                         setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout));
                         setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout)));

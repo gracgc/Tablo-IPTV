@@ -20,3 +20,10 @@
 }
 
 
+.timeout {
+    border: solid 1px;
+    padding: 0 10px;
+    background-color: #D5DEEF;
+}
+
+

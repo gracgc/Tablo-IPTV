@@ -28,10 +28,10 @@ const TeamInfo = (props) => {
             `Start timeout for ${props.name}`));
     };
 
-    let stopTimeout = () => {
+    let setTimeout = () => {
         putTimeoutStatus(props.gameNumber, false, Date.now(), 0, 0, 30000, 30000);
         dispatch(addNewLog(props.gameNumber,
-            `Start timeout for ${props.name}`));
+            `Set timeout for ${props.name}`));
     };
 
     return (
@@ -39,7 +39,11 @@ const TeamInfo = (props) => {
             <div className={c.teamInfo}>
                 Team Name: {props.name} <br/>
                 Points: {props.teamCounter} <br/>
-                TimeOut: <div onClick={(e) => startTimeout()}>GET</div><div onClick={(e) => stopTimeout()}>STOP</div> <br/>
+                TimeOut: <span className={c.timeout} onClick={(e) => setTimeout()}>
+                Set
+            </span> <span className={c.timeout} onClick={(e) => startTimeout()}>
+                Start
+            </span> <br/>
                 <div className={c.tableInfo} >
                     <div>
                         <strong>Gamers:</strong>
