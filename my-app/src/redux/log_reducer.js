@@ -12,7 +12,7 @@ const DELETE_CONS_TABLO_LOG = 'log/DELETE_CONS_TABLO_LOG';
 let initialState = {
     logData: {
         gameLog: [
-            {item: ""}
+            {item: "", id: 0}
         ],
         tabloLog: {
             tempLog: [
@@ -41,7 +41,7 @@ const logReducer = (state = initialState, action) => {
                 ...state,
                 logData: {
                     ...state.logData,
-                    gameLog: [...state.logData.gameLog, {item: action.newLogItem}]
+                    gameLog: [...state.logData.gameLog, action.newLogItem]
                 }
             };
 
@@ -53,7 +53,7 @@ const logReducer = (state = initialState, action) => {
                     ...state.logData,
                     tabloLog: {
                         ...state.logData.tabloLog,
-                        tempLog: [...state.logData.tabloLog.tempLog, {item: action.newLogItem}]
+                        tempLog: [...state.logData.tabloLog.tempLog, action.newLogItem]
                     }
                 }
             };

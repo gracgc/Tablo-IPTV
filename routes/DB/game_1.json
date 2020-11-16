@@ -1,1 +1,304 @@
-{"gameInfo":{"gameName":"New Game","gameNumber":1,"gameType":"Classic Hockey","gameStatus":"Not going","gameTime":{"timeData":{"timeDif":3047,"timeMem":207455,"timeMemTimer":992545,"deadLine":1200000},"dif":null,"isRunning":false,"runningTime":1605519051073,"timeoutData":{"timeData":{"timeDif":0,"timeMem":0,"timeMemTimer":0,"deadLine":0},"dif":null,"isRunning":false,"runningTime":1605523301358}},"period":3,"smallOvertime":0,"bigOvertime":0},"logData":{"gameLog":[{"item":"Set timeout for Guests"},{"item":"Set timeout for Guests"},{"item":"Set timeout for Guests"},{"item":"Set timeout for Guests"},{"item":"Set timeout for Guests"},{"item":"Set timeout for Home"},{"item":"Start timeout for Guests"},{"item":"End of timeout"},{"item":"Set timeout for Guests"},{"item":"Start timeout for Guests"},{"item":"Set timeout for Guests"},{"item":"Start timeout for Guests"},{"item":"End of timeout"},{"item":"Set timeout for Guests"},{"item":"Start timeout for Guests"},{"item":"End of timeout"}],"tabloLog":{"tempLog":[{"item":""},{"item":"End of timeout"},{"item":"End of timeout"},{"item":"End of timeout"}],"consLog":[]}},"teams":[{"name":"Home","counter":16,"teamType":"home","timeOut":false,"gamers":[{"id":1,"fullName":"Gamer 1","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":2,"fullName":"Gamer 2","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":10000,"whenWasPenalty":319321},{"id":3,"fullName":"Gamer 3","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":4,"fullName":"Gamer 4","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":5,"fullName":"Gamer 5","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":6,"fullName":"Gamer 6","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":7,"fullName":"Gamer 7","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":8,"fullName":"Gamer 8","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":9,"fullName":"Gamer 9","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":10,"fullName":"Gamer 10","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":11,"fullName":"Gamer 11","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":12,"fullName":"Gamer 12","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0}]},{"name":"Guests","counter":12,"teamType":"guests","timeOut":false,"gamers":[{"id":1,"fullName":"qwe","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":2,"fullName":"Gamer 2","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":3,"fullName":"Gamer 3","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":4,"fullName":"Gamer 4","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":10000,"whenWasPenalty":319321},{"id":5,"fullName":"Gamer 5","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":6,"fullName":"Gamer 6","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":10000,"whenWasPenalty":1200000},{"id":7,"fullName":"Gamer 7","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":10000,"whenWasPenalty":319321},{"id":8,"fullName":"Gamer 8","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":9,"fullName":"Gamer 9","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":10,"fullName":"Gamer 10","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":11,"fullName":"Gamer 11","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":12,"fullName":"Gamer 12","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0}]}]}
+{
+  "gameInfo": {
+    "gameName": "New Game",
+    "gameNumber": 1,
+    "gameType": "Classic Hockey",
+    "gameStatus": "Not going",
+    "gameTime": {
+      "timeData": {
+        "timeDif": 1433,
+        "timeMem": 237008,
+        "timeMemTimer": 962992,
+        "deadLine": 1200000
+      },
+      "dif": null,
+      "isRunning": false,
+      "runningTime": 1605524572010,
+      "timeoutData": {
+        "timeData": {
+          "timeDif": 0,
+          "timeMem": 0,
+          "timeMemTimer": 0,
+          "deadLine": 0
+        },
+        "dif": null,
+        "isRunning": false,
+        "runningTime": 1605523301358
+      }
+    },
+    "period": 3,
+    "smallOvertime": 0,
+    "bigOvertime": 0
+  },
+  "logData": {
+    "gameLog": [
+
+    ],
+    "tabloLog": {
+      "tempLog": [
+        {
+          "item": ""
+        }
+      ],
+      "consLog": []
+    }
+  },
+  "teams": [
+    {
+      "name": "Home",
+      "counter": 16,
+      "teamType": "home",
+      "timeOut": false,
+      "gamers": [
+        {
+          "id": 1,
+          "fullName": "Gamer 1",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 2,
+          "fullName": "Gamer 2",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 10000,
+          "whenWasPenalty": 319321
+        },
+        {
+          "id": 3,
+          "fullName": "Gamer 3",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 4,
+          "fullName": "Gamer 4",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 5,
+          "fullName": "Gamer 5",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 6,
+          "fullName": "Gamer 6",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 7,
+          "fullName": "Gamer 7",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 8,
+          "fullName": "Gamer 8",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 9,
+          "fullName": "Gamer 9",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 10,
+          "fullName": "Gamer 10",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 11,
+          "fullName": "Gamer 11",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 12,
+          "fullName": "Gamer 12",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        }
+      ]
+    },
+    {
+      "name": "Guests",
+      "counter": 12,
+      "teamType": "guests",
+      "timeOut": false,
+      "gamers": [
+        {
+          "id": 1,
+          "fullName": "qwe",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 2,
+          "fullName": "Gamer 2",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 3,
+          "fullName": "Gamer 3",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 4,
+          "fullName": "Gamer 4",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 10000,
+          "whenWasPenalty": 319321
+        },
+        {
+          "id": 5,
+          "fullName": "Gamer 5",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 6,
+          "fullName": "Gamer 6",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 10000,
+          "whenWasPenalty": 1200000
+        },
+        {
+          "id": 7,
+          "fullName": "Gamer 7",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 10000,
+          "whenWasPenalty": 319321
+        },
+        {
+          "id": 8,
+          "fullName": "Gamer 8",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 9,
+          "fullName": "Gamer 9",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 10,
+          "fullName": "Gamer 10",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 11,
+          "fullName": "Gamer 11",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 12,
+          "fullName": "Gamer 12",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        }
+      ]
+    }
+  ]
+}

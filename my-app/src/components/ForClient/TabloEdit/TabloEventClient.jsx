@@ -1,8 +1,6 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import c from './TabloClient.module.css'
-import {useDispatch, useSelector} from "react-redux";
-import {addNewTempLog, deleteConsLog} from "../../../redux/log_reducer";
-import {changeGamerStatus, deleteGamer} from "../../../redux/teams_reducer";
+import {useSelector} from "react-redux";
 
 
 const TabloEventClient = (props) => {

@@ -5,7 +5,6 @@ import {getGame} from "../../../redux/games_reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import * as axios from "axios";
-import {addNewLog, addNewTempLog} from "../../../redux/log_reducer";
 
 
 const Info = (props) => {
@@ -46,20 +45,6 @@ const Info = (props) => {
             });
     };
 
-    const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif,
-                            timeMem, timeMemTimer, deadline, period, smallOvertime, bigOvertime) => {
-        return axios.put(`http://localhost:5000/api/time/isRunning/${gameNumber}`, {
-            isRunning,
-            currentLocalTime,
-            timeDif,
-            timeMem,
-            timeMemTimer,
-            deadLine,
-            period,
-            smallOvertime,
-            bigOvertime
-        })
-    };
 
     let checkTimerStatus = (gameNumber) => {
         getTimerStatus(gameNumber).then(r => {
@@ -120,44 +105,9 @@ const Info = (props) => {
                     checkTimerStatus(gameNumber);
                     dispatch(getGame(gameNumber));
 
-                    if (timeDif >= deadLine) {
-                        if (period === 3) {
-                            putTimerStatus(gameNumber, false, Date.now(),
-                                0,
-                                0,
-                                0, 0, period + 1, smallOvertime, bigOvertime);
-                            dispatch(addNewLog(gameNumber,
-                                `End of ${period} period`));
-                            dispatch(addNewTempLog(gameNumber,
-                                `End of ${period} period`))
-                        }
-                        if (period > 3) {
-                            if (deadLine === 300000) {
-                                putTimerStatus(gameNumber, false, Date.now(),
-                                    0,
-                                    0,
-                                    0, 0, period, smallOvertime + 1, bigOvertime);
-                            }
-                            if (deadLine === 1200000) {
-                                putTimerStatus(gameNumber, false, Date.now(),
-                                    0,
-                                    0,
-                                    0, 0, period, smallOvertime, bigOvertime + 1);
-                            }
-                        } else {
-                            putTimerStatus(gameNumber, false, Date.now(),
-                                0,
-                                0,
-                                deadLine, deadLine, period + 1, smallOvertime, bigOvertime);
-                            dispatch(addNewLog(gameNumber,
-                                `End of ${period} period`));
-                            dispatch(addNewTempLog(gameNumber,
-                                `End of ${period} period`))
-                        }
-                    } else {
-                        setTimeDif(timeMem + (Date.now() - currentTime));
-                        setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
-                    }
+                    setTimeDif(timeMem + (Date.now() - currentTime));
+                    setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
+
                 }
             }, tick);
             return () => clearInterval(interval);
@@ -170,7 +120,7 @@ const Info = (props) => {
                 <strong>{gameData.gameName}</strong> — {gameData.gameType}
             </div>
             <div className={c.statusAndTime}>
-                {period > 3 && <strong>Overtime {''}</strong> || <strong>Period {gameData.period} {''}</strong>}
+                {period > 3 ? <strong>Overtime {''}</strong> : <strong>Period {gameData.period} {''}</strong>}
                 — <strong>Status</strong>: {gameData.gameStatus} — <strong>Time</strong>
                 : {minutesStopwatch}:{secondsStopwatch < 10 ? '0' : ''}{secondsStopwatch}
             </div>
