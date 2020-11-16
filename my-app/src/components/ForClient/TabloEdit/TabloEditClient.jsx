@@ -6,9 +6,8 @@ import TabloClient from "./TabloClient";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
-import {addNewLog, addNewTempLog, getLog} from "../../../redux/log_reducer";
+import {getLog} from "../../../redux/log_reducer";
 import {getTeams} from "../../../redux/teams_reducer";
-import Tablo from "../../ForAdmin/TabloEdit/Tablo";
 
 
 const TabloEditClient = (props) => {

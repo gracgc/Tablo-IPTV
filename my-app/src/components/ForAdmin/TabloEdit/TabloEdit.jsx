@@ -290,6 +290,7 @@ const TabloEdit = (props) => {
                     dispatch(getLog(gameNumber));
 
                     if (timeMemTimerTimeout <= 0) {
+                        setTick(3000);
                         putTimeoutStatus(gameNumber, false, Date.now(),
                             0,
                             0,
@@ -298,7 +299,6 @@ const TabloEdit = (props) => {
                             `End of timeout`));
                         dispatch(addNewTempLog(gameNumber,
                             `End of timeout`));
-                        setTick(5000)
                     } else {
                         setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout));
                         setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout)));
