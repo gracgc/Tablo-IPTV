@@ -17,20 +17,24 @@ const TabloEvent = (props) => {
         state => state.teamsPage.teams.find(t => t.teamType === props.teamType).gamers.find(g => g.id === props.id)
     );
 
-    let secondsTimerOfDeletedGamer =
-        Math.floor((props.timeMemTimer - deletedGamer.whenWasPenalty + deletedGamer.timeOfPenalty) / 1000) % 60;
-    let minutesTimerOfDeletedGamer =
-        Math.floor((props.timeMemTimer - deletedGamer.whenWasPenalty + deletedGamer.timeOfPenalty) / (1000 * 60));
+    let penaltyTimer = props.timeMemTimer - deletedGamer.whenWasPenalty + deletedGamer.timeOfPenalty;
 
-    const shouldPenaltyStop = props.timeMemTimer - deletedGamer.whenWasPenalty + deletedGamer.timeOfPenalty <= 0;
+    let secondsTimerOfDeletedGamer =
+        Math.floor(penaltyTimer / 1000) % 60;
+    let minutesTimerOfDeletedGamer =
+        Math.floor(penaltyTimer / (1000 * 60));
+
+    const shouldPenaltyStop = penaltyTimer <= 0;
 
 
     useEffect(() => {
         if (shouldPenaltyStop || props.timeMemTimer <= 0) {
-            dispatch(deleteConsLog(props.gameNumber, consLog.findIndex(c => c.id === deletedGamer.id && c.teamType === props.teamType)));
-            dispatch(addNewTempLog(props.gameNumber, `${deletedGamer.fullName} returns to a game`));
-            dispatch(changeGamerStatus(props.gameNumber, props.teamType, deletedGamer.id));
-            dispatch(deleteGamer(props.gameNumber, props.teamType, deletedGamer.id, 0, 0))
+            setTimeout(() => {
+                dispatch(addNewTempLog(props.gameNumber, `${deletedGamer.fullName} returns to a game`));
+                dispatch(changeGamerStatus(props.gameNumber, props.teamType, deletedGamer.id));
+                dispatch(deleteGamer(props.gameNumber, props.teamType, deletedGamer.id, 0, 0));
+                dispatch(deleteConsLog(props.gameNumber, consLog.findIndex(c => c.id === deletedGamer.id && c.teamType === props.teamType)))
+            }, (consLog.length - consLog.findIndex(c => c.id === deletedGamer.id && c.teamType === props.teamType))*100)
         }
     }, [shouldPenaltyStop]);
 
