@@ -60,6 +60,28 @@ router.post('/:gameNumber', cors(), function (req, res) {
     }
 });
 
+router.put('/:gameNumber', cors(), function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+        let deletedItem = req.body.deletedItem;
+
+        DB.logData.gameLog.splice(deletedItem, 1);
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
+
+        res.send({resultCode: 0})
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
 router.post('/temp/:gameNumber', cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;

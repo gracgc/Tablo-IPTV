@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import c from './TeamGamers.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {

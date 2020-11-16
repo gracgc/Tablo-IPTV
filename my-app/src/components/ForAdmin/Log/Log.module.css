@@ -18,8 +18,7 @@
     box-sizing: border-box;
     border: 2px solid black;
     font-size: 150%;
-    cursor: pointer;
-}   
+}
 
 .logForm {
     display: grid;
@@ -27,3 +26,12 @@
     grid-template-rows: 35px;
 }
 
+.logItem {
+    display: grid;
+    grid-template-columns: 95% 5%
+}
+
+.deleteButton {
+    cursor: pointer;
+    color: red;
+}

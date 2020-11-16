@@ -1,9 +1,9 @@
 import {logAPI} from "../api/api";
 
-import removeItems from 'remove-array-items';
 
 
 const ADD_LOG = 'log/ADD_LOG';
+const DELETE_LOG = 'log/DELETE_LOG';
 const SET_LOG_DATA = 'log/SET_LOG_DATA';
 const ADD_TEMP_TABLO_LOG = 'log/ADD_TEMP_TABLO_LOG';
 const ADD_CONS_TABLO_LOG = 'log/ADD_CONS_TABLO_LOG';
@@ -42,6 +42,19 @@ const logReducer = (state = initialState, action) => {
                 logData: {
                     ...state.logData,
                     gameLog: [...state.logData.gameLog, action.newLogItem]
+                }
+            };
+
+        case DELETE_LOG:
+
+            let newLog = [...state.logData.gameLog];
+            newLog.splice(action.deletedItem, 1);
+
+            return {
+                ...state,
+                logData: {
+                    ...state.logData,
+                    gameLog: newLog
                 }
             };
 
@@ -94,6 +107,7 @@ const logReducer = (state = initialState, action) => {
 
 export const setLogDataAC = (logData) => ({type: SET_LOG_DATA, logData});
 export const addLogAC = (newLogItem) => ({type: ADD_LOG, newLogItem});
+export const deleteLogAC = (newLogItem) => ({type: DELETE_LOG, newLogItem});
 export const addTempTabloLogAC = (newLogItem) => ({type: ADD_TEMP_TABLO_LOG, newLogItem});
 export const addConsTabloLogAC = (gamerId, teamType, newLogItem) => ({type: ADD_CONS_TABLO_LOG,
     payload: {id: gamerId, teamType: teamType, item: newLogItem}});
@@ -110,6 +124,13 @@ export const addNewLog = (gameNumber, newLogItem) => async (dispatch) => {
     let response = await logAPI.postLog(gameNumber, newLogItem);
     if (response.resultCode === 0) {
         dispatch(addLogAC(newLogItem));
+    }
+};
+
+export const deleteLog = (gameNumber, deletedItem) => async (dispatch) => {
+    let response = await logAPI.deleteLog(gameNumber, deletedItem);
+    if (response.resultCode === 0) {
+        dispatch(deleteLogAC(deletedItem));
     }
 };
 

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import c from './Tablo.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {addNewTempLog, deleteConsLog} from "../../../redux/log_reducer";
+import {addNewLog, addNewTempLog, deleteConsLog} from "../../../redux/log_reducer";
 import {changeGamerStatus, deleteGamer} from "../../../redux/teams_reducer";
 
 
@@ -30,6 +30,8 @@ const TabloEvent = (props) => {
     useEffect(() => {
         if (shouldPenaltyStop || props.timeMemTimer <= 0) {
             setTimeout(() => {
+                dispatch(addNewLog(props.gameNumber,
+                    `${deletedGamer.fullName} returns to a game`));
                 dispatch(addNewTempLog(props.gameNumber, `${deletedGamer.fullName} returns to a game`));
                 dispatch(changeGamerStatus(props.gameNumber, props.teamType, deletedGamer.id));
                 dispatch(deleteGamer(props.gameNumber, props.teamType, deletedGamer.id, 0, 0));

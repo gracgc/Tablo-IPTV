@@ -61,6 +61,12 @@ export const logAPI = {
                 return responce.data
             })
     },
+    deleteLog(gameNumber, deletedItem) {
+        return axios.put(`http://localhost:5000/api/log/${gameNumber}`, {deletedItem})
+            .then(responce => {
+                return responce.data
+            })
+    },
     postTempLog(gameNumber, newLogItem) {
         return axios.post(`http://localhost:5000/api/log/temp/${gameNumber}`, {newLogItem})
             .then(responce => {
