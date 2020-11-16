@@ -81,10 +81,12 @@
 
 .home {
     border-bottom: #fc8b8b solid 3px;
+    cursor: pointer;
 }
 
 .guests {
     border-bottom: #232961 solid 3px;
+    cursor: pointer;
 }
 
 

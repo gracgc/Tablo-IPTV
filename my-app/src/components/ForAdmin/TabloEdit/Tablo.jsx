@@ -14,13 +14,17 @@ const Tablo = (props) => {
             </div>
             {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> : <div></div>}
             <div>
-                {(props.secondsTimerTimeout > 0) && <div className={props.secondsTimerTimeout < 6 ? c.timeout5sec : c.timeout}>
+                {(props.secondsTimerTimeout > 0) &&
+                <div className={props.secondsTimerTimeout < 6 ? c.timeout5sec : c.timeout}>
                     Timeout: {props.secondsTimerTimeout} seconds
                 </div>}
 
                 {props.gameConsLog && props.gameConsLog.map(gcl => gcl.item !== '' && <TabloEvent key={gcl.id}
-                    item={gcl.item} id={gcl.id} teamType={gcl.teamType} timeMemTimer={props.timeMemTimer}
-                    gameNumber={props.gameNumber}
+                                                                                                  item={gcl.item}
+                                                                                                  id={gcl.id}
+                                                                                                  teamType={gcl.teamType}
+                                                                                                  timeMemTimer={props.timeMemTimer}
+                                                                                                  gameNumber={props.gameNumber}
                 />)}
             </div>
             <div className={c.counters}>

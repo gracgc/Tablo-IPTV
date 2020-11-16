@@ -37,3 +37,17 @@
     padding-left: 10%;
     font-size: 200%;
 }
+
+.timeout {
+    position: relative;
+    color: blue;
+    text-align: center;
+    font-size: 240%;
+}
+
+.timeout5sec {
+    position: relative;
+    color: red;
+    text-align: center;
+    font-size: 240%;
+}

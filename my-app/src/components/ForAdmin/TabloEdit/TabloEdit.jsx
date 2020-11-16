@@ -378,14 +378,14 @@ const TabloEdit = (props) => {
                     <div className={c.beepButtons_beep}>Beeeep</div>
                 </div>
                 <div className={c.goalButtons}>
-                    <button onClick={(e) => addTeamGoal('home', homeTeam.name)}
+                    <div onClick={(e) => addTeamGoal('home', homeTeam.name)}
                             className={classNames(c.goalButtons_goal, c.home)}>
                         Goal
-                    </button>
-                    <button onClick={(e) => addTeamGoal('guests', guestsTeam.name)}
+                    </div>
+                    <div onClick={(e) => addTeamGoal('guests', guestsTeam.name)}
                             className={classNames(c.goalButtons_goal, c.guests)}>
                         Goal
-                    </button>
+                    </div>
                 </div>
             </div>
         </div>
