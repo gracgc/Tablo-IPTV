@@ -23,6 +23,7 @@
     "uuid": "^8.3.1"
   },
   "dependencies": {
+    "react-onclickoutside": "^6.9.0",
     "remove-array-items": "^2.0.1"
   }
 }

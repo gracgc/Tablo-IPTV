@@ -1,19 +1,45 @@
 .teamGamers {
     display: grid;
-    grid-template-columns: 15% 35% 20% 10% 15%;
+    grid-template-columns: 15% 45% 25% 10% 5%;
     border-top: black 1px solid;
 }
 
-.goalButton {
-    margin-left: 5px;
-}
-
-.timeOfPenalty {
+.gamerMenu {
     position: absolute;
-    z-index: 1000;
     border: solid 1px;
     background-color: antiquewhite;
-    padding: 2px;
-    margin-left: 60px;
-    margin-top: -20px;
+    padding: 5px 25px;
+    margin-left: 70px;
+    margin-top: -25px;
+    font-size: 105%;
+    cursor: pointer;
+}
+
+.menuItem {
+    border: solid 1px;
+    margin-left: 20px;
+}
+
+.gamer {
+    cursor: pointer;
+}
+
+.additionalMenu {
+    position: absolute;
+    z-index: 1100;
+    border: solid 1px;
+    background-color: antiquewhite;
+    margin-left: 50px;
+    margin-top: -50px;
+    font-size: 105%;
+    cursor: pointer;
+}
+
+.addAddMenu {
+    margin-left: 20px;
+    border: solid 1px;
+}
+
+.invise {
+    display: none;
 }

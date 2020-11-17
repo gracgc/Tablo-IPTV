@@ -10,6 +10,7 @@ import {
 import {addNewConsLog, addNewLog, addNewTempLog, deleteConsLog} from "../../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
+import GamerMenu from "./GamerMenu";
 
 
 const TeamGamers = (props) => {
@@ -18,9 +19,16 @@ const TeamGamers = (props) => {
 
     const dispatch = useDispatch();
 
-    const [isGamerGoalEdit, setIsGamerGoalEdit] = useState(false);
 
-    const [showHelper, setShowHelper] = useState(false);
+    const gamerMenu = {
+        Penalty: [`2'`, `2'+2'`, `5'`, `10'`, `Match`],
+        Goals: ['Add goal', 'Delete goal']
+    };
+
+
+    const [showGamerMenu, setShowGamerMenu] = useState(false);
+    const [showPenaltyMenu, setShowPenaltyMenu] = useState(false);
+    const [showGoalsMenu, setShowGoalsMenu] = useState(false);
 
     let secondsStopwatch = Math.floor(props.timeMem / 1000) % 60;
     let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60)) + (props.period - 1) * 20;
@@ -81,13 +89,14 @@ const TeamGamers = (props) => {
         }
     };
 
-    const gamerGoalEdit = () => {
-        if (isGamerGoalEdit === false) {
-            setIsGamerGoalEdit(true)
-        } else {
-            setIsGamerGoalEdit(false)
-        }
+    // const gamerGoalEdit = () => {
+    //         setIsGamerGoalEdit(!setIsGamerGoalEdit)
+    // };
+
+    const openGamerMenu = () => {
+        setShowGamerMenu(!showGamerMenu)
     };
+
 
 
     return (
@@ -95,25 +104,16 @@ const TeamGamers = (props) => {
             <div>
                 {props.number}
             </div>
-            <div>
-                {props.fullName}
-            </div>
-            {timeOfPenalty === 0 && props.status === 'in game'
-                ? <div style={{cursor: 'help'}} onMouseOver={(e) => {
-                    setShowHelper(true)
-                }} onMouseLeave={(e) => {
-                    setShowHelper(false)
-                }}>
-                    {showHelper && <span className={c.timeOfPenalty}>Chose Time Of Penalty</span>}
-                    {props.status}
-                </div>
-                : <div style={{cursor: 'pointer'}} onClick={(e) => {
-                    changeStatus(gameNumber, props.teamType, props.id)
-                }}>
-                    {props.status}
-                </div>
-            }
 
+            <div className={c.gamer} onClick={(e) => openGamerMenu()}>
+                {props.fullName}
+                {showGamerMenu && <GamerMenu/>}
+            </div>
+
+
+            <div>
+                {props.status}
+            </div>
 
             <div style={{cursor: 'pointer'}} onClick={(e) => {
                 changeGamerOnField(gameNumber, props.teamType, props.id, props.onField)
@@ -122,26 +122,22 @@ const TeamGamers = (props) => {
             </div>
 
             <div style={{display: 'inline-flex'}}>
-                <div style={{cursor: 'pointer'}} onClick={(e) => gamerGoalEdit()}>
-                    {props.goals}
-                </div>
-                {isGamerGoalEdit ?
-                    <div style={{display: 'inline-flex'}}>
-                        <button className={c.goalButton}
-                                onClick={(e) => {
-                                    addGamerGoal(gameNumber, props.teamType, props.id, '+')
-                                }}>
-                            +1
-                        </button>
-                        <button className={c.goalButton}
-                                onClick={(e) => {
-                                    addGamerGoal(gameNumber, props.teamType, props.id, '-')
-                                }}>
-                            -1
-                        </button>
-                    </div>
-                    : <div></div>}
+                {props.goals}
 
+                {/*<div style={{display: 'inline-flex'}}>*/}
+                {/*    <button className={c.goalButton}*/}
+                {/*            onClick={(e) => {*/}
+                {/*                addGamerGoal(gameNumber, props.teamType, props.id, '+')*/}
+                {/*            }}>*/}
+                {/*        +1*/}
+                {/*    </button>*/}
+                {/*    <button className={c.goalButton}*/}
+                {/*            onClick={(e) => {*/}
+                {/*                addGamerGoal(gameNumber, props.teamType, props.id, '-')*/}
+                {/*            }}>*/}
+                {/*        -1*/}
+                {/*    </button>*/}
+                {/*</div>*/}
             </div>
         </div>
     )
