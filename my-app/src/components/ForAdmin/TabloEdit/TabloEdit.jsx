@@ -219,7 +219,7 @@ const TabloEdit = (props) => {
 
 
     useEffect(() => {
-            let interval = setInterval(() => {
+            let interval = setInterval(async () => {
 
                 if (isCheck) {
                     checkTimerStatus(gameNumber);
@@ -243,7 +243,7 @@ const TabloEdit = (props) => {
                                 `End of ${period} period`));
                             dispatch(addNewTempLog(gameNumber,
                                 `End of ${period} period`));
-                            setTick(2000)
+                            setTick(1000)
                         }
                         if (period > 3) {
                             if (deadLine === 300000) {
@@ -255,7 +255,7 @@ const TabloEdit = (props) => {
                                     `End of overtime`));
                                 dispatch(addNewTempLog(gameNumber,
                                     `End of overtime`));
-                                setTick(2000)
+                                setTick(1000)
                             }
                             if (deadLine === 1200000) {
                                 putTimerStatus(gameNumber, false, Date.now(),
@@ -266,7 +266,7 @@ const TabloEdit = (props) => {
                                     `End of overtime`));
                                 dispatch(addNewTempLog(gameNumber,
                                     `End of overtime`));
-                                setTick(2000)
+                                setTick(1000)
                             }
                         } else {
                             putTimerStatus(gameNumber, false, Date.now(),
@@ -277,7 +277,7 @@ const TabloEdit = (props) => {
                                 `End of ${period} period`));
                             dispatch(addNewTempLog(gameNumber,
                                 `End of ${period} period`));
-                            setTick(2000)
+                            setTick(1000)
                         }
                     } else {
                         setTimeDif(timeMem + (Date.now() - currentTime));
@@ -290,7 +290,6 @@ const TabloEdit = (props) => {
                     dispatch(getLog(gameNumber));
 
                     if (timeMemTimerTimeout <= 0) {
-                        setTick(3000);
                         putTimeoutStatus(gameNumber, false, Date.now(),
                             0,
                             0,
@@ -299,6 +298,7 @@ const TabloEdit = (props) => {
                             `End of timeout`));
                         dispatch(addNewTempLog(gameNumber,
                             `End of timeout`));
+
                     } else {
                         setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout));
                         setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout)));
@@ -379,11 +379,11 @@ const TabloEdit = (props) => {
                 </div>
                 <div className={c.goalButtons}>
                     <div onClick={(e) => addTeamGoal('home', homeTeam.name)}
-                            className={classNames(c.goalButtons_goal, c.home)}>
+                         className={classNames(c.goalButtons_goal, c.home)}>
                         Goal
                     </div>
                     <div onClick={(e) => addTeamGoal('guests', guestsTeam.name)}
-                            className={classNames(c.goalButtons_goal, c.guests)}>
+                         className={classNames(c.goalButtons_goal, c.guests)}>
                         Goal
                     </div>
                 </div>
