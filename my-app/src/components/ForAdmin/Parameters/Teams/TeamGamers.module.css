@@ -22,22 +22,54 @@
 
 .gamer {
     cursor: pointer;
+    padding-left: 5%;
+}
+
+.gamer:hover {
+    color: white;
+    background-color: #787b8f;
 }
 
 .additionalMenu {
     position: absolute;
-    z-index: 1100;
     border: solid 1px;
     background-color: antiquewhite;
-    margin-left: 50px;
-    margin-top: -50px;
+    margin-left: 75px;
+    margin-top: -25px;
     font-size: 105%;
     cursor: pointer;
 }
 
-.addAddMenu {
-    margin-left: 20px;
+.additionalMenuItem {
+    padding: 5px 50px 5px 25px;
     border: solid 1px;
+
+}
+
+.additionalMenuItem:hover {
+    color: white;
+    background-color: #787b8f;
+}
+
+.addAddMenu {
+    color: black;
+    position: absolute;
+    border: solid 1px;
+    background-color: antiquewhite;
+    margin-left: 100px;
+    margin-top: -75px;
+    font-size: 105%;
+    cursor: pointer;
+}
+
+.addAddMenuItem {
+    padding: 5px 50px 5px 25px;
+    border: solid 1px;
+}
+
+.addAddMenuItem:hover {
+    color: white;
+    background-color: #787b8f;
 }
 
 .invise {

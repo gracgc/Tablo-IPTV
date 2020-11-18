@@ -65,8 +65,8 @@ const TeamInfo = (props) => {
                                                          teamType={props.teamType}/>)}
             </div>
         </div>
-
     )
 };
+
 
 export default TeamInfo;

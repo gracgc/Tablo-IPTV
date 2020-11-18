@@ -11,6 +11,7 @@ import {addNewConsLog, addNewLog, addNewTempLog, deleteConsLog} from "../../../.
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import GamerMenu from "./GamerMenu";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener/ClickAwayListener";
 
 
 const TeamGamers = (props) => {
@@ -19,16 +20,6 @@ const TeamGamers = (props) => {
 
     const dispatch = useDispatch();
 
-
-    const gamerMenu = {
-        Penalty: [`2'`, `2'+2'`, `5'`, `10'`, `Match`],
-        Goals: ['Add goal', 'Delete goal']
-    };
-
-
-    const [showGamerMenu, setShowGamerMenu] = useState(false);
-    const [showPenaltyMenu, setShowPenaltyMenu] = useState(false);
-    const [showGoalsMenu, setShowGoalsMenu] = useState(false);
 
     let secondsStopwatch = Math.floor(props.timeMem / 1000) % 60;
     let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60)) + (props.period - 1) * 20;
@@ -42,7 +33,7 @@ const TeamGamers = (props) => {
     );
 
 
-    const changeStatus = (gameNumber, teamType, gamerId) => {
+    const changeStatus = ([gameNumber, teamType, gamerId]) => {
         dispatch(changeGamerStatus(gameNumber, teamType, gamerId));
         if (props.status === 'in game') {
             dispatch(addNewLog(gameNumber,
@@ -80,7 +71,7 @@ const TeamGamers = (props) => {
     };
 
 
-    const addGamerGoal = (gameNumber, teamType, id, symbol) => {
+    const addGamerGoal = ([gameNumber, teamType, id, symbol]) => {
         dispatch(gamerGoal(gameNumber, teamType, id, symbol));
         if (symbol === '+') {
             dispatch(addNewLog(gameNumber,
@@ -89,15 +80,6 @@ const TeamGamers = (props) => {
         }
     };
 
-    // const gamerGoalEdit = () => {
-    //         setIsGamerGoalEdit(!setIsGamerGoalEdit)
-    // };
-
-    const openGamerMenu = () => {
-        setShowGamerMenu(!showGamerMenu)
-    };
-
-
 
     return (
         <div className={c.teamGamers}>
@@ -105,11 +87,18 @@ const TeamGamers = (props) => {
                 {props.number}
             </div>
 
-            <div className={c.gamer} onClick={(e) => openGamerMenu()}>
-                {props.fullName}
-                {showGamerMenu && <GamerMenu/>}
-            </div>
-
+            <GamerMenu gameNumber={gameNumber}
+                timeMem={props.timeMem}
+                       timeMemTimer={props.timeMemTimer}
+                       period={props.period}
+                       id={props.id}
+                       number={props.gamerNumber}
+                       onField={props.onField}
+                       fullName={props.fullName}
+                       status={props.status} goals={props.goals}
+                       teamType={props.teamType}
+                       addGamerGoal={addGamerGoal}
+                       changeStatus={changeStatus}/>
 
             <div>
                 {props.status}
@@ -142,5 +131,6 @@ const TeamGamers = (props) => {
         </div>
     )
 };
+
 
 export default compose(withRouter)(TeamGamers);

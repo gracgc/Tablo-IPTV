@@ -41,8 +41,10 @@ const Log = (props) => {
     );
 
     const onSubmit = (formData) => {
-        dispatch(addNewLog(gameNumber, formData.addLog));
-        dispatch(reset('addLog'))
+        if (formData.addLog != undefined) {
+            dispatch(addNewLog(gameNumber, formData.addLog));
+            dispatch(reset('addLog'))
+        }
     };
 
     return (

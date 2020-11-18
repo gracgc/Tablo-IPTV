@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import c from './AddOptions.module.css'
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
