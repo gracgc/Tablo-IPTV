@@ -5,13 +5,13 @@ import {
     changeGamerStatus,
     deleteGamer,
     gamerGoal,
-    gamerOnField, setTimeOfPenaltyAC
+    gamerOnField,
 } from "../../../../redux/teams_reducer";
 import {addNewConsLog, addNewLog, addNewTempLog, deleteConsLog} from "../../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import GamerMenu from "./GamerMenu";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener/ClickAwayListener";
+
 
 
 const TeamGamers = (props) => {
@@ -20,7 +20,6 @@ const TeamGamers = (props) => {
 
     const dispatch = useDispatch();
 
-
     let secondsStopwatch = Math.floor(props.timeMem / 1000) % 60;
     let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60)) + (props.period - 1) * 20;
 
@@ -28,20 +27,14 @@ const TeamGamers = (props) => {
         state => state.logPage.logData.tabloLog.consLog
     );
 
-    const timeOfPenalty = useSelector(
-        state => state.teamsPage.timeOfPenalty
-    );
-
-
-    const changeStatus = ([gameNumber, teamType, gamerId]) => {
+    const changeStatus = (gameNumber, teamType, gamerId, timeOfPenalty) => {
         dispatch(changeGamerStatus(gameNumber, teamType, gamerId));
         if (props.status === 'in game') {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
-                 ${props.fullName} deleted for `));
-            dispatch(addNewConsLog(gameNumber, gamerId, teamType, `${props.fullName} deleted for `));
+                 ${props.fullName} deleted for ${timeOfPenalty/60000} min`));
+            dispatch(addNewConsLog(gameNumber, gamerId, teamType, `${props.fullName} deleted for`));
             dispatch(deleteGamer(gameNumber, teamType, gamerId, timeOfPenalty, props.timeMemTimer));
-            dispatch(setTimeOfPenaltyAC(0))
         }
         if (props.status === 'deleted') {
             dispatch(addNewLog(gameNumber,
@@ -70,8 +63,7 @@ const TeamGamers = (props) => {
         }
     };
 
-
-    const addGamerGoal = ([gameNumber, teamType, id, symbol]) => {
+    const addGamerGoal = (gameNumber, teamType, id, symbol) => {
         dispatch(gamerGoal(gameNumber, teamType, id, symbol));
         if (symbol === '+') {
             dispatch(addNewLog(gameNumber,
@@ -89,17 +81,13 @@ const TeamGamers = (props) => {
 
             <GamerMenu gameNumber={gameNumber}
                 timeMem={props.timeMem}
-                       timeMemTimer={props.timeMemTimer}
-                       period={props.period}
                        id={props.id}
-                       number={props.gamerNumber}
                        onField={props.onField}
                        fullName={props.fullName}
                        status={props.status} goals={props.goals}
                        teamType={props.teamType}
                        addGamerGoal={addGamerGoal}
                        changeStatus={changeStatus}/>
-
             <div>
                 {props.status}
             </div>
@@ -112,21 +100,6 @@ const TeamGamers = (props) => {
 
             <div style={{display: 'inline-flex'}}>
                 {props.goals}
-
-                {/*<div style={{display: 'inline-flex'}}>*/}
-                {/*    <button className={c.goalButton}*/}
-                {/*            onClick={(e) => {*/}
-                {/*                addGamerGoal(gameNumber, props.teamType, props.id, '+')*/}
-                {/*            }}>*/}
-                {/*        +1*/}
-                {/*    </button>*/}
-                {/*    <button className={c.goalButton}*/}
-                {/*            onClick={(e) => {*/}
-                {/*                addGamerGoal(gameNumber, props.teamType, props.id, '-')*/}
-                {/*            }}>*/}
-                {/*        -1*/}
-                {/*    </button>*/}
-                {/*</div>*/}
             </div>
         </div>
     )

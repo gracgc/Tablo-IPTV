@@ -6,17 +6,16 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 const GamerMenu = (props) => {
 
     const gamerMenu = {
-        Penalty: [{name: `2'`}, {name: `2'+2'`}, {name: `5'`}, {name: `10'`}, {name: `Match`}],
+        Penalty: [
+            {name: `2'`, timeOfPenalty: 120000},
+            {name: `2'+2'`, timeOfPenalty: 240000},
+            {name: `5'`, timeOfPenalty: 300000},
+            {name: `10'`, timeOfPenalty: 600000},
+            {name: `Match`, timeOfPenalty: 6000000},
+            {name: `Return`, timeOfPenalty: 0}
+        ],
         Goals: [{name: 'Add goal', symbol: '+'}, {name: 'Delete goal', symbol: '-'}]
     };
-
-    function menuAction (actionType, ...args) {
-        if (actionType === 'Goals') {
-            props.addGamerGoal(...args)
-        } if (actionType === 'Penalty') {
-            props.changeStatus(...args)
-        }
-    }
 
 
     const [showGamerMenu, setShowGamerMenu] = useState(false);
@@ -48,10 +47,18 @@ const GamerMenu = (props) => {
                         {m}
                         {eval(`show${m}Menu`) &&
                         <div className={c.addAddMenu}>
-                            {eval(`gamerMenu.${m}`).map(am => <div m={m.toString()} className={c.addAddMenuItem}
+                            {eval(`gamerMenu.${m}`).map(am => <div m={m.toString()} className={am.name === 'Return'
+                                ? c.returnGamer
+                                :c.addAddMenuItem}
                                                                    onClick={(e) => {
-                                                                       menuAction(m,[props.gameNumber, props.teamType,
-                                                                           props.id, am.symbol])
+                                                                       if (m === 'Goals') {
+                                                                           props.addGamerGoal(props.gameNumber, props.teamType,
+                                                                               props.id, am.symbol);
+                                                                       }
+                                                                       if (m === 'Penalty') {
+                                                                           props.changeStatus(props.gameNumber, props.teamType,
+                                                                               props.id, am.timeOfPenalty)
+                                                                       }
                                                                    }
                                                                    }>
                                 {am.name}
