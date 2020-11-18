@@ -5,7 +5,6 @@ import {compose} from "redux";
 import * as axios from "axios";
 
 
-
 const AddOptions = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
