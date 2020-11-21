@@ -20,11 +20,10 @@
     "cross-env": "^7.0.2",
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
+    "socket.io": "^3.0.3",
     "uuid": "^8.3.1"
   },
   "dependencies": {
-    "react-onclickoutside": "^6.9.0",
-    "remove-array-items": "^2.0.1",
-    "socket.io": "^3.0.3"
+    "react-onclickoutside": "^6.9.0"
   }
 }

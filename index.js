@@ -4,6 +4,11 @@ const path = require('path');
 
 const app = express();
 
+const server = require('http').Server(app)
+
+const io = require('socket.io')(server)
+
+
 if (process.env.NODE_ENV === 'production') {
     app.use('/', express.static(path.join(__dirname, 'my-app', 'build')));
 
@@ -35,10 +40,14 @@ app.use('/api/savedGames', require('./routes/savedGames.routes'));
 app.use('/api/time', require('./routes/time.routes'));
 
 
+io.on('connection', socket => {
+    console.log('yo', socket.id)
+})
+
 
 const start = () => {
     try {
-        app.listen(PORT, () => {
+        server.listen(PORT, () => {
             console.log(`Server has been started on ${PORT}...`)
         })
     } catch (e) {
@@ -48,3 +57,5 @@ const start = () => {
 };
 
 start();
+
+app.locals.io = io;

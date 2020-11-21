@@ -8,12 +8,15 @@ import CreateGame from "./components/MenuPanel/CreateGame/CreateGame";
 import SavedGames from "./components/MenuPanel/SavedGames/SavedGames";
 import Settings01 from "./components/MenuPanel/Settings2/Settings01";
 import TabloEditClient from "./components/ForClient/TabloEdit/TabloEditClient";
+import socket from "./socket/socket";
 
 
 
 
 
 function App() {
+
+    socket.on()
 
     return (
         <div className='app'>
