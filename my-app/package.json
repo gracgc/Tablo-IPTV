@@ -21,7 +21,8 @@
     "redux": "^4.0.5",
     "redux-form": "^8.3.6",
     "redux-thunk": "^2.3.0",
-    "remove-array-items": "^2.0.1"
+    "remove-array-items": "^2.0.1",
+    "socket.io-client": "^3.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -29,6 +30,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "proxy": "http://localhost:5000",
   "eslintConfig": {
     "extends": "react-app"
   },
