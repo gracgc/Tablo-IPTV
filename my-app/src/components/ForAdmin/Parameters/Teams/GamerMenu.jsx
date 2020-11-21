@@ -22,7 +22,8 @@ const GamerMenu = (props) => {
     const [showPenaltyMenu, setShowPenaltyMenu] = useState(false);
     const [showGoalsMenu, setShowGoalsMenu] = useState(false);
 
-    const openGamerMenu = () => {
+
+    const openGamerMenu = (y) => {
         setShowGamerMenu(!showGamerMenu)
     };
 
@@ -32,10 +33,13 @@ const GamerMenu = (props) => {
         setShowGoalsMenu(false)
     };
 
+
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
             <div>
-                <div className={showGamerMenu ? c.gamerActive : c.gamer} onClick={(e) => openGamerMenu()}>
+                <div className={showGamerMenu ? c.gamerActive : c.gamer} onClick={(e) => {
+                    openGamerMenu(e.pageY)
+                }}>
                     {props.fullName}
                 </div>
                 {showGamerMenu &&
@@ -49,7 +53,7 @@ const GamerMenu = (props) => {
                         <div className={c.addAddMenu}>
                             {eval(`gamerMenu.${m}`).map(am => <div m={m.toString()} className={am.name === 'Return'
                                 ? c.returnGamer
-                                :c.addAddMenuItem}
+                                : c.addAddMenuItem}
                                                                    onClick={(e) => {
                                                                        if (m === 'Goals') {
                                                                            props.addGamerGoal(props.gameNumber, props.teamType,

@@ -43,9 +43,12 @@ const TabloEvent = (props) => {
 
     return (
         <div className={c.consLog}>
-            {props.item} : {minutesTimerOfDeletedGamer <= 0 ? 0 : minutesTimerOfDeletedGamer}
-            :
-            {secondsTimerOfDeletedGamer < 10 ? '0' : ''}{secondsTimerOfDeletedGamer < 1 ? 0 : secondsTimerOfDeletedGamer}
+            {(deletedGamer.whenWasPenalty !== 0) && <div>
+                {props.item}  {minutesTimerOfDeletedGamer <= 0 ? 0 : minutesTimerOfDeletedGamer}
+                :
+                {secondsTimerOfDeletedGamer < 10 ? '0' : ''}
+                {secondsTimerOfDeletedGamer < 1 ? 0 : secondsTimerOfDeletedGamer}
+            </div>}
         </div>
     )
 };

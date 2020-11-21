@@ -13,7 +13,6 @@ import {withRouter} from "react-router-dom";
 import GamerMenu from "./GamerMenu";
 
 
-
 const TeamGamers = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
@@ -32,7 +31,7 @@ const TeamGamers = (props) => {
         if (props.status === 'in game') {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
-                 ${props.fullName} deleted for ${timeOfPenalty/60000} min`));
+                 ${props.fullName} deleted for ${timeOfPenalty / 60000} min`));
             dispatch(addNewConsLog(gameNumber, gamerId, teamType, `${props.fullName} deleted for`));
             dispatch(deleteGamer(gameNumber, teamType, gamerId, timeOfPenalty, props.timeMemTimer));
         }
@@ -41,6 +40,7 @@ const TeamGamers = (props) => {
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
                  ${props.fullName} returns to a game`));
             dispatch(addNewTempLog(gameNumber, `${props.fullName} returns to a game`));
+            dispatch(deleteGamer(gameNumber, teamType, gamerId, 0, 0));
             dispatch(deleteConsLog(gameNumber, consLog.findIndex(c => c.id === props.id && c.teamType === props.teamType)));
         }
     };
@@ -80,7 +80,7 @@ const TeamGamers = (props) => {
             </div>
 
             <GamerMenu gameNumber={gameNumber}
-                timeMem={props.timeMem}
+                       timeMem={props.timeMem}
                        id={props.id}
                        onField={props.onField}
                        fullName={props.fullName}
