@@ -88,7 +88,7 @@ const TeamGamers = (props) => {
                        teamType={props.teamType}
                        addGamerGoal={addGamerGoal}
                        changeStatus={changeStatus}/>
-            <div>
+            <div style={{paddingLeft: "5%"}}>
                 {props.status}
             </div>
 

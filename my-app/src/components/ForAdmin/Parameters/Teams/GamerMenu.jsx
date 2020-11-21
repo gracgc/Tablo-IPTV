@@ -35,7 +35,7 @@ const GamerMenu = (props) => {
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
             <div>
-                <div className={c.gamer} onClick={(e) => openGamerMenu()}>
+                <div className={showGamerMenu ? c.gamerActive : c.gamer} onClick={(e) => openGamerMenu()}>
                     {props.fullName}
                 </div>
                 {showGamerMenu &&
@@ -54,10 +54,12 @@ const GamerMenu = (props) => {
                                                                        if (m === 'Goals') {
                                                                            props.addGamerGoal(props.gameNumber, props.teamType,
                                                                                props.id, am.symbol);
+                                                                           handleClickAway()
                                                                        }
                                                                        if (m === 'Penalty') {
                                                                            props.changeStatus(props.gameNumber, props.teamType,
                                                                                props.id, am.timeOfPenalty)
+                                                                           handleClickAway()
                                                                        }
                                                                    }
                                                                    }>

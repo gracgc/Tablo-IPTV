@@ -33,7 +33,7 @@ const CreateGameForm = (props) => {
         }
     };
 
-    let choseGame = async (value) => {
+    let chooseGame = async (value) => {
         await props.dispatch(change('createGame', 'gameType', value));
         setMenuIsOpen(false);
     };
@@ -52,14 +52,14 @@ const CreateGameForm = (props) => {
                         <div className={c.createGameInput}>
                             <div className={c.formTitle}>Game Type</div>
 
-                            <Field placeholder={'Chose a Game Type'} name={'gameType'}
+                            <Field placeholder={'Choose a Game Type'} name={'gameType'}
                                    validate={[required]}
                                    component={InputReadOnly}/>
                             <div onClick={(e) => openGameTypeMenu()}>
-                                <strong style={{fontSize: '125%'}}>Chose a Game ▼</strong>
+                                <strong style={{fontSize: '125%'}}>Choose a Game ▼</strong>
                                 {menuIsOpen && props.gameTypes.map(g =>
                                     <div className={c.gameTypeMenu} onClick={(e) => {
-                                        choseGame(g)
+                                        chooseGame(g)
                                     }}>
                                         {g}
                                     </div>
