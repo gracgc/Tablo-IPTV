@@ -68,6 +68,6 @@ io.on('connection', (socket) => {
         console.log(log)
         logTest.log.push(log)
         console.log(logTest)
+        io.emit('testGet', logTest)
     })
-    socket.emit('testGet', logTest)
 });
