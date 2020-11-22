@@ -9,7 +9,7 @@ router.get('/:gameNumber', function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
-        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let data = fs.readFileSync(path.join(__dirname, `../DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
 
@@ -24,7 +24,7 @@ router.post('/:gameNumber', cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
-        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let data = fs.readFileSync(path.join(__dirname, `../DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
         let newLogItem = req.body.newLogItem;
@@ -45,7 +45,7 @@ router.post('/:gameNumber', cors(), function (req, res) {
 
         let json = JSON.stringify(DB);
 
-        fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
+        fs.writeFileSync(path.join(__dirname, `../DB/game_${gameNumber}.json`), json, 'utf8');
 
 
         res.send({resultCode: 0})
@@ -64,7 +64,7 @@ router.put('/:gameNumber', cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
-        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let data = fs.readFileSync(path.join(__dirname, `../DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
         let deletedItem = req.body.deletedItem;
@@ -74,7 +74,7 @@ router.put('/:gameNumber', cors(), function (req, res) {
 
         let json = JSON.stringify(DB);
 
-        fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
+        fs.writeFileSync(path.join(__dirname, `../DB/game_${gameNumber}.json`), json, 'utf8');
 
         res.send({resultCode: 0})
 
@@ -92,7 +92,7 @@ router.post('/temp/:gameNumber', cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
-        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let data = fs.readFileSync(path.join(__dirname + `../DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
         let newLogItem = req.body.newLogItem;
@@ -109,7 +109,7 @@ router.post('/temp/:gameNumber', cors(), function (req, res) {
 
         let json = JSON.stringify(DB);
 
-        fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
+        fs.writeFileSync(path.join(__dirname + `../DB/game_${gameNumber}.json`), json, 'utf8');
 
         if (!gameNumber) {
             res.send({resultCode: 10});
@@ -127,7 +127,7 @@ router.post('/cons/:gameNumber', cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
-        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let data = fs.readFileSync(path.join(__dirname + `../DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
         let gamerId = req.body.gamerId;
@@ -148,7 +148,7 @@ router.post('/cons/:gameNumber', cors(), function (req, res) {
 
         let json = JSON.stringify(DB);
 
-        fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
+        fs.writeFileSync(path.join(__dirname + `../DB/game_${gameNumber}.json`), json, 'utf8');
 
         if (!gameNumber) {
             res.send({resultCode: 10});
@@ -166,7 +166,7 @@ router.put('/cons/:gameNumber', cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
-        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let data = fs.readFileSync(path.join(__dirname + `../DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
         let deletedItem = req.body.deletedItem;
@@ -179,7 +179,7 @@ router.put('/cons/:gameNumber', cors(), function (req, res) {
 
         let json = JSON.stringify(DB);
 
-        fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
+        fs.writeFileSync(path.join(__dirname + `../DB/game_${gameNumber}.json`), json, 'utf8');
 
         res.send({resultCode: 0})
 
