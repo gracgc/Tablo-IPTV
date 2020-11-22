@@ -6,7 +6,7 @@ import AdminPanel from "./components/ForAdmin/AdminPanel";
 import Menu from "./components/MenuPanel/Menu/Menu";
 import CreateGame from "./components/MenuPanel/CreateGame/CreateGame";
 import SavedGames from "./components/MenuPanel/SavedGames/SavedGames";
-import Settings01 from "./components/MenuPanel/Settings2/Settings01";
+import Settings00 from "./components/MenuPanel/Settings2/Settings00";
 import TabloEditClient from "./components/ForClient/TabloEdit/TabloEditClient";
 import socket from "./socket/socket";
 
@@ -30,7 +30,7 @@ function App() {
                 <Route exact path='/adminPanel/:gameNumber?'
                        render={() => <AdminPanel/>}/>
                 <Route path='/savedGames' render={() => <SavedGames/>}/>
-                <Route path='/settings' render={() => <Settings01/>}/>
+                <Route path='/settings' render={() => <Settings00/>}/>
                 <Route path='/tabloClient/:gameNumber?' render={() => <TabloEditClient/>}/>
             </Switch>
         </div>

@@ -1,12 +1,10 @@
-const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const app = express();
+const app = require('express')();
 
 const server = require('http').Server(app)
 
-const io = require('socket.io')(server)
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -40,9 +38,9 @@ app.use('/api/savedGames', require('./routes/savedGames.routes'));
 app.use('/api/time', require('./routes/time.routes'));
 
 
-io.on('connection', socket => {
-    console.log('yo', socket.id)
-})
+let logTest = {log: [{log: 'test', date: Date.now()}]}
+
+
 
 
 const start = () => {
@@ -58,4 +56,18 @@ const start = () => {
 
 start();
 
-app.locals.io = io;
+
+const io = require('socket.io')(server)
+
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+    socket.on('test', log => {
+        console.log(log)
+        logTest.log.push(log)
+        console.log(logTest)
+    })
+    socket.emit('testGet', logTest)
+});

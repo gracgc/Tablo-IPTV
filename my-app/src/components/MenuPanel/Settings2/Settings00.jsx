@@ -1,97 +1,25 @@
 import React, {useEffect, useState} from "react";
 import c from './Settings.module.css'
-import {NavLink} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {getTimeData, updateTimeDif} from "../../../redux/tablo_reducer";
-import Settings01 from "./Settings01";
+import socket from "../../../socket/socket";
 
 
 const Settings00 = (props) => {
 
-    let dispatch = useDispatch();
+    let [log, setLog] = useState([{log: 1, date: Date.now()}])
 
-    let timeMemServer = useSelector(
-        (state => state.tabloPage.timeData.timeMem)
-    );
 
-    let [currentTime, setCurrentTime] = useState();
-
-    let [deadLine, setDeadLine] = useState(1200000);
-
-    let [timeDif, setTimeDif] = useState();
-    let [timeMem, setTimeMem] = useState(timeMemServer);
-    let [timeMemTimer, setTimeMemTimer] = useState(deadLine);
-
-    const [isRunning, setIsRunning] = useState(false);
-
-    let getCurrentTime = () => {
-        setCurrentTime(Date.now());
-        dispatch(getTimeData())
-    };
+    let goTest = () => {
+        socket.emit('test', {log: 'test', date: Date.now()})
+    }
 
     useEffect(() => {
-        const interval = setTimeout(() => {
-            if (isRunning) {
-                if (timeMem + (Date.now() - currentTime) > deadLine) {
-                    setIsRunning(false);
-                    setTimeDif(deadLine);
-                    dispatch(updateTimeDif(deadLine, deadLine, 0));
-                } else {
-                    setTimeDif(timeMem + (Date.now() - currentTime));
-                    setTimeMemTimer(deadLine - timeDif);
-                    dispatch(updateTimeDif(timeMem + (Date.now() - currentTime), timeMem,
-                        deadLine - (timeMem + (Date.now() - currentTime))));
-                }
-            } else {
-                clearTimeout(interval)
-            }
-        }, 200);
-
-        return () => clearInterval(interval);
-    });
-
-
-
-
-    let start = () => {
-        setIsRunning(true);
-        getCurrentTime()
-    };
-
-    let stop = () => {
-        setIsRunning(false);
-
-        dispatch(updateTimeDif(timeMem + (Date.now() - currentTime),
-            timeMem + (Date.now() - currentTime),
-            deadLine - (timeMem + (Date.now() - currentTime))));
-
-        setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
-        setTimeDif(timeMem + (Date.now() - currentTime));
-        setTimeMem(timeMem + (Date.now() - currentTime));
-    };
-
-    let reset = () => {
-        setTimeDif(0);
-        setTimeMem(0);
-        setTimeMemTimer(deadLine);
-        dispatch(updateTimeDif(0, 0, deadLine));
-    };
-
+        socket.on('testGet', log => setLog(log.log))
+    }, [])
 
     return (
         <div className={c.settings}>
-            <div>Settings</div>
-            <div>
-                {/*<button onClick={(e) => start()}>Start</button>*/}
-                {/*<button onClick={(e) => stop()}>Stop</button>*/}
-                {/*<button onClick={(e) => reset()}>Reset</button>*/}
-                <Settings01/>
-            </div>
-            <NavLink to="/" className={c.hov} activeClassName={c.activeLink}>
-                <div className={c.navBackButton}>
-                    Back to menu
-                </div>
-            </NavLink>
+            {log.map(l => <div>{l.log}:{l.date}</div>)}
+            <button onClick={(e) => goTest()}>test</button>
         </div>
     )
 };
