@@ -40,6 +40,10 @@ app.use('/api/time', require('./routes/time.routes'));
 
 let logTest = {log: [{log: 'test', date: Date.now()}]}
 
+app.get('/test', (req, res) => {
+    res.send(logTest.log)
+})
+
 
 
 
