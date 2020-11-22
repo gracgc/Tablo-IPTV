@@ -214,7 +214,6 @@ const TabloEdit = (props) => {
                 setDeadLineTimeout(r.gameTime.timeoutData.timeData.deadLine);
             }
         );
-        dispatch(getLog(gameNumber))
     }, []);
 
 
@@ -224,14 +223,14 @@ const TabloEdit = (props) => {
                 if (isCheck) {
                     checkTimerStatus(gameNumber);
                     checkTimeoutStatus(gameNumber);
-                    dispatch(getLog(gameNumber));
+
                     setTick(100)
                 }
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus(gameNumber);
                     checkTimeoutStatus(gameNumber);
-                    dispatch(getLog(gameNumber));
+
 
                     if (timeDif >= deadLine) {
                         if (period === 3) {
@@ -287,7 +286,7 @@ const TabloEdit = (props) => {
                 if (isCheck && isRunningServerTimeout) {
                     checkTimerStatus(gameNumber);
                     checkTimeoutStatus(gameNumber);
-                    dispatch(getLog(gameNumber));
+
 
                     if (timeMemTimerTimeout <= 0) {
                         putTimeoutStatus(gameNumber, false, Date.now(),

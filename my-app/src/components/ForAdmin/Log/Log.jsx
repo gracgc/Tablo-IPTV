@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import c from './Log.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import LogItem from "./LogItem";
@@ -6,7 +6,7 @@ import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../../../common/FormsControls/FormsControls";
-import {addNewLog} from "../../../redux/log_reducer";
+import {addNewLog, getLog} from "../../../redux/log_reducer";
 import {reset} from 'redux-form';
 
 
@@ -46,6 +46,10 @@ const Log = (props) => {
             dispatch(reset('addLog'))
         }
     };
+
+    useEffect(() => {
+        dispatch(getLog(gameNumber))
+    }, [])
 
     return (
         <div className={c.log}>

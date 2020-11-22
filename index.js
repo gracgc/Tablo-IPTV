@@ -6,6 +6,8 @@ const app = require('express')();
 const server = require('http').Server(app)
 
 
+const io = require('socket.io')(server)
+
 
 if (process.env.NODE_ENV === 'production') {
     app.use('/', express.static(path.join(__dirname, 'my-app', 'build')));
@@ -29,30 +31,6 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-
-app.use('/api/teams', require('./routes/teams.routes'));
-app.use('/api/log', require('./routes/log.routes'));
-app.use('/api/game', require('./routes/game.routes'));
-app.use('/api/savedGames', require('./routes/savedGames.routes'));
-app.use('/api/time', require('./routes/time.routes'));
-
-
-const start = () => {
-    try {
-        server.listen(PORT, () => {
-            console.log(`Server has been started on ${PORT}...`)
-        })
-    } catch (e) {
-        console.log('Server Error', e.message);
-        process.exit(1)
-    }
-};
-
-start();
-
-
-const io = require('socket.io')(server)
 
 io.on('connection', (socket) => {
     console.log('a user connected');
@@ -82,3 +60,26 @@ app.post('/test', (req, res) => {
 
     res.send('yo')
 })
+
+app.locals.io = io
+
+app.use('/api/teams', require('./routes/teams.routes'));
+app.use('/api/log', require('./routes/log.routes'));
+app.use('/api/game', require('./routes/game.routes'));
+app.use('/api/savedGames', require('./routes/savedGames.routes'));
+app.use('/api/time', require('./routes/time.routes'));
+
+
+const start = () => {
+    try {
+        server.listen(PORT, () => {
+            console.log(`Server has been started on ${PORT}...`)
+        })
+    } catch (e) {
+        console.log('Server Error', e.message);
+        process.exit(1)
+    }
+};
+
+start();
+

@@ -161,7 +161,7 @@ const TabloEditClient = (props) => {
             }
         );
         dispatch(getTeams(gameNumber));
-        dispatch(getLog(gameNumber))
+
     }, []);
 
     useEffect(() => {
@@ -170,14 +170,14 @@ const TabloEditClient = (props) => {
                     checkTimerStatus(gameNumber);
                     checkTimeoutStatus(gameNumber);
                     dispatch(getTeams(gameNumber));
-                    dispatch(getLog(gameNumber))
+
                 }
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus(gameNumber);
                     checkTimeoutStatus(gameNumber);
                     dispatch(getTeams(gameNumber));
-                    dispatch(getLog(gameNumber));
+
 
                     setTimeDif(timeMem + (Date.now() - currentTime));
                     setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
@@ -185,7 +185,7 @@ const TabloEditClient = (props) => {
                 if (isCheck && isRunningServerTimeout) {
                     checkTimerStatus(gameNumber);
                     checkTimeoutStatus(gameNumber);
-                    dispatch(getLog(gameNumber));
+
                     dispatch(getTeams(gameNumber));
 
 

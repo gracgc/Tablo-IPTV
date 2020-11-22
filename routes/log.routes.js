@@ -44,6 +44,10 @@ router.post('/:gameNumber', cors(), function (req, res) {
 
         DB.logData.gameLog.length === 0 ? DB.logData.gameLog.push(newLogFirst) : DB.logData.gameLog.push(newLog);
 
+        const io = req.app.locals.io;
+
+        io.emit('getLog', DB.logData)
+
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
