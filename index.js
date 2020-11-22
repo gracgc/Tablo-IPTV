@@ -38,15 +38,6 @@ app.use('/api/savedGames', require('./routes/savedGames.routes'));
 app.use('/api/time', require('./routes/time.routes'));
 
 
-let logTest = {log: [{log: 'test', date: Date.now()}]}
-
-app.get('/test', (req, res) => {
-    res.send(logTest.log)
-})
-
-
-
-
 const start = () => {
     try {
         server.listen(PORT, () => {
@@ -75,3 +66,19 @@ io.on('connection', (socket) => {
         io.emit('testGet', logTest)
     })
 });
+
+let logTest = {log: [{log: 'test', date: Date.now()}]}
+
+app.get('/test', (req, res) => {
+    res.send(logTest.log)
+})
+
+app.post('/test', (req, res) => {
+
+
+    logTest.log.push({log: req.body.log, date: Date.now()})
+
+    io.emit('testGet', logTest.log)
+
+    res.send('yo')
+})
