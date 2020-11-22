@@ -8,9 +8,6 @@ const server = require('http').Server(app)
 
 const io = require('socket.io')(server)
 
-app.locals.io = io
-
-
 if (process.env.NODE_ENV === 'production') {
     app.use('/', express.static(path.join(__dirname, 'my-app', 'build')));
 
@@ -19,7 +16,6 @@ if (process.env.NODE_ENV === 'production') {
     })
 }
 
-const PORT = 5000;
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -64,6 +60,9 @@ app.post('/test', (req, res) => {
 })
 
 
+app.locals.io = io
+
+
 
 app.use('/api/teams', require('./routes/teams.routes'));
 app.use('/api/log', require('./routes/log.routes'));
@@ -74,8 +73,8 @@ app.use('/api/time', require('./routes/time.routes'));
 
 const start = () => {
     try {
-        server.listen(PORT, () => {
-            console.log(`Server has been started on ${PORT}...`)
+        server.listen(5000, () => {
+            console.log(`Server has been started...`)
         })
     } catch (e) {
         console.log('Server Error', e.message);
