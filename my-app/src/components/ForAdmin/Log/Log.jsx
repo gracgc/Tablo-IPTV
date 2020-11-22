@@ -6,8 +6,9 @@ import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {Field, reduxForm} from "redux-form";
 import {Input} from "../../../common/FormsControls/FormsControls";
-import {addNewLog, getLog} from "../../../redux/log_reducer";
+import {addNewLog, getLog, setLogDataAC} from "../../../redux/log_reducer";
 import {reset} from 'redux-form';
+import socket from "../../../socket/socket";
 
 
 const AddLogForm = (props) => {
@@ -49,7 +50,12 @@ const Log = (props) => {
 
     useEffect(() => {
         dispatch(getLog(gameNumber))
+        socket.on('getLog', log => {
+                dispatch(setLogDataAC(log))
+            }
+        )
     }, [])
+
 
     return (
         <div className={c.log}>
@@ -57,7 +63,7 @@ const Log = (props) => {
             <div className={c.logWindow}>
                 {gameLog.map(l => <LogItem gameNumber={gameNumber} key={l.id} id={l.id} logItem={l.item}/>)}
             </div>
-                <AddLogReduxForm onSubmit={onSubmit}/>
+            <AddLogReduxForm onSubmit={onSubmit}/>
         </div>
     )
 };

@@ -12,12 +12,9 @@ router.get('/:gameNumber', function (req, res) {
         let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
-        if (!gameNumber) {
-            res.send({resultCode: 10});
-            console.log('Incorrect address')
-        } else {
-            res.send(DB.logData)
-        }
+
+        res.send(DB.logData)
+
     } catch (e) {
         console.log(e)
     }
@@ -44,20 +41,19 @@ router.post('/:gameNumber', cors(), function (req, res) {
 
         DB.logData.gameLog.length === 0 ? DB.logData.gameLog.push(newLogFirst) : DB.logData.gameLog.push(newLog);
 
-        const io = req.app.locals.io;
 
-        io.emit('getLog', DB.logData)
 
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-        if (!gameNumber) {
-            res.send({resultCode: 10});
-            console.log('Incorrect address')
-        } else {
-            res.send({resultCode: 0})
-        }
+
+        res.send({resultCode: 0})
+
+        const io = req.app.locals.io;
+
+        io.emit('getLog', DB.logData)
+
 
     } catch (e) {
         console.log(e)
@@ -75,11 +71,17 @@ router.put('/:gameNumber', cors(), function (req, res) {
 
         DB.logData.gameLog.splice(deletedItem, 1);
 
+
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
         res.send({resultCode: 0})
+
+
+        const io = req.app.locals.io;
+
+        io.emit('getLog', DB.logData)
 
     } catch (e) {
         console.log(e)
@@ -100,6 +102,11 @@ router.post('/temp/:gameNumber', cors(), function (req, res) {
         };
 
         DB.logData.tabloLog.tempLog.push(newLog);
+
+        const io = req.app.locals.io;
+
+        io.emit('getLog', DB.logData)
+
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
@@ -134,6 +141,11 @@ router.post('/cons/:gameNumber', cors(), function (req, res) {
         };
 
         DB.logData.tabloLog.consLog.push(newLog);
+
+        const io = req.app.locals.io;
+
+        io.emit('getLog', DB.logData)
+
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
@@ -161,6 +173,9 @@ router.put('/cons/:gameNumber', cors(), function (req, res) {
 
         DB.logData.tabloLog.consLog.splice(deletedItem, 1);
 
+        const io = req.app.locals.io;
+
+        io.emit('getLog', DB.logData)
 
         let json = JSON.stringify(DB);
 

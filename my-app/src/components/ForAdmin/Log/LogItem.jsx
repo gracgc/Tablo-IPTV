@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import c from './Log.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {deleteLog} from "../../../redux/log_reducer";
+import {deleteLog, getLog, setLogDataAC} from "../../../redux/log_reducer";
+import socket from "../../../socket/socket";
 
 
 const LogItem = (props) => {

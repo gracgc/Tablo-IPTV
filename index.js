@@ -8,6 +8,8 @@ const server = require('http').Server(app)
 
 const io = require('socket.io')(server)
 
+app.locals.io = io
+
 
 if (process.env.NODE_ENV === 'production') {
     app.use('/', express.static(path.join(__dirname, 'my-app', 'build')));
@@ -61,7 +63,7 @@ app.post('/test', (req, res) => {
     res.send('yo')
 })
 
-app.locals.io = io
+
 
 app.use('/api/teams', require('./routes/teams.routes'));
 app.use('/api/log', require('./routes/log.routes'));
