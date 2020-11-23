@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import c from './Info.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {getGame} from "../../../redux/games_reducer";
+import {getGame, setGameDataAC} from "../../../redux/games_reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import * as axios from "axios";
+import socket from "../../../socket/socket";
+import {setLogDataAC} from "../../../redux/log_reducer";
 
 
 const Info = (props) => {
@@ -91,19 +93,22 @@ const Info = (props) => {
                 setBigOvertime(r.bigOvertime);
             }
         );
+        dispatch(getGame(gameNumber))
+        socket.on('getGame', game => {
+                dispatch(setGameDataAC(game))
+            }
+        )
     }, []);
 
 
     useEffect(() => {
             let interval = setInterval(() => {
                 if (isCheck) {
-                    checkTimerStatus(gameNumber);
-                    dispatch(getGame(gameNumber))
+                    // checkTimerStatus(gameNumber);
                 }
 
                 if (isCheck && isRunningServer) {
-                    checkTimerStatus(gameNumber);
-                    dispatch(getGame(gameNumber));
+                    // checkTimerStatus(gameNumber);
 
                     setTimeDif(timeMem + (Date.now() - currentTime));
                     setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));

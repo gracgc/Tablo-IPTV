@@ -55,7 +55,7 @@ const CreateGameForm = (props) => {
                             <Field placeholder={'Choose a Game Type'} name={'gameType'}
                                    validate={[required]}
                                    component={InputReadOnly}/>
-                            <div onClick={(e) => openGameTypeMenu()}>
+                            <div style={{cursor: "pointer"}} onClick={(e) => openGameTypeMenu()}>
                                 <strong style={{fontSize: '125%'}}>Choose a Game ▼</strong>
                                 {menuIsOpen && props.gameTypes.map(g =>
                                     <div className={c.gameTypeMenu} onClick={(e) => {

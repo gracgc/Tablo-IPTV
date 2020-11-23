@@ -15,7 +15,7 @@ const SavedGames = (props) => {
 
     useEffect( () => {
         dispatch(getSavedGames());
-    });
+    }, []);
 
     return (
         <div className={c.savedGames}>

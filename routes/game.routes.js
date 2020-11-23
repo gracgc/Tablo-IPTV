@@ -16,13 +16,13 @@ router.get('/:gameNumber', function (req, res) {
             res.send({resultCode: 10});
             console.log('Game is not exist')
         }
-        if (!gameNumber) {
-            res.send({resultCode: 10});
-            console.log('Incorrect address')
-        } else {
-            DB.gameInfo.resultCode = 0;
-            res.send(DB.gameInfo)
-        }
+
+        DB.gameInfo.resultCode = 0;
+        res.send(DB.gameInfo)
+
+        const io = req.app.locals.io;
+
+        io.emit('getGame', DB.gameInfo)
 
 
     } catch (e) {
@@ -78,29 +78,28 @@ router.post('/', cors(), function (req, res) {
                             item: ""
                         }
                     ],
-                    consLog: [
-                    ]
+                    consLog: []
                 }
             },
             teams: []
         };
 
 
-        if (!gameName || !gameNumber || !gameType) {
-            res.send({resultCode: 10});
-            console.log('Not enought data')
-        } else {
-            let newGameJson = JSON.stringify(newGame);
-            let newSaveJson = JSON.stringify(DB);
+        let newGameJson = JSON.stringify(newGame);
+        let newSaveJson = JSON.stringify(DB);
 
-            fs.writeFileSync(path.join(__dirname +
-                `/DB/game_${newGame.gameInfo.gameNumber}.json`), newGameJson, 'utf8');
+        fs.writeFileSync(path.join(__dirname +
+            `/DB/game_${newGame.gameInfo.gameNumber}.json`), newGameJson, 'utf8');
 
-            fs.writeFileSync(path.join(__dirname +
-                `/DB/saved_games.json`), newSaveJson, 'utf8');
+        fs.writeFileSync(path.join(__dirname +
+            `/DB/saved_games.json`), newSaveJson, 'utf8');
 
-            res.send({resultCode: 0})
-        }
+        res.send({resultCode: 0})
+
+        const io = req.app.locals.io;
+
+        io.emit('getGame', DB.gameInfo)
+
 
     } catch
         (e) {

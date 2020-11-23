@@ -13,25 +13,25 @@ const AdminPanel = (props) => {
 
     return (
         <div className={c.adminPanel}>
-            {/*<div className={c.adminPanel__info}>*/}
-            {/*    <Info/>*/}
-            {/*</div>*/}
+            <div className={c.adminPanel__info}>
+                <Info/>
+            </div>
             <div className={c.adminPanel__mainPanel}>
                 <div>
                     <Log/>
                 </div>
+                <div>
+                    <TabloEdit/>
+                </div>
+            </div>
+            <div className={c.adminPanel__addPanel}>
+                <div>
+                    <TeamsParameters/>
+                </div>
                 {/*<div>*/}
-                {/*    <TabloEdit/>*/}
+                {/*    <AddOptions/>*/}
                 {/*</div>*/}
             </div>
-            {/*<div className={c.adminPanel__addPanel}>*/}
-            {/*    <div>*/}
-            {/*        <TeamsParameters/>*/}
-            {/*    </div>*/}
-            {/*    <div>*/}
-            {/*        <AddOptions/>*/}
-            {/*    </div>*/}
-            {/*</div>*/}
         </div>
 
     )

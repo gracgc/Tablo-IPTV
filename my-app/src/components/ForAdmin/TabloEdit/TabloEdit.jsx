@@ -221,15 +221,15 @@ const TabloEdit = (props) => {
             let interval = setInterval(async () => {
 
                 if (isCheck) {
-                    checkTimerStatus(gameNumber);
-                    checkTimeoutStatus(gameNumber);
+                    // checkTimerStatus(gameNumber);
+                    // checkTimeoutStatus(gameNumber);
 
                     setTick(100)
                 }
 
                 if (isCheck && isRunningServer) {
-                    checkTimerStatus(gameNumber);
-                    checkTimeoutStatus(gameNumber);
+                    // checkTimerStatus(gameNumber);
+                    // checkTimeoutStatus(gameNumber);
 
 
                     if (timeDif >= deadLine) {
@@ -284,8 +284,8 @@ const TabloEdit = (props) => {
                     }
                 }
                 if (isCheck && isRunningServerTimeout) {
-                    checkTimerStatus(gameNumber);
-                    checkTimeoutStatus(gameNumber);
+                    // checkTimerStatus(gameNumber);
+                    // checkTimeoutStatus(gameNumber);
 
 
                     if (timeMemTimerTimeout <= 0) {

@@ -2,10 +2,12 @@ import React, {useEffect, useState} from 'react'
 import c from './TeamsParameters.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import TeamInfo from "./Teams/TeamInfo";
-import {getTeams} from "../../../redux/teams_reducer";
+import {getTeams, setTeamsAC} from "../../../redux/teams_reducer";
 import {compose} from "redux";
 import {NavLink, withRouter} from "react-router-dom";
 import * as axios from "axios";
+import socket from "../../../socket/socket";
+import {setLogDataAC} from "../../../redux/log_reducer";
 
 
 const TeamsParameters = (props) => {
@@ -32,17 +34,20 @@ const TeamsParameters = (props) => {
 
     useEffect(() => {
         dispatch(getTeams(gameNumber));
+        socket.on('getTeams', teams => {
+                dispatch(setTeamsAC(teams))
+            }
+        )
     }, []);
 
     useEffect(() => {
             let interval = setInterval(() => {
-                dispatch(getTeams(gameNumber));
-                getTimerStatus(gameNumber).then(r => {
-                        setTimeMem(r.gameTime.timeData.timeMem);
-                    setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
-                        setPeriod(r.period)
-                    }
-                );
+                // getTimerStatus(gameNumber).then(r => {
+                //         setTimeMem(r.gameTime.timeData.timeMem);
+                //         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
+                //         setPeriod(r.period)
+                //     }
+                // );
             }, 500);
             return () => clearInterval(interval);
         }

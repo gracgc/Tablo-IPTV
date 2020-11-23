@@ -7,7 +7,8 @@ import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
 import {getLog} from "../../../redux/log_reducer";
-import {getTeams} from "../../../redux/teams_reducer";
+import {getTeams, setTeamsAC} from "../../../redux/teams_reducer";
+import socket from "../../../socket/socket";
 
 
 const TabloEditClient = (props) => {
@@ -161,7 +162,10 @@ const TabloEditClient = (props) => {
             }
         );
         dispatch(getTeams(gameNumber));
-
+        socket.on('getTeams', teams => {
+                dispatch(setTeamsAC(teams))
+            }
+        )
     }, []);
 
     useEffect(() => {
@@ -169,14 +173,12 @@ const TabloEditClient = (props) => {
                 if (isCheck) {
                     checkTimerStatus(gameNumber);
                     checkTimeoutStatus(gameNumber);
-                    dispatch(getTeams(gameNumber));
 
                 }
 
                 if (isCheck && isRunningServer) {
                     checkTimerStatus(gameNumber);
                     checkTimeoutStatus(gameNumber);
-                    dispatch(getTeams(gameNumber));
 
 
                     setTimeDif(timeMem + (Date.now() - currentTime));
@@ -185,10 +187,6 @@ const TabloEditClient = (props) => {
                 if (isCheck && isRunningServerTimeout) {
                     checkTimerStatus(gameNumber);
                     checkTimeoutStatus(gameNumber);
-
-                    dispatch(getTeams(gameNumber));
-
-
                     setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout));
                     setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout)));
                 }
