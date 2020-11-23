@@ -1,38 +1,84 @@
 import {tabloAPI} from "../api/api";
 
 
-
 const SET_TIME_DATA = 'time/SET_TIME_DATA';
-const UPDATE_TIMEDIF_DATA = 'time/UPDATE_TIMEDIF_DATA';
+const PUT_TIMER_STATUS = 'time/PUT_TIMER_STATUS';
+const PUT_TIMEOUT_STATUS = 'time/PUT_TIMEOUT_STATUS';
 
 let initialState = {
-    timeData: {
-        timeDif: null,
-        timeMem: null,
-        timeMemTimer: null
+    gameTime: {
+        timeData: {
+            timeDif: 0,
+            timeMem: 0,
+            timeMemTimer: 1200000,
+            deadLine: 1200000
+        },
+        dif: null,
+        isRunning: false,
+        runningTime: Date.now(),
+        timeoutData: {
+            timeData: {
+                timeDif: 0,
+                timeMem: 0,
+                timeMemTimer: 0,
+                deadLine: 0
+            },
+            dif: null,
+            isRunning: false,
+            runningTime: Date.now()
+        },
+        period: 1,
+        smallOvertime: 0,
+        bigOvertime: 0
     }
 };
 
-const timeReducer = (state = initialState, action) => {
+const tabloReducer = (state = initialState, action) => {
 
     switch (action.type) {
         case SET_TIME_DATA:
 
             return {
                 ...state,
-                timeData: action.timeData
+                gameTime: action.timeData
             };
 
-        case UPDATE_TIMEDIF_DATA:
+        case PUT_TIMER_STATUS:
 
             return {
                 ...state,
-                timeData: {
-                    ...state.timeData,
-                    timeDif: action.timeDif
-                }
-
+                gameTime: {
+                    ...state.gameTime,
+                    timeData: {
+                        timeDif: action.timeDif, timeMem: action.timeMem,
+                        timeMemTimer: action.timeMemTimer, deadLine: action.deadLine
+                    },
+                    isRunning: action.isRunning,
+                    runningTime: action.currentLocalTime
+                },
+                period: action.period,
+                smallOvertime: action.smallOvertime,
+                bigOvertime: action.bigOvertime
             };
+
+        case PUT_TIMEOUT_STATUS:
+
+            return {
+                ...state,
+                gameTime: {
+                    ...state.gameTime,
+                    timeoutData: {
+                        ...state.timeoutData,
+                        timeData: {
+                            timeDif: action.timeDif, timeMem: action.timeMem,
+                            timeMemTimer: action.timeMemTimer, deadLine: action.deadLine
+                        },
+                        isRunning: action.isRunning,
+                        runningTime: action.currentLocalTime
+                    }
+                }
+            };
+
 
         default:
             return state;
@@ -40,24 +86,49 @@ const timeReducer = (state = initialState, action) => {
 };
 
 export const setTimeDataAC = (timeData) => ({type: SET_TIME_DATA, timeData});
-export const updateTimeDifAC = (timeDif, timeMem, timeMemTimer) => ({type: UPDATE_TIMEDIF_DATA, timeDif, timeMem, timeMemTimer});
+export const setTimerStatusAC = (isRunning, currentLocalTime, timeDif,
+                                 timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime) =>
+    ({
+        type: PUT_TIMER_STATUS, isRunning, currentLocalTime, timeDif,
+        timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime
+    });
+export const setTimeoutStatusAC = (isRunning, currentLocalTime, timeDif,
+                                   timeMem, timeMemTimer, deadLine) => ({
+    type: PUT_TIMEOUT_STATUS, isRunning, currentLocalTime, timeDif,
+    timeMem, timeMemTimer, deadLine
+});
 
-export const getTimeData = () => async (dispatch) => {
-    let response = await tabloAPI.getTime();
+
+export const getTimeData = (gameNumber) => async (dispatch) => {
+    let response = await tabloAPI.getTime(gameNumber);
     if (response.resultCode === 0) {
-        dispatch(setTimeDataAC(response.timeData));
+        dispatch(setTimeDataAC(response));
     }
 };
 
-export const updateTimeDif = (timeDif, timeMem, timeMemTimer) => async (dispatch) => {
-    let response = await tabloAPI.updateTimeDif(timeDif, timeMem, timeMemTimer);
+export const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif,
+                               timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime) =>
+    async (dispatch) => {
+        let response = await tabloAPI.putTimerStatus(gameNumber, isRunning, currentLocalTime, timeDif,
+            timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime);
+        if (response.resultCode === 0) {
+            dispatch(setTimerStatusAC(isRunning, currentLocalTime, timeDif,
+                timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime));
+        }
+    };
+
+export const putTimeoutStatus = (gameNumber, isRunning, currentLocalTime, timeDif,
+                                 timeMem, timeMemTimer, deadLine) => async (dispatch) => {
+    let response = await tabloAPI.putTimeoutStatus(isRunning, currentLocalTime, timeDif,
+        timeMem, timeMemTimer, deadLine);
     if (response.resultCode === 0) {
-        await dispatch(updateTimeDifAC(timeDif, timeMem, timeMemTimer));
+        dispatch(setTimeoutStatusAC(isRunning, currentLocalTime, timeDif,
+            timeMem, timeMemTimer, deadLine));
     }
 };
 
 
-export default timeReducer;
+export default tabloReducer;
 
 
 

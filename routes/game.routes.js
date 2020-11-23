@@ -20,9 +20,6 @@ router.get('/:gameNumber', function (req, res) {
         DB.gameInfo.resultCode = 0;
         res.send(DB.gameInfo)
 
-        const io = req.app.locals.io;
-
-        io.emit('getGame', DB.gameInfo)
 
 
     } catch (e) {
@@ -54,9 +51,6 @@ router.post('/', cors(), function (req, res) {
                 gameNumber: gameNumber,
                 gameType: gameType,
                 gameStatus: "Not going",
-                period: 1,
-                smallOvertime: 0,
-                bigOvertime: 0,
                 gameTime: {
                     timeData: {timeMem: 0, timeDif: 0, timeMemTimer: 1200000, deadLine: 1200000},
                     dif: null,
@@ -67,7 +61,10 @@ router.post('/', cors(), function (req, res) {
                         dif: null,
                         isRunning: false,
                         runningTime: 0
-                    }
+                    },
+                    period: 1,
+                    smallOvertime: 0,
+                    bigOvertime: 0
                 }
             },
             logData: {

@@ -1,7 +1,6 @@
 import * as axios from "axios";
 
 
-
 export const teamsAPI = {
     getTeams(gameNumber) {
         return axios.get(`/api/teams/${gameNumber}`)
@@ -109,16 +108,37 @@ export const gameAPI = {
 };
 
 export const tabloAPI = {
-    getTime() {
-        return axios.get(`/api/time`)
+    getTime(gameNumber) {
+        return axios.get(`/api/time/${gameNumber}`)
             .then(responce => {
                 return responce.data
             })
     },
-    updateTimeDif(timeDif, timeMem, timeMemTimer) {
-        return axios.put(`/api/time`, {timeDif, timeMem, timeMemTimer})
-            .then(responce => {
-                return responce.data
-            })
+
+    putTimerStatus(gameNumber, isRunning, currentLocalTime, timeDif,
+                   timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime) {
+        return axios.put(`/api/time/isRunning/${gameNumber}`, {
+            isRunning,
+            currentLocalTime,
+            timeDif,
+            timeMem,
+            timeMemTimer,
+            deadLine,
+            period,
+            smallOvertime,
+            bigOvertime
+        })
+    },
+
+    putTimeoutStatus(gameNumber, isRunning, currentLocalTime, timeDif,
+                     timeMem, timeMemTimer, deadLine) {
+        return axios.put(`/api/time/isRunningTimeout/${gameNumber}`, {
+            isRunning,
+            currentLocalTime,
+            timeDif,
+            timeMem,
+            timeMemTimer,
+            deadLine
+        })
     }
 };

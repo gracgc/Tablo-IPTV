@@ -12,8 +12,9 @@ router.get('/:gameNumber', function (req, res) {
         let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
-        DB.resultCode = 0;
-        res.send(DB.gameInfo)
+        DB.gameInfo.gameTime.resultCode = 0;
+        res.send(DB.gameInfo.gameTime)
+
     } catch (e) {
         console.log(e)
     }
@@ -28,6 +29,11 @@ router.get('/timeout/:gameNumber', function (req, res) {
 
         DB.resultCode = 0;
         res.send(DB.gameInfo.gameTime.timeoutData)
+
+        const io = req.app.locals.io;
+
+        io.emit('getTime', DB.gameInfo.gameTime)
+
     } catch (e) {
         console.log(e)
     }
@@ -61,9 +67,9 @@ router.put('/isRunning/:gameNumber', function (req, res) {
         DB.gameInfo.gameTime.timeData.timeMemTimer = timeMemTimer;
         DB.gameInfo.gameTime.timeData.deadLine = deadLine;
         DB.gameInfo.gameTime.runningTime = currentLocalTime;
-        DB.gameInfo.period = period;
-        DB.gameInfo.smallOvertime = smallOvertime;
-        DB.gameInfo.bigOvertime = bigOvertime;
+        DB.gameInfo.gameTime.period = period;
+        DB.gameInfo.gameTime.smallOvertime = smallOvertime;
+        DB.gameInfo.gameTime.bigOvertime = bigOvertime;
         // DB.runningTime = new Date(2011, 0, 1, 0, 0, 0, 0).getTime() - currentLocalTime;
 
         let json = JSON.stringify(DB);
@@ -71,6 +77,10 @@ router.put('/isRunning/:gameNumber', function (req, res) {
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
         res.send({resultCode: 0})
+
+        const io = req.app.locals.io;
+
+        io.emit('getTime', DB.gameInfo.gameTime)
 
     } catch (e) {
         console.log(e)
@@ -108,6 +118,10 @@ router.put('/isRunningTimeout/:gameNumber', function (req, res) {
 
         res.send({resultCode: 0})
 
+        const io = req.app.locals.io;
+
+        io.emit('getTime', DB.gameInfo.gameTime)
+
     } catch (e) {
         console.log(e)
     }
@@ -138,6 +152,10 @@ router.put('/deadline/:gameNumber', function (req, res) {
 
         res.send({resultCode: 0})
 
+        const io = req.app.locals.io;
+
+        io.emit('getTime', DB.gameInfo.gameTime)
+
     } catch (e) {
         console.log(e)
     }
@@ -152,6 +170,10 @@ router.put('/dif', function (req, res) {
 
 
         res.send({currentLocalTime: currentLocalTime, dif: dif})
+
+        const io = req.app.locals.io;
+
+        io.emit('getTime', DB.gameInfo.gameTime)
 
     } catch (e) {
         console.log(e)

@@ -9,6 +9,7 @@ import SavedGames from "./components/MenuPanel/SavedGames/SavedGames";
 import Settings00 from "./components/MenuPanel/Settings2/Settings00";
 import TabloEditClient from "./components/ForClient/TabloEdit/TabloEditClient";
 import socket from "./socket/socket";
+import Settings01 from "./components/MenuPanel/Settings2/Settings01";
 
 
 
@@ -30,7 +31,7 @@ function App() {
                 <Route exact path='/adminPanel/:gameNumber?'
                        render={() => <AdminPanel/>}/>
                 <Route path='/savedGames' render={() => <SavedGames/>}/>
-                <Route path='/settings' render={() => <Settings00/>}/>
+                <Route path='/settings' render={() => <Settings01/>}/>
                 <Route path='/tabloClient/:gameNumber?' render={() => <TabloEditClient/>}/>
             </Switch>
         </div>
