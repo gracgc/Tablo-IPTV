@@ -53,8 +53,7 @@ const tabloReducer = (state = initialState, action) => {
                         timeDif: action.timeDif, timeMem: action.timeMem,
                         timeMemTimer: action.timeMemTimer, deadLine: action.deadLine
                     },
-                    isRunning: action.isRunning,
-                    runningTime: action.currentLocalTime
+                    isRunning: action.isRunning
                 },
                 period: action.period,
                 smallOvertime: action.smallOvertime,
@@ -73,8 +72,7 @@ const tabloReducer = (state = initialState, action) => {
                             timeDif: action.timeDif, timeMem: action.timeMem,
                             timeMemTimer: action.timeMemTimer, deadLine: action.deadLine
                         },
-                        isRunning: action.isRunning,
-                        runningTime: action.currentLocalTime
+                        isRunning: action.isRunning
                     }
                 }
             };
@@ -106,23 +104,23 @@ export const getTimeData = (gameNumber) => async (dispatch) => {
     }
 };
 
-export const putTimerStatus = (gameNumber, isRunning, currentLocalTime, timeDif,
+export const putTimerStatus = (gameNumber, isRunning, timeDif,
                                timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime) =>
     async (dispatch) => {
-        let response = await tabloAPI.putTimerStatus(gameNumber, isRunning, currentLocalTime, timeDif,
+        let response = await tabloAPI.putTimerStatus(gameNumber, isRunning, timeDif,
             timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime);
         if (response.resultCode === 0) {
-            dispatch(setTimerStatusAC(isRunning, currentLocalTime, timeDif,
+            dispatch(setTimerStatusAC(isRunning, timeDif,
                 timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime));
         }
     };
 
-export const putTimeoutStatus = (gameNumber, isRunning, currentLocalTime, timeDif,
+export const putTimeoutStatus = (gameNumber, isRunning, timeDif,
                                  timeMem, timeMemTimer, deadLine) => async (dispatch) => {
-    let response = await tabloAPI.putTimeoutStatus(isRunning, currentLocalTime, timeDif,
+    let response = await tabloAPI.putTimeoutStatus(isRunning, timeDif,
         timeMem, timeMemTimer, deadLine);
     if (response.resultCode === 0) {
-        dispatch(setTimeoutStatusAC(isRunning, currentLocalTime, timeDif,
+        dispatch(setTimeoutStatusAC(isRunning, timeDif,
             timeMem, timeMemTimer, deadLine));
     }
 };

@@ -43,10 +43,6 @@ const TabloEdit = (props) => {
         state => state.logPage.logData.tabloLog.tempLog
     );
 
-    const gameTime = useSelector(
-        state => state.tabloPage.gameTime
-    );
-
 
     let [isShowLog, setIsShowLog] = useState(false);
 
@@ -54,7 +50,8 @@ const TabloEdit = (props) => {
 
     let [isRunningServerTimeout, setIsRunningServerTimeout] = useState(false);
 
-    let [tick, setTick] = useState(100);
+    let [dif, setDif] = useState(0);
+
 
     let [period, setPeriod] = useState();
     let [smallOvertime, setSmallOvertime] = useState();
@@ -92,6 +89,13 @@ const TabloEdit = (props) => {
             });
     };
 
+    const getServerTime = (localTime) => {
+        return axios.post(`/api/time/serverTime`, {localTime})
+            .then(responce => {
+                return responce.data
+            });
+    };
+
     useEffect(() => {
         getTimerStatus(gameNumber).then(r => {
                 ////TIMER////
@@ -112,8 +116,14 @@ const TabloEdit = (props) => {
         )
         ////Socket IO////
         socket.on('getTime', time => {
+                getServerTime(Date.now()).then(r => {
+                    setDif(
+                        (r.serverTime - time.runningTime)
+                        // + (Math.round((Date.now() - r.localTime)/2))
+                    );
+                })
                 setIsRunningServer(time.isRunning)
-                setCurrentTime(time.runningTime)
+                setCurrentTime(Date.now())
                 setTimeMem(time.timeData.timeMem);
                 setTimeDif(time.timeData.timeMem);
                 setTimeMemTimer(time.timeData.timeMemTimer);
@@ -185,8 +195,8 @@ const TabloEdit = (props) => {
                                 `End of ${period} period`));
                         }
                     } else {
-                        setTimeDif(timeMem + (Date.now() - currentTime));
-                        setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
+                        setTimeDif(timeMem + (Date.now() - currentTime + dif));
+                        setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime + dif)));
                     }
                 }
                 if (isRunningServerTimeout) {
@@ -202,8 +212,8 @@ const TabloEdit = (props) => {
                             `End of timeout`));
 
                     } else {
-                        setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout));
-                        setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout)));
+                        setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout + dif));
+                        setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout + dif)));
                     }
                 }
             }, 10);
@@ -214,7 +224,7 @@ const TabloEdit = (props) => {
     const addTeamGoal = (teamType, teamName) => {
         if (isRunningServer) {
             dispatch(teamGoal(gameNumber, teamType, '+'));
-            dispatch(putTimerStatus(gameNumber, false, Date.now(),
+            dispatch(putTimerStatus(gameNumber, false,
                 Date.now() - currentTime,
                 timeMem + (Date.now() - currentTime),
                 deadLine - (timeMem + (Date.now() - currentTime)), deadLine, period, smallOvertime, bigOvertime));
@@ -232,14 +242,14 @@ const TabloEdit = (props) => {
     };
 
     const startGame = () => {
-        dispatch(putTimerStatus(gameNumber, true, Date.now(), timeDif, timeMem,
+        dispatch(putTimerStatus(gameNumber, true, timeDif, timeMem,
             timeMemTimer, deadLine, period, smallOvertime, bigOvertime));
         dispatch(addNewLog(gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - START`));
     };
 
     const stopGame = () => {
-        dispatch(putTimerStatus(gameNumber, false, Date.now(),
+        dispatch(putTimerStatus(gameNumber, false,
             Date.now() - currentTime,
             timeMem + (Date.now() - currentTime),
             deadLine - (timeMem + (Date.now() - currentTime)),
@@ -256,7 +266,6 @@ const TabloEdit = (props) => {
                        secondsTimer={secondsTimer} minutesTimer={minutesTimer} secondsTimerTimeout={secondsTimerTimeout}
                        homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
                        gameNumber={gameNumber}/>
-                {isRunningServer} {timeDif} {timeMemTimer}
             </div>
             <div className={c.allButtons}>
                 {isRunningServer ?

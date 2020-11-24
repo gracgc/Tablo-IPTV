@@ -53,12 +53,10 @@ router.post('/', cors(), function (req, res) {
                 gameStatus: "Not going",
                 gameTime: {
                     timeData: {timeMem: 0, timeDif: 0, timeMemTimer: 1200000, deadLine: 1200000},
-                    dif: null,
                     isRunning: false,
                     runningTime: 0,
                     timeoutData: {
                         timeData: {timeMem: 0, timeDif: 0, timeMemTimer: 30000, deadLine: 30000},
-                        dif: null,
                         isRunning: false,
                         runningTime: 0
                     },

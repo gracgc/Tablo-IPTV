@@ -20,6 +20,17 @@ router.get('/:gameNumber', function (req, res) {
     }
 });
 
+router.post('/serverTime', function (req, res) {
+    try {
+        let localTime = req.body.localTime;
+
+        res.send({serverTime: Date.now(), localTime: localTime})
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
 router.get('/timeout/:gameNumber', function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
@@ -50,7 +61,6 @@ router.put('/isRunning/:gameNumber', function (req, res) {
         let timeDif = req.body.timeDif;
         let timeMem = req.body.timeMem;
         let timeMemTimer = req.body.timeMemTimer;
-        let currentLocalTime = req.body.currentLocalTime;
         let deadLine = req.body.deadLine;
         let period = req.body.period;
         let smallOvertime = req.body.smallOvertime;
@@ -66,11 +76,10 @@ router.put('/isRunning/:gameNumber', function (req, res) {
         DB.gameInfo.gameTime.timeData.timeMem = timeMem;
         DB.gameInfo.gameTime.timeData.timeMemTimer = timeMemTimer;
         DB.gameInfo.gameTime.timeData.deadLine = deadLine;
-        DB.gameInfo.gameTime.runningTime = currentLocalTime;
+        DB.gameInfo.gameTime.runningTime = Date.now()
         DB.gameInfo.gameTime.period = period;
         DB.gameInfo.gameTime.smallOvertime = smallOvertime;
         DB.gameInfo.gameTime.bigOvertime = bigOvertime;
-        // DB.runningTime = new Date(2011, 0, 1, 0, 0, 0, 0).getTime() - currentLocalTime;
 
         let json = JSON.stringify(DB);
 
@@ -98,7 +107,6 @@ router.put('/isRunningTimeout/:gameNumber', function (req, res) {
         let timeDif = req.body.timeDif;
         let timeMem = req.body.timeMem;
         let timeMemTimer = req.body.timeMemTimer;
-        let currentLocalTime = req.body.currentLocalTime;
         let deadLine = req.body.deadLine;
 
 
@@ -107,10 +115,8 @@ router.put('/isRunningTimeout/:gameNumber', function (req, res) {
         DB.gameInfo.gameTime.timeoutData.timeData.timeMem = timeMem;
         DB.gameInfo.gameTime.timeoutData.timeData.timeMemTimer = timeMemTimer;
         DB.gameInfo.gameTime.timeoutData.timeData.deadLine = deadLine;
-        DB.gameInfo.gameTime.timeoutData.runningTime = currentLocalTime;
+        DB.gameInfo.gameTime.timeoutData.runningTime = Date.now();
 
-
-        // DB.runningTime = new Date(2011, 0, 1, 0, 0, 0, 0).getTime() - currentLocalTime;
 
         let json = JSON.stringify(DB);
 
