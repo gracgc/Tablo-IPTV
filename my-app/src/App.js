@@ -31,7 +31,7 @@ function App() {
                 <Route exact path='/adminPanel/:gameNumber?'
                        render={() => <AdminPanel/>}/>
                 <Route path='/savedGames' render={() => <SavedGames/>}/>
-                <Route path='/settings' render={() => <Settings01/>}/>
+                <Route path='/settings' render={() => <Settings00/>}/>
                 <Route path='/tabloClient/:gameNumber?' render={() => <TabloEditClient/>}/>
             </Switch>
         </div>

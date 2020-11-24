@@ -50,60 +50,81 @@ const TabloEdit = (props) => {
 
     let [isShowLog, setIsShowLog] = useState(false);
 
-    let isRunningServer = useSelector(
-        state => state.tabloPage.gameTime.isRunning
-    );
+    let [isRunningServer, setIsRunningServer] = useState(false);
 
-    let [isRunningServerTimeout, setIsRunningServerTimeout] = useState(gameTime.timeoutData.isRunning);
+    let [isRunningServerTimeout, setIsRunningServerTimeout] = useState(false);
+
+    let [tick, setTick] = useState(100);
+
+    let [period, setPeriod] = useState();
+    let [smallOvertime, setSmallOvertime] = useState();
+    let [bigOvertime, setBigOvertime] = useState();
+
+    let [currentTime, setCurrentTime] = useState(Date.now());
+
+    let [currentTimeTimeout, setCurrentTimeTimeout] = useState(Date.now());
+
+    let [deadLine, setDeadLine] = useState();
+
+    let [deadLineTimeout, setDeadLineTimeout] = useState();
+
+    let [timeDif, setTimeDif] = useState();
+    let [timeMem, setTimeMem] = useState();
+    let [timeMemTimer, setTimeMemTimer] = useState();
 
 
-    let [period, setPeriod] = useState(gameTime.period);
-    let [smallOvertime, setSmallOvertime] = useState(gameTime.smallOvertime);
-    let [bigOvertime, setBigOvertime] = useState(gameTime.bigOvertime);
+    let [timeDifTimeout, setTimeDifTimeout] = useState();
+    let [timeMemTimeout, setTimeMemTimeout] = useState();
+    let [timeMemTimerTimeout, setTimeMemTimerTimeout] = useState();
 
-    let currentTime = useSelector(
-        state => state.tabloPage.gameTime.runningTime
-    );
+    let secondsStopwatch = Math.floor(timeDif / 1000) % 60;
+    let minutesStopwatch = Math.floor(timeDif / (1000 * 60)) + (period - 1) * 20;
 
-    let [currentTimeTimeout, setCurrentTimeTimeout] = useState(gameTime.timeoutData.runningTime);
-
-    let [deadLine, setDeadLine] = useState(gameTime.timeData.deadLine);
-
-    let [deadLineTimeout, setDeadLineTimeout] = useState(gameTime.timeoutData.deadLine);
-
-    let timeDif = useSelector(
-        state => state.tabloPage.gameTime.timeData.timeDif
-    );
-    let timeMem = useSelector(
-        state => state.tabloPage.gameTime.timeData.timeMem
-    );
-    let timeMemTimer = useSelector(
-        state => state.tabloPage.gameTime.timeData.timeMemTimer
-    );
-
-    let [timeDifLocal, setTimeDifLocal] = useState();
-    let [timeMemLocal, setTimeMemLocal] = useState();
-    let [timeMemTimerLocal, setTimeMemTimerLocal] = useState();
-
-    let [timeDifTimeout, setTimeDifTimeout] = useState(gameTime.timeoutData.timeData.timeDif);
-    let [timeMemTimeout, setTimeMemTimeout] = useState(gameTime.timeoutData.timeData.timeMem);
-    let [timeMemTimerTimeout, setTimeMemTimerTimeout] = useState(gameTime.timeoutData.timeData.timeMemTimer);
-
-    let secondsStopwatch = Math.floor(timeDifLocal / 1000) % 60;
-    let minutesStopwatch = Math.floor(timeDifLocal / (1000 * 60)) + (period - 1) * 20;
-
-    let secondsTimer = Math.floor(timeMemTimerLocal / 1000) % 60;
-    let minutesTimer = Math.floor(timeMemTimerLocal / (1000 * 60));
+    let secondsTimer = Math.floor(timeMemTimer / 1000) % 60;
+    let minutesTimer = Math.floor(timeMemTimer / (1000 * 60));
 
     let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
 
+    const getTimerStatus = (gameNumber) => {
+        return axios.get(`/api/time/${gameNumber}`)
+            .then(responce => {
+                return responce.data
+            });
+    };
+
     useEffect(() => {
-        dispatch(getTimeData(gameNumber))
-        setTimeDifLocal(timeDif)
-        setTimeMemLocal(timeMem)
-        setTimeMemTimerLocal(timeMemTimer)
+        getTimerStatus(gameNumber).then(r => {
+                ////TIMER////
+                setTimeMem(r.timeData.timeMem);
+                setTimeDif(r.timeData.timeMem);
+                setTimeMemTimer(r.timeData.timeMemTimer);
+                setDeadLine(r.timeData.deadLine);
+                setPeriod(r.period);
+                setSmallOvertime(r.smallOvertime);
+                setBigOvertime(r.bigOvertime);
+
+                ////TIMEOUT////
+                setTimeMemTimeout(r.timeoutData.timeData.timeMem);
+                setTimeDifTimeout(r.timeoutData.timeData.timeMem);
+                setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
+                setDeadLineTimeout(r.timeoutData.timeData.deadLine);
+            }
+        )
+        ////Socket IO////
         socket.on('getTime', time => {
-                dispatch(setTimeDataAC(time))
+                setIsRunningServer(time.isRunning)
+                setCurrentTime(time.runningTime)
+                setTimeMem(time.timeData.timeMem);
+                setTimeDif(time.timeData.timeMem);
+                setTimeMemTimer(time.timeData.timeMemTimer);
+                setDeadLine(time.timeData.deadLine);
+                setPeriod(time.period);
+                setSmallOvertime(time.smallOvertime);
+                setBigOvertime(time.bigOvertime);
+                setTimeMemTimeout(time.timeoutData.timeData.timeMem);
+                setTimeDifTimeout(time.timeoutData.timeData.timeMem);
+                setTimeMemTimerTimeout(time.timeoutData.timeData.timeMemTimer);
+                setDeadLineTimeout(time.timeoutData.timeData.deadLine);
             }
         )
     }, []);
@@ -164,8 +185,8 @@ const TabloEdit = (props) => {
                                 `End of ${period} period`));
                         }
                     } else {
-                        setTimeDifLocal(timeMemLocal + (Date.now() - currentTime));
-                        setTimeMemTimerLocal(deadLine - (timeMemLocal + (Date.now() - currentTime)));
+                        setTimeDif(timeMem + (Date.now() - currentTime));
+                        setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
                     }
                 }
                 if (isRunningServerTimeout) {
@@ -211,8 +232,8 @@ const TabloEdit = (props) => {
     };
 
     const startGame = () => {
-        dispatch(putTimerStatus(gameNumber, true, Date.now(), timeDifLocal, timeMemLocal,
-            timeMemTimerLocal, deadLine, period, smallOvertime, bigOvertime));
+        dispatch(putTimerStatus(gameNumber, true, Date.now(), timeDif, timeMem,
+            timeMemTimer, deadLine, period, smallOvertime, bigOvertime));
         dispatch(addNewLog(gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - START`));
     };
@@ -220,8 +241,8 @@ const TabloEdit = (props) => {
     const stopGame = () => {
         dispatch(putTimerStatus(gameNumber, false, Date.now(),
             Date.now() - currentTime,
-            timeMemLocal + (Date.now() - currentTime),
-            deadLine - (timeMemLocal + (Date.now() - currentTime)),
+            timeMem + (Date.now() - currentTime),
+            deadLine - (timeMem + (Date.now() - currentTime)),
             deadLine, period, smallOvertime, bigOvertime));
         dispatch(addNewLog(gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP`));
@@ -235,7 +256,7 @@ const TabloEdit = (props) => {
                        secondsTimer={secondsTimer} minutesTimer={minutesTimer} secondsTimerTimeout={secondsTimerTimeout}
                        homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
                        gameNumber={gameNumber}/>
-                {isRunningServer} {timeDifLocal} {timeMemTimerLocal}
+                {isRunningServer} {timeDif} {timeMemTimer}
             </div>
             <div className={c.allButtons}>
                 {isRunningServer ?
