@@ -26,7 +26,7 @@ const AdminPanel = (props) => {
             </div>
             <div className={c.adminPanel__addPanel}>
                 <div>
-                    {/*<TeamsParameters/>*/}
+                    <TeamsParameters/>
                 </div>
                 <div>
                     {/*<AddOptions/>*/}

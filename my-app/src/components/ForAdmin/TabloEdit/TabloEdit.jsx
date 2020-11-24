@@ -122,6 +122,7 @@ const TabloEdit = (props) => {
                         // + (Math.round((Date.now() - r.localTime)/2))
                     );
                 })
+                ////TIMER////
                 setIsRunningServer(time.isRunning)
                 setCurrentTime(Date.now())
                 setTimeMem(time.timeData.timeMem);
@@ -131,8 +132,11 @@ const TabloEdit = (props) => {
                 setPeriod(time.period);
                 setSmallOvertime(time.smallOvertime);
                 setBigOvertime(time.bigOvertime);
+                ////TIMEOUT////
+                setIsRunningServerTimeout(time.timeoutData.isRunning)
+                setCurrentTimeTimeout(Date.now())
+                setTimeDifTimeout(time.timeoutData.timeData.timeDif);
                 setTimeMemTimeout(time.timeoutData.timeData.timeMem);
-                setTimeDifTimeout(time.timeoutData.timeData.timeMem);
                 setTimeMemTimerTimeout(time.timeoutData.timeData.timeMemTimer);
                 setDeadLineTimeout(time.timeoutData.timeData.deadLine);
             }
@@ -201,8 +205,8 @@ const TabloEdit = (props) => {
                 }
                 if (isRunningServerTimeout) {
 
-                    if (timeMemTimerTimeout <= 0) {
-                        dispatch(putTimeoutStatus(gameNumber, false, Date.now(),
+                    if (timeDifTimeout >= 0) {
+                        dispatch(putTimeoutStatus(gameNumber, false,
                             0,
                             0,
                             0, 0));

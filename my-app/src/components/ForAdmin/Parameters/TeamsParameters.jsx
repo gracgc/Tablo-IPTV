@@ -40,18 +40,6 @@ const TeamsParameters = (props) => {
         )
     }, []);
 
-    useEffect(() => {
-            let interval = setInterval(() => {
-                // getTimerStatus(gameNumber).then(r => {
-                //         setTimeMem(r.gameTime.timeData.timeMem);
-                //         setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
-                //         setPeriod(r.period)
-                //     }
-                // );
-            }, 500);
-            return () => clearInterval(interval);
-        }
-    );
 
     const homeTeamGamers = teams.find(t => t.teamType === 'home').gamers;
 

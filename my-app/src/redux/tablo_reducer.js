@@ -117,7 +117,7 @@ export const putTimerStatus = (gameNumber, isRunning, timeDif,
 
 export const putTimeoutStatus = (gameNumber, isRunning, timeDif,
                                  timeMem, timeMemTimer, deadLine) => async (dispatch) => {
-    let response = await tabloAPI.putTimeoutStatus(isRunning, timeDif,
+    let response = await tabloAPI.putTimeoutStatus(gameNumber, isRunning, timeDif,
         timeMem, timeMemTimer, deadLine);
     if (response.resultCode === 0) {
         dispatch(setTimeoutStatusAC(isRunning, timeDif,

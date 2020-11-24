@@ -114,7 +114,6 @@ export const tabloAPI = {
                 return responce.data
             })
     },
-
     putTimerStatus(gameNumber, isRunning, timeDif,
                    timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime) {
         return axios.put(`/api/time/isRunning/${gameNumber}`, {
@@ -128,7 +127,6 @@ export const tabloAPI = {
             bigOvertime
         })
     },
-
     putTimeoutStatus(gameNumber, isRunning, timeDif,
                      timeMem, timeMemTimer, deadLine) {
         return axios.put(`/api/time/isRunningTimeout/${gameNumber}`, {
