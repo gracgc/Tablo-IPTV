@@ -5,12 +5,11 @@ import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
 import Tablo from "./Tablo";
 import {teamGoal} from "../../../redux/teams_reducer";
-import {addNewLog, addNewTempLog, getLog, setLogDataAC} from "../../../redux/log_reducer";
+import {addNewLog, addNewTempLog} from "../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
 import socket from "../../../socket/socket";
-import {getTimeData, putTimeoutStatus, putTimerStatus, setTimeDataAC} from "../../../redux/tablo_reducer";
 
 
 const TabloEdit = (props) => {
@@ -96,9 +95,37 @@ const TabloEdit = (props) => {
             });
     };
 
+    const putTimerStatus = (gameNumber, isRunning, timeDif,
+                            timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime) => {
+        return axios.put(`/api/time/isRunning/${gameNumber}`, {
+            isRunning,
+            timeDif,
+            timeMem,
+            timeMemTimer,
+            deadLine,
+            period,
+            smallOvertime,
+            bigOvertime
+        })
+    };
+
+    const putTimeoutStatus = (gameNumber, isRunning, timeDif,
+                              timeMem, timeMemTimer, deadLine) => {
+        return axios.put(`/api/time/isRunningTimeout/${gameNumber}`, {
+            isRunning,
+            timeDif,
+            timeMem,
+            timeMemTimer,
+            deadLine
+        })
+    };
+
+
     useEffect(() => {
         getTimerStatus(gameNumber).then(r => {
                 ////TIMER////
+                setIsRunningServer(r.isRunning)
+                // setCurrentTime(Date.now())
                 setTimeMem(r.timeData.timeMem);
                 setTimeDif(r.timeData.timeMem);
                 setTimeMemTimer(r.timeData.timeMemTimer);
@@ -108,6 +135,8 @@ const TabloEdit = (props) => {
                 setBigOvertime(r.bigOvertime);
 
                 ////TIMEOUT////
+                setIsRunningServerTimeout(r.timeoutData.isRunning)
+                // setCurrentTimeTimeout(Date.now())
                 setTimeMemTimeout(r.timeoutData.timeData.timeMem);
                 setTimeDifTimeout(r.timeoutData.timeData.timeMem);
                 setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
@@ -122,7 +151,6 @@ const TabloEdit = (props) => {
                         // + (Math.round((Date.now() - r.localTime)/2))
                     );
                 })
-                ////TIMER////
                 setIsRunningServer(time.isRunning)
                 setCurrentTime(Date.now())
                 setTimeMem(time.timeData.timeMem);
@@ -132,13 +160,21 @@ const TabloEdit = (props) => {
                 setPeriod(time.period);
                 setSmallOvertime(time.smallOvertime);
                 setBigOvertime(time.bigOvertime);
-                ////TIMEOUT////
-                setIsRunningServerTimeout(time.timeoutData.isRunning)
+            }
+        )
+        socket.on('getTimeout', time => {
+                getServerTime(Date.now()).then(r => {
+                    setDif(
+                        (r.serverTime - time.runningTime)
+                        // + (Math.round((Date.now() - r.localTime)/2))
+                    );
+                })
+                setIsRunningServerTimeout(time.isRunning)
                 setCurrentTimeTimeout(Date.now())
-                setTimeDifTimeout(time.timeoutData.timeData.timeDif);
-                setTimeMemTimeout(time.timeoutData.timeData.timeMem);
-                setTimeMemTimerTimeout(time.timeoutData.timeData.timeMemTimer);
-                setDeadLineTimeout(time.timeoutData.timeData.deadLine);
+                setTimeDifTimeout(time.timeData.timeDif);
+                setTimeMemTimeout(time.timeData.timeMem);
+                setTimeMemTimerTimeout(time.timeData.timeMemTimer);
+                setDeadLineTimeout(time.timeData.deadLine);
             }
         )
     }, []);
@@ -152,73 +188,78 @@ const TabloEdit = (props) => {
 
 
     useEffect(() => {
+        if (timeDif >= deadLine && isRunningServer) {
+            setIsRunningServer(false)
+            if (period === 3) {
+                putTimerStatus(gameNumber, false, Date.now(),
+                    0,
+                    0,
+                    0, 0, period + 1, smallOvertime, bigOvertime)
+                dispatch(addNewLog(gameNumber,
+                    `End of ${period} period`));
+                dispatch(addNewTempLog(gameNumber,
+                    `End of ${period} period`));
+            }
+            if (period > 3) {
+                if (deadLine === 300000) {
+                    putTimerStatus(gameNumber, false, Date.now(),
+                        0,
+                        0,
+                        0, 0, period, smallOvertime + 1, bigOvertime)
+                    dispatch(addNewLog(gameNumber,
+                        `End of overtime`));
+                    dispatch(addNewTempLog(gameNumber,
+                        `End of overtime`));
+                }
+                if (deadLine === 1200000) {
+                    putTimerStatus(gameNumber, false, Date.now(),
+                        0,
+                        0,
+                        0, 0, period, smallOvertime, bigOvertime + 1);
+                    dispatch(addNewLog(gameNumber,
+                        `End of overtime`));
+                    dispatch(addNewTempLog(gameNumber,
+                        `End of overtime`));
+                }
+            } else {
+                putTimerStatus(gameNumber, false, Date.now(),
+                    0,
+                    0,
+                    deadLine, deadLine, period + 1, smallOvertime, bigOvertime);
+                dispatch(addNewLog(gameNumber,
+                    `End of ${period} period`));
+                dispatch(addNewTempLog(gameNumber,
+                    `End of ${period} period`));
+            }
+        }
+    }, [timeDif >= deadLine])
+
+    useEffect(() => {
+
+        if (timeDifTimeout >= deadLineTimeout && isRunningServerTimeout) {
+            setIsRunningServerTimeout(false)
+
+            putTimeoutStatus(gameNumber, false,
+                0,
+                0,
+                0, 0);
+            dispatch(addNewLog(gameNumber,
+                `End of timeout`));
+            dispatch(addNewTempLog(gameNumber,
+                `End of timeout`));
+        }
+    }, [timeDifTimeout >= deadLineTimeout])
+
+
+    useEffect(() => {
             let interval = setInterval(() => {
-
                 if (isRunningServer) {
-
-                    if (timeDif >= deadLine) {
-                        if (period === 3) {
-                            dispatch(putTimerStatus(gameNumber, false, Date.now(),
-                                0,
-                                0,
-                                0, 0, period + 1, smallOvertime, bigOvertime))
-                            dispatch(addNewLog(gameNumber,
-                                `End of ${period} period`));
-                            dispatch(addNewTempLog(gameNumber,
-                                `End of ${period} period`));
-                        }
-                        if (period > 3) {
-                            if (deadLine === 300000) {
-                                dispatch(putTimerStatus(gameNumber, false, Date.now(),
-                                    0,
-                                    0,
-                                    0, 0, period, smallOvertime + 1, bigOvertime))
-                                dispatch(addNewLog(gameNumber,
-                                    `End of overtime`));
-                                dispatch(addNewTempLog(gameNumber,
-                                    `End of overtime`));
-                            }
-                            if (deadLine === 1200000) {
-                                dispatch(putTimerStatus(gameNumber, false, Date.now(),
-                                    0,
-                                    0,
-                                    0, 0, period, smallOvertime, bigOvertime + 1));
-                                dispatch(addNewLog(gameNumber,
-                                    `End of overtime`));
-                                dispatch(addNewTempLog(gameNumber,
-                                    `End of overtime`));
-                            }
-                        } else {
-                            dispatch(putTimerStatus(gameNumber, false, Date.now(),
-                                0,
-                                0,
-                                deadLine, deadLine, period + 1, smallOvertime, bigOvertime));
-                            dispatch(addNewLog(gameNumber,
-                                `End of ${period} period`));
-                            dispatch(addNewTempLog(gameNumber,
-                                `End of ${period} period`));
-                        }
-                    } else {
-                        setTimeDif(timeMem + (Date.now() - currentTime + dif));
-                        setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime + dif)));
-                    }
+                    setTimeDif(timeMem + (Date.now() - currentTime + dif));
+                    setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime + dif)));
                 }
                 if (isRunningServerTimeout) {
-
-                    if (timeDifTimeout >= 0) {
-                        dispatch(putTimeoutStatus(gameNumber, false,
-                            0,
-                            0,
-                            0, 0));
-                        dispatch(addNewLog(gameNumber,
-                            `End of timeout`));
-                        dispatch(addNewTempLog(gameNumber,
-                            `End of timeout`));
-
-                    } else {
-                        setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout + dif));
-                        setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout + dif)));
-                    }
+                    setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout + dif));
+                    setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout + dif)));
                 }
             }, 10);
             return () => clearInterval(interval);
@@ -246,30 +287,32 @@ const TabloEdit = (props) => {
     };
 
     const startGame = () => {
-        dispatch(putTimerStatus(gameNumber, true, timeDif, timeMem,
-            timeMemTimer, deadLine, period, smallOvertime, bigOvertime));
+        putTimerStatus(gameNumber, true, timeDif, timeMem,
+            timeMemTimer, deadLine, period, smallOvertime, bigOvertime);
         dispatch(addNewLog(gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - START`));
     };
 
     const stopGame = () => {
-        dispatch(putTimerStatus(gameNumber, false,
+        putTimerStatus(gameNumber, false,
             Date.now() - currentTime,
             timeMem + (Date.now() - currentTime),
             deadLine - (timeMem + (Date.now() - currentTime)),
-            deadLine, period, smallOvertime, bigOvertime));
+            deadLine, period, smallOvertime, bigOvertime);
         dispatch(addNewLog(gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP`));
     };
 
-
+    debugger
     return (
         <div className={c.tabloEdit}>
             <div className={c.tablo}>
                 <Tablo isShowLog={isShowLog} gameTempLog={gameTempLog} gameConsLog={gameConsLog}
-                       secondsTimer={secondsTimer} minutesTimer={minutesTimer} secondsTimerTimeout={secondsTimerTimeout}
+                       secondsTimer={secondsTimer} minutesTimer={minutesTimer} timeMemTimerTimeout={timeMemTimerTimeout}
+                       secondsTimerTimeout={secondsTimerTimeout}
                        homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
                        gameNumber={gameNumber}/>
+                {dif}
             </div>
             <div className={c.allButtons}>
                 {isRunningServer ?

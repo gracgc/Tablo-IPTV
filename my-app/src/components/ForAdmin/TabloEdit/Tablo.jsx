@@ -14,7 +14,7 @@ const Tablo = (props) => {
             </div>
             {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> : <div></div>}
             <div>
-                {(props.secondsTimerTimeout > 0) &&
+                {(props.timeMemTimerTimeout > 0) &&
                 <div className={props.secondsTimerTimeout < 6 ? c.timeout5sec : c.timeout}>
                     Timeout: {props.secondsTimerTimeout} seconds
                 </div>}

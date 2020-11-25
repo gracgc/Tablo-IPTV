@@ -3,12 +3,23 @@ import c from './TeamInfo.module.css'
 import TeamGamers from "./TeamGamers";
 import {addNewLog} from "../../../../redux/log_reducer";
 import {useDispatch} from "react-redux";
-import {putTimeoutStatus} from "../../../../redux/tablo_reducer";
+import * as axios from "axios";
 
 
 const TeamInfo = (props) => {
 
     const dispatch = useDispatch();
+
+    const putTimeoutStatus = (gameNumber, isRunning, timeDif,
+                              timeMem, timeMemTimer, deadLine) => {
+        return axios.put(`/api/time/isRunningTimeout/${gameNumber}`, {
+            isRunning,
+            timeDif,
+            timeMem,
+            timeMemTimer,
+            deadLine
+        })
+    };
 
 
     let startTimeout = () => {

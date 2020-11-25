@@ -15,6 +15,10 @@ router.get('/:gameNumber', function (req, res) {
         DB.gameInfo.gameTime.resultCode = 0;
         res.send(DB.gameInfo.gameTime)
 
+        const io = req.app.locals.io;
+
+        io.emit('getServerTime', DB.gameInfo.gameTime)
+
     } catch (e) {
         console.log(e)
     }
@@ -25,6 +29,7 @@ router.post('/serverTime', function (req, res) {
         let localTime = req.body.localTime;
 
         res.send({serverTime: Date.now(), localTime: localTime})
+
 
     } catch (e) {
         console.log(e)
@@ -126,7 +131,7 @@ router.put('/isRunningTimeout/:gameNumber', function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getTime', DB.gameInfo.gameTime)
+        io.emit('getTimeout', DB.gameInfo.gameTime.timeoutData)
 
     } catch (e) {
         console.log(e)
