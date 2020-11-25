@@ -15,20 +15,22 @@ router.get('/:gameNumber', function (req, res) {
         DB.gameInfo.gameTime.resultCode = 0;
         res.send(DB.gameInfo.gameTime)
 
-        const io = req.app.locals.io;
-
-        io.emit('getServerTime', DB.gameInfo.gameTime)
 
     } catch (e) {
         console.log(e)
     }
 });
 
-router.post('/serverTime', function (req, res) {
+router.post('/serverTime/:gameNumber', function (req, res) {
     try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
         let localTime = req.body.localTime;
 
-        res.send({serverTime: Date.now(), localTime: localTime})
+        res.send({serverTime: Date.now(), localTime: localTime, runningTime: DB.gameInfo.gameTime.runningTime})
 
 
     } catch (e) {

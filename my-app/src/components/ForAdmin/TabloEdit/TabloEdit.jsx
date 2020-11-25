@@ -88,8 +88,8 @@ const TabloEdit = (props) => {
             });
     };
 
-    const getServerTime = (localTime) => {
-        return axios.post(`/api/time/serverTime`, {localTime})
+    const getServerTime = (gameNumber, localTime) => {
+        return axios.post(`/api/time/serverTime/${gameNumber}`, {localTime})
             .then(responce => {
                 return responce.data
             });
@@ -125,7 +125,7 @@ const TabloEdit = (props) => {
         getTimerStatus(gameNumber).then(r => {
                 ////TIMER////
                 setIsRunningServer(r.isRunning)
-                // setCurrentTime(Date.now())
+                setCurrentTime(Date.now())
                 setTimeMem(r.timeData.timeMem);
                 setTimeDif(r.timeData.timeMem);
                 setTimeMemTimer(r.timeData.timeMemTimer);
@@ -133,22 +133,31 @@ const TabloEdit = (props) => {
                 setPeriod(r.period);
                 setSmallOvertime(r.smallOvertime);
                 setBigOvertime(r.bigOvertime);
-
                 ////TIMEOUT////
                 setIsRunningServerTimeout(r.timeoutData.isRunning)
-                // setCurrentTimeTimeout(Date.now())
+                setCurrentTimeTimeout(Date.now())
                 setTimeMemTimeout(r.timeoutData.timeData.timeMem);
                 setTimeDifTimeout(r.timeoutData.timeData.timeMem);
                 setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
                 setDeadLineTimeout(r.timeoutData.timeData.deadLine);
+                if (r.isRunning) {
+                    getServerTime(gameNumber, Date.now()).then(r => {
+                        setDif(
+                            (r.serverTime - r.runningTime)
+                            // - (Math.round((Date.now() - r.localTime)/2))
+                        );
+                    })
+                }
             }
         )
+
+
         ////Socket IO////
         socket.on('getTime', time => {
-                getServerTime(Date.now()).then(r => {
+                getServerTime(gameNumber, Date.now()).then(r => {
                     setDif(
                         (r.serverTime - time.runningTime)
-                        // + (Math.round((Date.now() - r.localTime)/2))
+                        // - (Math.round((Date.now() - r.localTime)/2))
                     );
                 })
                 setIsRunningServer(time.isRunning)
@@ -163,7 +172,7 @@ const TabloEdit = (props) => {
             }
         )
         socket.on('getTimeout', time => {
-                getServerTime(Date.now()).then(r => {
+                getServerTime(gameNumber, Date.now()).then(r => {
                     setDif(
                         (r.serverTime - time.runningTime)
                         // + (Math.round((Date.now() - r.localTime)/2))
@@ -295,15 +304,15 @@ const TabloEdit = (props) => {
 
     const stopGame = () => {
         putTimerStatus(gameNumber, false,
-            Date.now() - currentTime,
-            timeMem + (Date.now() - currentTime),
-            deadLine - (timeMem + (Date.now() - currentTime)),
+            Date.now() - currentTime + dif,
+            timeMem + (Date.now() - currentTime + dif),
+            deadLine - (timeMem + (Date.now() - currentTime + dif)),
             deadLine, period, smallOvertime, bigOvertime);
         dispatch(addNewLog(gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP`));
     };
 
-    debugger
+
     return (
         <div className={c.tabloEdit}>
             <div className={c.tablo}>
