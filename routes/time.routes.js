@@ -30,7 +30,8 @@ router.post('/serverTime/:gameNumber', function (req, res) {
 
         let localTime = req.body.localTime;
 
-        res.send({serverTime: Date.now(), localTime: localTime, runningTime: DB.gameInfo.gameTime.runningTime})
+        res.send({serverTime: Date.now(), localTime: localTime,
+            runningTime: DB.gameInfo.gameTime.runningTime, runningTimeTimeout: DB.gameInfo.gameTime.timeoutData.runningTime})
 
 
     } catch (e) {

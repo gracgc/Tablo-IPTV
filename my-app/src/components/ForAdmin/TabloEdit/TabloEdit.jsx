@@ -50,6 +50,7 @@ const TabloEdit = (props) => {
     let [isRunningServerTimeout, setIsRunningServerTimeout] = useState(false);
 
     let [dif, setDif] = useState(0);
+    let [difTimeout, setDifTimeout] = useState(0);
 
 
     let [period, setPeriod] = useState();
@@ -148,6 +149,14 @@ const TabloEdit = (props) => {
                         );
                     })
                 }
+                if (r.timeoutData.isRunning) {
+                    getServerTime(gameNumber, Date.now()).then(r => {
+                        setDifTimeout(
+                            (r.serverTime - r.runningTimeTimeout)
+                            // - (Math.round((Date.now() - r.localTime)/2))
+                        );
+                    })
+                }
             }
         )
 
@@ -173,7 +182,7 @@ const TabloEdit = (props) => {
         )
         socket.on('getTimeout', time => {
                 getServerTime(gameNumber, Date.now()).then(r => {
-                    setDif(
+                    setDifTimeout(
                         (r.serverTime - time.runningTime)
                         // + (Math.round((Date.now() - r.localTime)/2))
                     );
@@ -267,8 +276,8 @@ const TabloEdit = (props) => {
                     setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime + dif)));
                 }
                 if (isRunningServerTimeout) {
-                    setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout + dif));
-                    setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout + dif)));
+                    setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout + difTimeout));
+                    setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout + difTimeout)));
                 }
             }, 10);
             return () => clearInterval(interval);
