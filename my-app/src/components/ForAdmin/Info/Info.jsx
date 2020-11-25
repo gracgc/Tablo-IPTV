@@ -6,7 +6,6 @@ import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import * as axios from "axios";
 import socket from "../../../socket/socket";
-import {setLogDataAC} from "../../../redux/log_reducer";
 
 
 const Info = (props) => {

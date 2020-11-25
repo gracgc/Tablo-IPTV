@@ -10,9 +10,8 @@ const AddOptions = (props) => {
     let gameNumber = props.match.params.gameNumber;
 
 
-
     const putDeadline = (gameNumber, deadLine, timeMemTimer, timeDif, timeMem) => {
-        return axios.put(`http://localhost:5000/api/time/deadline/${gameNumber}`, {
+        return axios.put(`/api/time/deadline/${gameNumber}`, {
             deadLine,
             timeMemTimer,
             timeDif,
