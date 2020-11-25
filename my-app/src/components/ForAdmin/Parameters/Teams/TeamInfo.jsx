@@ -10,6 +10,9 @@ const TeamInfo = (props) => {
 
     const dispatch = useDispatch();
 
+    let secondsStopwatch = Math.floor(props.timeMem / 1000) % 60;
+    let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60)) + (props.period - 1) * 20;
+
     const putTimeoutStatus = (gameNumber, isRunning, timeDif,
                               timeMem, timeMemTimer, deadLine) => {
         return axios.put(`/api/time/isRunningTimeout/${gameNumber}`, {
@@ -25,13 +28,13 @@ const TeamInfo = (props) => {
     let startTimeout = () => {
         putTimeoutStatus(props.gameNumber, true, 0, 0, 30000, 30000);
         dispatch(addNewLog(props.gameNumber,
-            `Start timeout for ${props.name}`));
+            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - Start timeout for ${props.name}`));
     };
 
     let setTimeout = () => {
         putTimeoutStatus(props.gameNumber, false, 0, 0, 30000, 30000);
         dispatch(addNewLog(props.gameNumber,
-            `Set timeout for ${props.name}`));
+            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - Set timeout for ${props.name}`));
     };
 
     return (

@@ -26,13 +26,26 @@ const TeamsParameters = (props) => {
     const dispatch = useDispatch();
 
     const getTimerStatus = (gameNumber) => {
-        return axios.get(`http://localhost:5000/api/time/${gameNumber}`)
+        return axios.get(`/api/time/${gameNumber}`)
             .then(responce => {
                 return responce.data
             });
     };
 
     useEffect(() => {
+        getTimerStatus(gameNumber).then(r => {
+            setTimeMem(r.timeData.timeMem);
+            setTimeMemTimer(r.timeData.timeMemTimer);
+            setPeriod(r.period);
+        })
+
+        socket.on('getTime', time => {
+                setTimeMem(time.timeData.timeMem);
+                setTimeMemTimer(time.timeData.timeMemTimer);
+                setPeriod(time.period);
+            }
+        )
+
         dispatch(getTeams(gameNumber));
         socket.on('getTeams', teams => {
                 dispatch(setTeamsAC(teams))

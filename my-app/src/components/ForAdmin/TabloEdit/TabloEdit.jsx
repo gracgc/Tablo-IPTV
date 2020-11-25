@@ -141,12 +141,13 @@ const TabloEdit = (props) => {
                 setTimeDifTimeout(r.timeoutData.timeData.timeMem);
                 setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
                 setDeadLineTimeout(r.timeoutData.timeData.deadLine);
+
                 if (r.isRunning) {
                     getServerTime(gameNumber, Date.now()).then(r => {
                         setDif(
                             (r.serverTime - r.runningTime)
                             // - (Math.round((Date.now() - r.localTime)/2))
-                        );
+                        )
                     })
                 }
                 if (r.timeoutData.isRunning) {
@@ -154,7 +155,7 @@ const TabloEdit = (props) => {
                         setDifTimeout(
                             (r.serverTime - r.runningTimeTimeout)
                             // - (Math.round((Date.now() - r.localTime)/2))
-                        );
+                        )
                     })
                 }
             }
@@ -253,7 +254,6 @@ const TabloEdit = (props) => {
     }, [timeDif >= deadLine])
 
     useEffect(() => {
-
         if (timeDifTimeout >= deadLineTimeout && isRunningServerTimeout) {
             setIsRunningServerTimeout(false)
 
@@ -330,7 +330,6 @@ const TabloEdit = (props) => {
                        secondsTimerTimeout={secondsTimerTimeout}
                        homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
                        gameNumber={gameNumber}/>
-                {dif}
             </div>
             <div className={c.allButtons}>
                 {isRunningServer ?
