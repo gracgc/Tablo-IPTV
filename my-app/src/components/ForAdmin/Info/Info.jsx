@@ -19,17 +19,18 @@ const Info = (props) => {
 
     const dispatch = useDispatch();
 
-    let [isRunningServer, setIsRunningServer] = useState();
 
-    let [tick, setTick] = useState(100);
+    let [isRunningServer, setIsRunningServer] = useState(false);
 
-    let [currentTime, setCurrentTime] = useState(Date.now());
-
-    let [deadLine, setDeadLine] = useState();
+    let [dif, setDif] = useState(0);
 
     let [period, setPeriod] = useState();
     let [smallOvertime, setSmallOvertime] = useState();
     let [bigOvertime, setBigOvertime] = useState();
+
+    let [currentTime, setCurrentTime] = useState(Date.now());
+
+    let [deadLine, setDeadLine] = useState();
 
     let [timeDif, setTimeDif] = useState();
     let [timeMem, setTimeMem] = useState();
@@ -38,64 +39,65 @@ const Info = (props) => {
     let secondsStopwatch = Math.floor(timeDif / 1000) % 60;
     let minutesStopwatch = Math.floor(timeDif / (1000 * 60)) + (period - 1) * 20 + (smallOvertime * 5) + (bigOvertime * 20);
 
-    let isCheck = true;
 
     const getTimerStatus = (gameNumber) => {
-        return axios.get(`http://localhost:5000/api/time/${gameNumber}`)
+        return axios.get(`/api/time/${gameNumber}`)
             .then(responce => {
                 return responce.data
             });
     };
 
-
-    let checkTimerStatus = (gameNumber) => {
-        getTimerStatus(gameNumber).then(r => {
-                setIsRunningServer(r.gameTime.isRunning);
-                return r
-            }
-        )
-            .then(r => {
-                if (r.gameTime.isRunning === isRunningServer) {
-                    if (r.gameTime.isRunning === false) {
-                        setTimeMem(r.gameTime.timeData.timeMem);
-                        setTimeDif(r.gameTime.timeData.timeMem);
-                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
-                        setDeadLine(r.gameTime.timeData.deadLine);
-                        setPeriod(r.period);
-                        setSmallOvertime(r.smallOvertime);
-                        setBigOvertime(r.bigOvertime);
-                    }
-                }
-                if (r.gameTime.isRunning !== isRunningServer) {
-                    if (r.gameTime.isRunning === true) {
-                        setCurrentTime(r.gameTime.runningTime);
-                    }
-                    if (r.gameTime.isRunning === false) {
-                        setTimeMem(r.gameTime.timeData.timeMem);
-                        setTimeDif(r.gameTime.timeData.timeMem);
-                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
-                        setDeadLine(r.gameTime.timeData.deadLine);
-                        setPeriod(r.period);
-                        setSmallOvertime(r.smallOvertime);
-                        setBigOvertime(r.bigOvertime);
-                    }
-                }
-            })
+    const getServerTime = (gameNumber, localTime) => {
+        return axios.post(`/api/time/serverTime/${gameNumber}`, {localTime})
+            .then(responce => {
+                return responce.data
+            });
     };
 
     useEffect(() => {
+        dispatch(getGame(gameNumber))
+        socket.on('getGame', game => {
+            dispatch(setGameDataAC(game))
+        })
         getTimerStatus(gameNumber).then(r => {
-                setTimeMem(r.gameTime.timeData.timeMem);
-                setTimeDif(r.gameTime.timeData.timeMem);
-                setDeadLine(r.gameTime.timeData.deadLine);
+                ////TIMER////
+                setIsRunningServer(r.isRunning)
+                setCurrentTime(Date.now())
+                setTimeMem(r.timeData.timeMem);
+                setTimeDif(r.timeData.timeMem);
+                setTimeMemTimer(r.timeData.timeMemTimer);
+                setDeadLine(r.timeData.deadLine);
                 setPeriod(r.period);
                 setSmallOvertime(r.smallOvertime);
                 setBigOvertime(r.bigOvertime);
+                if (r.isRunning) {
+                    getServerTime(gameNumber, Date.now()).then(r => {
+                        setDif(
+                            (r.serverTime - r.runningTime)
+                            // - (Math.round((Date.now() - r.localTime)/2))
+                        )
+                    })
+                }
             }
-        );
-        dispatch(getGame(gameNumber))
-        socket.on('getGame', game => {
-                dispatch(setGameDataAC(game))
+        )
+
+        ////Socket IO////
+        socket.on('getTime', time => {
+                getServerTime(gameNumber, Date.now()).then(r => {
+                    setDif(
+                        (r.serverTime - time.runningTime)
+                        // - (Math.round((Date.now() - r.localTime)/2))
+                    );
+                })
+                setIsRunningServer(time.isRunning)
+                setCurrentTime(Date.now())
+                setTimeMem(time.timeData.timeMem);
+                setTimeDif(time.timeData.timeMem);
+                setTimeMemTimer(time.timeData.timeMemTimer);
+                setDeadLine(time.timeData.deadLine);
+                setPeriod(time.period);
+                setSmallOvertime(time.smallOvertime);
+                setBigOvertime(time.bigOvertime);
             }
         )
     }, []);
@@ -103,18 +105,11 @@ const Info = (props) => {
 
     useEffect(() => {
             let interval = setInterval(() => {
-                if (isCheck) {
-                    // checkTimerStatus(gameNumber);
+                if (isRunningServer) {
+                    setTimeDif(timeMem + (Date.now() - currentTime + dif));
+                    setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime + dif)));
                 }
-
-                if (isCheck && isRunningServer) {
-                    // checkTimerStatus(gameNumber);
-
-                    setTimeDif(timeMem + (Date.now() - currentTime));
-                    setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
-
-                }
-            }, tick);
+            }, 50);
             return () => clearInterval(interval);
         }
     );
@@ -125,7 +120,7 @@ const Info = (props) => {
                 <strong>{gameData.gameName}</strong> — {gameData.gameType}
             </div>
             <div className={c.statusAndTime}>
-                {period > 3 ? <strong>Overtime {''}</strong> : <strong>Period {gameData.period} {''}</strong>}
+                {period > 3 ? <strong>Overtime {''}</strong> : <strong>Period {period} {''}</strong>}
                 — <strong>Status</strong>: {gameData.gameStatus} — <strong>Time</strong>
                 : {minutesStopwatch}:{secondsStopwatch < 10 ? '0' : ''}{secondsStopwatch}
             </div>

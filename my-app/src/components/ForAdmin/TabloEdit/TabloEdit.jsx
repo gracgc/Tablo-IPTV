@@ -75,7 +75,7 @@ const TabloEdit = (props) => {
     let [timeMemTimerTimeout, setTimeMemTimerTimeout] = useState();
 
     let secondsStopwatch = Math.floor(timeDif / 1000) % 60;
-    let minutesStopwatch = Math.floor(timeDif / (1000 * 60)) + (period - 1) * 20;
+    let minutesStopwatch = Math.floor(timeDif / (1000 * 60)) + (period - 1) * 20 + (smallOvertime * 5) + (bigOvertime * 20);
 
     let secondsTimer = Math.floor(timeMemTimer / 1000) % 60;
     let minutesTimer = Math.floor(timeMemTimer / (1000 * 60));
@@ -210,7 +210,7 @@ const TabloEdit = (props) => {
         if (timeDif >= deadLine && isRunningServer) {
             setIsRunningServer(false)
             if (period === 3) {
-                putTimerStatus(gameNumber, false, Date.now(),
+                putTimerStatus(gameNumber, false,
                     0,
                     0,
                     0, 0, period + 1, smallOvertime, bigOvertime)
@@ -221,7 +221,7 @@ const TabloEdit = (props) => {
             }
             if (period > 3) {
                 if (deadLine === 300000) {
-                    putTimerStatus(gameNumber, false, Date.now(),
+                    putTimerStatus(gameNumber, false,
                         0,
                         0,
                         0, 0, period, smallOvertime + 1, bigOvertime)
@@ -231,7 +231,7 @@ const TabloEdit = (props) => {
                         `End of overtime`));
                 }
                 if (deadLine === 1200000) {
-                    putTimerStatus(gameNumber, false, Date.now(),
+                    putTimerStatus(gameNumber, false,
                         0,
                         0,
                         0, 0, period, smallOvertime, bigOvertime + 1);
@@ -241,7 +241,7 @@ const TabloEdit = (props) => {
                         `End of overtime`));
                 }
             } else {
-                putTimerStatus(gameNumber, false, Date.now(),
+                putTimerStatus(gameNumber, false,
                     0,
                     0,
                     deadLine, deadLine, period + 1, smallOvertime, bigOvertime);

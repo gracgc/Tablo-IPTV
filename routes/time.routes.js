@@ -99,6 +99,8 @@ router.put('/isRunning/:gameNumber', function (req, res) {
 
         io.emit('getTime', DB.gameInfo.gameTime)
 
+        io.emit('getGame', DB.gameInfo)
+
     } catch (e) {
         console.log(e)
     }
@@ -169,6 +171,7 @@ router.put('/deadline/:gameNumber', function (req, res) {
         const io = req.app.locals.io;
 
         io.emit('getTime', DB.gameInfo.gameTime)
+
 
     } catch (e) {
         console.log(e)

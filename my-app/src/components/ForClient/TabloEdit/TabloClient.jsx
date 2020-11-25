@@ -10,7 +10,7 @@ const TabloClient = (props) => {
         <div className={c.tablo}>
             <div className={c.time}>
                 {props.minutesTimer <= 0 ? 0 : props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}
-                {props.secondsTimer <= 1 ? 0 : props.secondsTimer}
+                {props.secondsTimer <= 0 ? 0 : props.secondsTimer}
             </div>
             {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> : <div></div>}
             <div>

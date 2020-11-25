@@ -14,7 +14,7 @@ const AdminPanel = (props) => {
     return (
         <div className={c.adminPanel}>
             <div className={c.adminPanel__info}>
-                {/*<Info/>*/}
+                <Info/>
             </div>
             <div className={c.adminPanel__mainPanel}>
                 <div>
