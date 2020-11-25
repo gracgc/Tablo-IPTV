@@ -17,6 +17,9 @@ const TabloEvent = (props) => {
         state => state.teamsPage.teams.find(t => t.teamType === props.teamType).gamers.find(g => g.id === props.id)
     );
 
+    let secondsStopwatch = Math.floor(props.timeMem / 1000) % 60;
+    let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60)) + (props.period - 1) * 20;
+
     let penaltyTimer = props.timeMemTimer - deletedGamer.whenWasPenalty + deletedGamer.timeOfPenalty;
 
     let secondsTimerOfDeletedGamer =
@@ -28,12 +31,12 @@ const TabloEvent = (props) => {
 
 
     useEffect(() => {
-        if (shouldPenaltyStop || props.timeMemTimer <= 0) {
+        if (deletedGamer.status === 'deleted' && (shouldPenaltyStop || props.timeMemTimer <= 0)) {
             setTimeout(() => {
-                dispatch(addNewLog(props.gameNumber,
-                    `${deletedGamer.fullName} returns to a game`));
-                dispatch(addNewTempLog(props.gameNumber, `${deletedGamer.fullName} returns to a game`));
                 dispatch(changeGamerStatus(props.gameNumber, props.teamType, deletedGamer.id));
+                dispatch(addNewLog(props.gameNumber,
+                    `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - ${deletedGamer.fullName} returns to a game`));
+                dispatch(addNewTempLog(props.gameNumber, `${deletedGamer.fullName} returns to a game`));
                 dispatch(deleteGamer(props.gameNumber, props.teamType, deletedGamer.id, 0, 0));
                 dispatch(deleteConsLog(props.gameNumber, consLog.findIndex(c => c.id === deletedGamer.id && c.teamType === props.teamType)))
             }, (consLog.length - consLog.findIndex(c => c.id === deletedGamer.id && c.teamType === props.teamType))*100)

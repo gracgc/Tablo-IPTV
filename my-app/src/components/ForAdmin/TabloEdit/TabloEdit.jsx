@@ -328,7 +328,7 @@ const TabloEdit = (props) => {
                 <Tablo isShowLog={isShowLog} gameTempLog={gameTempLog} gameConsLog={gameConsLog}
                        secondsTimer={secondsTimer} minutesTimer={minutesTimer} timeMemTimerTimeout={timeMemTimerTimeout}
                        secondsTimerTimeout={secondsTimerTimeout}
-                       homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
+                       homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer} timeMem={timeMem}
                        gameNumber={gameNumber}/>
             </div>
             <div className={c.allButtons}>

@@ -24,6 +24,7 @@ const Tablo = (props) => {
                                                                                                   id={gcl.id}
                                                                                                   teamType={gcl.teamType}
                                                                                                   timeMemTimer={props.timeMemTimer}
+                                                                                                  timeMem={props.timeMem}
                                                                                                   gameNumber={props.gameNumber}
                 />)}
             </div>

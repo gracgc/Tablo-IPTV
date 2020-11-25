@@ -6,9 +6,10 @@ import TabloClient from "./TabloClient";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
-import {getLog} from "../../../redux/log_reducer";
-import {getTeams, setTeamsAC} from "../../../redux/teams_reducer";
+import {addNewLog, addNewTempLog, getLog, setLogDataAC} from "../../../redux/log_reducer";
+import {getTeams, setTeamsAC, teamGoal} from "../../../redux/teams_reducer";
 import socket from "../../../socket/socket";
+import Tablo from "../../ForAdmin/TabloEdit/Tablo";
 
 
 const TabloEditClient = (props) => {
@@ -17,12 +18,17 @@ const TabloEditClient = (props) => {
 
     const dispatch = useDispatch();
 
-    const homeCounter = useSelector(
-        (state => state.teamsPage.teams.find(t => t.teamType === 'home').counter)
+    const homeTeam = useSelector(
+        (state => state.teamsPage.teams.find(t => t.teamType === 'home'))
     );
-    const guestsCounter = useSelector(
-        (state => state.teamsPage.teams.find(t => t.teamType === 'guests').counter)
+
+    const guestsTeam = useSelector(
+        (state => state.teamsPage.teams.find(t => t.teamType === 'guests'))
     );
+
+    const homeCounter = homeTeam.counter;
+
+    const guestsCounter = guestsTeam.counter;
 
     const gameTempLog = useSelector(
         state => state.logPage.logData.tabloLog.tempLog[state.logPage.logData.tabloLog.tempLog.length - 1].item
@@ -36,13 +42,16 @@ const TabloEditClient = (props) => {
         state => state.logPage.logData.tabloLog.tempLog
     );
 
+
     let [isShowLog, setIsShowLog] = useState(false);
 
     let [isRunningServer, setIsRunningServer] = useState(false);
 
     let [isRunningServerTimeout, setIsRunningServerTimeout] = useState(false);
 
-    let [tick, setTick] = useState(100);
+    let [dif, setDif] = useState(0);
+    let [difTimeout, setDifTimeout] = useState(0);
+
 
     let [currentTime, setCurrentTime] = useState(Date.now());
 
@@ -56,6 +65,7 @@ const TabloEditClient = (props) => {
     let [timeMem, setTimeMem] = useState();
     let [timeMemTimer, setTimeMemTimer] = useState();
 
+
     let [timeDifTimeout, setTimeDifTimeout] = useState();
     let [timeMemTimeout, setTimeMemTimeout] = useState();
     let [timeMemTimerTimeout, setTimeMemTimerTimeout] = useState();
@@ -66,80 +76,103 @@ const TabloEditClient = (props) => {
 
     let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
 
-    let isCheck = true;
-
     const getTimerStatus = (gameNumber) => {
-        return axios.get(`http://localhost:5000/api/time/${gameNumber}`)
+        return axios.get(`/api/time/${gameNumber}`)
             .then(responce => {
                 return responce.data
             });
     };
 
-    const getTimeoutStatus = (gameNumber) => {
-        return axios.get(`http://localhost:5000/api/time/timeout/${gameNumber}`)
+    const getServerTime = (gameNumber, localTime) => {
+        return axios.post(`/api/time/serverTime/${gameNumber}`, {localTime})
             .then(responce => {
                 return responce.data
             });
     };
 
 
-    let checkTimerStatus = (gameNumber) => {
+    useEffect(() => {
+        ////LOG LOAD///
+        dispatch(getLog(gameNumber))
+        socket.on('getLog', log => {
+                dispatch(setLogDataAC(log))
+            }
+        )
+        ////TEAMS LOAD///
+        dispatch(getTeams(gameNumber));
+        socket.on('getTeams', teams => {
+                dispatch(setTeamsAC(teams))
+            }
+        )
+        ////TIME LOAD////
         getTimerStatus(gameNumber).then(r => {
-                setIsRunningServer(r.gameTime.isRunning);
-                return r
-            }
-        )
-            .then(r => {
-                if (r.gameTime.isRunning === isRunningServer) {
-                    if (r.gameTime.isRunning === false) {
-                        setTimeMem(r.gameTime.timeData.timeMem);
-                        setTimeDif(r.gameTime.timeData.timeMem);
-                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
-                        setDeadLine(r.gameTime.timeData.deadLine);
-                    }
-                }
-                if (r.gameTime.isRunning !== isRunningServer) {
-                    if (r.gameTime.isRunning === true) {
-                        setCurrentTime(r.gameTime.runningTime);
-                    }
-                    if (r.gameTime.isRunning === false) {
-                        setTimeMem(r.gameTime.timeData.timeMem);
-                        setTimeDif(r.gameTime.timeData.timeMem);
-                        setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
-                        setDeadLine(r.gameTime.timeData.deadLine);
-                    }
-                }
-            })
-    };
+                ////TIMER////
+                setIsRunningServer(r.isRunning)
+                setCurrentTime(Date.now())
+                setTimeMem(r.timeData.timeMem);
+                setTimeDif(r.timeData.timeMem);
+                setTimeMemTimer(r.timeData.timeMemTimer);
+                setDeadLine(r.timeData.deadLine);
+                ////TIMEOUT////
+                setIsRunningServerTimeout(r.timeoutData.isRunning)
+                setCurrentTimeTimeout(Date.now())
+                setTimeMemTimeout(r.timeoutData.timeData.timeMem);
+                setTimeDifTimeout(r.timeoutData.timeData.timeMem);
+                setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
+                setDeadLineTimeout(r.timeoutData.timeData.deadLine);
 
-    let checkTimeoutStatus = (gameNumber) => {
-        getTimeoutStatus(gameNumber).then(r => {
-                setIsRunningServerTimeout(r.isRunning);
-                return r
+                if (r.isRunning) {
+                    getServerTime(gameNumber, Date.now()).then(r => {
+                        setDif(
+                            (r.serverTime - r.runningTime)
+                            // - (Math.round((Date.now() - r.localTime)/2))
+                        )
+                    })
+                }
+                if (r.timeoutData.isRunning) {
+                    getServerTime(gameNumber, Date.now()).then(r => {
+                        setDifTimeout(
+                            (r.serverTime - r.runningTimeTimeout)
+                            // - (Math.round((Date.now() - r.localTime)/2))
+                        )
+                    })
+                }
             }
         )
-            .then(r => {
-                if (r.isRunning === isRunningServerTimeout) {
-                    if (r.isRunning === false) {
-                        setTimeMemTimeout(r.timeData.timeMem);
-                        setTimeDifTimeout(r.timeData.timeMem);
-                        setTimeMemTimerTimeout(r.timeData.timeMemTimer);
-                        setDeadLineTimeout(r.timeData.deadLine);
-                    }
-                }
-                if (r.isRunning !== isRunningServerTimeout) {
-                    if (r.isRunning === true) {
-                        setCurrentTimeTimeout(r.runningTime);
-                    }
-                    if (r.isRunning === false) {
-                        setTimeMemTimeout(r.timeData.timeMem);
-                        setTimeDifTimeout(r.timeData.timeMem);
-                        setTimeMemTimerTimeout(r.timeData.timeMemTimer);
-                        setDeadLineTimeout(r.timeData.deadLine);
-                    }
-                }
-            })
-    };
+
+
+        ////Socket IO////
+        socket.on('getTime', time => {
+                getServerTime(gameNumber, Date.now()).then(r => {
+                    setDif(
+                        (r.serverTime - time.runningTime)
+                        // - (Math.round((Date.now() - r.localTime)/2))
+                    );
+                })
+                setIsRunningServer(time.isRunning)
+                setCurrentTime(Date.now())
+                setTimeMem(time.timeData.timeMem);
+                setTimeDif(time.timeData.timeMem);
+                setTimeMemTimer(time.timeData.timeMemTimer);
+                setDeadLine(time.timeData.deadLine);
+            }
+        )
+        socket.on('getTimeout', time => {
+                getServerTime(gameNumber, Date.now()).then(r => {
+                    setDifTimeout(
+                        (r.serverTime - time.runningTime)
+                        // + (Math.round((Date.now() - r.localTime)/2))
+                    );
+                })
+                setIsRunningServerTimeout(time.isRunning)
+                setCurrentTimeTimeout(Date.now())
+                setTimeDifTimeout(time.timeData.timeDif);
+                setTimeMemTimeout(time.timeData.timeMem);
+                setTimeMemTimerTimeout(time.timeData.timeMemTimer);
+                setDeadLineTimeout(time.timeData.deadLine);
+            }
+        )
+    }, []);
 
     useEffect(() => {
         setIsShowLog(true);
@@ -148,49 +181,18 @@ const TabloEditClient = (props) => {
         }, 5000)
     }, [gameTempLogDep.length]);
 
-    useEffect(() => {
-        getTimerStatus(gameNumber).then(r => {
-                setTimeMem(r.gameTime.timeData.timeMem);
-                setTimeDif(r.gameTime.timeData.timeMem);
-                setTimeMemTimer(r.gameTime.timeData.timeMemTimer);
-                setDeadLine(r.gameTime.timeData.deadLine);
-                ////TIMEOUT////
-                setTimeMemTimeout(r.gameTime.timeoutData.timeData.timeMem);
-                setTimeDifTimeout(r.gameTime.timeoutData.timeData.timeMem);
-                setTimeMemTimerTimeout(r.gameTime.timeoutData.timeData.timeMemTimer);
-                setDeadLineTimeout(r.gameTime.timeoutData.timeData.deadLine);
-            }
-        );
-        dispatch(getTeams(gameNumber));
-        socket.on('getTeams', teams => {
-                dispatch(setTeamsAC(teams))
-            }
-        )
-    }, []);
 
     useEffect(() => {
             let interval = setInterval(() => {
-                if (isCheck) {
-                    checkTimerStatus(gameNumber);
-                    checkTimeoutStatus(gameNumber);
-
+                if (isRunningServer) {
+                    setTimeDif(timeMem + (Date.now() - currentTime + dif));
+                    setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime + dif)));
                 }
-
-                if (isCheck && isRunningServer) {
-                    checkTimerStatus(gameNumber);
-                    checkTimeoutStatus(gameNumber);
-
-
-                    setTimeDif(timeMem + (Date.now() - currentTime));
-                    setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime)));
+                if (isRunningServerTimeout) {
+                    setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout + difTimeout));
+                    setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout + difTimeout)));
                 }
-                if (isCheck && isRunningServerTimeout) {
-                    checkTimerStatus(gameNumber);
-                    checkTimeoutStatus(gameNumber);
-                    setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout));
-                    setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout)));
-                }
-            }, tick);
+            }, 10);
             return () => clearInterval(interval);
         }
     );
@@ -199,7 +201,7 @@ const TabloEditClient = (props) => {
     return (
         <div className={c.tabloEdit}>
             <TabloClient isShowLog={isShowLog} gameTempLog={gameTempLog} gameConsLog={gameConsLog}
-                         secondsTimer={secondsTimer} minutesTimer={minutesTimer}
+                         secondsTimer={secondsTimer} minutesTimer={minutesTimer} timeMemTimerTimeout={timeMemTimerTimeout}
                          secondsTimerTimeout={secondsTimerTimeout}
                          homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
                          gameNumber={gameNumber}/>
