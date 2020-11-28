@@ -16,6 +16,7 @@
   "devDependencies": {
     "body-parser": "^1.19.0",
     "concurrently": "^5.3.0",
+    "config": "^3.3.3",
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
     "express": "^4.17.1",
@@ -24,6 +25,6 @@
     "uuid": "^8.3.1"
   },
   "dependencies": {
-    "react-onclickoutside": "^6.9.0"
+
   }
 }

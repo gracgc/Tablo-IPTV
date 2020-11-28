@@ -1,5 +1,7 @@
 const bodyParser = require('body-parser');
 const path = require('path');
+const config = require('config');
+
 
 const app = require('express')();
 
@@ -70,11 +72,12 @@ app.use('/api/game', require('./routes/game.routes'));
 app.use('/api/savedGames', require('./routes/savedGames.routes'));
 app.use('/api/time', require('./routes/time.routes'));
 
+const PORT = config.get('port') || 5000
 
 const start = () => {
     try {
-        server.listen(5000, () => {
-            console.log(`Server has been started...`)
+        server.listen(PORT, () => {
+            console.log(`Server has been started on ${PORT}...`)
         })
     } catch (e) {
         console.log('Server Error', e.message);

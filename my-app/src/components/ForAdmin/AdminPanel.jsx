@@ -53,7 +53,7 @@ const AdminPanel = (props) => {
                     <TeamsParameters/>
                 </div>
                 <div>
-                    {period > 3 && <AddOptions/>}
+                    <AddOptions period={period}/>
                 </div>
             </div>
         </div>

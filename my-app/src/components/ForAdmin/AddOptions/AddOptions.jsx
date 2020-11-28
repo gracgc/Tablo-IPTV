@@ -28,7 +28,8 @@ const AddOptions = (props) => {
         <div className={c.addOptions}>
             <div>
                 <div><strong style={{fontSize: "120%"}}>Add Time</strong></div>
-                <div className={c.overtimeButtons}>
+                {props.period > 3
+                    ? <div className={c.overtimeButtons}>
                     <div className={c.overtimeButton} onClick={(e) => putNewDeadLine(300000)}>
                         5 min
                     </div>
@@ -36,6 +37,14 @@ const AddOptions = (props) => {
                         20min
                     </div>
                 </div>
+                    : <div className={c.overtimeButtonsDis}>
+                    <div className={c.overtimeButton} onClick={(e) => putNewDeadLine(300000)}>
+                        5 min
+                    </div>
+                    <div className={c.overtimeButton} onClick={(e) => putNewDeadLine(1200000)}>
+                        20min
+                    </div>
+                </div>}
             </div>
         </div>
 
