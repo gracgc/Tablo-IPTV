@@ -1,9 +1,10 @@
 const bodyParser = require('body-parser');
 const path = require('path');
 const config = require('config');
+const express = require('express');
 
 
-const app = require('express')();
+const app = express();
 
 const server = require('http').Server(app)
 
@@ -11,6 +12,7 @@ const server = require('http').Server(app)
 const io = require('socket.io')(server)
 
 if (process.env.NODE_ENV === 'production') {
+
     app.use('/', express.static(path.join(__dirname, 'my-app', 'build')));
 
     app.get('*', (req, res) => {
