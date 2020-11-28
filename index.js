@@ -11,14 +11,7 @@ const server = require('http').Server(app)
 
 const io = require('socket.io')(server)
 
-if (process.env.NODE_ENV === 'production') {
 
-    app.use('/', express.static(path.join(__dirname, 'my-app', 'build')));
-
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'my-app', 'build', 'index.html'))
-    })
-}
 
 
 app.use(function(req, res, next) {
@@ -74,6 +67,15 @@ app.use('/api/game', require('./routes/game.routes'));
 app.use('/api/savedGames', require('./routes/savedGames.routes'));
 app.use('/api/time', require('./routes/time.routes'));
 
+if (process.env.NODE_ENV === 'production') {
+
+    app.use('/', express.static(path.join(__dirname, 'my-app', 'build')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'my-app', 'build', 'index.html'))
+    })
+}
+
 const PORT = config.get('port') || 5000
 
 const start = () => {
@@ -88,4 +90,3 @@ const start = () => {
 };
 
 start();
-
