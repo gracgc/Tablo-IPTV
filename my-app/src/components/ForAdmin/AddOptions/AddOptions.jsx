@@ -37,11 +37,11 @@ const AddOptions = (props) => {
                         20min
                     </div>
                 </div>
-                    : <div className={c.overtimeButtonsDis}>
-                    <div className={c.overtimeButton} onClick={(e) => putNewDeadLine(300000)}>
+                    : <div className={c.overtimeButtons}>
+                    <div className={c.overtimeButtonDis}>
                         5 min
                     </div>
-                    <div className={c.overtimeButton} onClick={(e) => putNewDeadLine(1200000)}>
+                    <div className={c.overtimeButtonDis}>
                         20min
                     </div>
                 </div>}

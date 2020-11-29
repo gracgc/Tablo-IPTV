@@ -29,11 +29,12 @@
 
 
 .gameButtons__Disabled {
-    opacity: 40%;
-    background: #3A5985;
+    color: #adb0b3;
+    background: #c9e2ff;
     padding-top: 15px;
     padding-bottom: 15px;
     pointer-events: none;
+    border: 2px solid #595d61;
 }
 
 .gameButtons__Active {
