@@ -16,7 +16,7 @@ const Tablo = (props) => {
             <div>
                 {(props.timeMemTimerTimeout > 0) &&
                 <div className={props.secondsTimerTimeout < 6 ? c.timeout5sec : c.timeout}>
-                    Timeout: {props.secondsTimerTimeout} seconds
+                    Timeout {props.secondsTimerTimeout} seconds
                 </div>}
 
                 {props.gameConsLog && props.gameConsLog.map(gcl => gcl.item !== '' && <TabloEvent key={gcl.id}

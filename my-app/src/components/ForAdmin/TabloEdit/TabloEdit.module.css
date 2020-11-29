@@ -2,21 +2,21 @@
     position: relative;
     height: 100%;
     width: 100%;
-    top: 5%;
+    top: 15px;
 }
 
 .tablo {
     position: relative;
     float: right;
     background-color: white;
-    height: 92%;
-    width: 60%;
+    height:260px;
+    width: 380px;
     right: 20px;
 }
 
 .allButtons {
     position: relative;
-    width: 30%;
+    width: 200px;
     text-align: center;
     font-weight: bold;
     left: 20px;
@@ -24,7 +24,7 @@
 }
 
 .gameButtons {
-    font-size: 120%;
+    font-size: 20px;
 }
 
 
@@ -46,14 +46,14 @@
 }
 
 .gameButtons__stop {
-    margin-top: 5%;
+    margin-top: 15px;
 }
 
 .beepButtons {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 10px;
-    font-size: 100%;
+    font-size: 18px;
     margin-top: 12px;
 }
 
@@ -68,7 +68,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 10px;
-    font-size: 100%;
+    font-size: 18px;
     margin-top: 12px;
 }
 
