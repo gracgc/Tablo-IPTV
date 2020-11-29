@@ -37,17 +37,32 @@ const TeamInfo = (props) => {
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - Set timeout for ${props.name}`));
     };
 
+    let clearTimeout = () => {
+        putTimeoutStatus(props.gameNumber, false, 0, 0, 0, 0);
+    };
+
     return (
         <div className={c.team}>
             <div className={c.teamInfo}>
                 Team Name: {props.name} <br/>
                 Points: {props.teamCounter} <br/>
-                TimeOut: <span className={c.timeout} onClick={(e) => setTimeout()}>
+                TimeOut: {!props.isRunningServer
+                    ? <span><span className={c.timeout} onClick={(e) => setTimeout()}>
                 Set
             </span> <span className={c.timeout} onClick={(e) => startTimeout()}>
                 Start
-            </span> <br/>
-                <div className={c.tableInfo} >
+            </span> <span className={c.timeout} onClick={(e) => clearTimeout()}>
+                    Clear
+                    </span> <br/></span>
+                    : <span><span className={c.timeoutDis}>
+                    Set
+                    </span> <span className={c.timeoutDis}>
+                    Start
+                    </span> <span className={c.timeout} onClick={(e) => clearTimeout()}>
+                    Clear
+                    </span> <br/></span>}
+
+                <div className={c.tableInfo}>
                     <div>
                         <strong>Gamers:</strong>
                     </div>

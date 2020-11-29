@@ -33,7 +33,7 @@
     font-size: 18px;
 }
 
-.consLog {
+.consLogItem {
     position: relative;
     padding-left: 10px;
     font-size: 14px;
@@ -51,4 +51,18 @@
     color: red;
     text-align: center;
     font-size: 120%;
+}
+
+.addGoal {
+    position: absolute;
+    margin-left: 95px;
+    font-size: 26px;
+    color: blue;
+}
+
+.deleteGoal {
+    position: absolute;
+    margin-left: 15px;
+    font-size: 26px;
+    color: red;
 }

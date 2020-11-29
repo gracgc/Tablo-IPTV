@@ -202,7 +202,7 @@ const TabloEditClient = (props) => {
         <div className={c.tabloEdit}>
             <TabloClient isShowLog={isShowLog} gameTempLog={gameTempLog} gameConsLog={gameConsLog}
                          secondsTimer={secondsTimer} minutesTimer={minutesTimer} timeMemTimerTimeout={timeMemTimerTimeout}
-                         secondsTimerTimeout={secondsTimerTimeout}
+                         secondsTimerTimeout={secondsTimerTimeout} homeTeam={homeTeam} guestsTeam={guestsTeam}
                          homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
                          gameNumber={gameNumber}/>
         </div>

@@ -10,9 +10,6 @@ import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 
 
-
-
-
 const AdminPanel = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
@@ -25,12 +22,12 @@ const AdminPanel = (props) => {
     };
 
     let [period, setPeriod] = useState();
+
     useEffect(() => {
         getTimerStatus(gameNumber).then(r => {
                 setPeriod(r.period);
             }
         )
-
     }, []);
 
 

@@ -16,24 +16,27 @@ const TabloClient = (props) => {
             <div>
                 {(props.timeMemTimerTimeout > 0) &&
                 <div className={props.secondsTimerTimeout < 6 ? c.timeout5sec : c.timeout}>
-                    Timeout: {props.secondsTimerTimeout} seconds
+                    Timeout {props.secondsTimerTimeout} seconds
                 </div>}
-                {props.gameConsLog && props.gameConsLog.map(gcl => gcl.item !== '' && <TabloEventClient key={gcl.id}
-                                                                                                  item={gcl.item}
-                                                                                                  id={gcl.id}
-                                                                                                  teamType={gcl.teamType}
-                                                                                                  timeMemTimer={props.timeMemTimer}
-                                                                                                  gameNumber={props.gameNumber}
-                />)}
+                <div className={c.consLog} >
+                    {props.gameConsLog && props.gameConsLog.map(gcl => gcl.item !== '' && <TabloEventClient key={gcl.id}
+                                                                                                            item={gcl.item}
+                                                                                                            id={gcl.id}
+                                                                                                            teamType={gcl.teamType}
+                                                                                                            timeMemTimer={props.timeMemTimer}
+                                                                                                            gameNumber={props.gameNumber}
+                    />)}
+                </div>
+
             </div>
             <div className={c.counters}>
                 <div className={c.counter}>
                     {props.homeCounter} <br/>
-                    Home
+                    {props.homeTeam.name}
                 </div>
                 <div className={c.counter}>
                     {props.guestsCounter} <br/>
-                    Guests
+                    {props.guestsTeam.name}
                 </div>
             </div>
         </div>

@@ -284,19 +284,9 @@ const TabloEdit = (props) => {
         }
     );
 
-    const addTeamGoal = (teamType, teamName) => {
-        if (isRunningServer) {
-            dispatch(teamGoal(gameNumber, teamType, '+'));
-            dispatch(putTimerStatus(gameNumber, false,
-                Date.now() - currentTime,
-                timeMem + (Date.now() - currentTime),
-                deadLine - (timeMem + (Date.now() - currentTime)), deadLine, period, smallOvertime, bigOvertime));
-            dispatch(addNewLog(gameNumber,
-                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP - GOAL for ${teamName}!`));
-            dispatch(addNewTempLog(gameNumber,
-                `GOAL for ${teamName}!`));
-        } else {
-            dispatch(teamGoal(gameNumber, teamType, '+'));
+    const addTeamGoal = async (teamType, teamName, symbol) => {
+        dispatch(teamGoal(gameNumber, teamType, symbol));
+        if (symbol === '+') {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - GOAL for ${teamName}!`));
             dispatch(addNewTempLog(gameNumber,
@@ -327,8 +317,10 @@ const TabloEdit = (props) => {
             <div className={c.tablo}>
                 <Tablo isShowLog={isShowLog} gameTempLog={gameTempLog} gameConsLog={gameConsLog}
                        secondsTimer={secondsTimer} minutesTimer={minutesTimer} timeMemTimerTimeout={timeMemTimerTimeout}
-                       secondsTimerTimeout={secondsTimerTimeout}
-                       homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer} timeMem={timeMem}
+                       secondsTimerTimeout={secondsTimerTimeout} homeTeam={homeTeam} guestsTeam={guestsTeam}
+                       homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
+                       timeMem={timeMem}
+                       addTeamGoal={addTeamGoal}
                        gameNumber={gameNumber}/>
             </div>
             <div className={c.allButtons}>
@@ -355,16 +347,6 @@ const TabloEdit = (props) => {
                 <div className={c.beepButtons}>
                     <div className={c.beepButtons_beep}>Beep</div>
                     <div className={c.beepButtons_beep}>Beeeep</div>
-                </div>
-                <div className={c.goalButtons}>
-                    <div onClick={(e) => addTeamGoal('home', homeTeam.name)}
-                         className={classNames(c.goalButtons_goal, c.home)}>
-                        Goal
-                    </div>
-                    <div onClick={(e) => addTeamGoal('guests', guestsTeam.name)}
-                         className={classNames(c.goalButtons_goal, c.guests)}>
-                        Goal
-                    </div>
                 </div>
             </div>
         </div>

@@ -18,8 +18,8 @@ const TabloEventClient = (props) => {
 
 
     return (
-        <div className={c.consLog}>
-            {props.item} : {minutesTimerOfDeletedGamer <= 0 ? 0 : minutesTimerOfDeletedGamer}
+        <div className={c.consLogItem}>
+            {props.item}  {minutesTimerOfDeletedGamer <= 0 ? 0 : minutesTimerOfDeletedGamer}
             :
             {secondsTimerOfDeletedGamer < 10 ? '0' : ''}{secondsTimerOfDeletedGamer < 1 ? 0 : secondsTimerOfDeletedGamer}
         </div>

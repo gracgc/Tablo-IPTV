@@ -7,12 +7,13 @@ import {compose} from "redux";
 import {NavLink, withRouter} from "react-router-dom";
 import * as axios from "axios";
 import socket from "../../../socket/socket";
-import {setLogDataAC} from "../../../redux/log_reducer";
 
 
 const TeamsParameters = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
+
+    let [isRunningServer, setIsRunningServer] = useState(false);
 
     let [timeMem, setTimeMem] = useState();
     let [timeMemTimer, setTimeMemTimer] = useState();
@@ -37,12 +38,14 @@ const TeamsParameters = (props) => {
             setTimeMem(r.timeData.timeMem);
             setTimeMemTimer(r.timeData.timeMemTimer);
             setPeriod(r.period);
+            setIsRunningServer(r.isRunning)
         })
 
         socket.on('getTime', time => {
                 setTimeMem(time.timeData.timeMem);
                 setTimeMemTimer(time.timeData.timeMemTimer);
                 setPeriod(time.period);
+            setIsRunningServer(time.isRunning)
             }
         )
 
@@ -66,14 +69,14 @@ const TeamsParameters = (props) => {
     return (
         <div className={c.parameters}>
             <div>
-                <TeamInfo period={period} timeMem={timeMem} timeMemTimer={timeMemTimer}
+                <TeamInfo period={period} timeMem={timeMem} timeMemTimer={timeMemTimer} isRunningServer={isRunningServer}
                           teamGamers={homeTeamGamers} teamCounter={homeTeamInfo.counter}
                           name={homeTeamInfo.name} timeOut={homeTeamInfo.timeOut} teamType={homeTeamInfo.teamType}
                           gameNumber={gameNumber}
                 />
             </div>
             <div>
-                <TeamInfo period={period} timeMem={timeMem} timeMemTimer={timeMemTimer}
+                <TeamInfo period={period} timeMem={timeMem} timeMemTimer={timeMemTimer} isRunningServer={isRunningServer}
                           teamGamers={guestsTeamGamers} teamCounter={guestsTeamInfo.counter}
                           name={guestsTeamInfo.name} timeOut={guestsTeamInfo.timeOut}
                           teamType={guestsTeamInfo.teamType}

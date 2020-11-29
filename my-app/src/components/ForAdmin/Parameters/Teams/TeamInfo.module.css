@@ -1,16 +1,17 @@
 .team {
-    padding-left: 15%;
-    width: 85%;
+    padding-left: 40px;
+    width: 92%;
     height: 100%;
 }
 
 .teamInfo {
-    padding-top: 5%;
+    padding-top: 20px;
+    font-size: 18px;
 }
 
 .teamGamers {
     display: block;
-    max-height: 230px;
+    max-height: 250px;
     overflow-y: scroll;
 }
 
@@ -25,6 +26,13 @@
     padding: 0 10px;
     background-color: #D5DEEF;
     cursor: pointer;
+}
+
+.timeoutDis {
+    padding: 0 10px;
+    color: #595d61;
+    border: 1px solid #595d61;
+    background: #b6c9db;
 }
 
 
