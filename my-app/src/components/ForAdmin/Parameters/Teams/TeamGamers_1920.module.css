@@ -1,0 +1,82 @@
+.teamGamers {
+    display: grid;
+    grid-template-columns: 7% 53% 25% 10% 5%;
+    border-top: black 1px solid;
+    font-size: 28px;
+}
+
+.gamer {
+    cursor: pointer;
+    padding-left: 10px;
+    background: #92b9f7;
+}
+
+.gamerActive {
+    color: white;
+    background-color: #787b8f;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+.gamer:hover {
+    color: white;
+    background-color: #787b8f;
+    padding-left: 12px;
+}
+
+.additionalMenu {
+    box-sizing: border-box;
+    position: absolute;
+    border: solid 1px;
+    background-color: #fff3eb;
+    margin-left: 100px;
+    margin-top: -35px;
+    font-size: 28px;
+    cursor: pointer;
+    width: 170px;
+}
+
+.additionalMenuItem {
+    padding: 10px 0 5px 20px;
+    border: solid 1px;
+
+}
+
+.additionalMenuItem:hover {
+    color: white;
+    background-color: #787b8f;
+}
+
+.addAddMenu {
+    color: black;
+    position: absolute;
+    border: solid 1px;
+    background-color: #fff3eb;
+    margin-left: 100px;
+    margin-top: -40px;
+    font-size: 28px;
+    cursor: pointer;
+    width: 170px;
+}
+
+.addAddMenuItem {
+    padding: 10px 0 10px 20px;
+    border: solid 1px;
+    cursor: pointer;
+}
+
+.addAddMenuItem:hover {
+    color: white;
+    background-color: #787b8f;
+}
+
+.returnGamer {
+    padding: 5px 50px 5px 25px;
+    border: solid 1px;
+    background-color: darkcyan;
+    cursor: pointer;
+}
+
+.returnGamer:hover {
+    background-color: #77cde0;
+}

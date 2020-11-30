@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import c from './Tablo.module.css'
+import c1920 from './Tablo_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {addNewLog, addNewTempLog, deleteConsLog} from "../../../redux/log_reducer";
 import {changeGamerStatus, deleteGamer} from "../../../redux/teams_reducer";
@@ -45,7 +46,7 @@ const TabloEvent = (props) => {
 
 
     return (
-        <div className={c.consLogItem}>
+        <div className={props.width === 1920 ? c1920.consLogItem : c.consLogItem}>
             {(deletedGamer.whenWasPenalty !== 0) && <div>
                 {props.item}  {minutesTimerOfDeletedGamer <= 0 ? 0 : minutesTimerOfDeletedGamer}
                 :

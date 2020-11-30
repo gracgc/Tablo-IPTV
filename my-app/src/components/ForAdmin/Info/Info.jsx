@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import c from './Info.module.css'
+import c1920 from './Info_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {getGame, setGameDataAC} from "../../../redux/games_reducer";
 import {withRouter} from "react-router-dom";
@@ -10,13 +11,18 @@ import socket from "../../../socket/socket";
 
 const Info = (props) => {
 
+    const dispatch = useDispatch();
+
     let gameNumber = props.match.params.gameNumber;
 
     const gameData = useSelector(
         state => state.gamesPage.gameData
     );
 
-    const dispatch = useDispatch();
+    let width = useSelector(
+        state => state.appPage.width
+    );
+
 
 
     let [isRunningServer, setIsRunningServer] = useState(false);
@@ -114,11 +120,11 @@ const Info = (props) => {
     );
 
     return (
-        <div className={c.info}>
-            <div className={c.nameAndType}>
+        <div className={width === 1920 ? c1920.info : c.info}>
+            <div className={width === 1920 ? c1920.nameAndType : c.nameAndType}>
                 <strong>{gameData.gameName}</strong> — {gameData.gameType}
             </div>
-            <div className={c.statusAndTime}>
+            <div className={width === 1920 ? c1920.statusAndTime : c.statusAndTime}>
                 {period > 3 ? <strong>Overtime {''}</strong> : <strong>Period {period} {''}</strong>}
                 — <strong>Status</strong>: {gameData.gameStatus} — <strong>Time</strong>
                 : {minutesStopwatch}:{secondsStopwatch < 10 ? '0' : ''}{secondsStopwatch}

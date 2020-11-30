@@ -7,14 +7,14 @@
 .nameAndType {
     position: absolute;
     left: 3%;
-    font-size: 24px;
+    font-size: 38px;
 }
 
 .statusAndTime {
     position: absolute;
     right: 3%;
     padding-left: 3%;
-    font-size: 24px;
+    font-size: 38px;
 }
 
 

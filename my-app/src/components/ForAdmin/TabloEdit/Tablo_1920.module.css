@@ -1,6 +1,6 @@
 .tablo {
     display: grid;
-    grid-template-rows: 23% 8% 42% 20%;
+    grid-template-rows: 23% 8% 40% 20%;
     background-color: white;
     height: 100%;
     width: 100%;
@@ -8,13 +8,13 @@
 
 .counters {
     position: relative;
-    padding-left: 36px;
-    padding-right: 36px;
+    padding-left: 50px;
+    padding-right: 50px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: 50px;
+    grid-column-gap: 80px;
     text-align: center;
-    font-size: 20px;
+    font-size: 36px;
 }
 
 .counter {
@@ -25,44 +25,44 @@
 .time {
     text-align: center;
     padding-top: 5px;
-    font-size: 40px;
+    font-size: 62px;
 }
 
 .tempLog {
     text-align: center;
-    font-size: 18px;
+    font-size: 28px;
 }
 
 .consLogItem {
     position: relative;
-    padding-left: 10px;
-    font-size: 14px;
+    padding-left: 20px;
+    font-size: 18px;
 }
 
 .timeout {
     position: relative;
     color: blue;
     text-align: center;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 .timeout5sec {
     position: relative;
     color: red;
     text-align: center;
-    font-size: 16px;
+    font-size: 24px;
 }
 
 .addGoal {
     position: absolute;
-    margin-left: 95px;
-    font-size: 26px;
+    margin-left: 160px;
+    font-size: 38px;
     color: blue;
 }
 
 .deleteGoal {
     position: absolute;
-    margin-left: 15px;
-    font-size: 26px;
+    margin-left: 30px;
+    font-size: 38px;
     color: red;
 }

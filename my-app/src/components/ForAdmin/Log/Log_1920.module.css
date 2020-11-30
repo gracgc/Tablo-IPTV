@@ -1,0 +1,40 @@
+.log {
+    width: 80%;
+    height: 100%;
+    padding-left: 30px;
+}
+
+.logWindow {
+    position: relative;
+    height: 300px;
+    background: white;
+    overflow-y: scroll;
+    margin-bottom: 2%;
+}
+
+.addLogButton {
+    background: lightgreen;
+    text-align: center;
+    box-sizing: border-box;
+    border: 2px solid black;
+    font-size: 34px;
+}
+
+.logForm {
+    display: grid;
+    grid-template-columns: 90% 10%;
+    grid-template-rows: 35px;
+}
+
+.logItem {
+    padding-left: 15px;
+    padding-top: 2px;
+    font-size: 28px;
+    display: grid;
+    grid-template-columns: 95% 5%
+}
+
+.deleteButton {
+    cursor: pointer;
+    color: red;
+}

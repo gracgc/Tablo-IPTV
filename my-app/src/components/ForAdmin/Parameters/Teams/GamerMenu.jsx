@@ -1,9 +1,17 @@
 import React, {useState} from 'react'
 import c from "./TeamGamers.module.css";
+import c1920 from './TeamGamers_1920.module.css'
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const GamerMenu = (props) => {
+
+    const dispatch = useDispatch();
+
+    let width = useSelector(
+        state => state.appPage.width
+    );
 
     const gamerMenu = {
         Penalty: [
@@ -43,14 +51,14 @@ const GamerMenu = (props) => {
                     {props.fullName}
                 </div>
                 {showGamerMenu &&
-                <div className={c.additionalMenu}>
-                    {Object.keys(gamerMenu).map(m => <div className={c.additionalMenuItem}
+                <div className={width === 1920 ? c1920.additionalMenu : c.additionalMenu}>
+                    {Object.keys(gamerMenu).map(m => <div className={width === 1920 ? c1920.additionalMenuItem : c.additionalMenuItem}
                                                           onMouseEnter={(e) => eval(`setShow${m}Menu(true)`)}
                                                           onMouseLeave={(e) => eval(`setShow${m}Menu(false)`)}
                     >
                         {m}
                         {eval(`show${m}Menu`) &&
-                        <div className={c.addAddMenu}>
+                        <div className={width === 1920 ? c1920.addAddMenu : c.addAddMenu}>
                             {eval(`gamerMenu.${m}`).map(am => <div m={m.toString()} className={am.name === 'Return'
                                 ? c.returnGamer
                                 : c.addAddMenuItem}

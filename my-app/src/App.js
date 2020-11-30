@@ -9,13 +9,20 @@ import SavedGames from "./components/MenuPanel/SavedGames/SavedGames";
 import Settings00 from "./components/MenuPanel/Settings2/Settings00";
 import TabloEditClient from "./components/ForClient/TabloEdit/TabloEditClient";
 import socket from "./socket/socket";
-import Settings01 from "./components/MenuPanel/Settings2/Settings01";
+import {useDispatch, useSelector} from "react-redux";
+import {setWidthAC} from "./redux/app_reducer";
 
 
 
 function App() {
 
-    socket.on()
+    let dispatch = useDispatch();
+
+    let width = window.innerWidth;
+
+    dispatch(setWidthAC(width));
+
+    socket.on();
 
     return (
         <div className='app'>

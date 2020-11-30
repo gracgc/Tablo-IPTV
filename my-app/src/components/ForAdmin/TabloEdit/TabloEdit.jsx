@@ -1,5 +1,6 @@
 import React from 'react'
 import c from './TabloEdit.module.css'
+import c1920 from './TabloEdit_1920.module.css'
 import {useState, useEffect} from 'react';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
@@ -17,6 +18,10 @@ const TabloEdit = (props) => {
     let gameNumber = props.match.params.gameNumber;
 
     const dispatch = useDispatch();
+
+    let width = useSelector(
+        state => state.appPage.width
+    );
 
     const homeTeam = useSelector(
         (state => state.teamsPage.teams.find(t => t.teamType === 'home'))
@@ -313,8 +318,8 @@ const TabloEdit = (props) => {
 
 
     return (
-        <div className={c.tabloEdit}>
-            <div className={c.tablo}>
+        <div className={width === 1920 ? c1920.tabloEdit : c.tabloEdit}>
+            <div className={width === 1920 ? c1920.tablo : c.tablo}>
                 <Tablo isShowLog={isShowLog} gameTempLog={gameTempLog} gameConsLog={gameConsLog}
                        secondsTimer={secondsTimer} minutesTimer={minutesTimer} timeMemTimerTimeout={timeMemTimerTimeout}
                        secondsTimerTimeout={secondsTimerTimeout} homeTeam={homeTeam} guestsTeam={guestsTeam}
@@ -323,30 +328,32 @@ const TabloEdit = (props) => {
                        addTeamGoal={addTeamGoal}
                        gameNumber={gameNumber}/>
             </div>
-            <div className={c.allButtons}>
+            <div className={width === 1920 ? c1920.allButtons : c.allButtons}>
                 {isRunningServer ?
-                    <div className={c.gameButtons}>
-                        <div className={c.gameButtons__Disabled}>
+                    <div className={width === 1920 ? c1920.gameButtons : c.gameButtons}>
+                        <div className={width === 1920 ? c1920.gameButtons__Disabled : c.gameButtons__Disabled}>
                             Start
                         </div>
-                        <div className={classNames(c.gameButtons__Active, c.gameButtons__stop)}
+                        <div className={classNames(width === 1920 ? c1920.gameButtons__Active : c.gameButtons__Active, width === 1920
+                            ? c1920.gameButtons__stop : c.gameButtons__stop)}
                              onClick={(e) => stopGame()}>
                             Stop
                         </div>
                     </div>
                     :
-                    <div className={c.gameButtons}>
-                        <div className={c.gameButtons__Active} onClick={(e) => startGame()}>
+                    <div className={width === 1920 ? c1920.gameButtons : c.gameButtons}>
+                        <div className={width === 1920 ? c1920.gameButtons__Active : c.gameButtons__Active} onClick={(e) => startGame()}>
                             Start
                         </div>
-                        <div className={classNames(c.gameButtons__Disabled, c.gameButtons__stop)}>
+                        <div className={classNames(width === 1920 ? c1920.gameButtons__Disabled : c.gameButtons__Disabled, width === 1920
+                            ? c1920.gameButtons__stop : c.gameButtons__stop)}>
                             Stop
                         </div>
                     </div>
                 }
-                <div className={c.beepButtons}>
-                    <div className={c.beepButtons_beep}>Beep</div>
-                    <div className={c.beepButtons_beep}>Beeeep</div>
+                <div className={width === 1920 ? c1920.beepButtons : c.beepButtons}>
+                    <div className={width === 1920 ? c1920.beepButtons_beep : c.beepButtons_beep}>Beep</div>
+                    <div className={width === 1920 ? c1920.beepButtons_beep : c.beepButtons_beep}>Beeeep</div>
                 </div>
             </div>
         </div>

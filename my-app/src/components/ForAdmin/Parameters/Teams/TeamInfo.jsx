@@ -1,14 +1,19 @@
 import React from 'react'
 import c from './TeamInfo.module.css'
+import c1920 from './TeamInfo_1920.module.css'
 import TeamGamers from "./TeamGamers";
 import {addNewLog} from "../../../../redux/log_reducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import * as axios from "axios";
 
 
 const TeamInfo = (props) => {
 
     const dispatch = useDispatch();
+
+    let width = useSelector(
+        state => state.appPage.width
+    );
 
     let secondsStopwatch = Math.floor(props.timeMem / 1000) % 60;
     let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60)) + (props.period - 1) * 20;
@@ -42,27 +47,27 @@ const TeamInfo = (props) => {
     };
 
     return (
-        <div className={c.team}>
-            <div className={c.teamInfo}>
+        <div className={width === 1920 ? c1920.team : c.team}>
+            <div className={width === 1920 ? c1920.teamInfo : c.teamInfo}>
                 Team Name: {props.name} <br/>
                 Points: {props.teamCounter} <br/>
                 TimeOut: {!props.isRunningServer
-                    ? <span><span className={c.timeout} onClick={(e) => setTimeout()}>
+                    ? <span><span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => setTimeout()}>
                 Set
-            </span> <span className={c.timeout} onClick={(e) => startTimeout()}>
+            </span> <span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => startTimeout()}>
                 Start
-            </span> <span className={c.timeout} onClick={(e) => clearTimeout()}>
+            </span> <span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => clearTimeout()}>
                     Clear
                     </span> <br/></span>
-                    : <span><span className={c.timeoutDis}>
+                    : <span><span className={width === 1920 ? c1920.timeoutDis : c.timeoutDis}>
                     Set
-                    </span> <span className={c.timeoutDis}>
+                    </span> <span className={width === 1920 ? c1920.timeoutDis : c.timeoutDis}>
                     Start
-                    </span> <span className={c.timeout} onClick={(e) => clearTimeout()}>
+                    </span> <span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => clearTimeout()}>
                     Clear
                     </span> <br/></span>}
 
-                <div className={c.tableInfo}>
+                <div className={width === 1920 ? c1920.tableInfo : c.tableInfo}>
                     <div>
                         <strong>Gamers:</strong>
                     </div>
@@ -71,7 +76,7 @@ const TeamInfo = (props) => {
                     </div>
                 </div>
             </div>
-            <div className={c.teamGamers}>
+            <div className={width === 1920 ? c1920.teamGamers : c.teamGamers}>
                 {props.teamGamers.map(htg => <TeamGamers key={htg.id} timeMem={props.timeMem}
                                                          timeMemTimer={props.timeMemTimer}
                                                          period={props.period}

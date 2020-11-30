@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import c from './Log.module.css'
+import c1920 from './Log_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {deleteLog, getLog, setLogDataAC} from "../../../redux/log_reducer";
 import socket from "../../../socket/socket";
@@ -21,7 +22,7 @@ const LogItem = (props) => {
 
     return (
         <div>
-            <div className={c.logItem}
+            <div className={props.width === 1920 ? c1920.logItem : c.logItem}
                  onMouseOver={(e) => setShowDeleteButton(true)}
                  onMouseLeave={(e) => setShowDeleteButton(false)}
             >

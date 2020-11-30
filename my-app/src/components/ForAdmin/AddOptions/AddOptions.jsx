@@ -1,14 +1,22 @@
 import React from 'react'
 import c from './AddOptions.module.css'
+import c1920 from './AddOptions_1920.module.css'
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import * as axios from "axios";
+import {useDispatch, useSelector} from "react-redux";
+
 
 
 const AddOptions = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
+    const dispatch = useDispatch();
+
+    let width = useSelector(
+        state => state.appPage.width
+    );
 
     const putDeadline = (gameNumber, deadLine, timeMemTimer, timeDif, timeMem) => {
         return axios.put(`/api/time/deadline/${gameNumber}`, {
@@ -25,23 +33,23 @@ const AddOptions = (props) => {
 
 
     return (
-        <div className={c.addOptions}>
+        <div className={width === 1920 ? c1920.addOptions : c.addOptions}>
             <div>
-                <div><strong style={{fontSize: "120%"}}>Add Time</strong></div>
+                <div><strong style={{fontSize: width === 1920 ? "24px" : "18px"}}>Add Time</strong></div>
                 {props.period > 3
-                    ? <div className={c.overtimeButtons}>
-                    <div className={c.overtimeButton} onClick={(e) => putNewDeadLine(300000)}>
+                    ? <div className={width === 1920 ? c1920.overtimeButtons : c.overtimeButtons}>
+                    <div className={width === 1920 ? c1920.overtimeButton : c.overtimeButton} onClick={(e) => putNewDeadLine(300000)}>
                         5 min
                     </div>
-                    <div className={c.overtimeButton} onClick={(e) => putNewDeadLine(1200000)}>
+                    <div className={width === 1920 ? c1920.overtimeButton : c.overtimeButton} onClick={(e) => putNewDeadLine(1200000)}>
                         20min
                     </div>
                 </div>
-                    : <div className={c.overtimeButtons}>
-                    <div className={c.overtimeButtonDis}>
+                    : <div className={width === 1920 ? c1920.overtimeButtons : c.overtimeButtons}>
+                    <div className={width === 1920 ? c1920.overtimeButtonDis : c.overtimeButtonDis}>
                         5 min
                     </div>
-                    <div className={c.overtimeButtonDis}>
+                    <div className={width === 1920 ? c1920.overtimeButtonDis : c.overtimeButtonDis}>
                         20min
                     </div>
                 </div>}

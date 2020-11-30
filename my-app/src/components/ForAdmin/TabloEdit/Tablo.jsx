@@ -1,25 +1,34 @@
 import React from 'react'
 import c from './Tablo.module.css'
+import c1920 from './Tablo_1920.module.css'
 import TabloEvent from "./TabloEvent";
+import {useDispatch, useSelector} from "react-redux";
 
 
 const Tablo = (props) => {
 
+    const dispatch = useDispatch();
+
+    let width = useSelector(
+        state => state.appPage.width
+    );
 
     return (
-        <div className={c.tablo}>
-            <div className={c.time}>
+        <div className={width === 1920 ? c1920.tablo : c.tablo}>
+            <div className={width === 1920 ? c1920.time : c.time}>
                 {props.minutesTimer <= 0 ? 0 : props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}
                 {props.secondsTimer <= 0 ? 0 : props.secondsTimer}
             </div>
-            {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> : <div></div>}
+            {props.isShowLog ? <div className={width === 1920 ? c1920.tempLog : c.tempLog}>{props.gameTempLog}</div> : <div></div>}
             <div>
                 {(props.timeMemTimerTimeout > 0) &&
-                <div className={props.secondsTimerTimeout < 6 ? c.timeout5sec : c.timeout}>
+                <div className={props.secondsTimerTimeout < 6 ? (width === 1920 ? c1920.timeout5sec : c.timeout5sec)
+                    : (width === 1920 ? c1920.timeout : c.timeout)}>
                     Timeout {props.secondsTimerTimeout} seconds
                 </div>}
-                <div className={c.consLog}>
+                <div className={width === 1920 ? c1920.consLog : c.consLog}>
                     {props.gameConsLog && props.gameConsLog.map(gcl => gcl.item !== '' && <TabloEvent key={gcl.id}
+                                                                                                      width={width}
                                                                                                       item={gcl.item}
                                                                                                       id={gcl.id}
                                                                                                       teamType={gcl.teamType}
@@ -30,21 +39,22 @@ const Tablo = (props) => {
                 </div>
 
             </div>
-            <div className={c.counters}>
-                <div className={c.counter}>
-                    <div className={c.addGoal} onClick={(e) => props.addTeamGoal('home', props.homeTeam.name, '+')}>+
+            <div className={width === 1920 ? c1920.counters : c.counters}>
+                <div className={width === 1920 ? c1920.counter : c.counter}>
+                    <div className={width === 1920 ? c1920.addGoal : c.addGoal}
+                         onClick={(e) => props.addTeamGoal('home', props.homeTeam.name, '+')}>+
                     </div>
-                    <div className={c.deleteGoal}
+                    <div className={width === 1920 ? c1920.deleteGoal : c.deleteGoal}
                          onClick={(e) => props.addTeamGoal('home', props.homeTeam.name, '-')}>-
                     </div>
                     {props.homeCounter} <br/>
                     {props.homeTeam.name}
                 </div>
-                <div className={c.counter}>
-                    <div className={c.addGoal}
+                <div className={width === 1920 ? c1920.counter : c.counter}>
+                    <div className={width === 1920 ? c1920.addGoal : c.addGoal}
                          onClick={(e) => props.addTeamGoal('guests', props.guestsTeam.name, '+')}>+
                     </div>
-                    <div className={c.deleteGoal}
+                    <div className={width === 1920 ? c1920.deleteGoal : c.deleteGoal}
                          onClick={(e) => props.addTeamGoal('guests', props.guestsTeam.name, '-')}>-
                     </div>
                     {props.guestsCounter} <br/>

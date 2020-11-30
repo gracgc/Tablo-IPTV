@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import c from './Log.module.css'
+import c1920 from './Log_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import LogItem from "./LogItem";
 import {withRouter} from "react-router-dom";
@@ -37,9 +38,14 @@ const Log = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
+    let width = useSelector(
+        state => state.appPage.width
+    );
+
     const gameLog = useSelector(
         state => state.logPage.logData.gameLog
     );
+
 
     const onSubmit = (formData) => {
         if (formData.addLog != undefined) {
@@ -49,19 +55,19 @@ const Log = (props) => {
     };
 
     useEffect(() => {
-        dispatch(getLog(gameNumber))
+        dispatch(getLog(gameNumber));
         socket.on('getLog', log => {
                 dispatch(setLogDataAC(log))
             }
         )
-    }, [])
+    }, []);
 
 
     return (
-        <div className={c.log}>
-            <div style={{fontSize: "150%", marginBottom: "1%"}}>Log</div>
-            <div className={c.logWindow}>
-                {gameLog.map(l => <LogItem gameNumber={gameNumber} key={l.id} id={l.id} logItem={l.item}/>)}
+        <div className={width === 1920 ? c1920.log : c.log}>
+            <div style={{fontSize: width === 1920 ? "40px" : "24px", marginBottom: "1%"}}>Log</div>
+            <div className={width === 1920 ? c1920.logWindow : c.logWindow}>
+                {gameLog.map(l => <LogItem gameNumber={gameNumber} width={width} key={l.id} id={l.id} logItem={l.item}/>)}
             </div>
             <AddLogReduxForm onSubmit={onSubmit}/>
         </div>

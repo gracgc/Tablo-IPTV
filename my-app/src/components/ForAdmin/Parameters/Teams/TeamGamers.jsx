@@ -1,5 +1,6 @@
 import React from 'react'
 import c from './TeamGamers.module.css'
+import c1920 from './TeamGamers_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {
     changeGamerStatus,
@@ -18,6 +19,10 @@ const TeamGamers = (props) => {
     let gameNumber = props.match.params.gameNumber;
 
     const dispatch = useDispatch();
+
+    let width = useSelector(
+        state => state.appPage.width
+    );
 
     let secondsStopwatch = Math.floor(props.timeMem / 1000) % 60;
     let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60)) + (props.period - 1) * 20;
@@ -74,7 +79,7 @@ const TeamGamers = (props) => {
 
 
     return (
-        <div className={c.teamGamers}>
+        <div className={width === 1920 ? c1920.teamGamers : c.teamGamers}>
             <div>
                 {props.number}
             </div>

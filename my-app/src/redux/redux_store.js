@@ -5,6 +5,7 @@ import teamsReducer from "./teams_reducer";
 import logReducer from "./log_reducer";
 import gamesReducer from "./games_reducer";
 import {reducer as formReducer} from "redux-form";
+import appReducer from "./app_reducer";
 
 
 let reducers = combineReducers({
@@ -12,6 +13,7 @@ let reducers = combineReducers({
     teamsPage: teamsReducer,
     logPage: logReducer,
     gamesPage: gamesReducer,
+    appPage: appReducer,
     form: formReducer
 });
 
