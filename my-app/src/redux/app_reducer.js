@@ -1,5 +1,4 @@
-import {logAPI as gameAPI, logAPI} from "../api/api";
-import {setLogDataAC} from "./log_reducer";
+import {gameAPI} from "../api/api";
 
 const SET_WIDTH = 'app/SET_WIDTH';
 const SET_GAME_NUMBER = 'app/SET_GAME_NUMBER';
@@ -52,9 +51,9 @@ export const getGameNumber = () => async (dispatch) => {
 };
 
 export const putGameNumber = (gameNumber) => async (dispatch) => {
-    let response = await gameAPI.putGameNumber();
-    if (response.resultCode === 10) {
-        dispatch(putGameNumberAC(gameNumber));
+    let response = await gameAPI.putGameNumber(+gameNumber);
+    if (response.resultCode === 0) {
+        dispatch(putGameNumberAC(+gameNumber));
     }
 };
 

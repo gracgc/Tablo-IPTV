@@ -8,14 +8,16 @@ import AddOptions from "./AddOptions/AddOptions";
 import * as axios from "axios";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
+import socket from "../../socket/socket";
+import {putGameNumber, setGameNumberAC} from "../../redux/app_reducer";
 
 
 const AdminPanel = (props) => {
 
-    let gameNumber = useSelector(
-        state => state.appPage.width
-    );
+    let dispatch = useDispatch()
+
+    let gameNumber = props.match.params.gameNumber;
 
     const getTimerStatus = (gameNumber) => {
         return axios.get(`/api/time/${gameNumber}`)
@@ -29,6 +31,11 @@ const AdminPanel = (props) => {
     useEffect(() => {
         getTimerStatus(gameNumber).then(r => {
                 setPeriod(r.period);
+            }
+        )
+        dispatch(putGameNumber(gameNumber))
+        socket.on('getGameNumber', gameNumber => {
+            dispatch(setGameNumberAC(gameNumber))
             }
         )
     }, []);

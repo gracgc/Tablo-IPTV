@@ -111,8 +111,8 @@ export const gameAPI = {
                 return responce.data
             })
     },
-    putGameNumber() {
-        return axios.put(`/api/gameNumber`)
+    putGameNumber(gameNumber) {
+        return axios.put(`/api/gameNumber`, {gameNumber})
             .then(responce => {
                 return responce.data
             })
