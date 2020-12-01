@@ -13,12 +13,12 @@ const SavedGame = (props) => {
                     <div className={c.tabloChose}>
                         <NavLink to={'/adminPanel/' + props.savedGames.gameNumber}>
                             <div className={c.navButtonAdmin}>
-                                Admin
+                                Админ
                             </div>
                         </NavLink>
                         <NavLink to={'/tabloClient/' + props.savedGames.gameNumber}>
                             <div className={c.navButtonClient}>
-                                Tablo
+                                Табло
                             </div>
                         </NavLink>
                     </div>

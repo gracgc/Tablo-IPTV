@@ -8,11 +8,14 @@ import AddOptions from "./AddOptions/AddOptions";
 import * as axios from "axios";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
+import {useSelector} from "react-redux";
 
 
 const AdminPanel = (props) => {
 
-    let gameNumber = props.match.params.gameNumber;
+    let gameNumber = useSelector(
+        state => state.appPage.width
+    );
 
     const getTimerStatus = (gameNumber) => {
         return axios.get(`/api/time/${gameNumber}`)
@@ -29,8 +32,6 @@ const AdminPanel = (props) => {
             }
         )
     }, []);
-
-
 
     return (
         <div className={c.adminPanel}>

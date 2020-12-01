@@ -9,20 +9,20 @@ const Menu = (props) => {
             <div className={c.navbar}>
                 <NavLink to="/createGame" className={c.hov} activeClassName={c.activeLink}>
                     <div className={c.navButton}>
-                        Create New Game
+                        Создать новую игру
                     </div>
                 </NavLink>
 
                 <NavLink to="/savedGames" className={c.hov} activeClassName={c.activeLink}>
                     <div className={c.navButton}>
-                        Load game
+                        Загрузить игру
                     </div>
                 </NavLink>
 
                 <div>
                     <NavLink to="/settings" className={c.hov} activeClassName={c.activeLink}>
                         <div className={c.navButton}>
-                            Settings
+                            Настройки
                         </div>
                     </NavLink>
                 </div>

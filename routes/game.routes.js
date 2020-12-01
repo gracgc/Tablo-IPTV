@@ -21,7 +21,6 @@ router.get('/:gameNumber', function (req, res) {
         res.send(DB.gameInfo)
 
 
-
     } catch (e) {
         console.log(e)
     }
@@ -101,7 +100,8 @@ router.post('/', cors(), function (req, res) {
         console.log(e)
     }
 })
-;
+
+
 
 
 router.options('/', cors());

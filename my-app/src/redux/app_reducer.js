@@ -1,8 +1,14 @@
+import {logAPI as gameAPI, logAPI} from "../api/api";
+import {setLogDataAC} from "./log_reducer";
+
 const SET_WIDTH = 'app/SET_WIDTH';
+const SET_GAME_NUMBER = 'app/SET_GAME_NUMBER';
+const PUT_GAME_NUMBER = 'app/PUT_GAME_NUMBER';
 
 
 let initialState = {
-    width: 0
+    width: 0,
+    gameNumber: 1
 };
 
 const appReducer = (state = initialState, action) => {
@@ -15,6 +21,19 @@ const appReducer = (state = initialState, action) => {
                 width: action.width
             };
 
+        case SET_GAME_NUMBER:
+
+            return {
+                ...state,
+                gameNumber: action.gameNumber
+            };
+
+        case PUT_GAME_NUMBER:
+
+            return {
+                ...state,
+                gameNumber: action.gameNumber
+            };
 
         default:
             return state;
@@ -22,8 +41,22 @@ const appReducer = (state = initialState, action) => {
 };
 
 export const setWidthAC = (width) => ({type: SET_WIDTH, width});
+export const setGameNumberAC = (gameNumber) => ({type: SET_GAME_NUMBER, gameNumber});
+export const putGameNumberAC = (gameNumber) => ({type: PUT_GAME_NUMBER, gameNumber});
 
+export const getGameNumber = () => async (dispatch) => {
+    let response = await gameAPI.getGameNumber();
+    if (response.resultCode !== 10) {
+        dispatch(setGameNumberAC(response.gameNumber));
+    }
+};
 
+export const putGameNumber = (gameNumber) => async (dispatch) => {
+    let response = await gameAPI.putGameNumber();
+    if (response.resultCode === 10) {
+        dispatch(putGameNumberAC(gameNumber));
+    }
+};
 
 
 export default appReducer;

@@ -16,7 +16,7 @@ const TabloClient = (props) => {
             <div>
                 {(props.timeMemTimerTimeout > 0) &&
                 <div className={props.secondsTimerTimeout < 6 ? c.timeout5sec : c.timeout}>
-                    Timeout {props.secondsTimerTimeout} seconds
+                    Таймаут {props.secondsTimerTimeout} секунд
                 </div>}
                 <div className={c.consLog} >
                     {props.gameConsLog && props.gameConsLog.map(gcl => gcl.item !== '' && <TabloEventClient key={gcl.id}

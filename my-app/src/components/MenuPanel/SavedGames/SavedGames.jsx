@@ -19,7 +19,7 @@ const SavedGames = (props) => {
 
     return (
         <div className={c.savedGames}>
-            <span className={c.menuTitle}>Saved Games</span>
+            <span className={c.menuTitle}>Сохраненные игры</span>
 
             <div className={c.navbar}>
                 {savedGames.map(sg => <SavedGame savedGames={sg}/>)}
@@ -27,7 +27,7 @@ const SavedGames = (props) => {
 
             <NavLink to="/">
                 <div className={c.navBackButton}>
-                    Back to menu
+                    Вернуться в меню
                 </div>
             </NavLink>
         </div>

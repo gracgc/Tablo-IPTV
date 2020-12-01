@@ -45,18 +45,18 @@ const CreateGameForm = (props) => {
                     <div className={c.createGameInputPanel}>
                         <div className={c.createGameInput}>
                             <div className={c.formTitle}>Game Name</div>
-                            <Field placeholder={'Game Name'} name={'gameName'}
+                            <Field placeholder={'Название игры'} name={'gameName'}
                                    validate={[required]}
                                    component={Input}/>
                         </div>
                         <div className={c.createGameInput}>
                             <div className={c.formTitle}>Game Type</div>
 
-                            <Field placeholder={'Choose a Game Type'} name={'gameType'}
+                            <Field placeholder={'Выбирете тип игры'} name={'gameType'}
                                    validate={[required]}
                                    component={InputReadOnly}/>
                             <div style={{cursor: "pointer"}} onClick={(e) => openGameTypeMenu()}>
-                                <strong style={{fontSize: '125%'}}>Choose a Game ▼</strong>
+                                <strong style={{fontSize: '125%'}}>Выбрать игру ▼</strong>
                                 {menuIsOpen && props.gameTypes.map(g =>
                                     <div className={c.gameTypeMenu} onClick={(e) => {
                                         chooseGame(g)
@@ -72,15 +72,15 @@ const CreateGameForm = (props) => {
                         <div>
                             <div className={c.homeTeam}>
                                 <div className={c.formTitle}>Home Team Name</div>
-                                <Field placeholder={'Home Team Name'} name={'homeTeamName'}
+                                <Field placeholder={'Название команды'} name={'homeTeamName'}
                                        validate={[required]}
                                        component={Input}/>
                             </div>
                             <div className={c.formTitle}>Gamers</div>
                             <div className={c.homeGamers}>
                                 {props.numberOfHomePlayers.map(n => <div className={c.homeGamer}>
-                                    <Field placeholder={(n <= 6) ? `Home Gamer ${n} (On field)` :
-                                    (n > 6) && `Home Gamer ${n} (In reserve)`} name={`homeGamer${n}`}
+                                    <Field placeholder={(n <= 6) ? `Игрок ${n} (На поле)` :
+                                    (n > 6) && `Игрок ${n} (в резерве)`} name={`homeGamer${n}`}
                                            validate={[required]}
                                            component={Input}/>
                                     <Field placeholder={`№`} name={`homeNumber${n}`}
@@ -105,15 +105,15 @@ const CreateGameForm = (props) => {
                         <div className={c.guestsTeam}>
                             <div className={c.homeTeam}>
                                 <div className={c.formTitle}>Guests Team Name</div>
-                                <Field placeholder={'Guests Team Name'} name={'guestsTeamName'}
+                                <Field placeholder={'Название команды'} name={'guestsTeamName'}
                                        validate={[required]}
                                        component={Input}/>
                             </div>
                             <div className={c.formTitle}>Gamers</div>
                             <div className={c.homeGamers}>
                                 {props.numberOfGuestsPlayers.map(n => <div className={c.homeGamer}>
-                                    <Field placeholder={(n <= 6) ? `Guests Gamer ${n} (On field)` :
-                                    (n > 6) && `Guests Gamer ${n} (In reserve)`} name={`guestsGamer${n}`}
+                                    <Field placeholder={(n <= 6) ? `Игрок ${n} (На поле)` :
+                                    (n > 6) && `Игрок ${n} (В резерве)`} name={`guestsGamer${n}`}
                                            validate={[required]}
                                            component={Input}/>
                                     <Field placeholder={`№`} name={`guestsNumber${n}`}
@@ -152,7 +152,7 @@ const CreateGame = (props) => {
     let [numberOfHomePlayers, setNumberOfHomePlayers] = useState([1, 2, 3, 4, 5, 6]);
     let [numberOfGuestsPlayers, setNumberOfGuestsPlayers] = useState([1, 2, 3, 4, 5, 6]);
 
-    let gameTypes = ['Classic Hockey'];
+    let gameTypes = ['Классический хоккей'];
 
     let [successMessage, setSuccessMessage] = useState(false);
 
@@ -225,7 +225,7 @@ const CreateGame = (props) => {
             </div>
             <NavLink to="/">
                 <div className={c.navBackButton}>
-                    Back to menu
+                    Вернуться в меню
                 </div>
             </NavLink>
         </div>

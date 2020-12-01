@@ -115,7 +115,7 @@ export const deleteConsTabloLogAC = (deletedItem) => ({type: DELETE_CONS_TABLO_L
 
 export const getLog = (gameNumber) => async (dispatch) => {
     let response = await logAPI.getLog(gameNumber);
-    if (response.resultCode != 10) {
+    if (response.resultCode !== 10) {
         dispatch(setLogDataAC(response));
     }
 };
