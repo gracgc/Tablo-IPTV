@@ -35,22 +35,22 @@ const AddOptions = (props) => {
     return (
         <div className={width === 1920 ? c1920.addOptions : c.addOptions}>
             <div>
-                <div><strong style={{fontSize: width === 1920 ? "24px" : "18px"}}>Add Time</strong></div>
+                <div><strong style={{fontSize: width === 1920 ? "24px" : "18px"}}>Доп. время</strong></div>
                 {props.period > 3
                     ? <div className={width === 1920 ? c1920.overtimeButtons : c.overtimeButtons}>
                     <div className={width === 1920 ? c1920.overtimeButton : c.overtimeButton} onClick={(e) => putNewDeadLine(300000)}>
-                        5 min
+                        5 мин
                     </div>
                     <div className={width === 1920 ? c1920.overtimeButton : c.overtimeButton} onClick={(e) => putNewDeadLine(1200000)}>
-                        20min
+                        20 мин
                     </div>
                 </div>
                     : <div className={width === 1920 ? c1920.overtimeButtons : c.overtimeButtons}>
                     <div className={width === 1920 ? c1920.overtimeButtonDis : c.overtimeButtonDis}>
-                        5 min
+                        5 мин
                     </div>
                     <div className={width === 1920 ? c1920.overtimeButtonDis : c.overtimeButtonDis}>
-                        20min
+                        20 мин
                     </div>
                 </div>}
             </div>
