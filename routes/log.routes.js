@@ -38,8 +38,14 @@ router.post('/:gameNumber', cors(), function (req, res) {
             id: DB.logData.gameLog.length === 0 ? 0 : DB.logData.gameLog[DB.logData.gameLog.length - 1].id + 1
         };
 
-        DB.logData.gameLog.length === 0 ? DB.logData.gameLog.push(newLogFirst) : DB.logData.gameLog.push(newLog);
 
+        if (DB.logData.gameLog.length === 0) {
+            DB.logData.gameLog.push(newLogFirst)
+        } else {
+            // if (newLogItem !== DB.logData.gameLog[DB.logData.gameLog.length - 1].item) {
+                DB.logData.gameLog.push(newLog);
+            // } else return
+        }
 
 
         let json = JSON.stringify(DB);
@@ -52,7 +58,6 @@ router.post('/:gameNumber', cors(), function (req, res) {
         const io = req.app.locals.io;
 
         io.emit('getLog', DB.logData)
-
 
     } catch (e) {
         console.log(e)
