@@ -15,6 +15,12 @@ router.get('/:gameNumber', function (req, res) {
         DB.gameInfo.gameTime.resultCode = 0;
         res.send(DB.gameInfo.gameTime)
 
+        const io = req.app.locals.io;
+
+        io.emit('getGame', DB.gameInfo)
+        io.emit('getTeams', DB.teams)
+        io.emit('getTime', DB.gameInfo.gameTime)
+        io.emit('getLog', DB.logData)
 
     } catch (e) {
         console.log(e)

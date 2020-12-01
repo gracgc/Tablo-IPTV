@@ -33,11 +33,11 @@ const AdminPanel = (props) => {
                 setPeriod(r.period);
             }
         )
-        dispatch(putGameNumber(gameNumber))
-        socket.on('getGameNumber', gameNumber => {
-            dispatch(setGameNumberAC(gameNumber))
-            }
-        )
+        // dispatch(putGameNumber(gameNumber))
+        // socket.on('getGameNumber', gameNumber => {
+        //     dispatch(setGameNumberAC(gameNumber))
+        //     }
+        // )
     }, []);
 
     return (
