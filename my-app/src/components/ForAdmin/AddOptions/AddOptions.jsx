@@ -35,7 +35,7 @@ const AddOptions = (props) => {
     return (
         <div className={width === 1920 ? c1920.addOptions : c.addOptions}>
             <div>
-                <div><strong style={{fontSize: width === 1920 ? "24px" : "18px"}}>Доп. время</strong></div>
+                <div><strong style={{fontSize: width === 1920 ? "28px" : "18px"}}>Доп. время</strong></div>
                 {props.period > 3
                     ? <div className={width === 1920 ? c1920.overtimeButtons : c.overtimeButtons}>
                     <div className={width === 1920 ? c1920.overtimeButton : c.overtimeButton} onClick={(e) => putNewDeadLine(300000)}>

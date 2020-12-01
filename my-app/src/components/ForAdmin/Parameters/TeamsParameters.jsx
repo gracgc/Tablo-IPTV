@@ -85,7 +85,7 @@ const TeamsParameters = (props) => {
             </div>
             <NavLink to="/">
                 <div className={c.navBackButton}>
-                    Back to menu
+                    Вернуться в меню
                 </div>
             </NavLink>
         </div>

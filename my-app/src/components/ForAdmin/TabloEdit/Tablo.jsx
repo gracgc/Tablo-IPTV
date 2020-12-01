@@ -7,7 +7,6 @@ import {useDispatch, useSelector} from "react-redux";
 
 const Tablo = (props) => {
 
-    const dispatch = useDispatch();
 
     let width = useSelector(
         state => state.appPage.width
@@ -24,7 +23,7 @@ const Tablo = (props) => {
                 {(props.timeMemTimerTimeout > 0) &&
                 <div className={props.secondsTimerTimeout < 6 ? (width === 1920 ? c1920.timeout5sec : c.timeout5sec)
                     : (width === 1920 ? c1920.timeout : c.timeout)}>
-                    Timeout {props.secondsTimerTimeout} seconds
+                    Таймаут {props.secondsTimerTimeout} секунд
                 </div>}
                 <div className={width === 1920 ? c1920.consLog : c.consLog}>
                     {props.gameConsLog && props.gameConsLog.map(gcl => gcl.item !== '' && <TabloEvent key={gcl.id}

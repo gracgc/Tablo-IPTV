@@ -36,8 +36,8 @@ const TabloEvent = (props) => {
             setTimeout(() => {
                 dispatch(changeGamerStatus(props.gameNumber, props.teamType, deletedGamer.id));
                 dispatch(addNewLog(props.gameNumber,
-                    `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - ${deletedGamer.fullName} returns to a game`));
-                dispatch(addNewTempLog(props.gameNumber, `${deletedGamer.fullName} returns to a game`));
+                    `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - ${deletedGamer.fullName} возвращается в игру`));
+                dispatch(addNewTempLog(props.gameNumber, `${deletedGamer.fullName} возвращается в игру`));
                 dispatch(deleteGamer(props.gameNumber, props.teamType, deletedGamer.id, 0, 0));
                 dispatch(deleteConsLog(props.gameNumber, consLog.findIndex(c => c.id === deletedGamer.id && c.teamType === props.teamType)))
             }, (consLog.length - consLog.findIndex(c => c.id === deletedGamer.id && c.teamType === props.teamType))*100)

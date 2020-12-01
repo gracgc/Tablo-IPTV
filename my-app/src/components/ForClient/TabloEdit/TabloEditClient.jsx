@@ -6,10 +6,10 @@ import TabloClient from "./TabloClient";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import * as axios from "axios";
-import {addNewLog, addNewTempLog, getLog, setLogDataAC} from "../../../redux/log_reducer";
-import {getTeams, setTeamsAC, teamGoal} from "../../../redux/teams_reducer";
+import {getLog, setLogDataAC} from "../../../redux/log_reducer";
+import {getTeams, setTeamsAC} from "../../../redux/teams_reducer";
 import socket from "../../../socket/socket";
-import Tablo from "../../ForAdmin/TabloEdit/Tablo";
+
 
 
 const TabloEditClient = (props) => {

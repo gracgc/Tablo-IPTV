@@ -33,13 +33,13 @@ const TeamInfo = (props) => {
     let startTimeout = () => {
         putTimeoutStatus(props.gameNumber, true, 0, 0, 30000, 30000);
         dispatch(addNewLog(props.gameNumber,
-            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - Start timeout for ${props.name}`));
+            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - Старт таймаута для ${props.name}`));
     };
 
     let setTimeout = () => {
         putTimeoutStatus(props.gameNumber, false, 0, 0, 30000, 30000);
         dispatch(addNewLog(props.gameNumber,
-            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - Set timeout for ${props.name}`));
+            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - Таймаут установлен для ${props.name}`));
     };
 
     let clearTimeout = () => {
@@ -49,30 +49,30 @@ const TeamInfo = (props) => {
     return (
         <div className={width === 1920 ? c1920.team : c.team}>
             <div className={width === 1920 ? c1920.teamInfo : c.teamInfo}>
-                Team Name: {props.name} <br/>
-                Points: {props.teamCounter} <br/>
-                TimeOut: {!props.isRunningServer
+                Название команды: {props.name} <br/>
+                Очки: {props.teamCounter} <br/>
+                Таймаут: {!props.isRunningServer
                     ? <span><span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => setTimeout()}>
-                Set
+                Установить
             </span> <span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => startTimeout()}>
-                Start
+                Старт
             </span> <span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => clearTimeout()}>
-                    Clear
+                    Очистить
                     </span> <br/></span>
                     : <span><span className={width === 1920 ? c1920.timeoutDis : c.timeoutDis}>
-                    Set
+                    Установить
                     </span> <span className={width === 1920 ? c1920.timeoutDis : c.timeoutDis}>
-                    Start
+                    Старт
                     </span> <span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => clearTimeout()}>
-                    Clear
+                    Очистить
                     </span> <br/></span>}
 
                 <div className={width === 1920 ? c1920.tableInfo : c.tableInfo}>
                     <div>
-                        <strong>Gamers:</strong>
+                        <strong>Игроки:</strong>
                     </div>
                     <div>
-                        On Field
+                        На поле
                     </div>
                 </div>
             </div>

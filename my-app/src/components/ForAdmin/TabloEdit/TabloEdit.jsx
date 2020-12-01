@@ -220,9 +220,9 @@ const TabloEdit = (props) => {
                     0,
                     0, 0, period + 1, smallOvertime, bigOvertime)
                 dispatch(addNewLog(gameNumber,
-                    `End of ${period} period`));
+                    `Конец ${period} периода`));
                 dispatch(addNewTempLog(gameNumber,
-                    `End of ${period} period`));
+                    `Конец ${period} периода`));
             }
             if (period > 3) {
                 if (deadLine === 300000) {
@@ -231,9 +231,9 @@ const TabloEdit = (props) => {
                         0,
                         0, 0, period, smallOvertime + 1, bigOvertime)
                     dispatch(addNewLog(gameNumber,
-                        `End of overtime`));
+                        `Конец овертайма`));
                     dispatch(addNewTempLog(gameNumber,
-                        `End of overtime`));
+                        `Конец овертайма`));
                 }
                 if (deadLine === 1200000) {
                     putTimerStatus(gameNumber, false,
@@ -241,9 +241,9 @@ const TabloEdit = (props) => {
                         0,
                         0, 0, period, smallOvertime, bigOvertime + 1);
                     dispatch(addNewLog(gameNumber,
-                        `End of overtime`));
+                        `Конец овертайма`));
                     dispatch(addNewTempLog(gameNumber,
-                        `End of overtime`));
+                        `Конец овертайма`));
                 }
             } else {
                 putTimerStatus(gameNumber, false,
@@ -251,9 +251,9 @@ const TabloEdit = (props) => {
                     0,
                     deadLine, deadLine, period + 1, smallOvertime, bigOvertime);
                 dispatch(addNewLog(gameNumber,
-                    `End of ${period} period`));
+                    `Конец ${period} периода`));
                 dispatch(addNewTempLog(gameNumber,
-                    `End of ${period} period`));
+                    `Конец ${period} периода`));
             }
         }
     }, [timeDif >= deadLine])
@@ -267,9 +267,9 @@ const TabloEdit = (props) => {
                 0,
                 0, 0);
             dispatch(addNewLog(gameNumber,
-                `End of timeout`));
+                `Конец таймаута`));
             dispatch(addNewTempLog(gameNumber,
-                `End of timeout`));
+                `Конец таймаута`));
         }
     }, [timeDifTimeout >= deadLineTimeout])
 
@@ -293,9 +293,9 @@ const TabloEdit = (props) => {
         dispatch(teamGoal(gameNumber, teamType, symbol));
         if (symbol === '+') {
             dispatch(addNewLog(gameNumber,
-                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - GOAL for ${teamName}!`));
+                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - ГОЛ для ${teamName}!`));
             dispatch(addNewTempLog(gameNumber,
-                `GOAL for ${teamName}!`))
+                `ГОЛ для ${teamName}!`))
         }
     };
 
@@ -303,7 +303,7 @@ const TabloEdit = (props) => {
         putTimerStatus(gameNumber, true, timeDif, timeMem,
             timeMemTimer, deadLine, period, smallOvertime, bigOvertime);
         dispatch(addNewLog(gameNumber,
-            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - START`));
+            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - СТАРТ`));
     };
 
     const stopGame = () => {
@@ -313,7 +313,7 @@ const TabloEdit = (props) => {
             deadLine - (timeMem + (Date.now() - currentTime + dif)),
             deadLine, period, smallOvertime, bigOvertime);
         dispatch(addNewLog(gameNumber,
-            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - STOP`));
+            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - СТОП`));
     };
 
 
@@ -332,28 +332,28 @@ const TabloEdit = (props) => {
                 {isRunningServer ?
                     <div className={width === 1920 ? c1920.gameButtons : c.gameButtons}>
                         <div className={width === 1920 ? c1920.gameButtons__Disabled : c.gameButtons__Disabled}>
-                            Start
+                            Старт
                         </div>
                         <div className={classNames(width === 1920 ? c1920.gameButtons__Active : c.gameButtons__Active, width === 1920
                             ? c1920.gameButtons__stop : c.gameButtons__stop)}
                              onClick={(e) => stopGame()}>
-                            Stop
+                            Стоп
                         </div>
                     </div>
                     :
                     <div className={width === 1920 ? c1920.gameButtons : c.gameButtons}>
                         <div className={width === 1920 ? c1920.gameButtons__Active : c.gameButtons__Active} onClick={(e) => startGame()}>
-                            Start
+                            Старт
                         </div>
                         <div className={classNames(width === 1920 ? c1920.gameButtons__Disabled : c.gameButtons__Disabled, width === 1920
                             ? c1920.gameButtons__stop : c.gameButtons__stop)}>
-                            Stop
+                            Стоп
                         </div>
                     </div>
                 }
                 <div className={width === 1920 ? c1920.beepButtons : c.beepButtons}>
-                    <div className={width === 1920 ? c1920.beepButtons_beep : c.beepButtons_beep}>Beep</div>
-                    <div className={width === 1920 ? c1920.beepButtons_beep : c.beepButtons_beep}>Beeeep</div>
+                    <div className={width === 1920 ? c1920.beepButtons_beep : c.beepButtons_beep}>Биип</div>
+                    <div className={width === 1920 ? c1920.beepButtons_beep : c.beepButtons_beep}>Биииип</div>
                 </div>
             </div>
         </div>

@@ -36,15 +36,15 @@ const TeamGamers = (props) => {
         if (props.status === 'in game') {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
-                 ${props.fullName} deleted for ${timeOfPenalty / 60000} min`));
-            dispatch(addNewConsLog(gameNumber, gamerId, teamType, `${props.fullName} deleted for`));
+                 ${props.fullName} удален на ${timeOfPenalty / 60000} минуты`));
+            dispatch(addNewConsLog(gameNumber, gamerId, teamType, `${props.fullName} удален на`));
             dispatch(deleteGamer(gameNumber, teamType, gamerId, timeOfPenalty, props.timeMemTimer));
         }
         if (props.status === 'deleted') {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
-                 ${props.fullName} returns to a game`));
-            dispatch(addNewTempLog(gameNumber, `${props.fullName} returns to a game`));
+                 ${props.fullName} возвращается в игру`));
+            dispatch(addNewTempLog(gameNumber, `${props.fullName} возвращается в игру`));
             dispatch(deleteGamer(gameNumber, teamType, gamerId, 0, 0));
             dispatch(deleteConsLog(gameNumber, consLog.findIndex(c => c.id === props.id && c.teamType === props.teamType)));
         }
@@ -55,16 +55,16 @@ const TeamGamers = (props) => {
         if (props.onField === true) {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
-                 ${props.fullName} goes to the bench`));
+                 ${props.fullName} идет на скамейку запасных`));
             dispatch(addNewTempLog(gameNumber,
-                `${props.fullName} goes to the bench`))
+                `${props.fullName} идет на скамейку запасных`))
         }
         if (props.onField === false) {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
-                 ${props.fullName} returns on field`));
+                 ${props.fullName} возвращается на поле`));
             dispatch(addNewTempLog(gameNumber,
-                `${props.fullName} returns on field`))
+                `${props.fullName} возвращается на поле`))
         }
     };
 
@@ -73,7 +73,7 @@ const TeamGamers = (props) => {
         if (symbol === '+') {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
-                 ${props.fullName} gets point`))
+                 ${props.fullName} получает очко`))
         }
     };
 
@@ -94,7 +94,7 @@ const TeamGamers = (props) => {
                        addGamerGoal={addGamerGoal}
                        changeStatus={changeStatus}/>
             <div style={{paddingLeft: "5%"}}>
-                {props.status}
+                {props.status === 'in game' ? 'в игре' : 'удален'}
             </div>
 
             <div style={{cursor: 'pointer'}} onClick={(e) => {
