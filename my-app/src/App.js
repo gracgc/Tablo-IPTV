@@ -11,6 +11,7 @@ import TabloEditClient from "./components/ForClient/TabloEdit/TabloEditClient";
 import socket from "./socket/socket";
 import {useDispatch} from "react-redux";
 import {setWidthAC} from "./redux/app_reducer";
+import Tablo0 from "./components/ForClient/TabloEdit/Tablo0";
 
 
 function App() {
@@ -32,10 +33,17 @@ function App() {
                        render={() => <Redirect to={"/menu"}/>}/>
                 <Route path='/menu' render={() => <Menu/>}/>
                 <Route path='/createGame' render={() => <CreateGame/>}/>
-                <Route exact path='/adminPanel/:gameNumber?'
+                <Route exact path='/adminPanel'
+                       render={() => <Menu/>}/>
+
+                <Route path='/adminPanel/:gameNumber?'
                        render={() => <AdminPanel/>}/>
                 <Route path='/savedGames' render={() => <SavedGames/>}/>
                 <Route path='/settings' render={() => <Settings00/>}/>
+
+                <Route exact path='/tabloClient'
+                       render={() => <Tablo0/>}/>
+                <Route exact path='/tabloClient/0' render={() => <Tablo0/>}/>
                 <Route path='/tabloClient/:gameNumber?' render={() => <TabloEditClient/>}/>
             </Switch>
         </div>

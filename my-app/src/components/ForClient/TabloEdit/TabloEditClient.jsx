@@ -9,7 +9,6 @@ import * as axios from "axios";
 import {getLog, setLogDataAC} from "../../../redux/log_reducer";
 import {getTeams, setTeamsAC} from "../../../redux/teams_reducer";
 import socket from "../../../socket/socket";
-import useForceUpdate from "use-force-update";
 
 
 const TabloEditClient = (props) => {
@@ -89,9 +88,6 @@ const TabloEditClient = (props) => {
                 return responce.data
             });
     };
-
-    let forceUpdate = useForceUpdate();
-
 
 
 
