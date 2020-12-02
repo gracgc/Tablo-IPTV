@@ -15,13 +15,6 @@ router.get('/:gameNumber', function (req, res) {
         DB.gameInfo.gameTime.resultCode = 0;
         res.send(DB.gameInfo.gameTime);
 
-        // const io = req.app.locals.io;
-        //
-        // io.emit('getGame', DB.gameInfo)
-        // io.emit('getTeams', DB.teams)
-        // io.emit('getTime', DB.gameInfo.gameTime)
-        // io.emit('getLog', DB.logData)
-
     } catch (e) {
         console.log(e)
     }
@@ -57,7 +50,7 @@ router.get('/timeout/:gameNumber', function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getTime', DB.gameInfo.gameTime)
+        io.emit(`getTime${gameNumber}`, DB.gameInfo.gameTime)
 
     } catch (e) {
         console.log(e)
@@ -103,9 +96,9 @@ router.put('/isRunning/:gameNumber', function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getTime', DB.gameInfo.gameTime);
+        io.emit(`getTime${gameNumber}`, DB.gameInfo.gameTime);
 
-        io.emit('getGame', DB.gameInfo)
+        io.emit(`getGame${gameNumber}`, DB.gameInfo)
 
     } catch (e) {
         console.log(e)
@@ -138,11 +131,11 @@ router.put('/isRunningTimeout/:gameNumber', function (req, res) {
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-        res.send({resultCode: 0})
+        res.send({resultCode: 0});
 
         const io = req.app.locals.io;
 
-        io.emit('getTimeout', DB.gameInfo.gameTime.timeoutData)
+        io.emit(`getTimeout${gameNumber}`, DB.gameInfo.gameTime.timeoutData)
 
     } catch (e) {
         console.log(e)
@@ -176,7 +169,7 @@ router.put('/deadline/:gameNumber', function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getTime', DB.gameInfo.gameTime)
+        io.emit(`getTime${gameNumber}`, DB.gameInfo.gameTime)
 
 
     } catch (e) {
@@ -196,7 +189,7 @@ router.put('/dif', function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getTime', DB.gameInfo.gameTime)
+        io.emit(`getTime${gameNumber}`, DB.gameInfo.gameTime)
 
     } catch (e) {
         console.log(e)

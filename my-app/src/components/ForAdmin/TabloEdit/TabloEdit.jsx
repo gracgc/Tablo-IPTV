@@ -130,8 +130,8 @@ const TabloEdit = (props) => {
     useEffect(() => {
         getTimerStatus(gameNumber).then(r => {
                 ////TIMER////
-                setIsRunningServer(r.isRunning)
-                setCurrentTime(Date.now())
+                setIsRunningServer(r.isRunning);
+                setCurrentTime(Date.now());
                 setTimeMem(r.timeData.timeMem);
                 setTimeDif(r.timeData.timeMem);
                 setTimeMemTimer(r.timeData.timeMemTimer);
@@ -140,8 +140,8 @@ const TabloEdit = (props) => {
                 setSmallOvertime(r.smallOvertime);
                 setBigOvertime(r.bigOvertime);
                 ////TIMEOUT////
-                setIsRunningServerTimeout(r.timeoutData.isRunning)
-                setCurrentTimeTimeout(Date.now())
+                setIsRunningServerTimeout(r.timeoutData.isRunning);
+                setCurrentTimeTimeout(Date.now());
                 setTimeMemTimeout(r.timeoutData.timeData.timeMem);
                 setTimeDifTimeout(r.timeoutData.timeData.timeMem);
                 setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
@@ -164,19 +164,19 @@ const TabloEdit = (props) => {
                     })
                 }
             }
-        )
+        );
 
 
         ////Socket IO////
-        socket.on('getTime', time => {
+        socket.on(`getTime${gameNumber}`, time => {
                 getServerTime(gameNumber, Date.now()).then(r => {
                     setDif(
                         (r.serverTime - time.runningTime)
                         // - (Math.round((Date.now() - r.localTime)/2))
                     );
-                })
-                setIsRunningServer(time.isRunning)
-                setCurrentTime(Date.now())
+                });
+                setIsRunningServer(time.isRunning);
+                setCurrentTime(Date.now());
                 setTimeMem(time.timeData.timeMem);
                 setTimeDif(time.timeData.timeMem);
                 setTimeMemTimer(time.timeData.timeMemTimer);
@@ -185,16 +185,16 @@ const TabloEdit = (props) => {
                 setSmallOvertime(time.smallOvertime);
                 setBigOvertime(time.bigOvertime);
             }
-        )
-        socket.on('getTimeout', time => {
+        );
+        socket.on(`getTimeout${gameNumber}`, time => {
                 getServerTime(gameNumber, Date.now()).then(r => {
                     setDifTimeout(
                         (r.serverTime - time.runningTime)
                         // + (Math.round((Date.now() - r.localTime)/2))
                     );
-                })
-                setIsRunningServerTimeout(time.isRunning)
-                setCurrentTimeTimeout(Date.now())
+                });
+                setIsRunningServerTimeout(time.isRunning);
+                setCurrentTimeTimeout(Date.now());
                 setTimeDifTimeout(time.timeData.timeDif);
                 setTimeMemTimeout(time.timeData.timeMem);
                 setTimeMemTimerTimeout(time.timeData.timeMemTimer);
@@ -256,11 +256,11 @@ const TabloEdit = (props) => {
                     `Конец ${period} периода`));
             }
         }
-    }, [timeDif >= deadLine])
+    }, [timeDif >= deadLine]);
 
     useEffect(() => {
         if (timeDifTimeout >= deadLineTimeout && isRunningServerTimeout) {
-            setIsRunningServerTimeout(false)
+            setIsRunningServerTimeout(false);
 
             putTimeoutStatus(gameNumber, false,
                 0,
@@ -271,7 +271,7 @@ const TabloEdit = (props) => {
             dispatch(addNewTempLog(gameNumber,
                 `Конец таймаута`));
         }
-    }, [timeDifTimeout >= deadLineTimeout])
+    }, [timeDifTimeout >= deadLineTimeout]);
 
 
     useEffect(() => {

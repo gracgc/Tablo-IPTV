@@ -56,11 +56,11 @@ router.post('/:gameNumber', cors(), function (req, res) {
         fs.writeFileSync(path.join(__dirname +
             `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-        res.send({resultCode: 0})
+        res.send({resultCode: 0});
 
         const io = req.app.locals.io;
 
-        io.emit('getTeams', DB.teams)
+        io.emit(`getTeams${gameNumber}`, DB.teams)
 
     } catch (e) {
         console.log(e)
@@ -98,11 +98,11 @@ router.put('/gamerGoal/:gameNumber', cors(), function (req, res) {
         fs.writeFileSync(path.join(__dirname +
             `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-        res.send({resultCode: 0})
+        res.send({resultCode: 0});
 
         const io = req.app.locals.io;
 
-        io.emit('getTeams', DB.teams)
+        io.emit(`getTeams${gameNumber}`, DB.teams)
 
 
     } catch (e) {
@@ -135,7 +135,7 @@ router.put('/teamGoal/:gameNumber', cors(), function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getTeams', DB.teams)
+        io.emit(`getTeams${gameNumber}`, DB.teams);
 
 
         let json = JSON.stringify(DB);
@@ -175,11 +175,11 @@ router.put('/gamerStatus/:gameNumber', cors(), function (req, res) {
         fs.writeFileSync(path.join(__dirname +
             `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-        res.send({resultCode: 0})
+        res.send({resultCode: 0});
 
         const io = req.app.locals.io;
 
-        io.emit('getTeams', DB.teams)
+        io.emit(`getTeams${gameNumber}`, DB.teams)
 
 
     } catch (e) {
@@ -209,11 +209,11 @@ router.put('/onField/:gameNumber', cors(), function (req, res) {
         fs.writeFileSync(path.join(__dirname +
             `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-        res.send({resultCode: 0})
+        res.send({resultCode: 0});
 
         const io = req.app.locals.io;
 
-        io.emit('getTeams', DB.teams)
+        io.emit(`getTeams${gameNumber}`, DB.teams)
 
 
     } catch (e) {
@@ -245,11 +245,11 @@ router.put('/penalty/:gameNumber', cors(), function (req, res) {
         fs.writeFileSync(path.join(__dirname +
             `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-        res.send(DB)
+        res.send({resultCode: 0});
 
         const io = req.app.locals.io;
 
-        io.emit('getTeams', DB.teams)
+        io.emit(`getTeams${gameNumber}`, DB.teams)
 
 
     } catch (e) {

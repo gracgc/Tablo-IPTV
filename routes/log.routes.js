@@ -43,7 +43,7 @@ router.post('/:gameNumber', cors(), function (req, res) {
             DB.logData.gameLog.push(newLogFirst)
         } else {
             // if (newLogItem !== DB.logData.gameLog[DB.logData.gameLog.length - 1].item) {
-                DB.logData.gameLog.push(newLog);
+            DB.logData.gameLog.push(newLog);
             // } else return
         }
 
@@ -57,7 +57,7 @@ router.post('/:gameNumber', cors(), function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getLog', DB.logData)
+        io.emit(`getLog${gameNumber}`, DB.logData)
 
     } catch (e) {
         console.log(e)
@@ -85,7 +85,7 @@ router.put('/:gameNumber', cors(), function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getLog', DB.logData)
+        io.emit(`getLog${gameNumber}`, DB.logData)
 
     } catch (e) {
         console.log(e)
@@ -109,18 +109,15 @@ router.post('/temp/:gameNumber', cors(), function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getLog', DB.logData)
+        io.emit(`getLog${gameNumber}`, DB.logData);
 
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-        if (!gameNumber) {
-            res.send({resultCode: 10});
-            console.log('Incorrect address')
-        } else {
-            res.send({resultCode: 0})
-        }
+
+        res.send({resultCode: 0})
+
 
     } catch (e) {
         console.log(e)
@@ -148,18 +145,15 @@ router.post('/cons/:gameNumber', cors(), function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getLog', DB.logData)
+        io.emit(`getLog${gameNumber}`, DB.logData);
 
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-        if (!gameNumber) {
-            res.send({resultCode: 10});
-            console.log('Incorrect address')
-        } else {
-            res.send({resultCode: 0})
-        }
+
+        res.send({resultCode: 0})
+
 
     } catch (e) {
         console.log(e)
@@ -179,7 +173,7 @@ router.put('/cons/:gameNumber', cors(), function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getLog', DB.logData)
+        io.emit(`getLog${gameNumber}`, DB.logData);
 
         let json = JSON.stringify(DB);
 

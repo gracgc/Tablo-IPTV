@@ -12,8 +12,6 @@ const AddOptions = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
-    const dispatch = useDispatch();
-
     let width = useSelector(
         state => state.appPage.width
     );

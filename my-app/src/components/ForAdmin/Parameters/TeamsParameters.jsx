@@ -39,18 +39,19 @@ const TeamsParameters = (props) => {
             setTimeMemTimer(r.timeData.timeMemTimer);
             setPeriod(r.period);
             setIsRunningServer(r.isRunning)
-        })
+        });
 
-        socket.on('getTime', time => {
+        socket.on(`getTime${gameNumber}`, time => {
                 setTimeMem(time.timeData.timeMem);
                 setTimeMemTimer(time.timeData.timeMemTimer);
                 setPeriod(time.period);
             setIsRunningServer(time.isRunning)
             }
-        )
+        );
 
         dispatch(getTeams(gameNumber));
-        socket.on('getTeams', teams => {
+
+        socket.on(`getTeams${gameNumber}`, teams => {
                 dispatch(setTeamsAC(teams))
             }
         )

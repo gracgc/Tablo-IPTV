@@ -88,12 +88,11 @@ router.post('/', cors(), function (req, res) {
         fs.writeFileSync(path.join(__dirname +
             `/DB/saved_games.json`), newSaveJson, 'utf8');
 
-        res.send({resultCode: 0})
+        res.send({resultCode: 0});
 
         const io = req.app.locals.io;
 
-        io.emit('getGame', DB.gameInfo)
-
+        io.emit(`getGame${gameNumber}`, DB.gameInfo)
 
     } catch
         (e) {

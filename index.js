@@ -2,14 +2,16 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const config = require('config');
 const express = require('express');
+const fs = require('fs');
+
 
 
 const app = express();
 
-const server = require('http').Server(app)
+const server = require('http').Server(app);
 
 
-const io = require('socket.io')(server)
+const io = require('socket.io')(server);
 
 
 
@@ -32,32 +34,18 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
-    socket.on('test', log => {
-        console.log(log)
-        logTest.log.push(log)
-        console.log(logTest)
-        io.emit('testGet', logTest)
+    socket.on('setGameNumberStart', res => {
+
+        let data = fs.readFileSync(path.join(__dirname + `/routes/DB/game_number.json`));
+        let DB = JSON.parse(data);
+
+        io.emit('getGameNumberStart', DB.gameNumber)
     })
 });
 
-let logTest = {log: [{log: 'test', date: Date.now()}]}
-
-app.get('/test', (req, res) => {
-    res.send(logTest.log)
-})
-
-app.post('/test', (req, res) => {
 
 
-    logTest.log.push({log: req.body.log, date: Date.now()})
-
-    io.emit('testGet', logTest.log)
-
-    res.send('yo')
-})
-
-
-app.locals.io = io
+app.locals.io = io;
 
 
 

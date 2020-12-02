@@ -48,7 +48,7 @@ const Log = (props) => {
 
 
     const onSubmit = (formData) => {
-        if (formData.addLog != undefined) {
+        if (formData.addLog !== undefined) {
             dispatch(addNewLog(gameNumber, formData.addLog));
             dispatch(reset('addLog'))
         }
@@ -56,7 +56,7 @@ const Log = (props) => {
 
     useEffect(() => {
         dispatch(getLog(gameNumber));
-        socket.on('getLog', log => {
+        socket.on(`getLog${gameNumber}`, log => {
                 dispatch(setLogDataAC(log))
             }
         )

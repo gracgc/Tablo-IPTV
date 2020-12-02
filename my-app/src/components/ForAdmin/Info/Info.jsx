@@ -60,14 +60,14 @@ const Info = (props) => {
     };
 
     useEffect(() => {
-        dispatch(getGame(gameNumber))
-        socket.on('getGame', game => {
+        dispatch(getGame(gameNumber));
+        socket.on(`getGame${gameNumber}`, game => {
             dispatch(setGameDataAC(game))
-        })
+        });
         getTimerStatus(gameNumber).then(r => {
                 ////TIMER////
-                setIsRunningServer(r.isRunning)
-                setCurrentTime(Date.now())
+                setIsRunningServer(r.isRunning);
+                setCurrentTime(Date.now());
                 setTimeMem(r.timeData.timeMem);
                 setTimeDif(r.timeData.timeMem);
                 setTimeMemTimer(r.timeData.timeMemTimer);
@@ -84,18 +84,18 @@ const Info = (props) => {
                     })
                 }
             }
-        )
+        );
 
         ////Socket IO////
-        socket.on('getTime', time => {
+        socket.on(`getTime${gameNumber}`, time => {
                 getServerTime(gameNumber, Date.now()).then(r => {
                     setDif(
                         (r.serverTime - time.runningTime)
                         // - (Math.round((Date.now() - r.localTime)/2))
                     );
-                })
-                setIsRunningServer(time.isRunning)
-                setCurrentTime(Date.now())
+                });
+                setIsRunningServer(time.isRunning);
+                setCurrentTime(Date.now());
                 setTimeMem(time.timeData.timeMem);
                 setTimeDif(time.timeData.timeMem);
                 setTimeMemTimer(time.timeData.timeMemTimer);
