@@ -9,7 +9,7 @@ import * as axios from "axios";
 import {getLog, setLogDataAC} from "../../../redux/log_reducer";
 import {getTeams, setTeamsAC} from "../../../redux/teams_reducer";
 import socket from "../../../socket/socket";
-
+import useForceUpdate from "use-force-update";
 
 
 const TabloEditClient = (props) => {
@@ -90,14 +90,26 @@ const TabloEditClient = (props) => {
             });
     };
 
+    let forceUpdate = useForceUpdate();
+
+
+
 
     useEffect(() => {
+        ////LOAD NEW DATA////
+        socket.on('getGameNumber', gameNumberX => {
+                if (gameNumberX !== gameNumber) {
+                    props.history.push('/tabloClient/' + gameNumberX);
+                    window.location.reload()
+                }
+            }
+        );
         ////LOG LOAD///
-        dispatch(getLog(gameNumber))
+        dispatch(getLog(gameNumber));
         socket.on('getLog', log => {
                 dispatch(setLogDataAC(log))
             }
-        )
+        );
         ////TEAMS LOAD///
         dispatch(getTeams(gameNumber));
         socket.on('getTeams', teams => {
@@ -201,7 +213,8 @@ const TabloEditClient = (props) => {
     return (
         <div className={c.tabloEdit}>
             <TabloClient isShowLog={isShowLog} gameTempLog={gameTempLog} gameConsLog={gameConsLog}
-                         secondsTimer={secondsTimer} minutesTimer={minutesTimer} timeMemTimerTimeout={timeMemTimerTimeout}
+                         secondsTimer={secondsTimer} minutesTimer={minutesTimer}
+                         timeMemTimerTimeout={timeMemTimerTimeout}
                          secondsTimerTimeout={secondsTimerTimeout} homeTeam={homeTeam} guestsTeam={guestsTeam}
                          homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
                          gameNumber={gameNumber}/>

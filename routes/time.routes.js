@@ -13,14 +13,14 @@ router.get('/:gameNumber', function (req, res) {
         let DB = JSON.parse(data);
 
         DB.gameInfo.gameTime.resultCode = 0;
-        res.send(DB.gameInfo.gameTime)
+        res.send(DB.gameInfo.gameTime);
 
-        const io = req.app.locals.io;
-
-        io.emit('getGame', DB.gameInfo)
-        io.emit('getTeams', DB.teams)
-        io.emit('getTime', DB.gameInfo.gameTime)
-        io.emit('getLog', DB.logData)
+        // const io = req.app.locals.io;
+        //
+        // io.emit('getGame', DB.gameInfo)
+        // io.emit('getTeams', DB.teams)
+        // io.emit('getTime', DB.gameInfo.gameTime)
+        // io.emit('getLog', DB.logData)
 
     } catch (e) {
         console.log(e)
@@ -53,7 +53,7 @@ router.get('/timeout/:gameNumber', function (req, res) {
         let DB = JSON.parse(data);
 
         DB.resultCode = 0;
-        res.send(DB.gameInfo.gameTime.timeoutData)
+        res.send(DB.gameInfo.gameTime.timeoutData);
 
         const io = req.app.locals.io;
 
@@ -90,7 +90,7 @@ router.put('/isRunning/:gameNumber', function (req, res) {
         DB.gameInfo.gameTime.timeData.timeMem = timeMem;
         DB.gameInfo.gameTime.timeData.timeMemTimer = timeMemTimer;
         DB.gameInfo.gameTime.timeData.deadLine = deadLine;
-        DB.gameInfo.gameTime.runningTime = Date.now()
+        DB.gameInfo.gameTime.runningTime = Date.now();
         DB.gameInfo.gameTime.period = period;
         DB.gameInfo.gameTime.smallOvertime = smallOvertime;
         DB.gameInfo.gameTime.bigOvertime = bigOvertime;
@@ -99,11 +99,11 @@ router.put('/isRunning/:gameNumber', function (req, res) {
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-        res.send({resultCode: 0})
+        res.send({resultCode: 0});
 
         const io = req.app.locals.io;
 
-        io.emit('getTime', DB.gameInfo.gameTime)
+        io.emit('getTime', DB.gameInfo.gameTime);
 
         io.emit('getGame', DB.gameInfo)
 

@@ -15,7 +15,7 @@ import {putGameNumber, setGameNumberAC} from "../../redux/app_reducer";
 
 const AdminPanel = (props) => {
 
-    let dispatch = useDispatch()
+    let dispatch = useDispatch();
 
     let gameNumber = props.match.params.gameNumber;
 
@@ -32,12 +32,8 @@ const AdminPanel = (props) => {
         getTimerStatus(gameNumber).then(r => {
                 setPeriod(r.period);
             }
-        )
-        // dispatch(putGameNumber(gameNumber))
-        // socket.on('getGameNumber', gameNumber => {
-        //     dispatch(setGameNumberAC(gameNumber))
-        //     }
-        // )
+        );
+        dispatch(putGameNumber(gameNumber))
     }, []);
 
     return (
