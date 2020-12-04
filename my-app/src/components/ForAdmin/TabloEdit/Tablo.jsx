@@ -7,10 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 const Tablo = (props) => {
 
-
-    let width = useSelector(
-        state => state.appPage.width
-    );
+    let width = window.innerWidth;
 
     return (
         <div className={width === 1920 ? c1920.tablo : c.tablo}>

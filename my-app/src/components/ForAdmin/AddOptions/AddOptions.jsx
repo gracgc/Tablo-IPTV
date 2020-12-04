@@ -12,9 +12,7 @@ const AddOptions = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
-    let width = useSelector(
-        state => state.appPage.width
-    );
+    let width = window.innerWidth;
 
     const putDeadline = (gameNumber, deadLine, timeMemTimer, timeDif, timeMem) => {
         return axios.put(`/api/time/deadline/${gameNumber}`, {

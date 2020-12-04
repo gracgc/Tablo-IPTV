@@ -7,11 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 
 const GamerMenu = (props) => {
 
-    const dispatch = useDispatch();
-
-    let width = useSelector(
-        state => state.appPage.width
-    );
+    let width = window.innerWidth;
 
     const gamerMenu = {
         Penalty: [

@@ -19,11 +19,7 @@ const Info = (props) => {
         state => state.gamesPage.gameData
     );
 
-    let width = useSelector(
-        state => state.appPage.width
-    );
-
-
+    let width = window.innerWidth;
 
     let [isRunningServer, setIsRunningServer] = useState(false);
 
