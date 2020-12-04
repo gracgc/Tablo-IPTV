@@ -38,9 +38,7 @@ const Log = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
-    let width = useSelector(
-        state => state.appPage.width
-    );
+    let width = window.innerWidth;
 
     const gameLog = useSelector(
         state => state.logPage.logData.gameLog
@@ -67,7 +65,7 @@ const Log = (props) => {
         <div className={width === 1920 ? c1920.log : c.log}>
             <div style={{fontSize: width === 1920 ? "36px" : "24px", marginBottom: "1%"}}>Лог</div>
             <div className={width === 1920 ? c1920.logWindow : c.logWindow}>
-                {gameLog.map(l => <LogItem gameNumber={gameNumber} width={width} key={l.id} id={l.id} logItem={l.item}/>)}
+                {gameLog.map(l => <LogItem gameNumber={gameNumber} key={l.id} id={l.id} logItem={l.item}/>)}
             </div>
             <AddLogReduxForm onSubmit={onSubmit}/>
         </div>

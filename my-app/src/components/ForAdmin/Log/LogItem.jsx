@@ -16,13 +16,15 @@ const LogItem = (props) => {
         state => state.logPage.logData.gameLog
     );
 
+    let width = window.innerWidth;
+
     let deleteLogItem = (deletedItem) => {
         dispatch(deleteLog(props.gameNumber, deletedItem))
     };
 
     return (
         <div>
-            <div className={props.width === 1920 ? c1920.logItem : c.logItem}
+            <div className={width === 1920 ? c1920.logItem : c.logItem}
                  onMouseOver={(e) => setShowDeleteButton(true)}
                  onMouseLeave={(e) => setShowDeleteButton(false)}
             >

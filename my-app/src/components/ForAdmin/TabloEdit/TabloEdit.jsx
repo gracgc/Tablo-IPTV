@@ -19,9 +19,7 @@ const TabloEdit = (props) => {
 
     const dispatch = useDispatch();
 
-    let width = useSelector(
-        state => state.appPage.width
-    );
+    let width = window.innerWidth;
 
     const homeTeam = useSelector(
         (state => state.teamsPage.teams.find(t => t.teamType === 'home'))

@@ -1,24 +1,16 @@
 import {gameAPI} from "../api/api";
 
-const SET_WIDTH = 'app/SET_WIDTH';
 const SET_GAME_NUMBER = 'app/SET_GAME_NUMBER';
 const PUT_GAME_NUMBER = 'app/PUT_GAME_NUMBER';
 
 
 let initialState = {
-    width: 0,
     gameNumber: 1
 };
 
 const appReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case SET_WIDTH:
-
-            return {
-                ...state,
-                width: action.width
-            };
 
         case SET_GAME_NUMBER:
 
@@ -39,7 +31,6 @@ const appReducer = (state = initialState, action) => {
     }
 };
 
-export const setWidthAC = (width) => ({type: SET_WIDTH, width});
 export const setGameNumberAC = (gameNumber) => ({type: SET_GAME_NUMBER, gameNumber});
 export const putGameNumberAC = (gameNumber) => ({type: PUT_GAME_NUMBER, gameNumber});
 

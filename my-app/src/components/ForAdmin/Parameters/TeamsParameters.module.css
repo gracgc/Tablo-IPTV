@@ -9,12 +9,12 @@
 .navBackButton {
     position: absolute;
     float: right;
-    right: 3%;
-    top: 90%;
-    width: 10%;
+    right: 30px;
+    bottom: 30px;
+    width: 200px;
     text-align: center;
-    padding: 1%;
+    padding: 20px;
     font-weight: bold;
-    font-size: 100%;
+    font-size: 18px;
     border: solid 2px black;
 }
