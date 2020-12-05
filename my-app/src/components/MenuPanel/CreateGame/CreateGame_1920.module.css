@@ -12,9 +12,9 @@ a {
 .menuTitle {
     position: relative;
     font-weight: bold;
-    font-size: 44px;
-    left: 150px;
-    top: 20px;
+    font-size: 56px;
+    left: 160px;
+    top: 80px;
 }
 
 .navBackButton {
@@ -22,11 +22,11 @@ a {
     float: right;
     right: 30px;
     bottom: 30px;
-    width: 200px;
+    width: 280px;
     text-align: center;
     padding: 20px;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 30px;
     border: solid 2px black;
 }
 
@@ -59,7 +59,7 @@ a {
 .createGamePanel {
     position: absolute;
     left: 10%;
-    top: 120px;
+    top: 20%;
     width: 80%;
 }
 
@@ -79,7 +79,7 @@ a {
 
 .homeGamers {
     overflow-y: auto;
-    height: 230px;
+    height: 280px;
 }
 
 .addDeleteGamerButtons {

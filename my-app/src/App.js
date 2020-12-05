@@ -9,8 +9,6 @@ import SavedGames from "./components/MenuPanel/SavedGames/SavedGames";
 import Settings00 from "./components/MenuPanel/Settings2/Settings00";
 import TabloEditClient from "./components/ForClient/TabloEdit/TabloEditClient";
 import socket from "./socket/socket";
-import {useDispatch} from "react-redux";
-import {setWidthAC} from "./redux/app_reducer";
 import Tablo0 from "./components/ForClient/TabloEdit/Tablo0";
 import {ConfirmProvider} from "material-ui-confirm";
 

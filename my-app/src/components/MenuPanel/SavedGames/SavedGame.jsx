@@ -12,14 +12,18 @@ const SavedGame = (props) => {
 
     const confirm = useConfirm();
 
+    let width = window.innerWidth;
+
     const setTabloGameNumber = async (gameNumber) => {
         await confirm({description: 'Сейчас на табло идет другая игра. Это действие может помешать игровому процессу.',
-        title: 'Вы уверены?'});
+        title: 'Вы уверены?',
+            confirmationText: 'Хорошо',
+            cancellationText: 'Отменить'});
         dispatch(putGameNumber(gameNumber))
     };
 
 
-    let width = window.innerWidth;
+
 
     return (
             <div>

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import c from './CreateGame.module.css'
+import c1920 from './CreateGame_1920.module.css'
 import {NavLink} from "react-router-dom";
 import {Field, reduxForm, change} from "redux-form";
 import {Input, InputReadOnly} from "../../../common/FormsControls/FormsControls";
@@ -149,6 +150,8 @@ const CreateGameReduxForm = reduxForm({form: 'createGame'})(CreateGameForm);
 
 const CreateGame = (props) => {
 
+    let width = window.innerWidth;
+
     let [numberOfHomePlayers, setNumberOfHomePlayers] = useState([1, 2, 3, 4, 5, 6]);
     let [numberOfGuestsPlayers, setNumberOfGuestsPlayers] = useState([1, 2, 3, 4, 5, 6]);
 
@@ -203,7 +206,7 @@ const CreateGame = (props) => {
                 A Game is successfully created!
             </div>
             <NavLink to="/">
-                <div className={c.navBackButton}>
+                <div className={width === 1920 ? c1920.navBackButton : c.navBackButton}>
                     Back to menu
                 </div>
             </NavLink>
@@ -213,7 +216,7 @@ const CreateGame = (props) => {
     return (
         <div className={c.createGame}>
 
-            <span className={c.menuTitle}>Create new game</span>
+            <span className={width === 1920 ? c1920.menuTitle : c.menuTitle}>Create new game</span>
             <div className={c.createGamePanel}>
                 <CreateGameReduxForm onSubmit={onSubmit}
                                      gameTypes={gameTypes}
@@ -224,7 +227,7 @@ const CreateGame = (props) => {
                 />
             </div>
             <NavLink to="/">
-                <div className={c.navBackButton}>
+                <div className={width === 1920 ? c1920.navBackButton : c.navBackButton}>
                     Вернуться в меню
                 </div>
             </NavLink>

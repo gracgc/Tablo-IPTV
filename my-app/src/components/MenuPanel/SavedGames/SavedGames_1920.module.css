@@ -12,9 +12,9 @@ a {
 
 .navbar {
     position: relative;
-    left: 110px;
-    top: 120px;
-    width: 900px;
+    left: 130px;
+    top: 160px;
+    width: 1200px;
     height: 370px;
     overflow: auto;
 }
@@ -22,9 +22,9 @@ a {
 .navButton {
     margin-bottom: 20px;
     padding: 10px;
-    width: 800px;
+    width: 1000px;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 30px;
     border: solid 2px black;
 }
 
@@ -33,11 +33,11 @@ a {
     float: right;
     right: 30px;
     bottom: 30px;
-    width: 200px;
+    width: 280px;
     text-align: center;
     padding: 20px;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 30px;
     border: solid 2px black;
 }
 
@@ -45,12 +45,12 @@ a {
     position: absolute;
     float: right;
     right: 30px;
-    bottom: 120px;
-    width: 200px;
+    bottom: 140px;
+    width: 280px;
     text-align: center;
     padding: 20px;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 30px;
     border: solid 2px black;
     background-color: #130757;
     color: white;
@@ -59,8 +59,8 @@ a {
 .menuTitle {
     position: relative;
     font-weight: bold;
-    font-size: 44px;
-    left: 140px;
+    font-size: 56px;
+    left: 160px;
     top: 80px;
 }
 
@@ -95,7 +95,7 @@ a {
 .gameIsGoing {
     color: #ff1717;
     animation: blink 1s infinite;
-    font-size: 26px;
+    font-size: 30px;
 }
 
 @keyframes blink {

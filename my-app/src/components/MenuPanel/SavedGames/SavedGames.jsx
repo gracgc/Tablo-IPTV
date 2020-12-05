@@ -30,7 +30,7 @@ const SavedGames = (props) => {
 
     return (
         <div className={width === 1920 ? c1920.savedGames : c.savedGames}>
-            <span className={c.menuTitle}>Сохраненные игры</span>
+            <span className={width === 1920 ? c1920.menuTitle : c.menuTitle}>Сохраненные игры</span>
 
             <div className={width === 1920 ? c1920.navbar : c.navbar}>
                 {savedGames.map(sg => <SavedGame gameNumber={gameNumber} savedGames={sg}/>)}
