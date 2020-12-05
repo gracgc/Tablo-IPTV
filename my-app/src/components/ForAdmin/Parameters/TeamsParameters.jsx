@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
-import c from './TeamsParameters.module.css'
+import c from './TeamsParameters.module.css';
+import c1920 from './TeamsParameters_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import TeamInfo from "./Teams/TeamInfo";
 import {getTeams, setTeamsAC} from "../../../redux/teams_reducer";
@@ -23,6 +24,8 @@ const TeamsParameters = (props) => {
     const teams = useSelector(
         state => state.teamsPage.teams
     );
+
+    let width = window.innerWidth;
 
     const dispatch = useDispatch();
 
@@ -85,7 +88,7 @@ const TeamsParameters = (props) => {
                 />
             </div>
             <NavLink to="/">
-                <div className={c.navBackButton}>
+                <div className={width === 1920 ? c1920.navBackButton : c.navBackButton}>
                     Вернуться в меню
                 </div>
             </NavLink>

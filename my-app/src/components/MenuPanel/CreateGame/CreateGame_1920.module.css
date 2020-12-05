@@ -42,7 +42,7 @@ a {
     text-align: center;
     padding: 1%;
     font-weight: bold;
-    font-size: 100%;
+    font-size: 30px;
     border: solid 2px black;
 }
 
@@ -59,7 +59,7 @@ a {
 .createGamePanel {
     position: absolute;
     left: 10%;
-    top: 20%;
+    top: 200px;
     width: 80%;
 }
 
@@ -79,7 +79,7 @@ a {
 
 .homeGamers {
     overflow-y: auto;
-    height: 280px;
+    height: 520px;
 }
 
 .addDeleteGamerButtons {
@@ -97,7 +97,7 @@ a {
     margin-right: 20px;
     box-sizing: border-box;
     border: 2px solid black;
-    font-size: 150%;
+    font-size: 30px;
     cursor: pointer;
 }
 
@@ -109,7 +109,7 @@ a {
     padding-bottom: 10px;
     box-sizing: border-box;
     border: 2px solid black;
-    font-size: 150%;
+    font-size: 30px;
     cursor: pointer;
 }
 

@@ -11,6 +11,8 @@ import {createNewGame, getSavedGames} from "../../../redux/games_reducer";
 
 const CreateGameForm = (props) => {
 
+    let width = window.innerWidth;
+
     let [menuIsOpen, setMenuIsOpen] = useState(false);
 
     let addPlayer = (team, setTeam) => {
@@ -42,16 +44,16 @@ const CreateGameForm = (props) => {
     return (
         <div>
             <form onSubmit={props.handleSubmit}>
-                <div className={c.createForm}>
-                    <div className={c.createGameInputPanel}>
-                        <div className={c.createGameInput}>
-                            <div className={c.formTitle}>Game Name</div>
+                <div className={width === 1920 ? c1920.createForm : c.createForm}>
+                    <div className={width === 1920 ? c1920.createGameInputPanel : c.createGameInputPanel}>
+                        <div className={width === 1920 ? c1920.createGameInput : c.createGameInput}>
+                            <div className={width === 1920 ? c1920.formTitle : c.formTitle}>Название игры</div>
                             <Field placeholder={'Название игры'} name={'gameName'}
                                    validate={[required]}
                                    component={Input}/>
                         </div>
-                        <div className={c.createGameInput}>
-                            <div className={c.formTitle}>Game Type</div>
+                        <div className={width === 1920 ? c1920.createGameInput : c.createGameInput}>
+                            <div className={width === 1920 ? c1920.formTitle : c.formTitle}>Тип игры</div>
 
                             <Field placeholder={'Выбирете тип игры'} name={'gameType'}
                                    validate={[required]}
@@ -59,7 +61,7 @@ const CreateGameForm = (props) => {
                             <div style={{cursor: "pointer"}} onClick={(e) => openGameTypeMenu()}>
                                 <strong style={{fontSize: '125%'}}>Выбрать игру ▼</strong>
                                 {menuIsOpen && props.gameTypes.map(g =>
-                                    <div className={c.gameTypeMenu} onClick={(e) => {
+                                    <div className={width === 1920 ? c1920.gameTypeMenu : c.gameTypeMenu} onClick={(e) => {
                                         chooseGame(g)
                                     }}>
                                         {g}
@@ -69,17 +71,17 @@ const CreateGameForm = (props) => {
 
                         </div>
                     </div>
-                    <div className={c.createTeamsInputPanel}>
+                    <div className={width === 1920 ? c1920.createTeamsInputPanel : c.createTeamsInputPanel}>
                         <div>
-                            <div className={c.homeTeam}>
-                                <div className={c.formTitle}>Home Team Name</div>
+                            <div className={width === 1920 ? c1920.homeTeam : c.homeTeam}>
+                                <div className={width === 1920 ? c1920.formTitle : c.formTitle}>Название команды</div>
                                 <Field placeholder={'Название команды'} name={'homeTeamName'}
                                        validate={[required]}
                                        component={Input}/>
                             </div>
-                            <div className={c.formTitle}>Gamers</div>
-                            <div className={c.homeGamers}>
-                                {props.numberOfHomePlayers.map(n => <div className={c.homeGamer}>
+                            <div className={width === 1920 ? c1920.formTitle : c.formTitle}>Игроки</div>
+                            <div className={width === 1920 ? c1920.homeGamers : c.homeGamers}>
+                                {props.numberOfHomePlayers.map(n => <div className={width === 1920 ? c1920.homeGamer : c.homeGamer}>
                                     <Field placeholder={(n <= 6) ? `Игрок ${n} (На поле)` :
                                     (n > 6) && `Игрок ${n} (в резерве)`} name={`homeGamer${n}`}
                                            validate={[required]}
@@ -88,13 +90,13 @@ const CreateGameForm = (props) => {
                                            validate={[requiredShort]}
                                            component={Input}/>
                                 </div>)}
-                                <div className={c.addDeleteGamerButtons}>
-                                    <div className={c.addGamerButton}
+                                <div className={width === 1920 ? c1920.addDeleteGamerButtons : c.addDeleteGamerButtons}>
+                                    <div className={width === 1920 ? c1920.addGamerButton : c.addGamerButton}
                                          onClick={(e) =>
                                              addPlayer(props.numberOfHomePlayers, props.setNumberOfHomePlayers)}>
                                         +
                                     </div>
-                                    <div className={c.deleteGamerButton}
+                                    <div className={width === 1920 ? c1920.deleteGamerButton : c.deleteGamerButton}
                                          onClick={(e) =>
                                              deletePlayer(props.numberOfHomePlayers, props.setNumberOfHomePlayers)}>
                                         -
@@ -103,16 +105,16 @@ const CreateGameForm = (props) => {
                             </div>
 
                         </div>
-                        <div className={c.guestsTeam}>
-                            <div className={c.homeTeam}>
-                                <div className={c.formTitle}>Guests Team Name</div>
+                        <div className={width === 1920 ? c1920.guestsTeam : c.guestsTeam}>
+                            <div className={width === 1920 ? c1920.homeTeam : c.homeTeam}>
+                                <div className={width === 1920 ? c1920.formTitle : c.formTitle}>Название команды</div>
                                 <Field placeholder={'Название команды'} name={'guestsTeamName'}
                                        validate={[required]}
                                        component={Input}/>
                             </div>
-                            <div className={c.formTitle}>Gamers</div>
-                            <div className={c.homeGamers}>
-                                {props.numberOfGuestsPlayers.map(n => <div className={c.homeGamer}>
+                            <div className={width === 1920 ? c1920.formTitle : c.formTitle}>Игроки</div>
+                            <div className={width === 1920 ? c1920.homeGamers : c.homeGamers}>
+                                {props.numberOfGuestsPlayers.map(n => <div className={width === 1920 ? c1920.homeGamer : c.homeGamer}>
                                     <Field placeholder={(n <= 6) ? `Игрок ${n} (На поле)` :
                                     (n > 6) && `Игрок ${n} (В резерве)`} name={`guestsGamer${n}`}
                                            validate={[required]}
@@ -121,13 +123,13 @@ const CreateGameForm = (props) => {
                                            validate={[requiredShort]}
                                            component={Input}/>
                                 </div>)}
-                                <div className={c.addDeleteGamerButtons}>
-                                    <div className={c.addGamerButton}
+                                <div className={width === 1920 ? c1920.addDeleteGamerButtons : c.addDeleteGamerButtons}>
+                                    <div className={width === 1920 ? c1920.addGamerButton : c.addGamerButton}
                                          onClick={(e) =>
                                              addPlayer(props.numberOfGuestsPlayers, props.setNumberOfGuestsPlayers)}>
                                         +
                                     </div>
-                                    <div className={c.deleteGamerButton}
+                                    <div className={width === 1920 ? c1920.deleteGamerButton : c.deleteGamerButton}
                                          onClick={(e) =>
                                              deletePlayer(props.numberOfGuestsPlayers, props.setNumberOfGuestsPlayers)}>
                                         -
@@ -137,8 +139,8 @@ const CreateGameForm = (props) => {
                         </div>
                     </div>
                 </div>
-                <div className={c.createGameInput}>
-                    <button className={c.createGameButton}>Create new game</button>
+                <div className={width === 1920 ? c1920.createGameInput : c.createGameInput}>
+                    <button className={width === 1920 ? c1920.createGameButton : c.createGameButton}>Create new game</button>
                 </div>
             </form>
         </div>
@@ -203,11 +205,11 @@ const CreateGame = (props) => {
     if (successMessage) {
         return <div className={c.createGame}>
             <div className={c.successMessage}>
-                A Game is successfully created!
+                Игра успешно создана!
             </div>
             <NavLink to="/">
                 <div className={width === 1920 ? c1920.navBackButton : c.navBackButton}>
-                    Back to menu
+                    Вернуться в меню
                 </div>
             </NavLink>
         </div>
@@ -217,7 +219,7 @@ const CreateGame = (props) => {
         <div className={c.createGame}>
 
             <span className={width === 1920 ? c1920.menuTitle : c.menuTitle}>Create new game</span>
-            <div className={c.createGamePanel}>
+            <div className={width === 1920 ? c1920.createGamePanel : c.createGamePanel}>
                 <CreateGameReduxForm onSubmit={onSubmit}
                                      gameTypes={gameTypes}
                                      numberOfHomePlayers={numberOfHomePlayers}
