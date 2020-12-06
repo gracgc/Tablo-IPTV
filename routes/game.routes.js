@@ -3,9 +3,10 @@ const router = Router();
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const authMW = require('../middleware/authMW')
 
 
-router.get('/:gameNumber', function (req, res) {
+router.get('/:gameNumber', authMW, function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -26,7 +27,7 @@ router.get('/:gameNumber', function (req, res) {
     }
 });
 
-router.post('/', cors(), function (req, res) {
+router.post('/', authMW, cors(), function (req, res) {
     try {
 
         let data = fs.readFileSync(path.join(__dirname + `/DB/saved_games.json`));

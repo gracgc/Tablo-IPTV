@@ -28,3 +28,8 @@ export const InputReadOnly = (props) => {
     const {input, meta, child, ...restProps} = props;
     return <FormControl {...props}><input readOnly={true} {...input} {...restProps}/></FormControl>
 };
+
+export const InputPassword = (props) => {
+    const {input, meta, child, ...restProps} = props;
+    return <FormControl {...props}><input type={'password'} {...input} {...restProps} /></FormControl>
+};

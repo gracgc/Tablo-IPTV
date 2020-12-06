@@ -3,9 +3,10 @@ const router = Router();
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const authMW = require('../middleware/authMW')
 
 
-router.get('/:gameNumber', function (req, res) {
+router.get('/:gameNumber', authMW, function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -19,7 +20,7 @@ router.get('/:gameNumber', function (req, res) {
     }
 });
 
-router.post('/:gameNumber', cors(), function (req, res) {
+router.post('/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -67,7 +68,7 @@ router.post('/:gameNumber', cors(), function (req, res) {
     }
 });
 
-router.put('/gamerGoal/:gameNumber', cors(), function (req, res) {
+router.put('/gamerGoal/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -110,7 +111,7 @@ router.put('/gamerGoal/:gameNumber', cors(), function (req, res) {
     }
 });
 
-router.put('/teamGoal/:gameNumber', cors(), function (req, res) {
+router.put('/teamGoal/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -150,7 +151,7 @@ router.put('/teamGoal/:gameNumber', cors(), function (req, res) {
     }
 });
 
-router.put('/gamerStatus/:gameNumber', cors(), function (req, res) {
+router.put('/gamerStatus/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -187,7 +188,7 @@ router.put('/gamerStatus/:gameNumber', cors(), function (req, res) {
     }
 });
 
-router.put('/onField/:gameNumber', cors(), function (req, res) {
+router.put('/onField/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -221,7 +222,7 @@ router.put('/onField/:gameNumber', cors(), function (req, res) {
     }
 });
 
-router.put('/penalty/:gameNumber', cors(), function (req, res) {
+router.put('/penalty/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -250,7 +251,6 @@ router.put('/penalty/:gameNumber', cors(), function (req, res) {
         const io = req.app.locals.io;
 
         io.emit(`getTeams${gameNumber}`, DB.teams)
-
 
     } catch (e) {
         console.log(e)

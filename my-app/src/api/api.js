@@ -1,7 +1,11 @@
 import * as axios from "axios";
+import cookie from "js-cookie"
+
+const secretToken = cookie.get('secretToken');
 
 const instance = axios.create({
     withCredentials: true,
+    headers: {"Authorization": `Bearer ${secretToken}`},
     baseURL: '/api/'
 });
 
@@ -153,5 +157,14 @@ export const tabloAPI = {
             timeMemTimer,
             deadLine
         })
+    }
+};
+
+export const authAPI = {
+    login(password) {
+        return instance.post(`auth/login`, {password})
+            .then(responce => {
+                return responce.data
+            })
     }
 };

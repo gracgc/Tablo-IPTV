@@ -55,6 +55,7 @@ app.use('/api/game', require('./routes/game.routes'));
 app.use('/api/savedGames', require('./routes/savedGames.routes'));
 app.use('/api/time', require('./routes/time.routes'));
 app.use('/api/gameNumber', require('./routes/gameNumber.routes'));
+app.use('/api/auth', require('./routes/auth.routes'));
 
 if (process.env.NODE_ENV === 'production') {
 

@@ -3,9 +3,10 @@ const router = Router();
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
+const authMW = require('../middleware/authMW')
 
 
-router.get('/:gameNumber', function (req, res) {
+router.get('/:gameNumber', authMW, function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -19,7 +20,7 @@ router.get('/:gameNumber', function (req, res) {
     }
 });
 
-router.post('/:gameNumber', cors(), function (req, res) {
+router.post('/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -64,7 +65,7 @@ router.post('/:gameNumber', cors(), function (req, res) {
     }
 });
 
-router.put('/:gameNumber', cors(), function (req, res) {
+router.put('/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -92,7 +93,7 @@ router.put('/:gameNumber', cors(), function (req, res) {
     }
 });
 
-router.post('/temp/:gameNumber', cors(), function (req, res) {
+router.post('/temp/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -124,7 +125,7 @@ router.post('/temp/:gameNumber', cors(), function (req, res) {
     }
 });
 
-router.post('/cons/:gameNumber', cors(), function (req, res) {
+router.post('/cons/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -160,7 +161,7 @@ router.post('/cons/:gameNumber', cors(), function (req, res) {
     }
 });
 
-router.put('/cons/:gameNumber', cors(), function (req, res) {
+router.put('/cons/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 

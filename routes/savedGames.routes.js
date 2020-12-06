@@ -3,11 +3,11 @@ const router = Router();
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
-const {v4: uuidv4} = require('uuid');
+const authMW = require('../middleware/authMW')
 
 
 
-router.get('/', function (req, res) {
+router.get('/', authMW, function (req, res) {
     try {
         let data = fs.readFileSync(path.join(__dirname + `/DB/saved_games.json`));
         let DB = JSON.parse(data);
@@ -26,7 +26,7 @@ router.get('/', function (req, res) {
     }
 });
 
-router.post('/', cors(), function (req, res) {
+router.post('/', authMW, cors(), function (req, res) {
     try {
         let data = fs.readFileSync(path.join(__dirname + "/DB/saved_games.json"));
 
