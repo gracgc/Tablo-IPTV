@@ -6,7 +6,7 @@ const cors = require('cors');
 const authMW = require('../middleware/authMW')
 
 
-router.get('/:gameNumber', authMW, function (req, res) {
+router.get('/:gameNumber', function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 

@@ -1,5 +1,5 @@
 // import React, {useEffect, useState} from "react";
-// import c from './Settings.module.css'
+// import c from './SetDevice.module.css'
 // import * as axios from "axios";
 // import {useDispatch, useSelector} from "react-redux";
 // import {getTimeData, putTimeoutStatus, putTimerStatus, setTimeDataAC} from "../../../redux/tablo_reducer";

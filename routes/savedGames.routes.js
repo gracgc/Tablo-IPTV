@@ -7,7 +7,7 @@ const authMW = require('../middleware/authMW')
 
 
 
-router.get('/', authMW, function (req, res) {
+router.get('/', function (req, res) {
     try {
         let data = fs.readFileSync(path.join(__dirname + `/DB/saved_games.json`));
         let DB = JSON.parse(data);

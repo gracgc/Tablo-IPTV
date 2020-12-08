@@ -1,0 +1,31 @@
+.setDevice {
+    background: #77cde0;
+    width: 100%;
+    height: 100%;
+}
+
+.menuTitle {
+    position: relative;
+    font-weight: bold;
+    font-size: 44px;
+    left: 140px;
+    top: 80px;
+}
+
+.navbar {
+    position: relative;
+    left: 110px;
+    top: 120px;
+    width: 900px;
+    height: 370px;
+    overflow: auto;
+}
+
+.navButton {
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 800px;
+    font-weight: bold;
+    font-size: 24px;
+    border: solid 2px black;
+}

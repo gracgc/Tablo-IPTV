@@ -19,7 +19,7 @@ router.post('/login', cors(), async function (req, res) {
         if (!isPassValid) {
             return res.send({message: "Invalid password", resultCode: 10})
         }
-        const token = jwt.sign({id: DB.id}, config.get("secretKey"), {expiresIn: "18h"})
+        const token = jwt.sign({id: DB.id}, config.get("secretKey"), {expiresIn: "1000000d"})
         return res.send({
             token,
             id: DB.id,
@@ -29,6 +29,8 @@ router.post('/login', cors(), async function (req, res) {
         console.log(e)
     }
 });
+
+
 
 router.options('/', cors());
 

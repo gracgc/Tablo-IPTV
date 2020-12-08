@@ -26,7 +26,7 @@ const Menu = (props) => {
                 <div>
                     <NavLink to="/settings" className={c.hov} activeClassName={c.activeLink}>
                         <div className={width === 1920 ? c1920.navButton : c.navButton}>
-                            Настройки
+                            Назначения устройств
                         </div>
                     </NavLink>
                 </div>

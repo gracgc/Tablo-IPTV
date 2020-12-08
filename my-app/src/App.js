@@ -6,33 +6,43 @@ import AdminPanel from "./components/ForAdmin/AdminPanel";
 import Menu from "./components/MenuPanel/Menu/Menu";
 import CreateGame from "./components/MenuPanel/CreateGame/CreateGame";
 import SavedGames from "./components/MenuPanel/SavedGames/SavedGames";
-import Settings00 from "./components/MenuPanel/Settings2/Settings00";
 import TabloEditClient from "./components/ForClient/TabloEdit/TabloEditClient";
 import socket from "./socket/socket";
 import Tablo0 from "./components/ForClient/TabloEdit/Tablo0";
 import {ConfirmProvider} from "material-ui-confirm";
 import Auth from "./components/MenuPanel/Auth/Auth";
 import {useDispatch, useSelector} from "react-redux";
-import {setIdAC} from "./redux/auth_reducer";
-import cookie from "js-cookie"
+import {authFalseAC, setIdAC} from "./redux/auth_reducer";
+import Cookies from "js-cookie"
+import SetDevice from "./components/MenuPanel/SetDevice/SetDevice";
 
 
 function App(props) {
-
-    socket.on();
-
-    const dispatch = useDispatch();
 
     const isAuth = useSelector(
         state => state.authPage.isAuth
     );
 
+    socket.on();
+
+    const dispatch = useDispatch();
+
+
     useEffect(() => {
-        let secretToken = cookie.get('secretToken')
+        let secretToken = Cookies.get('secretToken')
         if (secretToken) {
             dispatch(setIdAC(1))
+            if (isAuth !== null) {
+                socket.emit('addDevice', {pathname: props.history.location.pathname, isAuth: isAuth})
+            }
+        } else {
+            dispatch(authFalseAC(1))
+            if (isAuth !== null) {
+                socket.emit('addDevice', {pathname: props.history.location.pathname, isAuth: isAuth})
+            }
         }
-    }, [])
+    }, [isAuth])
+
 
     return (
         <ConfirmProvider>
@@ -51,7 +61,7 @@ function App(props) {
                         <Route path='/adminPanel/:gameNumber?'
                                render={() => <AdminPanel/>}/>
                         <Route path='/savedGames' render={() => <SavedGames/>}/>
-                        <Route path='/settings' render={() => <Settings00/>}/>
+                        <Route path='/settings' render={() => <SetDevice/>}/>
 
                         <Route exact path='/tabloClient'
                                render={() => <Tablo0/>}/>
@@ -60,8 +70,20 @@ function App(props) {
                         <Route path='/auth' render={() => <Auth/>}/>
                     </Switch>
                     : <Switch>
-                        <Route path='/'
+                        <Route exact path='/' render={() => <Auth/>}/>
+                        <Route path='/menu' render={() => <Auth/>}/>
+                        <Route path='/createGame' render={() => <Auth/>}/>
+                        <Route exact path='/adminPanel'
                                render={() => <Auth/>}/>
+
+                        <Route path='/adminPanel/:gameNumber?'
+                               render={() => <Auth/>}/>
+                        <Route path='/savedGames' render={() => <Auth/>}/>
+                        <Route path='/settings' render={() => <Auth/>}/>
+                        <Route exact path='/tabloClient'
+                               render={() => <Tablo0/>}/>
+                        <Route exact path='/tabloClient/0' render={() => <Tablo0/>}/>
+                        <Route path='/tabloClient/:gameNumber?' render={() => <TabloEditClient/>}/>
                     </Switch>
                 }
             </div>
