@@ -96,10 +96,51 @@ const TabloEditClient = (props) => {
         socket.on('getGameNumber', gameNumberX => {
                 if (gameNumberX !== gameNumber) {
                     props.history.push('/tabloClient/' + gameNumberX);
-                    window.location.reload()
+                    // window.location.reload()
+
+                    dispatch(getLog(gameNumberX));
+
+                    dispatch(getTeams(gameNumberX));
+
+                    getTimerStatus(gameNumberX).then(r => {
+                            ////TIMER////
+                            setIsRunningServer(r.isRunning);
+                            setCurrentTime(Date.now());
+                            setTimeMem(r.timeData.timeMem);
+                            setTimeDif(r.timeData.timeMem);
+                            setTimeMemTimer(r.timeData.timeMemTimer);
+                            setDeadLine(r.timeData.deadLine);
+                            ////TIMEOUT////
+                            setIsRunningServerTimeout(r.timeoutData.isRunning);
+                            setCurrentTimeTimeout(Date.now());
+                            setTimeMemTimeout(r.timeoutData.timeData.timeMem);
+                            setTimeDifTimeout(r.timeoutData.timeData.timeMem);
+                            setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
+                            setDeadLineTimeout(r.timeoutData.timeData.deadLine);
+
+                            if (r.isRunning) {
+                                getServerTime(gameNumberX, Date.now()).then(r => {
+                                    setDif(
+                                        (r.serverTime - r.runningTime)
+                                        // - (Math.round((Date.now() - r.localTime)/2))
+                                    )
+                                })
+                            }
+                            if (r.timeoutData.isRunning) {
+                                getServerTime(gameNumberX, Date.now()).then(r => {
+                                    setDifTimeout(
+                                        (r.serverTime - r.runningTimeTimeout)
+                                        // - (Math.round((Date.now() - r.localTime)/2))
+                                    )
+                                })
+                            }
+                        }
+                    );
+
                 } else return
             }
         );
+
         ////LOG LOAD///
         dispatch(getLog(gameNumber));
         socket.on(`getLog${gameNumber}`, log => {

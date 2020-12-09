@@ -8,6 +8,7 @@ import {Field, reduxForm, reset} from "redux-form";
 import {InputPassword} from "../../../common/FormsControls/FormsControls";
 import {login} from "../../../redux/auth_reducer";
 import errorStyle from '../../../common/FormsControls/FormsControls.module.css'
+import socket from "../../../socket/socket";
 
 
 const AuthForm = (props) => {
@@ -40,6 +41,7 @@ const Auth = (props) => {
     const onSubmit = (formData) => {
         dispatch(login(formData.password));
         if (isAuth) {
+            socket.emit('addDevice', {pathname: props.history.location.pathname, isAuth: isAuth})
             return <Redirect to={"/menu"}/>
         }
     };

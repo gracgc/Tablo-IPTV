@@ -41,7 +41,11 @@ io.on('connection', (socket) => {
                 DB.devices.push({id: socket.id, type: 'undefined'})
             }
         } else {
-            DB.devices.push({id: socket.id, type: 'admin'})
+            if (DB.devices.findIndex(user => user.id === socket.id) !== -1) {
+                DB.devices[DB.devices.findIndex(user => user.id === socket.id)].type = 'admin'
+            } else {
+                DB.devices.push({id: socket.id, type: 'admin'})
+            }
         }
 
         io.emit('getDevices', DB.devices)
