@@ -17,11 +17,12 @@ const AuthForm = (props) => {
         <div>
             <form onSubmit={props.handleSubmit}>
                 <div className={c.loginForm}>
+                    <div className={c.appName}>TABLO-BETA</div>
                     <Field placeholder={'Пароль'} name={'password'}
                            component={InputPassword}/>
                     {props.error && <div className={errorStyle.formSummaryError}>{props.error}</div>}
                     <button className={c.loginButton}>
-                        Login
+                        Войти
                     </button>
                 </div>
             </form>
@@ -49,8 +50,6 @@ const Auth = (props) => {
     const isAuth = useSelector(
         state => state.authPage.isAuth
     );
-
-
 
 
     return (

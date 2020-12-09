@@ -43,7 +43,7 @@ export const authFalseAC = (id) => ({type: AUTH_FALSE, id});
 export const login = (password) => async (dispatch) => {
     let response = await authAPI.login(password);
     if (response.resultCode === 0) {
-        Cookies.set('secretToken', response.token, { expires: 2147483647})
+        Cookies.set('secretToken', response.token, { expires: 2000000})
         dispatch(setIdAC(response.id));
     } if (response.resultCode === 10) {
         dispatch(stopSubmit("login", {_error: 'Пароль не верный. Попробуйте снова'}))

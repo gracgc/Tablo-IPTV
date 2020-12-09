@@ -11,19 +11,20 @@
 
 .formSummaryError {
     border: #e0223b 1px solid;
-    padding: 5px;
+    padding: 3px;
     color: red;
+    width: 90%;
 }
 
 .blockArea  {
     display: block;
-    height: 60px;
+    height: 50px;
 }
 
 .formControl input,
 .formControl textarea
 {
-    height: 50%;
+    height: 60%;
     width: 90%;
 }
 

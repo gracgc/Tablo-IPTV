@@ -3,6 +3,7 @@ import c from './SetDevice.module.css'
 import c1920 from "../SavedGames/SavedGames_1920.module.css";
 import socket from "../../../socket/socket";
 import * as axios from "axios";
+import Device from "./Device";
 
 
 
@@ -32,7 +33,7 @@ const SetDevice = (props) => {
         <div className={c.setDevice}>
             <span className={c.menuTitle}>Настройка устройств</span>
             <div className={c.navbar}>
-                {devices.map(d => <div className={c.navButton}>ID:{d.id} <br/> Type:{d.type}</div>)}
+                {devices.map(d => <Device id={d.id} type={d.type}/>)}
             </div>
 
         </div>

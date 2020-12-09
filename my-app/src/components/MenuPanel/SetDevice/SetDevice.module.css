@@ -28,4 +28,16 @@
     font-weight: bold;
     font-size: 24px;
     border: solid 2px black;
+    display: grid;
+    grid-template-columns: 70% 30%;
+}
+
+.changeDeviceType {
+    text-align: center;
+    font-weight: bold;
+    font-size: 20px;
+    border: solid 2px white;
+    background-color: #130757;
+    color: white;
+    cursor: pointer;
 }

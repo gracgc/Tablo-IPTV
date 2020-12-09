@@ -1,40 +1,28 @@
-.log {
-    width: 80%;
+.loginPage {
+    width: 100%;
     height: 100%;
-    padding-left: 30px;
+    background: #77cde0;;
 }
 
-.logWindow {
+.loginForm {
+    margin: auto;
+    width: 20%;
     position: relative;
-    height: 160px;
-    background: white;
-    overflow-y: scroll;
-    margin-bottom: 2%;
+    top: 200px;
 }
 
-.addLogButton {
+.loginButton {
     background: lightgreen;
     text-align: center;
     box-sizing: border-box;
     border: 2px solid black;
-    font-size: 28px;
+    font-size: 22px;
+    margin-top: 20px;
 }
 
-.logForm {
-    display: grid;
-    grid-template-columns: 90% 10%;
-    grid-template-rows: 35px;
-}
 
-.logItem {
-    padding-left: 15px;
-    padding-top: 2px;
-    font-size: 17px;
-    display: grid;
-    grid-template-columns: 95% 5%
-}
-
-.deleteButton {
-    cursor: pointer;
-    color: red;
+.appName {
+    margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: bolder;
 }
