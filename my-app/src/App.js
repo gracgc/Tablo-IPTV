@@ -46,47 +46,38 @@ function App(props) {
         }
     }, [isAuth])
 
+    useEffect(() => {
+        if (isAuth === false && props.history.location.pathname.indexOf('tabloClient') === -1) {
+            props.history.push("/auth")
+        }
+    }, [isAuth])
+
 
     return (
         <ConfirmProvider>
             <div className='app'>
-                {isAuth
-                    ? <Switch>
-                        <Route exact path='/'
-                               render={() => <Redirect to={"/menu"}/>}/>
-                        <Route exact path='/adminPanel'
-                               render={() => <Redirect to={"/menu"}/>}/>
-                        <Route path='/menu' render={() => <Menu/>}/>
-                        <Route path='/createGame' render={() => <CreateGame/>}/>
-                        <Route exact path='/adminPanel'
-                               render={() => <Menu/>}/>
+                <Switch>
+                    <Route exact path='/'
+                           render={() => <Redirect to={"/menu"}/>}/>
+                    <Route exact path='/adminPanel'
+                           render={() => <Redirect to={"/menu"}/>}/>
+                    <Route path='/menu' render={() => <Menu/>}/>
+                    <Route path='/createGame' render={() => <CreateGame/>}/>
+                    <Route exact path='/adminPanel'
+                           render={() => <Menu/>}/>
 
-                        <Route path='/adminPanel/:gameNumber?'
-                               render={() => <AdminPanel/>}/>
-                        <Route path='/savedGames' render={() => <SavedGames/>}/>
-                        <Route path='/settings' render={() => <SetDevice/>}/>
+                    <Route path='/adminPanel/:gameNumber?'
+                           render={() => <AdminPanel/>}/>
+                    <Route path='/savedGames' render={() => <SavedGames/>}/>
+                    <Route path='/settings' render={() => <SetDevice/>}/>
 
-                        <Route exact path='/tabloClient'
-                               render={() => <Tablo0/>}/>
-                        <Route exact path='/tabloClient/0' render={() => <Tablo0/>}/>
-                        <Route path='/tabloClient/:gameNumber?' render={() => <TabloEditClient/>}/>
-                        <Route path='/auth' render={() => <Auth/>}/>
-                    </Switch>
-                    : <Switch>
-                        <Route exact path='/' render={() => <Auth/>}/>
-                        <Route path='/menu' render={() => <Auth/>}/>
-                        <Route path='/createGame' render={() => <Auth/>}/>
-                        <Route exact path='/adminPanel'
-                               render={() => <Auth/>}/>
-                        <Route exact path='/adminPanel/:gameNumber?'
-                               render={() => <Auth/>}/>
-                        <Route exact path='/savedGames' render={() => <Auth/>}/>
-                        <Route exact path='/tabloClient'
-                               render={() => <Tablo0/>}/>
-                        <Route exact path='/tabloClient/0' render={() => <Tablo0/>}/>
-                        <Route path='/tabloClient/:gameNumber?' render={() => <TabloEditClient/>}/>
-                    </Switch>
-                }
+                    <Route exact path='/tabloClient'
+                           render={() => <Tablo0/>}/>
+                    <Route exact path='/tabloClient/0' render={() => <Tablo0/>}/>
+                    <Route path='/tabloClient/:gameNumber?' render={() => <TabloEditClient/>}/>
+                    <Route path='/auth' render={() => <Auth/>}/>
+                </Switch>
+
             </div>
         </ConfirmProvider>
     )
