@@ -24,7 +24,6 @@ const SetDevice = (props) => {
         })
         socket.on('getDevices', devices => {
             setDevices(devices)
-            console.log(devices)
         })
     }, []);
 

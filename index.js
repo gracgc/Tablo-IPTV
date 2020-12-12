@@ -50,6 +50,7 @@ io.on('connection', (socket) => {
 
         io.emit('getDevices', DB.devices)
 
+
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname, `/routes/DB/devices.json`), json, 'utf8');

@@ -15,6 +15,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {authFalseAC, setIdAC} from "./redux/auth_reducer";
 import Cookies from "js-cookie"
 import SetDevice from "./components/MenuPanel/SetDevice/SetDevice";
+import {setSocketIDAC} from "./redux/app_reducer";
 
 
 function App(props) {
@@ -23,9 +24,11 @@ function App(props) {
         state => state.authPage.isAuth
     );
 
-    socket.on();
-
     const dispatch = useDispatch();
+
+    socket.on("connect", () => {
+        dispatch(setSocketIDAC(socket.id))
+    });
 
 
     useEffect(() => {

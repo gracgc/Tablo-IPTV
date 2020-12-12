@@ -24,6 +24,8 @@ const AuthForm = (props) => {
                     <button className={c.loginButton}>
                         Войти
                     </button>
+                    <br/>
+                    ID устройства: {props.socketID}
                 </div>
             </form>
         </div>
@@ -37,7 +39,12 @@ const Auth = (props) => {
 
     const dispatch = useDispatch();
 
+    const socketID = useSelector(
+        state => state.appPage.socketID
+    );
+
     let width = window.innerWidth;
+
 
     const onSubmit = (formData) => {
         dispatch(login(formData.password));
@@ -52,9 +59,10 @@ const Auth = (props) => {
     );
 
 
+
     return (
         <div className={c.loginPage}>
-            <LoginReduxForm onSubmit={onSubmit}/>
+            <LoginReduxForm onSubmit={onSubmit} socketID={socketID}/>
         </div>
     )
 };
