@@ -4,6 +4,7 @@ import c1920 from "../SavedGames/SavedGames_1920.module.css";
 import socket from "../../../socket/socket";
 import * as axios from "axios";
 import Device from "./Device";
+import {NavLink} from "react-router-dom";
 
 
 
@@ -34,6 +35,11 @@ const SetDevice = (props) => {
             <div className={c.navbar}>
                 {devices.map(d => <Device id={d.id} type={d.type}/>)}
             </div>
+            <NavLink to="/">
+                <div className={c.navBackButton}>
+                    Вернуться в меню
+                </div>
+            </NavLink>
 
         </div>
     )

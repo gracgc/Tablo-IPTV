@@ -2,13 +2,12 @@ import React, {useEffect, useState} from 'react'
 import c from './Auth.module.css'
 import c1920 from './Auth_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {Redirect, withRouter} from "react-router-dom";
-import {compose} from "redux";
 import {Field, reduxForm, reset} from "redux-form";
 import {InputPassword} from "../../../common/FormsControls/FormsControls";
 import {login} from "../../../redux/auth_reducer";
 import errorStyle from '../../../common/FormsControls/FormsControls.module.css'
 import socket from "../../../socket/socket";
+import {useHistory} from "react-router";
 
 
 const AuthForm = (props) => {
@@ -43,6 +42,12 @@ const Auth = (props) => {
         state => state.appPage.socketID
     );
 
+    const isAuth = useSelector(
+        state => state.authPage.isAuth
+    );
+
+    let history = useHistory();
+
     let width = window.innerWidth;
 
 
@@ -50,13 +55,17 @@ const Auth = (props) => {
         dispatch(login(formData.password));
         if (isAuth) {
             socket.emit('addDevice', {pathname: props.history.location.pathname, isAuth: isAuth})
-            return <Redirect to={"/menu"}/>
+            // return <Redirect to={"/menu"}/>
         }
     };
 
-    const isAuth = useSelector(
-        state => state.authPage.isAuth
-    );
+    useEffect(() => {
+        socket.on('setDevicePage', deviceType => {
+            if (deviceType === 'Main Tablo') {
+                history.push("/tabloClient/0");
+            }
+        })
+    }, [])
 
 
 
@@ -67,4 +76,4 @@ const Auth = (props) => {
     )
 };
 
-export default compose(withRouter)(Auth);
+export default Auth;

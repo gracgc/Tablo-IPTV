@@ -17,7 +17,7 @@
     left: 110px;
     top: 120px;
     width: 900px;
-    height: 370px;
+    height: 600px;
     overflow: auto;
 }
 
@@ -40,4 +40,31 @@
     background-color: #130757;
     color: white;
     cursor: pointer;
+    padding: 5px;
+}
+
+.device {
+    font-size: 16px;
+    border: solid 2px #130757;
+    background-color: white;
+    color: #130757;
+    padding: 3px;
+    cursor: pointer;
+}
+
+.device:hover {
+    background-color: #D5DEEF;
+}
+
+.navBackButton {
+    position: absolute;
+    float: right;
+    right: 30px;
+    bottom: 30px;
+    width: 200px;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+    font-size: 22px;
+    border: solid 2px black;
 }

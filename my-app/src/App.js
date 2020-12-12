@@ -78,11 +78,9 @@ function App(props) {
                         <Route path='/createGame' render={() => <Auth/>}/>
                         <Route exact path='/adminPanel'
                                render={() => <Auth/>}/>
-
-                        <Route path='/adminPanel/:gameNumber?'
+                        <Route exact path='/adminPanel/:gameNumber?'
                                render={() => <Auth/>}/>
-                        <Route path='/savedGames' render={() => <Auth/>}/>
-                        <Route path='/settings' render={() => <Auth/>}/>
+                        <Route exact path='/savedGames' render={() => <Auth/>}/>
                         <Route exact path='/tabloClient'
                                render={() => <Tablo0/>}/>
                         <Route exact path='/tabloClient/0' render={() => <Tablo0/>}/>

@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import c from "./TeamGamers.module.css";
 import c1920 from './TeamGamers_1920.module.css'
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import {useDispatch, useSelector} from "react-redux";
 
 
 const GamerMenu = (props) => {

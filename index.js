@@ -35,16 +35,16 @@ io.on('connection', (socket) => {
 
 
         if (res.isAuth === false) {
-            if (res.pathname === '/tabloClient' || res.pathname === '/tabloClient/0') {
-                DB.devices.push({id: socket.id, type: 'tablo0'})
+            if (res.pathname.indexOf('tabloClient') !== -1) {
+                DB.devices.push({id: socket.id, type: 'Main Tablo'})
             } else {
                 DB.devices.push({id: socket.id, type: 'undefined'})
             }
         } else {
             if (DB.devices.findIndex(user => user.id === socket.id) !== -1) {
-                DB.devices[DB.devices.findIndex(user => user.id === socket.id)].type = 'admin'
+                DB.devices[DB.devices.findIndex(user => user.id === socket.id)].type = 'Admin'
             } else {
-                DB.devices.push({id: socket.id, type: 'admin'})
+                DB.devices.push({id: socket.id, type: 'Admin'})
             }
         }
 
