@@ -7,7 +7,7 @@
 .menuTitle {
     position: relative;
     font-weight: bold;
-    font-size: 44px;
+    font-size: 56px;
     left: 140px;
     top: 80px;
 }
@@ -16,17 +16,17 @@
     position: relative;
     left: 110px;
     top: 120px;
-    width: 880px;
-    height: 500px;
+    width: 1080px;
+    height: 800px;
     overflow: auto;
 }
 
 .navButton {
     margin-bottom: 20px;
     padding: 10px;
-    width: 800px;
+    width: 1000px;
     font-weight: bold;
-    font-size: 24px;
+    font-size: 30px;
     border: solid 2px black;
     display: grid;
     grid-template-columns: 70% 30%;
@@ -35,7 +35,7 @@
 .changeDeviceType {
     text-align: center;
     font-weight: bold;
-    font-size: 20px;
+    font-size: 26px;
     border: solid 2px white;
     background-color: #130757;
     color: white;
@@ -61,10 +61,10 @@
     float: right;
     right: 30px;
     bottom: 30px;
-    width: 200px;
+    width: 280px;
     text-align: center;
     padding: 20px;
     font-weight: bold;
-    font-size: 22px;
+    font-size: 30px;
     border: solid 2px black;
 }

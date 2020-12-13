@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react'
 import c from './Auth.module.css'
-import c1920 from './Auth_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {Field, reduxForm, reset} from "redux-form";
 import {InputPassword} from "../../../common/FormsControls/FormsControls";
@@ -47,9 +46,6 @@ const Auth = (props) => {
     );
 
     let history = useHistory();
-
-    let width = window.innerWidth;
-
 
     const onSubmit = (formData) => {
         dispatch(login(formData.password));

@@ -1,10 +1,13 @@
 import React, {useState} from "react";
-import c from './SetDevice.module.css'
+import c from './SetDevice.module.css';
+import c1920 from './SetDevice_1920.module.css';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import * as axios from "axios";
 
 
 const Device = (props) => {
+
+    let width = window.innerWidth;
 
     const [showDeviceMenu, setShowDeviceMenu] = useState(false);
 
@@ -33,7 +36,7 @@ const Device = (props) => {
 
     return (
         <ClickAwayListener onClickAway={handleClickAway}>
-            <div className={c.navButton}>
+            <div className={width === 1920 ? c1920.navButton : c.navButton}>
                 <div>
                     Type: {props.type} <br/>
                     ID: {props.id}
@@ -41,14 +44,17 @@ const Device = (props) => {
                 {props.type !== 'Admin' &&
                 <div>
                     {!showDeviceMenu
-                        ? <div className={c.changeDeviceType} onClick={(e) => openDeviceMenu()}>
+                        ? <div className={width === 1920 ? c1920.changeDeviceType : c.changeDeviceType}
+                               onClick={(e) => openDeviceMenu()}>
                             Назначить тип устройства
                         </div>
-                        : <div className={c.changeDeviceType} onClick={(e) => openDeviceMenu()}>
+                        : <div className={width === 1920 ? c1920.changeDeviceType : c.changeDeviceType}
+                               onClick={(e) => openDeviceMenu()}>
                             Выберете устройство
                         </div>
                     }
-                    {showDeviceMenu && devicesMenu.map(d => <div className={c.device} onClick={(e) => setDeviceType(d, props.id)}>
+                    {showDeviceMenu && devicesMenu.map(d => <div className={width === 1920 ? c1920.device : c.device}
+                                                                 onClick={(e) => setDeviceType(d, props.id)}>
                         {d}
                     </div>)}
                 </div>
