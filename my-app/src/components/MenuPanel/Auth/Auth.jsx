@@ -51,7 +51,7 @@ const Auth = (props) => {
         dispatch(login(formData.password));
         if (isAuth) {
             socket.emit('addDevice', {pathname: props.history.location.pathname, isAuth: isAuth})
-            // return <Redirect to={"/menu"}/>
+            return <Redirect to={"/menu"}/>
         }
     };
 
