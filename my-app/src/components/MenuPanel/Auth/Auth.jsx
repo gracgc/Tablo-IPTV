@@ -60,12 +60,12 @@ const Auth = (props) => {
     };
 
     useEffect(() => {
-        socket.on('setDevicePage', deviceType => {
+        socket.on(`setDevicePage${socketID}`, deviceType => {
             if (deviceType === 'Main Tablo') {
                 history.push("/tabloClient/0");
             }
         })
-    }, [])
+    }, [socketID])
 
 
 

@@ -38,7 +38,7 @@ router.put('/', cors(), function (req, res) {
         const io = req.app.locals.io;
 
         io.emit('getDevices', DB.devices)
-        io.emit('setDevicePage', deviceType)
+        io.emit(`setDevicePage${deviceId}`, deviceType)
 
     } catch (e) {
         console.log(e)
