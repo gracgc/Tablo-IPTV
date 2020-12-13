@@ -49,11 +49,14 @@ const Auth = (props) => {
 
     const onSubmit = (formData) => {
         dispatch(login(formData.password));
+    };
+
+    useEffect(() => {
         if (isAuth) {
-            socket.emit('addDevice', {pathname: props.history.location.pathname, isAuth: isAuth})
+            socket.emit('addDevice', {pathname: history.location.pathname, isAuth: isAuth})
             history.push("/menu");
         }
-    };
+    }, [isAuth])
 
     useEffect(() => {
         socket.on(`setDevicePage${socketID}`, deviceType => {

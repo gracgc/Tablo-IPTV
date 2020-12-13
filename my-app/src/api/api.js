@@ -129,35 +129,7 @@ export const gameAPI = {
 };
 
 export const tabloAPI = {
-    getTime(gameNumber) {
-        return instance.get(`time/${gameNumber}`)
-            .then(responce => {
-                return responce.data
-            })
-    },
-    putTimerStatus(gameNumber, isRunning, timeDif,
-                   timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime) {
-        return instance.put(`time/isRunning/${gameNumber}`, {
-            isRunning,
-            timeDif,
-            timeMem,
-            timeMemTimer,
-            deadLine,
-            period,
-            smallOvertime,
-            bigOvertime
-        })
-    },
-    putTimeoutStatus(gameNumber, isRunning, timeDif,
-                     timeMem, timeMemTimer, deadLine) {
-        return instance.put(`time/isRunningTimeout/${gameNumber}`, {
-            isRunning,
-            timeDif,
-            timeMem,
-            timeMemTimer,
-            deadLine
-        })
-    }
+    
 };
 
 export const authAPI = {
