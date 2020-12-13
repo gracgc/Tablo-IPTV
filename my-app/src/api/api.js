@@ -129,7 +129,7 @@ export const gameAPI = {
 };
 
 export const tabloAPI = {
-    
+
 };
 
 export const authAPI = {
