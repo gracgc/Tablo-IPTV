@@ -166,7 +166,7 @@ export const tabloAPI = {
             });
     },
     putDeadline(gameNumber, deadLine, timeMemTimer, timeDif, timeMem) {
-        return axios.put(`time/deadline/${gameNumber}`, {
+        return instance.put(`time/deadline/${gameNumber}`, {
             deadLine,
             timeMemTimer,
             timeDif,
