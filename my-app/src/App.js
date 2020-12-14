@@ -16,6 +16,7 @@ import {authFalseAC, setIdAC} from "./redux/auth_reducer";
 import Cookies from "js-cookie"
 import SetDevice from "./components/MenuPanel/SetDevice/SetDevice";
 import {setSocketIDAC} from "./redux/app_reducer";
+import {useHistory} from "react-router";
 
 
 function App(props) {
@@ -26,6 +27,8 @@ function App(props) {
 
     const dispatch = useDispatch();
 
+    let history = useHistory();
+
     socket.on("connect", () => {
         dispatch(setSocketIDAC(socket.id))
     });
@@ -34,22 +37,22 @@ function App(props) {
     useEffect(() => {
         let secretToken = Cookies.get('secretToken')
         if (secretToken) {
-            props.history.push("/menu")
+            history.push("/menu")
             dispatch(setIdAC(1))
             if (isAuth !== null) {
-                socket.emit('addDevice', {pathname: props.history.location.pathname, isAuth: isAuth})
+                socket.emit('addDevice', {pathname: history.location.pathname, isAuth: isAuth})
             }
         } else {
             dispatch(authFalseAC(1))
             if (isAuth !== null) {
-                socket.emit('addDevice', {pathname: props.history.location.pathname, isAuth: isAuth})
+                socket.emit('addDevice', {pathname: history.location.pathname, isAuth: isAuth})
             }
         }
     }, [isAuth])
 
     useEffect(() => {
-        if (isAuth === false && props.history.location.pathname.indexOf('tabloClient') === -1) {
-            props.history.push("/auth")
+        if (isAuth === false && history.location.pathname.indexOf('tabloClient') === -1) {
+            history.push("/auth")
         }
     }, [isAuth])
 
