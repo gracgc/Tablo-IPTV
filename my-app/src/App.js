@@ -34,6 +34,7 @@ function App(props) {
     useEffect(() => {
         let secretToken = Cookies.get('secretToken')
         if (secretToken) {
+            props.history.push("/menu")
             dispatch(setIdAC(1))
             if (isAuth !== null) {
                 socket.emit('addDevice', {pathname: props.history.location.pathname, isAuth: isAuth})
