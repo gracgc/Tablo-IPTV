@@ -13,7 +13,7 @@ import {tabloAPI} from "../../../api/api";
 
 const TabloEditClient = (props) => {
 
-    let gameNumber = props.match.params.gameNumber;
+    let [gameNumber, setGameNumber] = useState(props.match.params.gameNumber);
 
     const dispatch = useDispatch();
 
@@ -75,55 +75,19 @@ const TabloEditClient = (props) => {
 
     let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
 
-
     useEffect(() => {
         ////LOAD NEW DATA////
         socket.on('getGameNumber', gameNumberX => {
-                if (gameNumberX !== gameNumber) {
-                    props.history.push('/tabloClient/' + gameNumberX);
+                props.history.push(`/tabloClient/${gameNumberX}`);
 
-                    dispatch(getLog(gameNumberX));
-
-                    dispatch(getTeams(gameNumberX));
-
-                    tabloAPI.getTimerStatus(gameNumberX).then(r => {
-                            ////TIMER////
-                            setIsRunningServer(r.isRunning);
-                            setCurrentTime(Date.now());
-                            setTimeMem(r.timeData.timeMem);
-                            setTimeDif(r.timeData.timeMem);
-                            setTimeMemTimer(r.timeData.timeMemTimer);
-                            setDeadLine(r.timeData.deadLine);
-                            ////TIMEOUT////
-                            setIsRunningServerTimeout(r.timeoutData.isRunning);
-                            setCurrentTimeTimeout(Date.now());
-                            setTimeMemTimeout(r.timeoutData.timeData.timeMem);
-                            setTimeDifTimeout(r.timeoutData.timeData.timeMem);
-                            setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
-                            setDeadLineTimeout(r.timeoutData.timeData.deadLine);
-
-                            if (r.isRunning) {
-                                tabloAPI.getServerTime(gameNumberX, Date.now()).then(r => {
-                                    setDif(
-                                        (r.serverTime - r.runningTime)
-                                        // - (Math.round((Date.now() - r.localTime)/2))
-                                    )
-                                })
-                            }
-                            if (r.timeoutData.isRunning) {
-                                tabloAPI.getServerTime(gameNumberX, Date.now()).then(r => {
-                                    setDifTimeout(
-                                        (r.serverTime - r.runningTimeTimeout)
-                                        // - (Math.round((Date.now() - r.localTime)/2))
-                                    )
-                                })
-                            }
-                        }
-                    );
-
-                } else return
+                setGameNumber(gameNumberX)
             }
         );
+    }, [])
+
+
+    useEffect(() => {
+
 
         ////LOG LOAD///
         dispatch(getLog(gameNumber));
@@ -176,7 +140,7 @@ const TabloEditClient = (props) => {
 
         ////Socket IO////
         socket.on(`getTime${gameNumber}`, time => {
-            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+                tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                     setDif(
                         (r.serverTime - time.runningTime)
                         // - (Math.round((Date.now() - r.localTime)/2))
@@ -191,7 +155,7 @@ const TabloEditClient = (props) => {
             }
         );
         socket.on(`getTimeout${gameNumber}`, time => {
-            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+                tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                     setDifTimeout(
                         (r.serverTime - time.runningTime)
                         // + (Math.round((Date.now() - r.localTime)/2))
@@ -205,7 +169,7 @@ const TabloEditClient = (props) => {
                 setDeadLineTimeout(time.timeData.deadLine);
             }
         )
-    }, []);
+    }, [gameNumber]);
 
     useEffect(() => {
         setIsShowLog(true);

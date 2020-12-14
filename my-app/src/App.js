@@ -25,6 +25,8 @@ function App(props) {
         state => state.authPage.isAuth
     );
 
+
+
     const dispatch = useDispatch();
 
     let history = useHistory();
