@@ -129,7 +129,50 @@ export const gameAPI = {
 };
 
 export const tabloAPI = {
-
+    getTimerStatus(gameNumber) {
+        return instance.get(`time/${gameNumber}`).then(responce => {
+            return responce.data
+        })
+    },
+    putTimeoutStatus(gameNumber, isRunning, timeDif,
+                     timeMem, timeMemTimer, deadLine) {
+        return instance.put(`time/isRunningTimeout/${gameNumber}`, {
+            isRunning,
+            timeDif,
+            timeMem,
+            timeMemTimer,
+            deadLine
+        }).then(responce => {
+            return responce.data
+        })
+    },
+    putTimerStatus(gameNumber, isRunning, timeDif,
+                            timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime) {
+        return instance.put(`time/isRunning/${gameNumber}`, {
+            isRunning,
+            timeDif,
+            timeMem,
+            timeMemTimer,
+            deadLine,
+            period,
+            smallOvertime,
+            bigOvertime
+        })
+    },
+    getServerTime(gameNumber, localTime) {
+        return instance.post(`time/serverTime/${gameNumber}`, {localTime})
+            .then(responce => {
+                return responce.data
+            });
+    },
+    putDeadline(gameNumber, deadLine, timeMemTimer, timeDif, timeMem) {
+        return axios.put(`time/deadline/${gameNumber}`, {
+            deadLine,
+            timeMemTimer,
+            timeDif,
+            timeMem
+        })
+    }
 };
 
 export const authAPI = {
@@ -138,5 +181,11 @@ export const authAPI = {
             .then(responce => {
                 return responce.data
             })
+    }
+};
+
+export const devicesAPI = {
+    putDeviceType(deviceType, deviceId) {
+        return instance.put(`devices`, {deviceType, deviceId})
     }
 };

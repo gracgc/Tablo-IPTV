@@ -4,8 +4,7 @@ import c1920 from './AddOptions_1920.module.css'
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import * as axios from "axios";
-import {useDispatch, useSelector} from "react-redux";
-
+import {tabloAPI} from "../../../api/api";
 
 
 const AddOptions = (props) => {
@@ -14,17 +13,9 @@ const AddOptions = (props) => {
 
     let width = window.innerWidth;
 
-    const putDeadline = (gameNumber, deadLine, timeMemTimer, timeDif, timeMem) => {
-        return axios.put(`/api/time/deadline/${gameNumber}`, {
-            deadLine,
-            timeMemTimer,
-            timeDif,
-            timeMem
-        })
-    };
 
     const putNewDeadLine = (deadLine) => {
-        putDeadline(gameNumber, deadLine, deadLine, 0, 0);
+        tabloAPI.putDeadline(gameNumber, deadLine, deadLine, 0, 0);
     };
 
 

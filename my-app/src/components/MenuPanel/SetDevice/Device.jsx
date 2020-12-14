@@ -3,6 +3,7 @@ import c from './SetDevice.module.css';
 import c1920 from './SetDevice_1920.module.css';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import * as axios from "axios";
+import {devicesAPI} from "../../../api/api";
 
 
 const Device = (props) => {
@@ -15,11 +16,6 @@ const Device = (props) => {
         'Main Tablo'
     ]
 
-    const putDeviceType = (deviceType, deviceId) => {
-        return axios.put(`/api/devices`, {deviceType, deviceId})
-    };
-
-
     const openDeviceMenu = (y) => {
         setShowDeviceMenu(!showDeviceMenu)
     };
@@ -29,7 +25,7 @@ const Device = (props) => {
     };
 
     const setDeviceType = (deviceType, deviceId) => {
-        putDeviceType(deviceType, deviceId)
+        devicesAPI.putDeviceType(deviceType, deviceId)
         setShowDeviceMenu(!showDeviceMenu)
     };
 

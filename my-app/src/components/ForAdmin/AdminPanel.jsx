@@ -5,31 +5,18 @@ import TabloEdit from "./TabloEdit/TabloEdit";
 import Log from "./Log/Log";
 import Info from "./Info/Info";
 import AddOptions from "./AddOptions/AddOptions";
-import * as axios from "axios";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import socket from "../../socket/socket";
-import {putGameNumber, setGameNumberAC} from "../../redux/app_reducer";
-
+import {tabloAPI} from "../../api/api";
 
 const AdminPanel = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
-    let width = window.innerWidth;
-
-    const getTimerStatus = (gameNumber) => {
-        return axios.get(`/api/time/${gameNumber}`)
-            .then(responce => {
-                return responce.data
-            });
-    };
-
     let [period, setPeriod] = useState();
 
     useEffect(() => {
-        getTimerStatus(gameNumber).then(r => {
+        tabloAPI.getTimerStatus(gameNumber).then(r => {
                 setPeriod(r.period);
             }
         );

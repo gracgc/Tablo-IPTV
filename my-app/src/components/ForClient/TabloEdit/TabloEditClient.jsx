@@ -5,10 +5,10 @@ import {useDispatch, useSelector} from "react-redux";
 import TabloClient from "./TabloClient";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import * as axios from "axios";
 import {getLog, setLogDataAC} from "../../../redux/log_reducer";
 import {getTeams, setTeamsAC} from "../../../redux/teams_reducer";
 import socket from "../../../socket/socket";
+import {tabloAPI} from "../../../api/api";
 
 
 const TabloEditClient = (props) => {
@@ -75,34 +75,18 @@ const TabloEditClient = (props) => {
 
     let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
 
-    const getTimerStatus = (gameNumber) => {
-        return axios.get(`/api/time/${gameNumber}`)
-            .then(responce => {
-                return responce.data
-            });
-    };
-
-    const getServerTime = (gameNumber, localTime) => {
-        return axios.post(`/api/time/serverTime/${gameNumber}`, {localTime})
-            .then(responce => {
-                return responce.data
-            });
-    };
-
-
 
     useEffect(() => {
         ////LOAD NEW DATA////
         socket.on('getGameNumber', gameNumberX => {
                 if (gameNumberX !== gameNumber) {
                     props.history.push('/tabloClient/' + gameNumberX);
-                    // window.location.reload()
 
                     dispatch(getLog(gameNumberX));
 
                     dispatch(getTeams(gameNumberX));
 
-                    getTimerStatus(gameNumberX).then(r => {
+                    tabloAPI.getTimerStatus(gameNumberX).then(r => {
                             ////TIMER////
                             setIsRunningServer(r.isRunning);
                             setCurrentTime(Date.now());
@@ -119,7 +103,7 @@ const TabloEditClient = (props) => {
                             setDeadLineTimeout(r.timeoutData.timeData.deadLine);
 
                             if (r.isRunning) {
-                                getServerTime(gameNumberX, Date.now()).then(r => {
+                                tabloAPI.getServerTime(gameNumberX, Date.now()).then(r => {
                                     setDif(
                                         (r.serverTime - r.runningTime)
                                         // - (Math.round((Date.now() - r.localTime)/2))
@@ -127,7 +111,7 @@ const TabloEditClient = (props) => {
                                 })
                             }
                             if (r.timeoutData.isRunning) {
-                                getServerTime(gameNumberX, Date.now()).then(r => {
+                                tabloAPI.getServerTime(gameNumberX, Date.now()).then(r => {
                                     setDifTimeout(
                                         (r.serverTime - r.runningTimeTimeout)
                                         // - (Math.round((Date.now() - r.localTime)/2))
@@ -154,7 +138,7 @@ const TabloEditClient = (props) => {
             }
         );
         ////TIME LOAD////
-        getTimerStatus(gameNumber).then(r => {
+        tabloAPI.getTimerStatus(gameNumber).then(r => {
                 ////TIMER////
                 setIsRunningServer(r.isRunning);
                 setCurrentTime(Date.now());
@@ -171,7 +155,7 @@ const TabloEditClient = (props) => {
                 setDeadLineTimeout(r.timeoutData.timeData.deadLine);
 
                 if (r.isRunning) {
-                    getServerTime(gameNumber, Date.now()).then(r => {
+                    tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                         setDif(
                             (r.serverTime - r.runningTime)
                             // - (Math.round((Date.now() - r.localTime)/2))
@@ -179,7 +163,7 @@ const TabloEditClient = (props) => {
                     })
                 }
                 if (r.timeoutData.isRunning) {
-                    getServerTime(gameNumber, Date.now()).then(r => {
+                    tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                         setDifTimeout(
                             (r.serverTime - r.runningTimeTimeout)
                             // - (Math.round((Date.now() - r.localTime)/2))
@@ -192,7 +176,7 @@ const TabloEditClient = (props) => {
 
         ////Socket IO////
         socket.on(`getTime${gameNumber}`, time => {
-                getServerTime(gameNumber, Date.now()).then(r => {
+            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                     setDif(
                         (r.serverTime - time.runningTime)
                         // - (Math.round((Date.now() - r.localTime)/2))
@@ -207,7 +191,7 @@ const TabloEditClient = (props) => {
             }
         );
         socket.on(`getTimeout${gameNumber}`, time => {
-                getServerTime(gameNumber, Date.now()).then(r => {
+            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                     setDifTimeout(
                         (r.serverTime - time.runningTime)
                         // + (Math.round((Date.now() - r.localTime)/2))

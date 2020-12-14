@@ -7,6 +7,7 @@ import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import * as axios from "axios";
 import socket from "../../../socket/socket";
+import {tabloAPI} from "../../../api/api";
 
 
 const Info = (props) => {
@@ -41,26 +42,12 @@ const Info = (props) => {
     let minutesStopwatch = Math.floor(timeDif / (1000 * 60)) + (period - 1) * 20 + (smallOvertime * 5) + (bigOvertime * 20);
 
 
-    const getTimerStatus = (gameNumber) => {
-        return axios.get(`/api/time/${gameNumber}`)
-            .then(responce => {
-                return responce.data
-            });
-    };
-
-    const getServerTime = (gameNumber, localTime) => {
-        return axios.post(`/api/time/serverTime/${gameNumber}`, {localTime})
-            .then(responce => {
-                return responce.data
-            });
-    };
-
     useEffect(() => {
         dispatch(getGame(gameNumber));
         socket.on(`getGame${gameNumber}`, game => {
             dispatch(setGameDataAC(game))
         });
-        getTimerStatus(gameNumber).then(r => {
+        tabloAPI.getTimerStatus(gameNumber).then(r => {
                 ////TIMER////
                 setIsRunningServer(r.isRunning);
                 setCurrentTime(Date.now());
@@ -72,7 +59,7 @@ const Info = (props) => {
                 setSmallOvertime(r.smallOvertime);
                 setBigOvertime(r.bigOvertime);
                 if (r.isRunning) {
-                    getServerTime(gameNumber, Date.now()).then(r => {
+                    tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                         setDif(
                             (r.serverTime - r.runningTime)
                             // - (Math.round((Date.now() - r.localTime)/2))
@@ -84,7 +71,7 @@ const Info = (props) => {
 
         ////Socket IO////
         socket.on(`getTime${gameNumber}`, time => {
-                getServerTime(gameNumber, Date.now()).then(r => {
+            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                     setDif(
                         (r.serverTime - time.runningTime)
                         // - (Math.round((Date.now() - r.localTime)/2))

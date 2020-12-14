@@ -6,8 +6,8 @@ import TeamInfo from "./Teams/TeamInfo";
 import {getTeams, setTeamsAC} from "../../../redux/teams_reducer";
 import {compose} from "redux";
 import {NavLink, withRouter} from "react-router-dom";
-import * as axios from "axios";
 import socket from "../../../socket/socket";
+import {tabloAPI} from "../../../api/api";
 
 
 const TeamsParameters = (props) => {
@@ -29,15 +29,9 @@ const TeamsParameters = (props) => {
 
     const dispatch = useDispatch();
 
-    const getTimerStatus = (gameNumber) => {
-        return axios.get(`/api/time/${gameNumber}`)
-            .then(responce => {
-                return responce.data
-            });
-    };
 
     useEffect(() => {
-        getTimerStatus(gameNumber).then(r => {
+        tabloAPI.getTimerStatus(gameNumber).then(r => {
             setTimeMem(r.timeData.timeMem);
             setTimeMemTimer(r.timeData.timeMemTimer);
             setPeriod(r.period);

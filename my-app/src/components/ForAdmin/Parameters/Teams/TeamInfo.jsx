@@ -4,7 +4,7 @@ import c1920 from './TeamInfo_1920.module.css'
 import TeamGamers from "./TeamGamers";
 import {addNewLog} from "../../../../redux/log_reducer";
 import {useDispatch, useSelector} from "react-redux";
-import * as axios from "axios";
+import {tabloAPI} from "../../../../api/api";
 
 
 const TeamInfo = (props) => {
@@ -16,32 +16,22 @@ const TeamInfo = (props) => {
     let secondsStopwatch = Math.floor(props.timeMem / 1000) % 60;
     let minutesStopwatch = Math.floor(props.timeMem / (1000 * 60)) + (props.period - 1) * 20;
 
-    const putTimeoutStatus = (gameNumber, isRunning, timeDif,
-                              timeMem, timeMemTimer, deadLine) => {
-        return axios.put(`/api/time/isRunningTimeout/${gameNumber}`, {
-            isRunning,
-            timeDif,
-            timeMem,
-            timeMemTimer,
-            deadLine
-        })
-    };
 
 
     let startTimeout = () => {
-        putTimeoutStatus(props.gameNumber, true, 0, 0, 30000, 30000);
+        tabloAPI.putTimeoutStatus(props.gameNumber, true, 0, 0, 30000, 30000);
         dispatch(addNewLog(props.gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - Старт таймаута для ${props.name}`));
     };
 
     let setTimeout = () => {
-        putTimeoutStatus(props.gameNumber, false, 0, 0, 30000, 30000);
+        tabloAPI.putTimeoutStatus(props.gameNumber, false, 0, 0, 30000, 30000);
         dispatch(addNewLog(props.gameNumber,
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - Таймаут установлен для ${props.name}`));
     };
 
     let clearTimeout = () => {
-        putTimeoutStatus(props.gameNumber, false, 0, 0, 0, 0);
+        tabloAPI.putTimeoutStatus(props.gameNumber, false, 0, 0, 0, 0);
     };
 
     return (
