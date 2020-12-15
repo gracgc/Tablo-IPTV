@@ -89,9 +89,9 @@ const TabloEditClient = (props) => {
         tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
             setDif(
                 (r.serverTime - r.runningTime)
-                + (Math.round((Date.now() - r.localTime))/2)
+                // + (Math.round((Date.now() - r.localTime))/2)
             );
-            console.log(Date.now() - r.localTime)
+            // console.log(Date.now() - r.localTime)
             console.log(r.serverTime - r.runningTime)
         });
     }, [isRunningServer])
@@ -100,7 +100,7 @@ const TabloEditClient = (props) => {
         tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
             setDifTimeout(
                 (r.serverTime - r.runningTime)
-                + (Math.round((Date.now() - r.localTime))/2)
+                // + (Math.round((Date.now() - r.localTime))/2)
             );
         });
     }, [isRunningServerTimeout])
@@ -143,9 +143,9 @@ const TabloEditClient = (props) => {
             tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                 setDif(
                     (r.serverTime - r.runningTime)
-                    + (Math.round((Date.now() - r.localTime))/2)
+                    // + (Math.round((Date.now() - r.localTime))/2)
                 )
-                console.log(Date.now() - r.localTime)
+                // console.log(Date.now() - r.localTime)
                 console.log(r.serverTime - r.runningTime)
             })
 
@@ -153,7 +153,7 @@ const TabloEditClient = (props) => {
             tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                 setDifTimeout(
                     (r.serverTime - r.runningTimeTimeout)
-                    + (Math.round((Date.now() - r.localTime))/2)
+                    // + (Math.round((Date.now() - r.localTime))/2)
                 )
             })
 
