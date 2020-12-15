@@ -29,9 +29,13 @@ const TabloEdit = (props) => {
         (state => state.teamsPage.teams.find(t => t.teamType === 'guests'))
     );
 
-    const homeCounter = homeTeam.counter;
+    const homeCounter = useSelector(
+        (state => state.teamsPage.teams.find(t => t.teamType === 'home').counter)
+    );
 
-    const guestsCounter = guestsTeam.counter;
+    const guestsCounter = useSelector(
+        (state => state.teamsPage.teams.find(t => t.teamType === 'guests').counter)
+    );
 
     const gameTempLog = useSelector(
         state => state.logPage.logData.tabloLog.tempLog[state.logPage.logData.tabloLog.tempLog.length - 1].item
