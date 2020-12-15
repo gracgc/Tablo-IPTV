@@ -85,6 +85,25 @@ const TabloEdit = (props) => {
 
     let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
 
+    useEffect(() => {
+        tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+            setDif(
+                (r.serverTime - r.runningTime)
+                + (Math.round((Date.now() - r.localTime)))
+            );
+            console.log(Date.now() - r.localTime)
+            console.log(r.serverTime - r.runningTime)
+        });
+    }, [isRunningServer])
+
+    useEffect(() => {
+        tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+            setDifTimeout(
+                (r.serverTime - r.runningTime)
+                + (Math.round((Date.now() - r.localTime)))
+            );
+        });
+    }, [isRunningServerTimeout])
 
 
     useEffect(() => {
@@ -106,35 +125,28 @@ const TabloEdit = (props) => {
                 setTimeDifTimeout(r.timeoutData.timeData.timeMem);
                 setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
                 setDeadLineTimeout(r.timeoutData.timeData.deadLine);
-
-                if (r.isRunning) {
-                    tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                        setDif(
-                            (r.serverTime - r.runningTime)
-                            + (Math.round((Date.now() - r.localTime)))
-                        )
-                    })
-                }
-                if (r.timeoutData.isRunning) {
-                    tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                        setDifTimeout(
-                            (r.serverTime - r.runningTimeTimeout)
-                            + (Math.round((Date.now() - r.localTime)))
-                        )
-                    })
-                }
             }
         );
 
 
+        tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+            setDif(
+                (r.serverTime - r.runningTime)
+                + (Math.round((Date.now() - r.localTime)))
+            )
+        })
+
+
+        tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+            setDifTimeout(
+                (r.serverTime - r.runningTimeTimeout)
+                + (Math.round((Date.now() - r.localTime)))
+            )
+        })
+
+
         ////Socket IO////
         socket.on(`getTime${gameNumber}`, time => {
-            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                    setDif(
-                        (r.serverTime - time.runningTime)
-                        + (Math.round((Date.now() - r.localTime)))
-                    );
-                });
                 setIsRunningServer(time.isRunning);
                 setCurrentTime(Date.now());
                 setTimeMem(time.timeData.timeMem);
@@ -147,12 +159,6 @@ const TabloEdit = (props) => {
             }
         );
         socket.on(`getTimeout${gameNumber}`, time => {
-            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                    setDifTimeout(
-                        (r.serverTime - time.runningTime)
-                        + (Math.round((Date.now() - r.localTime)))
-                    );
-                });
                 setIsRunningServerTimeout(time.isRunning);
                 setCurrentTimeTimeout(Date.now());
                 setTimeDifTimeout(time.timeData.timeDif);
@@ -294,19 +300,22 @@ const TabloEdit = (props) => {
                         <div className={width === 1920 ? c1920.gameButtons__Disabled : c.gameButtons__Disabled}>
                             Старт
                         </div>
-                        <div className={classNames(width === 1920 ? c1920.gameButtons__Active : c.gameButtons__Active, width === 1920
-                            ? c1920.gameButtons__stop : c.gameButtons__stop)}
-                             onClick={(e) => stopGame()}>
+                        <div
+                            className={classNames(width === 1920 ? c1920.gameButtons__Active : c.gameButtons__Active, width === 1920
+                                ? c1920.gameButtons__stop : c.gameButtons__stop)}
+                            onClick={(e) => stopGame()}>
                             Стоп
                         </div>
                     </div>
                     :
                     <div className={width === 1920 ? c1920.gameButtons : c.gameButtons}>
-                        <div className={width === 1920 ? c1920.gameButtons__Active : c.gameButtons__Active} onClick={(e) => startGame()}>
+                        <div className={width === 1920 ? c1920.gameButtons__Active : c.gameButtons__Active}
+                             onClick={(e) => startGame()}>
                             Старт
                         </div>
-                        <div className={classNames(width === 1920 ? c1920.gameButtons__Disabled : c.gameButtons__Disabled, width === 1920
-                            ? c1920.gameButtons__stop : c.gameButtons__stop)}>
+                        <div
+                            className={classNames(width === 1920 ? c1920.gameButtons__Disabled : c.gameButtons__Disabled, width === 1920
+                                ? c1920.gameButtons__stop : c.gameButtons__stop)}>
                             Стоп
                         </div>
                     </div>

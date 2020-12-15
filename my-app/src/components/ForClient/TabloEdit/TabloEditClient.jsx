@@ -85,6 +85,26 @@ const TabloEditClient = (props) => {
         );
     }, [])
 
+    useEffect(() => {
+        tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+            setDif(
+                (r.serverTime - r.runningTime)
+                + (Math.round((Date.now() - r.localTime)))
+            );
+            console.log(Date.now() - r.localTime)
+            console.log(r.serverTime - r.runningTime)
+        });
+    }, [isRunningServer])
+
+    useEffect(() => {
+        tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+            setDifTimeout(
+                (r.serverTime - r.runningTime)
+                + (Math.round((Date.now() - r.localTime)))
+            );
+        });
+    }, [isRunningServerTimeout])
+
 
     useEffect(() => {
 
@@ -117,35 +137,31 @@ const TabloEditClient = (props) => {
                 setTimeDifTimeout(r.timeoutData.timeData.timeMem);
                 setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
                 setDeadLineTimeout(r.timeoutData.timeData.deadLine);
-
-                if (r.isRunning) {
-                    tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                        setDif(
-                            (r.serverTime - r.runningTime)
-                            + (Math.round((Date.now() - r.localTime)))
-                        )
-                    })
-                }
-                if (r.timeoutData.isRunning) {
-                    tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                        setDifTimeout(
-                            (r.serverTime - r.runningTimeTimeout)
-                            + (Math.round((Date.now() - r.localTime)))
-                        )
-                    })
-                }
             }
         );
+
+            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+                setDif(
+                    (r.serverTime - r.runningTime)
+                    + (Math.round((Date.now() - r.localTime)))
+                )
+                console.log(Date.now() - r.localTime)
+                console.log(r.serverTime - r.runningTime)
+            })
+
+
+            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+                setDifTimeout(
+                    (r.serverTime - r.runningTimeTimeout)
+                    + (Math.round((Date.now() - r.localTime)))
+                )
+            })
+
 
 
         ////Socket IO////
         socket.on(`getTime${gameNumber}`, time => {
-                tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                    setDif(
-                        (r.serverTime - time.runningTime)
-                        + (Math.round((Date.now() - r.localTime)))
-                    );
-                });
+
                 setIsRunningServer(time.isRunning);
                 setCurrentTime(Date.now());
                 setTimeMem(time.timeData.timeMem);
@@ -155,12 +171,6 @@ const TabloEditClient = (props) => {
             }
         );
         socket.on(`getTimeout${gameNumber}`, time => {
-                tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                    setDifTimeout(
-                        (r.serverTime - time.runningTime)
-                        + (Math.round((Date.now() - r.localTime)))
-                    );
-                });
                 setIsRunningServerTimeout(time.isRunning);
                 setCurrentTimeTimeout(Date.now());
                 setTimeDifTimeout(time.timeData.timeDif);
