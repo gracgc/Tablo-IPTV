@@ -1,5 +1,5 @@
 {
-  "port": 5000,
-  "baseUrl": "http://localhost:5000",
+  "port": 80,
+  "baseUrl": "http://tablo-beta-v141220.f247.iptvportal.ru/",
   "secretKey": "tablo-key"
 }
