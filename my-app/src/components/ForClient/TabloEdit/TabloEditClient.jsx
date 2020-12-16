@@ -182,6 +182,12 @@ const TabloEditClient = (props) => {
 
                 if (!time.isRunning) {
                     setDif(0)
+                    setIsRunningServer(time.isRunning);
+                    setCurrentTime(Date.now());
+                    setTimeMem(time.timeData.timeMem);
+                    setTimeDif(time.timeData.timeMem);
+                    setTimeMemTimer(time.timeData.timeMemTimer);
+                    setDeadLine(time.timeData.deadLine);
                 }
             }
         );
