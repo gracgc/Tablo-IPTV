@@ -94,7 +94,26 @@ const TabloEditClient = (props) => {
                     (r.serverTime - r.runningTime)
                     + (Math.round((Date.now() - r.localTime) / 2))
                 );
+                console.log(1)
             });
+        setTimeout(() => {
+            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+                setDif(
+                    (r.serverTime - r.runningTime)
+                    + (Math.round((Date.now() - r.localTime) / 2))
+                );
+                console.log(2)
+            });
+        }, 2000)
+        setTimeout(() => {
+            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+                setDif(
+                    (r.serverTime - r.runningTime)
+                    + (Math.round((Date.now() - r.localTime) / 2))
+                );
+                console.log(3)
+            });
+        }, 4000)
     }, [isRunningServer])
 
     useEffect(() => {
