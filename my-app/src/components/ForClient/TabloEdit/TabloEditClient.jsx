@@ -83,36 +83,35 @@ const TabloEditClient = (props) => {
         ////LOAD NEW DATA////
         socket.on('getGameNumber', gameNumberX => {
                 props.history.push(`/tabloClient/${gameNumberX}`);
-
                 setGameNumber(gameNumberX)
             }
         );
     }, [])
 
-    useEffect(() => {
-        if (isRunningServer) {
-            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                setDif(
-                    (r.serverTime - r.runningTime)
-                    + (Math.round((Date.now() - r.localTime))/2)
-                );
-                // console.log(Date.now() - r.localTime)
-                console.log(r.serverTime - r.runningTime)
-            });
-        }
-
-    }, [isRunningServer])
-
-    useEffect(() => {
-        if (isRunningServerTimeout) {
-            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                setDifTimeout(
-                    (r.serverTime - r.runningTime)
-                    + (Math.round((Date.now() - r.localTime))/2)
-                );
-            });
-        }
-    }, [isRunningServerTimeout])
+    // useEffect(() => {
+    //     if (isRunningServer) {
+    //         tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+    //             setDif(
+    //                 (r.serverTime - r.runningTime)
+    //                 // + (Math.round((Date.now() - r.localTime))/2)
+    //             );
+    //             // console.log(Date.now() - r.localTime)
+    //             console.log(r.serverTime - r.runningTime)
+    //         });
+    //     }
+    //
+    // }, [isRunningServer])
+    //
+    // useEffect(() => {
+    //     if (isRunningServerTimeout) {
+    //         tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+    //             setDifTimeout(
+    //                 (r.serverTime - r.runningTime)
+    //                 + (Math.round((Date.now() - r.localTime)) / 2)
+    //             );
+    //         });
+    //     }
+    // }, [isRunningServerTimeout])
 
 
     useEffect(() => {
@@ -153,7 +152,7 @@ const TabloEditClient = (props) => {
             if (isRunningServer) {
                 setDif(
                     (r.serverTime - r.runningTime)
-                    + (Math.round((Date.now() - r.localTime))/2)
+                    + (Math.round((Date.now() - r.localTime)) / 2)
                 )
                 // console.log(Date.now() - r.localTime)
                 console.log(r.serverTime - r.runningTime)
@@ -162,10 +161,10 @@ const TabloEditClient = (props) => {
 
 
         tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-            if (isRunningServer) {
+            if (isRunningServerTimeout) {
                 setDifTimeout(
                     (r.serverTime - r.runningTimeTimeout)
-                    + (Math.round((Date.now() - r.localTime))/2)
+                    + (Math.round((Date.now() - r.localTime)) / 2)
                 )
             }
         })
@@ -173,13 +172,24 @@ const TabloEditClient = (props) => {
 
         ////Socket IO////
         socket.on(`getTime${gameNumber}`, time => {
-
                 setIsRunningServer(time.isRunning);
                 setCurrentTime(Date.now());
                 setTimeMem(time.timeData.timeMem);
                 setTimeDif(time.timeData.timeMem);
                 setTimeMemTimer(time.timeData.timeMemTimer);
                 setDeadLine(time.timeData.deadLine);
+                if (!time.isRunning) {
+                    setDif(0)
+                } if (time.isRunning) {
+                    tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+                        setDif(
+                            (r.serverTime - r.runningTime)
+                            + (Math.round((Date.now() - r.localTime)) / 2)
+                        );
+                        // console.log('ping: ' + Date.now() - r.localTime)
+                        // console.log('dif: ' + r.serverTime - r.runningTime)
+                    }).then(() => console.log(dif));
+                }
             }
         );
         socket.on(`getTimeout${gameNumber}`, time => {
