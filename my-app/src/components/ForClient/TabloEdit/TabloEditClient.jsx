@@ -143,42 +143,40 @@ const TabloEditClient = (props) => {
         );
 
         tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-            if (isRunningServer) {
-                setDif(
-                    (r.serverTime - r.runningTime)
-                    + (Math.round((Date.now() - r.localTime) / 2))
-                )
-            }
-            if (isRunningServerTimeout) {
-                setDifTimeout(
-                    (r.serverTime - r.runningTimeTimeout)
-                    + (Math.round((Date.now() - r.localTime) / 2))
-                )
-            }
+            setDif(
+                (r.serverTime - r.runningTime)
+                + (Math.round((Date.now() - r.localTime)))
+            )
+
+            setDifTimeout(
+                (r.serverTime - r.runningTimeTimeout)
+                + (Math.round((Date.now() - r.localTime)))
+            )
+
         })
 
 
         ////Socket IO////
         socket.on(`getTime${gameNumber}`, time => {
-            if (time.isRunning) {
-                console.log(1)
-                tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                    setDif(
-                        (r.serverTime - r.runningTime)
-                        + (Math.round((Date.now() - r.localTime) / 2))
-                    );
-                    console.log((r.serverTime - r.runningTime)
-                        + (Math.round((Date.now() - r.localTime) / 2)))
-                }).then(() => {
-                    setIsRunningServer(time.isRunning);
-                    setCurrentTime(Date.now());
-                    setTimeMem(time.timeData.timeMem);
-                    setTimeDif(time.timeData.timeMem);
-                    setTimeMemTimer(time.timeData.timeMemTimer);
-                    setDeadLine(time.timeData.deadLine);
-                    console.log(2)
-                })
-            }
+                if (time.isRunning) {
+                    console.log(1)
+                    tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+                        setDif(
+                            (r.serverTime - r.runningTime)
+                            + (Math.round((Date.now() - r.localTime)))
+                        );
+                        console.log((r.serverTime - r.runningTime)
+                            + (Math.round((Date.now() - r.localTime))))
+                    }).then(() => {
+                        setIsRunningServer(time.isRunning);
+                        setCurrentTime(Date.now());
+                        setTimeMem(time.timeData.timeMem);
+                        setTimeDif(time.timeData.timeMem);
+                        setTimeMemTimer(time.timeData.timeMemTimer);
+                        setDeadLine(time.timeData.deadLine);
+                        console.log(2)
+                    })
+                }
 
                 if (!time.isRunning) {
                     setDif(0)
