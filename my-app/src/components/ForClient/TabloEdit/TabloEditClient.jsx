@@ -88,30 +88,28 @@ const TabloEditClient = (props) => {
         );
     }, [])
 
-    // useEffect(() => {
-    //     if (isRunningServer) {
-    //         tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-    //             setDif(
-    //                 (r.serverTime - r.runningTime)
-    //                 // + (Math.round((Date.now() - r.localTime))/2)
-    //             );
-    //             // console.log(Date.now() - r.localTime)
-    //             console.log(r.serverTime - r.runningTime)
-    //         });
-    //     }
-    //
-    // }, [isRunningServer])
-    //
-    // useEffect(() => {
-    //     if (isRunningServerTimeout) {
-    //         tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-    //             setDifTimeout(
-    //                 (r.serverTime - r.runningTime)
-    //                 + (Math.round((Date.now() - r.localTime)) / 2)
-    //             );
-    //         });
-    //     }
-    // }, [isRunningServerTimeout])
+    useEffect(() => {
+        if (isRunningServer) {
+            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+                setDif(
+                    (r.serverTime - r.runningTime)
+                    + (Math.round((Date.now() - r.localTime)/2))
+                );
+            });
+        }
+
+    }, [isRunningServer])
+
+    useEffect(() => {
+        if (isRunningServerTimeout) {
+            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+                setDifTimeout(
+                    (r.serverTime - r.runningTime)
+                    + (Math.round((Date.now() - r.localTime) / 2))
+                );
+            });
+        }
+    }, [isRunningServerTimeout])
 
 
     useEffect(() => {
@@ -152,19 +150,12 @@ const TabloEditClient = (props) => {
             if (isRunningServer) {
                 setDif(
                     (r.serverTime - r.runningTime)
-                    + (Math.round((Date.now() - r.localTime)) / 2)
+                    + (Math.round((Date.now() - r.localTime) / 2))
                 )
-                // console.log(Date.now() - r.localTime)
-                console.log(r.serverTime - r.runningTime)
-            }
-        })
-
-
-        tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-            if (isRunningServerTimeout) {
+            } if (isRunningServerTimeout) {
                 setDifTimeout(
                     (r.serverTime - r.runningTimeTimeout)
-                    + (Math.round((Date.now() - r.localTime)) / 2)
+                    + (Math.round((Date.now() - r.localTime) / 2))
                 )
             }
         })
@@ -180,18 +171,10 @@ const TabloEditClient = (props) => {
                 setDeadLine(time.timeData.deadLine);
                 if (!time.isRunning) {
                     setDif(0)
-                } if (time.isRunning) {
-                    tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                        setDif(
-                            (r.serverTime - r.runningTime)
-                            + (Math.round((Date.now() - r.localTime)) / 2)
-                        );
-                        // console.log('ping: ' + Date.now() - r.localTime)
-                        // console.log('dif: ' + r.serverTime - r.runningTime)
-                    }).then(() => console.log(dif));
                 }
             }
         );
+
         socket.on(`getTimeout${gameNumber}`, time => {
                 setIsRunningServerTimeout(time.isRunning);
                 setCurrentTimeTimeout(Date.now());
