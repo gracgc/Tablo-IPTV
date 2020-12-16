@@ -89,26 +89,26 @@ const TabloEdit = (props) => {
 
     let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
 
-    useEffect(() => {
-            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                setDif(
-                    (r.serverTime - r.runningTime)
-                    + (Math.round((Date.now() - r.localTime) / 2))
-                );
-
-            });
-    }, [isRunningServer])
-
-    useEffect(() => {
-        if (isRunningServerTimeout) {
-            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                setDifTimeout(
-                    (r.serverTime - r.runningTime)
-                    + (Math.round((Date.now() - r.localTime) / 2))
-                );
-            });
-        }
-    }, [isRunningServerTimeout])
+    // useEffect(() => {
+    //         tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+    //             setDif(
+    //                 (r.serverTime - r.runningTime)
+    //                 + (Math.round((Date.now() - r.localTime) / 2))
+    //             );
+    //
+    //         });
+    // }, [isRunningServer])
+    //
+    // useEffect(() => {
+    //     if (isRunningServerTimeout) {
+    //         tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+    //             setDifTimeout(
+    //                 (r.serverTime - r.runningTime)
+    //                 + (Math.round((Date.now() - r.localTime) / 2))
+    //             );
+    //         });
+    //     }
+    // }, [isRunningServerTimeout])
 
 
     useEffect(() => {
@@ -152,15 +152,24 @@ const TabloEdit = (props) => {
 
         ////Socket IO////
         socket.on(`getTime${gameNumber}`, time => {
-                setIsRunningServer(time.isRunning);
-                setCurrentTime(Date.now());
-                setTimeMem(time.timeData.timeMem);
-                setTimeDif(time.timeData.timeMem);
-                setTimeMemTimer(time.timeData.timeMemTimer);
-                setDeadLine(time.timeData.deadLine);
-                setPeriod(time.period);
-                setSmallOvertime(time.smallOvertime);
-                setBigOvertime(time.bigOvertime);
+                if (time.isRunning) {
+                    tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+                        setDif(
+                            (r.serverTime - r.runningTime)
+                            + (Math.round((Date.now() - r.localTime) / 2))
+                        );
+                    }).then(() => {
+                        setIsRunningServer(time.isRunning);
+                        setCurrentTime(Date.now());
+                        setTimeMem(time.timeData.timeMem);
+                        setTimeDif(time.timeData.timeMem);
+                        setTimeMemTimer(time.timeData.timeMemTimer);
+                        setDeadLine(time.timeData.deadLine);
+                        setPeriod(time.period);
+                        setSmallOvertime(time.smallOvertime);
+                        setBigOvertime(time.bigOvertime);
+                    })
+                }
                 if (!time.isRunning) {
                     setDif(0)
                 }
