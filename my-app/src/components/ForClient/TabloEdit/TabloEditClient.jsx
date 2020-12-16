@@ -89,26 +89,21 @@ const TabloEditClient = (props) => {
     }, [])
 
     useEffect(() => {
-        if (isRunningServer) {
             tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                 setDif(
                     (r.serverTime - r.runningTime)
-                    + (Math.round((Date.now() - r.localTime)/2))
+                    + (Math.round((Date.now() - r.localTime) / 2))
                 );
             });
-        }
-
     }, [isRunningServer])
 
     useEffect(() => {
-        if (isRunningServerTimeout) {
             tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                 setDifTimeout(
                     (r.serverTime - r.runningTime)
                     + (Math.round((Date.now() - r.localTime) / 2))
                 );
             });
-        }
     }, [isRunningServerTimeout])
 
 
@@ -152,7 +147,8 @@ const TabloEditClient = (props) => {
                     (r.serverTime - r.runningTime)
                     + (Math.round((Date.now() - r.localTime) / 2))
                 )
-            } if (isRunningServerTimeout) {
+            }
+            if (isRunningServerTimeout) {
                 setDifTimeout(
                     (r.serverTime - r.runningTimeTimeout)
                     + (Math.round((Date.now() - r.localTime) / 2))
@@ -204,7 +200,7 @@ const TabloEditClient = (props) => {
                     setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout + difTimeout));
                     setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout + difTimeout)));
                 }
-            }, 10);
+            }, 50);
             return () => clearInterval(interval);
         }
     );
