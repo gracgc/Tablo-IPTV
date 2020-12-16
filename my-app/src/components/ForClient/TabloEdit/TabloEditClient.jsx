@@ -123,15 +123,37 @@ const TabloEditClient = (props) => {
                 dispatch(setTeamsAC(teams))
             }
         );
+
+        setIsRunningServer(true);
         ////TIME LOAD////
         tabloAPI.getTimerStatus(gameNumber).then(r => {
                 ////TIMER////
+            if (r.isRunning) {
+                console.log(1)
+                tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+                    setDif(
+                        (r.serverTime - r.runningTime)
+                        + (Math.round((Date.now() - r.localTime))) + 10
+                    );
+                    console.log((r.serverTime - r.runningTime)
+                        + (Math.round((Date.now() - r.localTime))))
+                }).then(() => {
+
+                    setCurrentTime(Date.now());
+                    setTimeMem(r.timeData.timeMem);
+                    setTimeDif(r.timeData.timeMem);
+                    setTimeMemTimer(r.timeData.timeMemTimer);
+                    setDeadLine(r.timeData.deadLine);
+                    console.log(2)
+                })
+            } else {
                 setIsRunningServer(r.isRunning);
                 setCurrentTime(Date.now());
                 setTimeMem(r.timeData.timeMem);
                 setTimeDif(r.timeData.timeMem);
                 setTimeMemTimer(r.timeData.timeMemTimer);
                 setDeadLine(r.timeData.deadLine);
+            }
                 ////TIMEOUT////
                 setIsRunningServerTimeout(r.timeoutData.isRunning);
                 setCurrentTimeTimeout(Date.now());
@@ -142,18 +164,18 @@ const TabloEditClient = (props) => {
             }
         );
 
-        tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-            setDif(
-                (r.serverTime - r.runningTime)
-                + (Math.round((Date.now() - r.localTime)))
-            )
-
-            setDifTimeout(
-                (r.serverTime - r.runningTimeTimeout)
-                + (Math.round((Date.now() - r.localTime)))
-            )
-
-        })
+        // tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+        //     setDif(
+        //         (r.serverTime - r.runningTime)
+        //         + (Math.round((Date.now() - r.localTime))) + 10
+        //     )
+        //
+        //     setDifTimeout(
+        //         (r.serverTime - r.runningTimeTimeout)
+        //         + (Math.round((Date.now() - r.localTime))) + 10
+        //     )
+        //
+        // })
 
 
         ////Socket IO////
@@ -163,7 +185,7 @@ const TabloEditClient = (props) => {
                     tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                         setDif(
                             (r.serverTime - r.runningTime)
-                            + (Math.round((Date.now() - r.localTime)))
+                            + (Math.round((Date.now() - r.localTime))) + 10
                         );
                         console.log((r.serverTime - r.runningTime)
                             + (Math.round((Date.now() - r.localTime))))
@@ -219,7 +241,7 @@ const TabloEditClient = (props) => {
                     setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout + difTimeout));
                     setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout + difTimeout)));
                 }
-            }, 50);
+            }, 10);
             return () => clearInterval(interval);
         }
     );
