@@ -97,7 +97,6 @@ const TabloEdit = (props) => {
                 );
 
             });
-
     }, [isRunningServer])
 
     useEffect(() => {
