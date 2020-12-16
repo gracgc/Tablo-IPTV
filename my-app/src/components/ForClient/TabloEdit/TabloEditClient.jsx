@@ -124,21 +124,24 @@ const TabloEditClient = (props) => {
             }
         );
 
-        setIsRunningServer(true);
+        let ajaxStart = Date.now()
         ////TIME LOAD////
         tabloAPI.getTimerStatus(gameNumber).then(r => {
                 ////TIMER////
+            setDif(Date.now() - ajaxStart)
+            console.log(Date.now() - ajaxStart)
             if (r.isRunning) {
                 console.log(1)
                 tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                     setDif(
                         (r.serverTime - r.runningTime)
-                        + (Math.round((Date.now() - r.localTime))) + 10
+                        + (Math.round((Date.now() - r.localTime)))
+                        + dif
                     );
                     console.log((r.serverTime - r.runningTime)
                         + (Math.round((Date.now() - r.localTime))))
                 }).then(() => {
-
+                    setIsRunningServer(r.isRunning);
                     setCurrentTime(Date.now());
                     setTimeMem(r.timeData.timeMem);
                     setTimeDif(r.timeData.timeMem);
@@ -185,7 +188,7 @@ const TabloEditClient = (props) => {
                     tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                         setDif(
                             (r.serverTime - r.runningTime)
-                            + (Math.round((Date.now() - r.localTime))) + 10
+                            + (Math.round((Date.now() - r.localTime))) + 50
                         );
                         console.log((r.serverTime - r.runningTime)
                             + (Math.round((Date.now() - r.localTime))))
@@ -241,7 +244,7 @@ const TabloEditClient = (props) => {
                     setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout + difTimeout));
                     setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout + difTimeout)));
                 }
-            }, 10);
+            }, 50);
             return () => clearInterval(interval);
         }
     );

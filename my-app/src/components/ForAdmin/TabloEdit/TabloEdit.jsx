@@ -112,6 +112,7 @@ const TabloEdit = (props) => {
 
 
     useEffect(() => {
+        let ajaxStart = Date.now()
         tabloAPI.getTimerStatus(gameNumber).then(r => {
                 ////TIMER////
             if (r.isRunning) {
@@ -119,8 +120,10 @@ const TabloEdit = (props) => {
                 tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                     setDif(
                         (r.serverTime - r.runningTime)
-                        + (Math.round((Date.now() - r.localTime))*1.5)
+                        + (Math.round((Date.now() - r.localTime))) + 50
+                        + (Date.now() - ajaxStart)
                     );
+                    console.log(Date.now() - ajaxStart)
                     console.log((r.serverTime - r.runningTime)
                         + (Math.round((Date.now() - r.localTime))))
                 }).then(() => {
@@ -157,16 +160,16 @@ const TabloEdit = (props) => {
         );
 
 
-        tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-            setDif(
-                (r.serverTime - r.runningTime)
-                + (Math.round((Date.now() - r.localTime))) + 10
-            )
-            setDifTimeout(
-                (r.serverTime - r.runningTimeTimeout)
-                + (Math.round((Date.now() - r.localTime)))
-            )
-        })
+        // tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
+        //     setDif(
+        //         (r.serverTime - r.runningTime)
+        //         + (Math.round((Date.now() - r.localTime))) + 10
+        //     )
+        //     setDifTimeout(
+        //         (r.serverTime - r.runningTimeTimeout)
+        //         + (Math.round((Date.now() - r.localTime)))
+        //     )
+        // })
 
 
         ////Socket IO////
@@ -175,7 +178,7 @@ const TabloEdit = (props) => {
                     tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
                         setDif(
                             (r.serverTime - r.runningTime)
-                            + (Math.round((Date.now() - r.localTime))) + 10
+                            + (Math.round((Date.now() - r.localTime))) + 50
                         );
                     }).then(() => {
                         setIsRunningServer(time.isRunning);
@@ -298,7 +301,7 @@ const TabloEdit = (props) => {
                     setTimeDifTimeout(timeMemTimeout + (Date.now() - currentTimeTimeout + difTimeout));
                     setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + (Date.now() - currentTimeTimeout + difTimeout)));
                 }
-            }, 10);
+            }, 50);
             return () => clearInterval(interval);
         }
     );
