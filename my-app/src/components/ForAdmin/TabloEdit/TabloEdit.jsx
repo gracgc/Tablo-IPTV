@@ -239,7 +239,7 @@ const TabloEdit = (props) => {
                     setTimeDifTimeout(timeMemTimeout + ((Date.now() + dif) - startTimeout));
                     setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
                 }
-            }, 30);
+            }, 35);
             return () => clearInterval(interval);
         }
     );

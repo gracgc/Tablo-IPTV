@@ -1,1 +1,1141 @@
-{"gameInfo":{"gameName":"Новая игра","gameNumber":1,"gameType":"Классический хоккей","gameStatus":"Not going","gameTime":{"timeData":{"deadLine":1200000,"timeDif":1073604,"timeMem":1073604,"timeMemTimer":126396},"isRunning":false,"runningTime":1608399991666,"timeoutData":{"timeData":{"timeDif":0,"timeMem":0,"timeMemTimer":30000,"deadLine":30000},"isRunning":true,"runningTime":1608399985270},"period":2,"smallOvertime":0,"bigOvertime":0}},"logData":{"gameLog":[{"item":"-5:46 - СТАРТ","id":1},{"item":"-2:17 - СТОП","id":2},{"item":"0:00 - СТАРТ","id":3},{"item":"1:41 - СТОП","id":4},{"item":"1:41 - СТАРТ","id":5},{"item":"3:33 - СТОП","id":6},{"item":"3:33 - СТАРТ","id":7},{"item":"3:38 - СТОП","id":8},{"item":"3:38 - СТАРТ","id":9},{"item":"3:45 - СТОП","id":10},{"item":"3:45 - СТАРТ","id":11},{"item":"4:24 - СТОП","id":12},{"item":"4:24 - СТАРТ","id":13},{"item":"6:15 - СТОП","id":14},{"item":"6:15 - СТАРТ","id":15},{"item":"6:30 - СТОП","id":16},{"item":"6:30 - СТАРТ","id":17},{"item":"6:42 - СТОП","id":18},{"item":"6:42 - СТАРТ","id":19},{"item":"6:47 - СТОП","id":20},{"item":"6:47 - СТАРТ","id":21},{"item":"6:56 - СТОП","id":22},{"item":"6:56 - СТАРТ","id":23},{"item":"9:03 - СТОП","id":24},{"item":"9:03 - СТАРТ","id":25},{"item":"9:05 - СТОП","id":26},{"item":"9:05 - СТАРТ","id":27},{"item":"9:09 - СТОП","id":28},{"item":"9:09 - СТАРТ","id":29},{"item":"9:14 - СТОП","id":30},{"item":"9:14 - СТАРТ","id":31},{"item":"9:22 - СТОП","id":32},{"item":"9:22 - СТАРТ","id":33},{"item":"9:26 - СТОП","id":34},{"item":"9:26 - СТАРТ","id":35},{"item":"9:33 - СТОП","id":36},{"item":"9:33 - СТАРТ","id":37},{"item":"9:50 - СТОП","id":38},{"item":"9:50 - СТАРТ","id":39},{"item":"10:37 - СТОП","id":40},{"item":"10:37 - СТАРТ","id":41},{"item":"10:44 - СТОП","id":42},{"item":"10:44 - СТАРТ","id":43},{"item":"10:50 - СТОП","id":44},{"item":"10:50 - СТАРТ","id":45},{"item":"10:56 - СТОП","id":46},{"item":"10:56 - СТАРТ","id":47},{"item":"11:11 - СТОП","id":48},{"item":"11:11 - СТАРТ","id":49},{"item":"11:25 - СТОП","id":50},{"item":"11:25 - СТАРТ","id":51},{"item":"11:29 - СТОП","id":52},{"item":"11:29 - СТАРТ","id":53},{"item":"11:32 - СТОП","id":54},{"item":"11:32 - СТАРТ","id":55},{"item":"11:34 - СТОП","id":56},{"item":"11:34 - СТАРТ","id":57},{"item":"11:38 - СТОП","id":58},{"item":"11:38 - СТАРТ","id":59},{"item":"11:41 - СТОП","id":60},{"item":"11:41 - СТАРТ","id":61},{"item":"11:49 - СТОП","id":62},{"item":"11:49 - СТАРТ","id":63},{"item":"11:56 - СТОП","id":64},{"item":"11:56 - СТАРТ","id":65},{"item":"12:07 - СТОП","id":66},{"item":"12:07 - СТАРТ","id":67},{"item":"12:09 - СТОП","id":68},{"item":"12:09 - СТАРТ","id":69},{"item":"12:24 - СТОП","id":70},{"item":"12:24 - СТАРТ","id":71},{"item":"13:58 - СТОП","id":72},{"item":"13:58 - СТАРТ","id":73},{"item":"14:10 - СТОП","id":74},{"item":"14:10 - СТАРТ","id":75},{"item":"15:20 - СТОП","id":76},{"item":"15:20 - СТАРТ","id":77},{"item":"15:40 - СТОП","id":78},{"item":"15:40 - СТАРТ","id":79},{"item":"15:46 - СТОП","id":80},{"item":"15:46 - СТАРТ","id":81},{"item":"16:47 - СТОП","id":82},{"item":"16:47 - СТАРТ","id":83},{"item":"16:50 - СТОП","id":84},{"item":"16:50 - СТАРТ","id":85},{"item":"16:54 - СТОП","id":86},{"item":"16:54 - СТАРТ","id":87},{"item":"16:58 - СТОП","id":88},{"item":"16:58 - СТАРТ","id":89},{"item":"17:33 - СТОП","id":90},{"item":"17:33 - СТАРТ","id":91},{"item":"17:38 - СТОП","id":92},{"item":"17:38 - СТАРТ","id":93},{"item":"17:48 - СТОП","id":94},{"item":"17:48 - СТАРТ","id":95},{"item":"17:54 - СТОП","id":96},{"item":"17:54 - СТАРТ","id":97},{"item":"18:00 - СТОП","id":98},{"item":"18:00 - СТАРТ","id":99},{"item":"18:07 - СТОП","id":100},{"item":"18:07 - СТАРТ","id":101},{"item":"18:12 - СТОП","id":102},{"item":"18:12 - СТАРТ","id":103},{"item":"18:42 - СТОП","id":104},{"item":"18:42 - СТАРТ","id":105},{"item":"18:50 - СТОП","id":106},{"item":"18:50 - СТАРТ","id":107},{"item":"19:22 - СТОП","id":108},{"item":"19:22 - СТАРТ","id":109},{"item":"Конец 1 периода","id":110},{"item":"Конец 1 периода","id":111},{"item":"20:00 - СТАРТ","id":112},{"item":"20:07 - ГОЛ для Home!","id":113},{"item":"24:44 - СТОП","id":114},{"item":"24:44 - СТАРТ","id":115},{"item":"25:10 - СТОП","id":116},{"item":"25:10 - СТАРТ","id":117},{"item":"28:46 - СТОП","id":118},{"item":"28:46 - СТАРТ","id":119},{"item":"28:49 - СТОП","id":120},{"item":"28:49 - СТАРТ","id":121},{"item":"29:42 - СТОП","id":122},{"item":"29:42 - СТАРТ","id":123},{"item":"31:29 - ГОЛ для Home!","id":124},{"item":"31:38 - СТОП","id":125},{"item":"31:38 - СТАРТ","id":126},{"item":"31:53 - СТОП","id":127},{"item":"31:53 - СТАРТ","id":128},{"item":"32:17 - СТОП","id":129},{"item":"32:18 - ГОЛ для Home!","id":130},{"item":"32:18 - СТАРТ","id":131},{"item":"32:23 - СТОП","id":132},{"item":"32:23 - СТАРТ","id":133},{"item":"32:33 - СТОП","id":134},{"item":"32:33 - СТАРТ","id":135},{"item":"32:49 - СТОП","id":136},{"item":"32:49 - СТАРТ","id":137},{"item":"32:53 - СТОП","id":138},{"item":"32:53 - СТАРТ","id":139},{"item":"33:19 - СТОП","id":140},{"item":"33:19 - СТАРТ","id":141},{"item":"33:58 - СТОП","id":142},{"item":"33:58 - СТАРТ","id":143},{"item":"34:12 - СТОП","id":144},{"item":"34:12 - СТАРТ","id":145},{"item":"34:15 - СТОП","id":146},{"item":"34:15 - СТАРТ","id":147},{"item":"34:54 - СТОП","id":148},{"item":"34:54 - СТАРТ","id":149},{"item":"35:39 - СТОП","id":150},{"item":"35:39 - СТАРТ","id":151},{"item":"35:44 - СТОП","id":152},{"item":"35:44 - СТАРТ","id":153},{"item":"36:12 - СТОП","id":154},{"item":"36:12 - СТАРТ","id":155},{"item":"36:54 - СТОП","id":156},{"item":"36:54 - Старт таймаута для Guests","id":157},{"item":"Конец таймаута","id":158},{"item":"Конец таймаута","id":159},{"item":"Конец таймаута","id":160},{"item":"36:54 - Таймаут установлен для Guests","id":161},{"item":"36:54 - Старт таймаута для Guests","id":162},{"item":"36:54 - Таймаут установлен для Guests","id":163},{"item":"36:54 - Старт таймаута для Guests","id":164},{"item":"36:54 - Таймаут установлен для Guests","id":165},{"item":"Конец таймаута","id":166},{"item":"36:54 - Таймаут установлен для Guests","id":167},{"item":"36:54 - Старт таймаута для Guests","id":168},{"item":"36:54 - Таймаут установлен для Guests","id":169},{"item":"36:54 - Старт таймаута для Guests","id":170},{"item":"36:54 - Таймаут установлен для Guests","id":171},{"item":"36:54 - Таймаут установлен для Guests","id":172},{"item":"36:54 - Старт таймаута для Guests","id":173},{"item":"36:54 - Таймаут установлен для Guests","id":174},{"item":"36:54 - Старт таймаута для Guests","id":175},{"item":"36:54 - Таймаут установлен для Guests","id":176},{"item":"36:54 - Старт таймаута для Guests","id":177},{"item":"Конец таймаута","id":178},{"item":"36:54 -\n                 Gamer 1 удален на 2 минуты","id":179},{"item":"36:54 - СТАРТ","id":180},{"item":"36:54 -\n                 Gamer 1 возвращается в игру","id":181},{"item":"36:54 -\n                 Gamer 1 удален на 2 минуты","id":182},{"item":"37:30 - СТОП","id":183},{"item":"37:30 - СТАРТ","id":184},{"item":"37:46 - ГОЛ для Home!","id":185},{"item":"37:49 - СТОП","id":186},{"item":"37:49 - Таймаут установлен для Guests","id":187},{"item":"37:49 - Старт таймаута для Guests","id":188},{"item":"37:49 - Таймаут установлен для Guests","id":189},{"item":"37:49 - Старт таймаута для Guests","id":190},{"item":"37:49 - Таймаут установлен для Guests","id":191},{"item":"37:49 - Старт таймаута для Guests","id":192},{"item":"Конец таймаута","id":193},{"item":"37:49 - Таймаут установлен для Guests","id":194},{"item":"37:49 - Старт таймаута для Guests","id":195},{"item":"37:49 - СТАРТ","id":196},{"item":"37:53 - СТОП","id":197}],"tabloLog":{"tempLog":[{"item":""},{"item":"Конец 1 периода"},{"item":"Конец 1 периода"},{"item":"ГОЛ для Home!"},{"item":"ГОЛ для Home!"},{"item":"ГОЛ для Home!"},{"item":"Конец таймаута"},{"item":"Конец таймаута"},{"item":"Конец таймаута"},{"item":"Конец таймаута"},{"item":"Конец таймаута"},{"item":"Gamer 1 возвращается в игру"},{"item":"ГОЛ для Home!"},{"item":"Конец таймаута"}],"consLog":[{"id":1,"teamType":"home","item":"Gamer 1 удален на"}]}},"teams":[{"name":"Home","counter":51,"teamType":"home","timeOut":false,"gamers":[{"id":1,"fullName":"Gamer 1","gamerNumber":"00","status":"deleted","onField":true,"goals":0,"timeOfPenalty":120000,"whenWasPenalty":185499},{"id":2,"fullName":"Gamer 2","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":3,"fullName":"Gamer 3","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":4,"fullName":"Gamer 4","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":5,"fullName":"Gamer 5","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":6,"fullName":"Gamer 6","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":7,"fullName":"Gamer 7","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":8,"fullName":"Gamer 8","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":9,"fullName":"Gamer 9","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":10,"fullName":"Gamer 10","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":11,"fullName":"Gamer 11","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":12,"fullName":"Gamer 12","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0}]},{"name":"Guests","counter":36,"teamType":"guests","timeOut":false,"gamers":[{"id":1,"fullName":"qwe","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":2,"fullName":"Gamer 2","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":3,"fullName":"Gamer 3","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":4,"fullName":"Gamer 4","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":5,"fullName":"Gamer 5","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":6,"fullName":"Gamer 6","gamerNumber":"00","status":"in game","onField":true,"goals":0,"timeOfPenalty":10000,"whenWasPenalty":1200000},{"id":7,"fullName":"Gamer 7","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":10000,"whenWasPenalty":319321},{"id":8,"fullName":"Gamer 8","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":9,"fullName":"Gamer 9","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":10,"fullName":"Gamer 10","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":11,"fullName":"Gamer 11","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0},{"id":12,"fullName":"Gamer 12","gamerNumber":"00","status":"in game","onField":false,"goals":0,"timeOfPenalty":0,"whenWasPenalty":0}]}]}
+{
+  "gameInfo": {
+    "gameName": "Новая игра",
+    "gameNumber": 1,
+    "gameType": "Классический хоккей",
+    "gameStatus": "Not going",
+    "gameTime": {
+      "timeData": {
+        "deadLine": 1200000,
+        "timeDif": 1073604,
+        "timeMem": 1073604,
+        "timeMemTimer": 126396
+      },
+      "isRunning": false,
+      "runningTime": 1608399991666,
+      "timeoutData": {
+        "timeData": {
+          "timeDif": 0,
+          "timeMem": 0,
+          "timeMemTimer": 0,
+          "deadLine": 0
+        },
+        "isRunning": false,
+        "runningTime": 1608400015870
+      },
+      "period": 2,
+      "smallOvertime": 0,
+      "bigOvertime": 0
+    }
+  },
+  "logData": {
+    "gameLog": [
+      {
+        "item": "-5:46 - СТАРТ",
+        "id": 1
+      },
+      {
+        "item": "-2:17 - СТОП",
+        "id": 2
+      },
+      {
+        "item": "0:00 - СТАРТ",
+        "id": 3
+      },
+      {
+        "item": "1:41 - СТОП",
+        "id": 4
+      },
+      {
+        "item": "1:41 - СТАРТ",
+        "id": 5
+      },
+      {
+        "item": "3:33 - СТОП",
+        "id": 6
+      },
+      {
+        "item": "3:33 - СТАРТ",
+        "id": 7
+      },
+      {
+        "item": "3:38 - СТОП",
+        "id": 8
+      },
+      {
+        "item": "3:38 - СТАРТ",
+        "id": 9
+      },
+      {
+        "item": "3:45 - СТОП",
+        "id": 10
+      },
+      {
+        "item": "3:45 - СТАРТ",
+        "id": 11
+      },
+      {
+        "item": "4:24 - СТОП",
+        "id": 12
+      },
+      {
+        "item": "4:24 - СТАРТ",
+        "id": 13
+      },
+      {
+        "item": "6:15 - СТОП",
+        "id": 14
+      },
+      {
+        "item": "6:15 - СТАРТ",
+        "id": 15
+      },
+      {
+        "item": "6:30 - СТОП",
+        "id": 16
+      },
+      {
+        "item": "6:30 - СТАРТ",
+        "id": 17
+      },
+      {
+        "item": "6:42 - СТОП",
+        "id": 18
+      },
+      {
+        "item": "6:42 - СТАРТ",
+        "id": 19
+      },
+      {
+        "item": "6:47 - СТОП",
+        "id": 20
+      },
+      {
+        "item": "6:47 - СТАРТ",
+        "id": 21
+      },
+      {
+        "item": "6:56 - СТОП",
+        "id": 22
+      },
+      {
+        "item": "6:56 - СТАРТ",
+        "id": 23
+      },
+      {
+        "item": "9:03 - СТОП",
+        "id": 24
+      },
+      {
+        "item": "9:03 - СТАРТ",
+        "id": 25
+      },
+      {
+        "item": "9:05 - СТОП",
+        "id": 26
+      },
+      {
+        "item": "9:05 - СТАРТ",
+        "id": 27
+      },
+      {
+        "item": "9:09 - СТОП",
+        "id": 28
+      },
+      {
+        "item": "9:09 - СТАРТ",
+        "id": 29
+      },
+      {
+        "item": "9:14 - СТОП",
+        "id": 30
+      },
+      {
+        "item": "9:14 - СТАРТ",
+        "id": 31
+      },
+      {
+        "item": "9:22 - СТОП",
+        "id": 32
+      },
+      {
+        "item": "9:22 - СТАРТ",
+        "id": 33
+      },
+      {
+        "item": "9:26 - СТОП",
+        "id": 34
+      },
+      {
+        "item": "9:26 - СТАРТ",
+        "id": 35
+      },
+      {
+        "item": "9:33 - СТОП",
+        "id": 36
+      },
+      {
+        "item": "9:33 - СТАРТ",
+        "id": 37
+      },
+      {
+        "item": "9:50 - СТОП",
+        "id": 38
+      },
+      {
+        "item": "9:50 - СТАРТ",
+        "id": 39
+      },
+      {
+        "item": "10:37 - СТОП",
+        "id": 40
+      },
+      {
+        "item": "10:37 - СТАРТ",
+        "id": 41
+      },
+      {
+        "item": "10:44 - СТОП",
+        "id": 42
+      },
+      {
+        "item": "10:44 - СТАРТ",
+        "id": 43
+      },
+      {
+        "item": "10:50 - СТОП",
+        "id": 44
+      },
+      {
+        "item": "10:50 - СТАРТ",
+        "id": 45
+      },
+      {
+        "item": "10:56 - СТОП",
+        "id": 46
+      },
+      {
+        "item": "10:56 - СТАРТ",
+        "id": 47
+      },
+      {
+        "item": "11:11 - СТОП",
+        "id": 48
+      },
+      {
+        "item": "11:11 - СТАРТ",
+        "id": 49
+      },
+      {
+        "item": "11:25 - СТОП",
+        "id": 50
+      },
+      {
+        "item": "11:25 - СТАРТ",
+        "id": 51
+      },
+      {
+        "item": "11:29 - СТОП",
+        "id": 52
+      },
+      {
+        "item": "11:29 - СТАРТ",
+        "id": 53
+      },
+      {
+        "item": "11:32 - СТОП",
+        "id": 54
+      },
+      {
+        "item": "11:32 - СТАРТ",
+        "id": 55
+      },
+      {
+        "item": "11:34 - СТОП",
+        "id": 56
+      },
+      {
+        "item": "11:34 - СТАРТ",
+        "id": 57
+      },
+      {
+        "item": "11:38 - СТОП",
+        "id": 58
+      },
+      {
+        "item": "11:38 - СТАРТ",
+        "id": 59
+      },
+      {
+        "item": "11:41 - СТОП",
+        "id": 60
+      },
+      {
+        "item": "11:41 - СТАРТ",
+        "id": 61
+      },
+      {
+        "item": "11:49 - СТОП",
+        "id": 62
+      },
+      {
+        "item": "11:49 - СТАРТ",
+        "id": 63
+      },
+      {
+        "item": "11:56 - СТОП",
+        "id": 64
+      },
+      {
+        "item": "11:56 - СТАРТ",
+        "id": 65
+      },
+      {
+        "item": "12:07 - СТОП",
+        "id": 66
+      },
+      {
+        "item": "12:07 - СТАРТ",
+        "id": 67
+      },
+      {
+        "item": "12:09 - СТОП",
+        "id": 68
+      },
+      {
+        "item": "12:09 - СТАРТ",
+        "id": 69
+      },
+      {
+        "item": "12:24 - СТОП",
+        "id": 70
+      },
+      {
+        "item": "12:24 - СТАРТ",
+        "id": 71
+      },
+      {
+        "item": "13:58 - СТОП",
+        "id": 72
+      },
+      {
+        "item": "13:58 - СТАРТ",
+        "id": 73
+      },
+      {
+        "item": "14:10 - СТОП",
+        "id": 74
+      },
+      {
+        "item": "14:10 - СТАРТ",
+        "id": 75
+      },
+      {
+        "item": "15:20 - СТОП",
+        "id": 76
+      },
+      {
+        "item": "15:20 - СТАРТ",
+        "id": 77
+      },
+      {
+        "item": "15:40 - СТОП",
+        "id": 78
+      },
+      {
+        "item": "15:40 - СТАРТ",
+        "id": 79
+      },
+      {
+        "item": "15:46 - СТОП",
+        "id": 80
+      },
+      {
+        "item": "15:46 - СТАРТ",
+        "id": 81
+      },
+      {
+        "item": "16:47 - СТОП",
+        "id": 82
+      },
+      {
+        "item": "16:47 - СТАРТ",
+        "id": 83
+      },
+      {
+        "item": "16:50 - СТОП",
+        "id": 84
+      },
+      {
+        "item": "16:50 - СТАРТ",
+        "id": 85
+      },
+      {
+        "item": "16:54 - СТОП",
+        "id": 86
+      },
+      {
+        "item": "16:54 - СТАРТ",
+        "id": 87
+      },
+      {
+        "item": "16:58 - СТОП",
+        "id": 88
+      },
+      {
+        "item": "16:58 - СТАРТ",
+        "id": 89
+      },
+      {
+        "item": "17:33 - СТОП",
+        "id": 90
+      },
+      {
+        "item": "17:33 - СТАРТ",
+        "id": 91
+      },
+      {
+        "item": "17:38 - СТОП",
+        "id": 92
+      },
+      {
+        "item": "17:38 - СТАРТ",
+        "id": 93
+      },
+      {
+        "item": "17:48 - СТОП",
+        "id": 94
+      },
+      {
+        "item": "17:48 - СТАРТ",
+        "id": 95
+      },
+      {
+        "item": "17:54 - СТОП",
+        "id": 96
+      },
+      {
+        "item": "17:54 - СТАРТ",
+        "id": 97
+      },
+      {
+        "item": "18:00 - СТОП",
+        "id": 98
+      },
+      {
+        "item": "18:00 - СТАРТ",
+        "id": 99
+      },
+      {
+        "item": "18:07 - СТОП",
+        "id": 100
+      },
+      {
+        "item": "18:07 - СТАРТ",
+        "id": 101
+      },
+      {
+        "item": "18:12 - СТОП",
+        "id": 102
+      },
+      {
+        "item": "18:12 - СТАРТ",
+        "id": 103
+      },
+      {
+        "item": "18:42 - СТОП",
+        "id": 104
+      },
+      {
+        "item": "18:42 - СТАРТ",
+        "id": 105
+      },
+      {
+        "item": "18:50 - СТОП",
+        "id": 106
+      },
+      {
+        "item": "18:50 - СТАРТ",
+        "id": 107
+      },
+      {
+        "item": "19:22 - СТОП",
+        "id": 108
+      },
+      {
+        "item": "19:22 - СТАРТ",
+        "id": 109
+      },
+      {
+        "item": "Конец 1 периода",
+        "id": 110
+      },
+      {
+        "item": "Конец 1 периода",
+        "id": 111
+      },
+      {
+        "item": "20:00 - СТАРТ",
+        "id": 112
+      },
+      {
+        "item": "20:07 - ГОЛ для Home!",
+        "id": 113
+      },
+      {
+        "item": "24:44 - СТОП",
+        "id": 114
+      },
+      {
+        "item": "24:44 - СТАРТ",
+        "id": 115
+      },
+      {
+        "item": "25:10 - СТОП",
+        "id": 116
+      },
+      {
+        "item": "25:10 - СТАРТ",
+        "id": 117
+      },
+      {
+        "item": "28:46 - СТОП",
+        "id": 118
+      },
+      {
+        "item": "28:46 - СТАРТ",
+        "id": 119
+      },
+      {
+        "item": "28:49 - СТОП",
+        "id": 120
+      },
+      {
+        "item": "28:49 - СТАРТ",
+        "id": 121
+      },
+      {
+        "item": "29:42 - СТОП",
+        "id": 122
+      },
+      {
+        "item": "29:42 - СТАРТ",
+        "id": 123
+      },
+      {
+        "item": "31:29 - ГОЛ для Home!",
+        "id": 124
+      },
+      {
+        "item": "31:38 - СТОП",
+        "id": 125
+      },
+      {
+        "item": "31:38 - СТАРТ",
+        "id": 126
+      },
+      {
+        "item": "31:53 - СТОП",
+        "id": 127
+      },
+      {
+        "item": "31:53 - СТАРТ",
+        "id": 128
+      },
+      {
+        "item": "32:17 - СТОП",
+        "id": 129
+      },
+      {
+        "item": "32:18 - ГОЛ для Home!",
+        "id": 130
+      },
+      {
+        "item": "32:18 - СТАРТ",
+        "id": 131
+      },
+      {
+        "item": "32:23 - СТОП",
+        "id": 132
+      },
+      {
+        "item": "32:23 - СТАРТ",
+        "id": 133
+      },
+      {
+        "item": "32:33 - СТОП",
+        "id": 134
+      },
+      {
+        "item": "32:33 - СТАРТ",
+        "id": 135
+      },
+      {
+        "item": "32:49 - СТОП",
+        "id": 136
+      },
+      {
+        "item": "32:49 - СТАРТ",
+        "id": 137
+      },
+      {
+        "item": "32:53 - СТОП",
+        "id": 138
+      },
+      {
+        "item": "32:53 - СТАРТ",
+        "id": 139
+      },
+      {
+        "item": "33:19 - СТОП",
+        "id": 140
+      },
+      {
+        "item": "33:19 - СТАРТ",
+        "id": 141
+      },
+      {
+        "item": "33:58 - СТОП",
+        "id": 142
+      },
+      {
+        "item": "33:58 - СТАРТ",
+        "id": 143
+      },
+      {
+        "item": "34:12 - СТОП",
+        "id": 144
+      },
+      {
+        "item": "34:12 - СТАРТ",
+        "id": 145
+      },
+      {
+        "item": "34:15 - СТОП",
+        "id": 146
+      },
+      {
+        "item": "34:15 - СТАРТ",
+        "id": 147
+      },
+      {
+        "item": "34:54 - СТОП",
+        "id": 148
+      },
+      {
+        "item": "34:54 - СТАРТ",
+        "id": 149
+      },
+      {
+        "item": "35:39 - СТОП",
+        "id": 150
+      },
+      {
+        "item": "35:39 - СТАРТ",
+        "id": 151
+      },
+      {
+        "item": "35:44 - СТОП",
+        "id": 152
+      },
+      {
+        "item": "35:44 - СТАРТ",
+        "id": 153
+      },
+      {
+        "item": "36:12 - СТОП",
+        "id": 154
+      },
+      {
+        "item": "36:12 - СТАРТ",
+        "id": 155
+      },
+      {
+        "item": "36:54 - СТОП",
+        "id": 156
+      },
+      {
+        "item": "36:54 - Старт таймаута для Guests",
+        "id": 157
+      },
+      {
+        "item": "Конец таймаута",
+        "id": 158
+      },
+      {
+        "item": "Конец таймаута",
+        "id": 159
+      },
+      {
+        "item": "Конец таймаута",
+        "id": 160
+      },
+      {
+        "item": "36:54 - Таймаут установлен для Guests",
+        "id": 161
+      },
+      {
+        "item": "36:54 - Старт таймаута для Guests",
+        "id": 162
+      },
+      {
+        "item": "36:54 - Таймаут установлен для Guests",
+        "id": 163
+      },
+      {
+        "item": "36:54 - Старт таймаута для Guests",
+        "id": 164
+      },
+      {
+        "item": "36:54 - Таймаут установлен для Guests",
+        "id": 165
+      },
+      {
+        "item": "Конец таймаута",
+        "id": 166
+      },
+      {
+        "item": "36:54 - Таймаут установлен для Guests",
+        "id": 167
+      },
+      {
+        "item": "36:54 - Старт таймаута для Guests",
+        "id": 168
+      },
+      {
+        "item": "36:54 - Таймаут установлен для Guests",
+        "id": 169
+      },
+      {
+        "item": "36:54 - Старт таймаута для Guests",
+        "id": 170
+      },
+      {
+        "item": "36:54 - Таймаут установлен для Guests",
+        "id": 171
+      },
+      {
+        "item": "36:54 - Таймаут установлен для Guests",
+        "id": 172
+      },
+      {
+        "item": "36:54 - Старт таймаута для Guests",
+        "id": 173
+      },
+      {
+        "item": "36:54 - Таймаут установлен для Guests",
+        "id": 174
+      },
+      {
+        "item": "36:54 - Старт таймаута для Guests",
+        "id": 175
+      },
+      {
+        "item": "36:54 - Таймаут установлен для Guests",
+        "id": 176
+      },
+      {
+        "item": "36:54 - Старт таймаута для Guests",
+        "id": 177
+      },
+      {
+        "item": "Конец таймаута",
+        "id": 178
+      },
+      {
+        "item": "36:54 -\n                 Gamer 1 удален на 2 минуты",
+        "id": 179
+      },
+      {
+        "item": "36:54 - СТАРТ",
+        "id": 180
+      },
+      {
+        "item": "36:54 -\n                 Gamer 1 возвращается в игру",
+        "id": 181
+      },
+      {
+        "item": "36:54 -\n                 Gamer 1 удален на 2 минуты",
+        "id": 182
+      },
+      {
+        "item": "37:30 - СТОП",
+        "id": 183
+      },
+      {
+        "item": "37:30 - СТАРТ",
+        "id": 184
+      },
+      {
+        "item": "37:46 - ГОЛ для Home!",
+        "id": 185
+      },
+      {
+        "item": "37:49 - СТОП",
+        "id": 186
+      },
+      {
+        "item": "37:49 - Таймаут установлен для Guests",
+        "id": 187
+      },
+      {
+        "item": "37:49 - Старт таймаута для Guests",
+        "id": 188
+      },
+      {
+        "item": "37:49 - Таймаут установлен для Guests",
+        "id": 189
+      },
+      {
+        "item": "37:49 - Старт таймаута для Guests",
+        "id": 190
+      },
+      {
+        "item": "37:49 - Таймаут установлен для Guests",
+        "id": 191
+      },
+      {
+        "item": "37:49 - Старт таймаута для Guests",
+        "id": 192
+      },
+      {
+        "item": "Конец таймаута",
+        "id": 193
+      },
+      {
+        "item": "37:49 - Таймаут установлен для Guests",
+        "id": 194
+      },
+      {
+        "item": "37:49 - Старт таймаута для Guests",
+        "id": 195
+      },
+      {
+        "item": "37:49 - СТАРТ",
+        "id": 196
+      },
+      {
+        "item": "37:53 - СТОП",
+        "id": 197
+      },
+      {
+        "item": "Конец таймаута",
+        "id": 198
+      }
+    ],
+    "tabloLog": {
+      "tempLog": [
+        {
+          "item": ""
+        },
+        {
+          "item": "Конец 1 периода"
+        },
+        {
+          "item": "Конец 1 периода"
+        },
+        {
+          "item": "ГОЛ для Home!"
+        },
+        {
+          "item": "ГОЛ для Home!"
+        },
+        {
+          "item": "ГОЛ для Home!"
+        },
+        {
+          "item": "Конец таймаута"
+        },
+        {
+          "item": "Конец таймаута"
+        },
+        {
+          "item": "Конец таймаута"
+        },
+        {
+          "item": "Конец таймаута"
+        },
+        {
+          "item": "Конец таймаута"
+        },
+        {
+          "item": "Gamer 1 возвращается в игру"
+        },
+        {
+          "item": "ГОЛ для Home!"
+        },
+        {
+          "item": "Конец таймаута"
+        },
+        {
+          "item": "Конец таймаута"
+        }
+      ],
+      "consLog": [
+        {
+          "id": 1,
+          "teamType": "home",
+          "item": "Gamer 1 удален на"
+        }
+      ]
+    }
+  },
+  "teams": [
+    {
+      "name": "Home",
+      "counter": 51,
+      "teamType": "home",
+      "timeOut": false,
+      "gamers": [
+        {
+          "id": 1,
+          "fullName": "Gamer 1",
+          "gamerNumber": "00",
+          "status": "deleted",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 120000,
+          "whenWasPenalty": 185499
+        },
+        {
+          "id": 2,
+          "fullName": "Gamer 2",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 3,
+          "fullName": "Gamer 3",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 4,
+          "fullName": "Gamer 4",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 5,
+          "fullName": "Gamer 5",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 6,
+          "fullName": "Gamer 6",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 7,
+          "fullName": "Gamer 7",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 8,
+          "fullName": "Gamer 8",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 9,
+          "fullName": "Gamer 9",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 10,
+          "fullName": "Gamer 10",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 11,
+          "fullName": "Gamer 11",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 12,
+          "fullName": "Gamer 12",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        }
+      ]
+    },
+    {
+      "name": "Guests",
+      "counter": 36,
+      "teamType": "guests",
+      "timeOut": false,
+      "gamers": [
+        {
+          "id": 1,
+          "fullName": "qwe",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 2,
+          "fullName": "Gamer 2",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 3,
+          "fullName": "Gamer 3",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 4,
+          "fullName": "Gamer 4",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 5,
+          "fullName": "Gamer 5",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 6,
+          "fullName": "Gamer 6",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 10000,
+          "whenWasPenalty": 1200000
+        },
+        {
+          "id": 7,
+          "fullName": "Gamer 7",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 10000,
+          "whenWasPenalty": 319321
+        },
+        {
+          "id": 8,
+          "fullName": "Gamer 8",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 9,
+          "fullName": "Gamer 9",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 10,
+          "fullName": "Gamer 10",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 11,
+          "fullName": "Gamer 11",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 12,
+          "fullName": "Gamer 12",
+          "gamerNumber": "00",
+          "status": "in game",
+          "onField": false,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        }
+      ]
+    }
+  ]
+}
