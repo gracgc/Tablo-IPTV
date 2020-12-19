@@ -155,11 +155,13 @@ const TabloEditClient = (props) => {
 
             tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
 
+                if (r.timeSync + Math.round((Date.now() - r.dateClient) / 2) < dif) {
+                    setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
+                    setPing(Math.round((Date.now() - r.dateClient) / 2))
+                    setIsRunningServer(r.isRunning);
+                    console.log(Math.round((Date.now() - r.dateClient) / 2))
+                }
 
-                setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
-                setPing(Math.round((Date.now() - r.dateClient) / 2))
-                setIsRunningServer(r.isRunning);
-                console.log(Math.round((Date.now() - r.dateClient) / 2))
                 setTimeout(() => {
                     setCount(count + 1)
                 }, 1500)
@@ -179,8 +181,8 @@ const TabloEditClient = (props) => {
         useEffect(() => {
                 let interval = setInterval(() => {
                     if (isRunningServer) {
-                        setTimeDif(timeMem + ((Date.now() - dif) - startTime));
-                        setTimeMemTimer(deadLine - (timeMem + ((Date.now() - dif) - startTime)));
+                        setTimeDif(timeMem + ((Date.now() + dif) - startTime));
+                        setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
                     }
                     if (isRunningServerTimeout) {
                         setTimeDifTimeout(timeMemTimeout + ((Date.now() + dif) - startTimeout));
@@ -200,6 +202,7 @@ const TabloEditClient = (props) => {
                              secondsTimerTimeout={secondsTimerTimeout} homeTeam={homeTeam} guestsTeam={guestsTeam}
                              homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
                              gameNumber={gameNumber}/>
+                {dif}:{ping}
             </div>
         )
     }

@@ -153,11 +153,13 @@ const TabloEdit = (props) => {
 
         tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
 
-
-            setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
-            setPing(Math.round((Date.now() - r.dateClient) / 2))
-            setIsRunningServer(r.isRunning);
-            console.log(Math.round((Date.now() - r.dateClient) / 2))
+            if (r.timeSync + Math.round((Date.now() - r.dateClient) / 2) < dif) {
+                setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
+                setPing(Math.round((Date.now() - r.dateClient) / 2))
+                setIsRunningServer(r.isRunning);
+                console.log(Math.round((Date.now() - r.dateClient) / 2))
+            }
+            
             setTimeout(() => {
                 setCount(count + 1)
             }, 1500)
