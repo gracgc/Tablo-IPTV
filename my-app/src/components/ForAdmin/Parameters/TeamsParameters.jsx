@@ -42,7 +42,7 @@ const TeamsParameters = (props) => {
                 setTimeMem(time.timeData.timeMem);
                 setTimeMemTimer(time.timeData.timeMemTimer);
                 setPeriod(time.period);
-            setIsRunningServer(time.isRunning)
+                setIsRunningServer(time.isRunning)
             }
         );
 
@@ -67,14 +67,16 @@ const TeamsParameters = (props) => {
     return (
         <div className={c.parameters}>
             <div>
-                <TeamInfo period={period} timeMem={timeMem} timeMemTimer={timeMemTimer} isRunningServer={isRunningServer}
+                <TeamInfo period={period} timeMem={timeMem} timeMemTimer={timeMemTimer}
+                          isRunningServer={isRunningServer}
                           teamGamers={homeTeamGamers} teamCounter={homeTeamInfo.counter}
                           name={homeTeamInfo.name} timeOut={homeTeamInfo.timeOut} teamType={homeTeamInfo.teamType}
                           gameNumber={gameNumber}
                 />
             </div>
             <div>
-                <TeamInfo period={period} timeMem={timeMem} timeMemTimer={timeMemTimer} isRunningServer={isRunningServer}
+                <TeamInfo period={period} timeMem={timeMem} timeMemTimer={timeMemTimer}
+                          isRunningServer={isRunningServer}
                           teamGamers={guestsTeamGamers} teamCounter={guestsTeamInfo.counter}
                           name={guestsTeamInfo.name} timeOut={guestsTeamInfo.timeOut}
                           teamType={guestsTeamInfo.teamType}

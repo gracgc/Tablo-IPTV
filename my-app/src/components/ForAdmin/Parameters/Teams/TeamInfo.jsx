@@ -3,7 +3,7 @@ import c from './TeamInfo.module.css'
 import c1920 from './TeamInfo_1920.module.css'
 import TeamGamers from "./TeamGamers";
 import {addNewLog} from "../../../../redux/log_reducer";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {tabloAPI} from "../../../../api/api";
 
 

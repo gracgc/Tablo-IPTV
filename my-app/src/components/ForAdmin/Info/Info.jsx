@@ -5,7 +5,6 @@ import {useDispatch, useSelector} from "react-redux";
 import {getGame, setGameDataAC} from "../../../redux/games_reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
-import * as axios from "axios";
 import socket from "../../../socket/socket";
 import {tabloAPI} from "../../../api/api";
 

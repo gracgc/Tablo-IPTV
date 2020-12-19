@@ -6,14 +6,19 @@ const cors = require('cors');
 const authMW = require('../middleware/authMW')
 
 
-router.get('/:gameNumber', function (req, res) {
+router.post('/:gameNumber', function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
+
+        let dateClient = req.body.dateClient;
 
         let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
         DB.gameInfo.gameTime.resultCode = 0;
+        DB.gameInfo.gameTime.dateClient = dateClient;
+        DB.gameInfo.gameTime.timeSync = Date.now() - dateClient;
+
         res.send(DB.gameInfo.gameTime);
 
     } catch (e) {
@@ -80,6 +85,7 @@ router.put('/isRunning/:gameNumber', authMW, function (req, res) {
         } else {
             DB.gameInfo.gameStatus = "Going"
         }
+
         DB.gameInfo.gameTime.timeData.timeDif = timeDif;
         DB.gameInfo.gameTime.timeData.timeMem = timeMem;
         DB.gameInfo.gameTime.timeData.timeMemTimer = timeMemTimer;
