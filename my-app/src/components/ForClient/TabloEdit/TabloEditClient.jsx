@@ -161,6 +161,7 @@ const TabloEditClient = (props) => {
                     setPing(Math.round((Date.now() - r.dateClient) / 2))
                     setIsRunningServer(r.isRunning);
                 }
+                console.log(dif + ' ' + ping)
 
                 setTimeout(() => {
                     setCount(count + 1)

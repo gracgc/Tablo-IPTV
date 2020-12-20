@@ -158,6 +158,7 @@ const TabloEdit = (props) => {
                 setPing(Math.round((Date.now() - r.dateClient) / 2))
                 setIsRunningServer(r.isRunning);
             }
+            console.log(dif + ' ' + ping)
             setTimeout(() => {
                 setCount(count + 1)
                 if (tick < 5000) {
@@ -287,7 +288,6 @@ const TabloEdit = (props) => {
                        timeMem={timeMem}
                        addTeamGoal={addTeamGoal}
                        gameNumber={gameNumber}/>
-                {dif}_{ping}
             </div>
             <div className={width === 1920 ? c1920.allButtons : c.allButtons}>
                 {isRunningServer ?
