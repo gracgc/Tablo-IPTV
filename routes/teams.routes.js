@@ -85,12 +85,8 @@ router.put('/gamerGoal/:gameNumber', authMW, cors(), function (req, res) {
         if (symbol === '+') {
             gamer.goals = gamer.goals + 1;
         }
-        if (symbol === '-') {
-            if (gamer.goals > 0) {
-                gamer.goals = gamer.goals - 1;
-            } else {
-                return
-            }
+        if (symbol === '-' && gamer.goals > 0) {
+            gamer.goals = gamer.goals - 1;
         }
 
 
@@ -127,11 +123,8 @@ router.put('/teamGoal/:gameNumber', authMW, cors(), function (req, res) {
         if (symbol === '+') {
             team.counter = team.counter + 1;
         }
-        if (symbol === '-') {
+        if (symbol === '-' && team.counter > 0) {
             team.counter = team.counter - 1;
-        }
-        if (team.counter === 0) {
-            team.counter = 0
         }
 
 
