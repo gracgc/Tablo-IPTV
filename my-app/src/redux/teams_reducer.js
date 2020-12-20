@@ -680,9 +680,9 @@ export const gamerGoal = (gameNumber, teamType, id, symbol) => async (dispatch) 
 
 export const teamGoal = (gameNumber, teamType, symbol) => async (dispatch) => {
     let response = await teamsAPI.teamGoal(gameNumber, teamType, symbol);
-    // if (response.resultCode === 0) {
+    if (response.resultCode === 0) {
     //     dispatch(addGoalAC(teamType, symbol));
-    // }
+    }
 };
 
 export const changeGamerStatus = (gameNumber, teamType, id) => async (dispatch) => {

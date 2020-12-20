@@ -123,11 +123,14 @@ router.put('/teamGoal/:gameNumber', authMW, cors(), function (req, res) {
 
 
         const team = DB.teams.find((team) => team.teamType === teamType);
+
         if (symbol === '+') {
             team.counter = team.counter + 1;
         }
         if (symbol === '-' && team.counter > 0) {
             team.counter = team.counter - 1;
+        } else {
+            res.send({resultCode: 0})
         }
 
 
