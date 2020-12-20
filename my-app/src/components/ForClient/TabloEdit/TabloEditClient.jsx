@@ -55,6 +55,7 @@ const TabloEditClient = (props) => {
 
         let [dif, setDif] = useState();
         let [ping, setPing] = useState();
+        let [tick, setTick] = useState(1500);
 
 
         let [startTime, setStartTime] = useState();
@@ -159,12 +160,14 @@ const TabloEditClient = (props) => {
                     setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
                     setPing(Math.round((Date.now() - r.dateClient) / 2))
                     setIsRunningServer(r.isRunning);
-                    console.log(Math.round((Date.now() - r.dateClient) / 2))
                 }
 
                 setTimeout(() => {
                     setCount(count + 1)
-                }, 1500)
+                    if (tick < 5000) {
+                        setTick(tick + 50)
+                    }
+                }, tick)
             })
 
         }, [count])
@@ -202,7 +205,6 @@ const TabloEditClient = (props) => {
                              secondsTimerTimeout={secondsTimerTimeout} homeTeam={homeTeam} guestsTeam={guestsTeam}
                              homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
                              gameNumber={gameNumber}/>
-                {dif}:{ping}
             </div>
         )
     }

@@ -23,13 +23,17 @@ const Info = (props) => {
 
     let [isRunningServer, setIsRunningServer] = useState(false);
 
-    let [dif, setDif] = useState(0);
+    let [count, setCount] = useState(0);
+
+    let [dif, setDif] = useState();
+    let [ping, setPing] = useState();
+    let [tick, setTick] = useState(1500);
 
     let [period, setPeriod] = useState();
     let [smallOvertime, setSmallOvertime] = useState();
     let [bigOvertime, setBigOvertime] = useState();
 
-    let [currentTime, setCurrentTime] = useState(Date.now());
+    let [startTime, setStartTime] = useState();
 
     let [deadLine, setDeadLine] = useState();
 
@@ -43,41 +47,32 @@ const Info = (props) => {
 
     useEffect(() => {
         dispatch(getGame(gameNumber));
+
         socket.on(`getGame${gameNumber}`, game => {
             dispatch(setGameDataAC(game))
         });
-        tabloAPI.getTimerStatus(gameNumber).then(r => {
-                ////TIMER////
-                setIsRunningServer(r.isRunning);
-                setCurrentTime(Date.now());
-                setTimeMem(r.timeData.timeMem);
-                setTimeDif(r.timeData.timeMem);
-                setTimeMemTimer(r.timeData.timeMemTimer);
-                setDeadLine(r.timeData.deadLine);
-                setPeriod(r.period);
-                setSmallOvertime(r.smallOvertime);
-                setBigOvertime(r.bigOvertime);
-                if (r.isRunning) {
-                    tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                        setDif(
-                            (r.serverTime - r.runningTime)
-                            // - (Math.round((Date.now() - r.localTime)/2))
-                        )
-                    })
-                }
-            }
-        );
+
+        tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
+            setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
+            setPing(Math.round((Date.now() - r.dateClient) / 2))
+            setIsRunningServer(r.isRunning);
+            return r
+        }).then(r => {
+            ////TIMER////
+            setStartTime(r.runningTime)
+            setTimeMem(r.timeData.timeMem);
+            setTimeDif(r.timeData.timeMem);
+            setTimeMemTimer(r.timeData.timeMemTimer);
+            setDeadLine(r.timeData.deadLine);
+            setPeriod(r.period);
+            setSmallOvertime(r.smallOvertime);
+            setBigOvertime(r.bigOvertime);
+        })
 
         ////Socket IO////
         socket.on(`getTime${gameNumber}`, time => {
-            tabloAPI.getServerTime(gameNumber, Date.now()).then(r => {
-                    setDif(
-                        (r.serverTime - time.runningTime)
-                        // - (Math.round((Date.now() - r.localTime)/2))
-                    );
-                });
                 setIsRunningServer(time.isRunning);
-                setCurrentTime(Date.now());
+                setStartTime(time.runningTime)
                 setTimeMem(time.timeData.timeMem);
                 setTimeDif(time.timeData.timeMem);
                 setTimeMemTimer(time.timeData.timeMemTimer);
@@ -87,14 +82,35 @@ const Info = (props) => {
                 setBigOvertime(time.bigOvertime);
             }
         )
+
     }, []);
+
+    useEffect(() => {
+
+        tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
+
+            if (r.timeSync + Math.round((Date.now() - r.dateClient) / 2) < dif) {
+                setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
+                setPing(Math.round((Date.now() - r.dateClient) / 2))
+                setIsRunningServer(r.isRunning);
+            }
+
+            setTimeout(() => {
+                setCount(count + 1)
+                if (tick < 5000) {
+                    setTick(tick + 500)
+                }
+            }, tick)
+        })
+
+    }, [count])
 
 
     useEffect(() => {
             let interval = setInterval(() => {
                 if (isRunningServer) {
-                    setTimeDif(timeMem + (Date.now() - currentTime + dif));
-                    setTimeMemTimer(deadLine - (timeMem + (Date.now() - currentTime + dif)));
+                    setTimeDif(timeMem + ((Date.now() + dif) - startTime));
+                    setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
                 }
             }, 50);
             return () => clearInterval(interval);
