@@ -127,7 +127,7 @@ router.put('/teamGoal/:gameNumber', authMW, cors(), function (req, res) {
         if (symbol === '+') {
             team.counter = team.counter + 1;
         }
-        if (symbol === '-' && team.counter > 0) {
+        if (symbol === '-') {
             team.counter = team.counter - 1;
         }
         if (team.counter === 0) {
