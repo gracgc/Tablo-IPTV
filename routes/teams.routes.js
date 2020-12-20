@@ -126,17 +126,9 @@ router.put('/teamGoal/:gameNumber', authMW, cors(), function (req, res) {
         if (symbol === '+') {
             team.counter = team.counter + 1;
         }
-        if (symbol === '-') {
-            if (team.counter > 0) {
-                team.counter = team.counter - 1;
-            } else {
-                return
-            }
+        if (symbol === '-' && team.counter > 0) {
+            team.counter = team.counter - 1;
         }
-
-        const io = req.app.locals.io;
-
-        io.emit(`getTeams${gameNumber}`, DB.teams);
 
 
         let json = JSON.stringify(DB);
@@ -145,6 +137,10 @@ router.put('/teamGoal/:gameNumber', authMW, cors(), function (req, res) {
             `/DB/game_${gameNumber}.json`), json, 'utf8');
 
         res.send({resultCode: 0})
+
+        const io = req.app.locals.io;
+
+        io.emit(`getTeams${gameNumber}`, DB.teams);
 
     } catch (e) {
         console.log(e)
