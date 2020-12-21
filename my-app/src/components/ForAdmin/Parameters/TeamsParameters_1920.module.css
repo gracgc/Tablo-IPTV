@@ -18,3 +18,19 @@
     font-size: 30px;
     border: solid 2px black;
 }
+
+.customGameButton {
+    position: absolute;
+    float: right;
+    right: 30px;
+    bottom: 140px;
+    width: 280px;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+    font-size: 30px;
+    border: solid 2px black;
+    background-color: #130757;
+    color: white;
+    cursor: pointer;
+}

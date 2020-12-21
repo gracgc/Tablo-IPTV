@@ -83,6 +83,11 @@ const TeamsParameters = (props) => {
                           gameNumber={gameNumber}
                 />
             </div>
+
+            <div className={width === 1920 ? c1920.customGameButton : c.customGameButton}>
+                Кастомизировать
+            </div>
+
             <NavLink to="/">
                 <div className={width === 1920 ? c1920.navBackButton : c.navBackButton}>
                     Вернуться в меню
