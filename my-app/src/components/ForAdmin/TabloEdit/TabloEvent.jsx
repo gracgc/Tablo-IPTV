@@ -30,6 +30,8 @@ const TabloEvent = (props) => {
 
     const shouldPenaltyStop = penaltyTimer <= 0;
 
+    
+
 
     useEffect(() => {
         if (deletedGamer.status === 'deleted' && (shouldPenaltyStop || props.timeMemTimer <= 0)) {
