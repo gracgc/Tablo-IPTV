@@ -123,7 +123,7 @@ const Info = (props) => {
                 <strong>{gameData.gameName}</strong> — {gameData.gameType}
             </div>
             <div className={width === 1920 ? c1920.statusAndTime : c.statusAndTime}>
-                {period > 3 ? <strong>Overtime {''}</strong> : <strong>Период {period} {''}</strong>}
+                {period > 3 ? <strong>Овертайм {''}</strong> : <strong>Период {period} {''}</strong>}
                 — <strong>Статус</strong>: {gameData.gameStatus === 'Going' ? 'Идет' : 'Остановлена'} — <strong>Время</strong>
                 : {minutesStopwatch}:{secondsStopwatch < 10 ? '0' : ''}{secondsStopwatch}
             </div>

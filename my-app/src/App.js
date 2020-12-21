@@ -17,6 +17,7 @@ import Cookies from "js-cookie"
 import SetDevice from "./components/MenuPanel/SetDevice/SetDevice";
 import {setSocketIDAC} from "./redux/app_reducer";
 import {useHistory} from "react-router";
+import CustomGame from "./components/ForAdmin/CustomGame/CustomGame";
 
 
 function App(props) {
@@ -81,6 +82,7 @@ function App(props) {
                     <Route exact path='/tabloClient/0' render={() => <Tablo0/>}/>
                     <Route path='/tabloClient/:gameNumber?' render={() => <TabloEditClient/>}/>
                     <Route path='/auth' render={() => <Auth/>}/>
+                    <Route path='/customGame/:gameNumber?' render={() => <CustomGame/>}/>
                 </Switch>
 
             </div>

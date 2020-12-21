@@ -84,9 +84,11 @@ const TeamsParameters = (props) => {
                 />
             </div>
 
-            <div className={width === 1920 ? c1920.customGameButton : c.customGameButton}>
-                Кастомизировать
-            </div>
+            <NavLink to={`/customGame/${gameNumber}`}>
+                <div className={width === 1920 ? c1920.customGameButton : c.customGameButton}>
+                    Кастомизировать
+                </div>
+            </NavLink>
 
             <NavLink to="/">
                 <div className={width === 1920 ? c1920.navBackButton : c.navBackButton}>
@@ -94,7 +96,6 @@ const TeamsParameters = (props) => {
                 </div>
             </NavLink>
         </div>
-
     )
 };
 
