@@ -30,11 +30,11 @@ const TabloEvent = (props) => {
 
     const shouldPenaltyStop = penaltyTimer <= 0;
 
-    
-
 
     useEffect(() => {
-        if (deletedGamer.status === 'deleted' && (shouldPenaltyStop || props.timeMemTimer <= 0)) {
+        if (deletedGamer.status === 'deleted'
+            && (shouldPenaltyStop || props.timeMemTimer <= 0)
+        ) {
             setTimeout(() => {
                 dispatch(changeGamerStatus(props.gameNumber, props.teamType, deletedGamer.id));
                 dispatch(addNewLog(props.gameNumber,

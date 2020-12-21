@@ -43,7 +43,9 @@ const TeamGamers = (props) => {
                  ${props.fullName} возвращается в игру`));
             dispatch(addNewTempLog(gameNumber, `${props.fullName} возвращается в игру`));
             dispatch(deleteGamer(gameNumber, teamType, gamerId, 0, 0));
-            dispatch(deleteConsLog(gameNumber, consLog.findIndex(c => c.id === props.id && c.teamType === props.teamType)));
+            if (timeOfPenalty === 0) {
+                dispatch(deleteConsLog(gameNumber, consLog.findIndex(c => c.id === props.id && c.teamType === props.teamType)));
+            }
         }
     };
 
