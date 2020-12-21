@@ -9,6 +9,7 @@ a {
     text-decoration: none;
 }
 
+
 .navBackButton {
     position: absolute;
     float: right;
@@ -20,4 +21,58 @@ a {
     font-weight: bold;
     font-size: 22px;
     border: solid 2px black;
+}
+
+.menuTitle {
+    position: absolute;
+    font-weight: bold;
+    font-size: 30px;
+    left: 150px;
+    top: 20px;
+}
+
+.panelName {
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+
+.customGameForm {
+    margin: auto;
+    padding-top: 100px;
+    height: 500px;
+    width: 1100px;
+    display: grid;
+    grid-template-rows: 20% 80%;
+}
+
+.customTime {
+    display: grid;
+    grid-template-columns: 30% 70%;
+}
+
+.timePanel {
+    border: red 1px solid;
+}
+
+.periodPanel {
+    border: red 1px solid;
+    padding-top: 10px;
+    padding-left: 25px;
+    font-size: 22px;
+}
+
+.periods {
+    padding: 2px 10px;
+    border: 2px solid;
+    cursor: pointer;
+}
+
+.customGamers {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.teamPanel {
+    border: blue solid 1px;
 }
