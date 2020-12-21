@@ -29,24 +29,33 @@ const TeamGamers = (props) => {
         state => state.logPage.logData.tabloLog.consLog
     );
 
-    const changeStatus = (gameNumber, teamType, gamerId, timeOfPenalty) => {
-        dispatch(changeGamerStatus(gameNumber, teamType, gamerId));
-        if (props.status === 'in game' && timeOfPenalty !== 0) {
+    const changeStatus2 = (gameNumber, teamType, gamerId, timeOfPenalty) => {
+        if (props.status === 'in game') {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - ${props.fullName} удален на ${timeOfPenalty / 60000} минуты`));
             dispatch(addNewConsLog(gameNumber, gamerId, teamType, `${props.fullName} удален на`));
             dispatch(deleteGamer(gameNumber, teamType, gamerId, timeOfPenalty, props.timeMemTimer));
         }
         if (props.status === 'deleted') {
-            dispatch(addNewLog(gameNumber,
-                `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
+            if (timeOfPenalty !== 0) {
+                dispatch(deleteGamer(gameNumber, teamType, gamerId, timeOfPenalty, props.timeMemTimer));
+            } else {
+                dispatch(addNewLog(gameNumber,
+                    `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} -
                  ${props.fullName} возвращается в игру`));
-            dispatch(addNewTempLog(gameNumber, `${props.fullName} возвращается в игру`));
-            dispatch(deleteGamer(gameNumber, teamType, gamerId, 0, 0));
-            if (timeOfPenalty === 0) {
+                dispatch(addNewTempLog(gameNumber, `${props.fullName} возвращается в игру`));
+                dispatch(deleteGamer(gameNumber, teamType, gamerId, 0, 0));
                 dispatch(deleteConsLog(gameNumber, consLog.findIndex(c => c.id === props.id && c.teamType === props.teamType)));
-                console.log(1)
             }
+        }
+    };
+
+    const changeStatus = async (gameNumber, teamType, gamerId, timeOfPenalty) => {
+        if (props.status === 'in game' || (props.status === 'deleted' && timeOfPenalty === 0)) {
+            await dispatch(changeGamerStatus(gameNumber, teamType, gamerId));
+            changeStatus2(gameNumber, teamType, gamerId, timeOfPenalty)
+        } else {
+            changeStatus2(gameNumber, teamType, gamerId, timeOfPenalty)
         }
     };
 
