@@ -43,9 +43,9 @@ router.post('/:gameNumber', authMW, cors(), function (req, res) {
         if (DB.logData.gameLog.length === 0) {
             DB.logData.gameLog.push(newLogFirst)
         } else {
-            // if (newLogItem !== DB.logData.gameLog[DB.logData.gameLog.length - 1].item) {
-            DB.logData.gameLog.push(newLog);
-            // } else return
+            if (newLogItem !== DB.logData.gameLog[DB.logData.gameLog.length - 1].item && DB.logData.gameLog[DB.logData.gameLog.length - 1].item.indexOf('Конец') === -1) {
+                DB.logData.gameLog.push(newLog);
+            }
         }
 
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import c from './Log.module.css'
 import c1920 from './Log_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
@@ -44,6 +44,14 @@ const Log = (props) => {
         state => state.logPage.logData.gameLog
     );
 
+    const logEndRef = useRef(null)
+
+    const scrollToBottom = () => {
+        logEndRef.current.scrollIntoView({ behavior: "auto" })
+    }
+
+    useEffect(scrollToBottom, [gameLog]);
+
 
     const onSubmit = (formData) => {
         if (formData.addLog !== undefined) {
@@ -66,6 +74,7 @@ const Log = (props) => {
             <div style={{fontSize: width === 1920 ? "36px" : "24px", marginBottom: "1%"}}>Лог</div>
             <div className={width === 1920 ? c1920.logWindow : c.logWindow}>
                 {gameLog.map(l => <LogItem gameNumber={gameNumber} key={l.id} id={l.id} logItem={l.item}/>)}
+                <div ref={logEndRef} />
             </div>
             <AddLogReduxForm onSubmit={onSubmit}/>
         </div>

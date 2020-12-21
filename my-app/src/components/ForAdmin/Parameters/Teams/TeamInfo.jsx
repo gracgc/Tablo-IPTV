@@ -24,11 +24,6 @@ const TeamInfo = (props) => {
             `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - Старт таймаута для ${props.name}`));
     };
 
-    let setTimeout = () => {
-        tabloAPI.putTimeoutStatus(props.gameNumber, false, 0, 0, 30000, 30000);
-        dispatch(addNewLog(props.gameNumber,
-            `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - Таймаут установлен для ${props.name}`));
-    };
 
     let clearTimeout = () => {
         tabloAPI.putTimeoutStatus(props.gameNumber, false, 0, 0, 0, 0);
@@ -40,16 +35,12 @@ const TeamInfo = (props) => {
                 Название команды: {props.name} <br/>
                 Очки: {props.teamCounter} <br/>
                 Таймаут: {!props.isRunningServer
-                    ? <span><span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => setTimeout()}>
-                Установить
-            </span> <span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => startTimeout()}>
+                    ? <span><span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => startTimeout()}>
                 Старт
             </span> <span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => clearTimeout()}>
                     Очистить
                     </span> <br/></span>
                     : <span><span className={width === 1920 ? c1920.timeoutDis : c.timeoutDis}>
-                    Установить
-                    </span> <span className={width === 1920 ? c1920.timeoutDis : c.timeoutDis}>
                     Старт
                     </span> <span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => clearTimeout()}>
                     Очистить
