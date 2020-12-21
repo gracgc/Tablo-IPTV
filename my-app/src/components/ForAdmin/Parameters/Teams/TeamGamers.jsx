@@ -31,7 +31,7 @@ const TeamGamers = (props) => {
 
     const changeStatus = (gameNumber, teamType, gamerId, timeOfPenalty) => {
         dispatch(changeGamerStatus(gameNumber, teamType, gamerId));
-        if (props.status === 'in game') {
+        if (props.status === 'in game' && timeOfPenalty !== 0) {
             dispatch(addNewLog(gameNumber,
                 `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - ${props.fullName} удален на ${timeOfPenalty / 60000} минуты`));
             dispatch(addNewConsLog(gameNumber, gamerId, teamType, `${props.fullName} удален на`));
@@ -45,6 +45,7 @@ const TeamGamers = (props) => {
             dispatch(deleteGamer(gameNumber, teamType, gamerId, 0, 0));
             if (timeOfPenalty === 0) {
                 dispatch(deleteConsLog(gameNumber, consLog.findIndex(c => c.id === props.id && c.teamType === props.teamType)));
+                console.log(1)
             }
         }
     };
