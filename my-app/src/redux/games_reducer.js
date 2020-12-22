@@ -86,4 +86,12 @@ export const createNewGame =
     }
 };
 
+export const customGame =
+    (gameNumber, period, time, homeName, homeGamers, guestsName, guestsGamers) => async (dispatch) => {
+        let response = await gameAPI.customGame(gameNumber, period, time, homeName, homeGamers, guestsName, guestsGamers);
+        if (response.resultCode === 0) {
+            // dispatch(customGameAC(gameNumber));
+        }
+    };
+
 export default gamesReducer;

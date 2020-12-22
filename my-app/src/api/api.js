@@ -114,6 +114,12 @@ export const gameAPI = {
                 return responce.data
             })
     },
+    customGame(gameNumber, period, time, homeName, homeGamers, guestsName, guestsGamers) {
+        return instance.put(`game/${gameNumber}`, {period, time, homeName, homeGamers, guestsName, guestsGamers})
+            .then(responce => {
+                return responce.data
+            })
+    },
     getGameNumber() {
         return instance.get(`gameNumber`)
             .then(responce => {

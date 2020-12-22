@@ -101,6 +101,63 @@ router.post('/', authMW, cors(), function (req, res) {
     }
 })
 
+router.put('/:gameNumber', authMW, cors(), function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname, `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+
+        let period = req.body.period;
+        let time = req.body.time;
+        let homeName = req.body.homeName;
+        let homeGamers = req.body.homeGamers;
+        let guestsName = req.body.guestsName;
+        let guestsGamers = req.body.guestsGamers;
+
+
+        DB.gameInfo.gameTime.period = period
+        DB.gameInfo.gameTime.smallOvertime = 0
+        DB.gameInfo.gameTime.bigOvertime = 0
+        DB.gameInfo.gameTime.timeData.deadLine = 1200000
+        DB.gameInfo.gameTime.timeData.timeMemTimer = time
+        DB.gameInfo.gameTime.timeData.timeDif = 1200000 - time
+        DB.gameInfo.gameTime.timeData.timeMem = 1200000 - time
+        DB.teams.find(t => t.teamType === 'home').name = homeName
+        DB.teams.find(t => t.teamType === 'guests').name = guestsName
+
+        homeGamers.map(g => {
+            DB.teams.find(t => t.teamType === 'home').gamers.find(gamer => gamer.id === g.id).fullName = g.fullName
+            DB.teams.find(t => t.teamType === 'home').gamers.find(gamer => gamer.id === g.id).gamerNumber = g.gamerNumber
+        })
+
+        guestsGamers.map(g => {
+            DB.teams.find(t => t.teamType === 'home').gamers.find(gamer => gamer.id === g.id).fullName = g.fullName
+            DB.teams.find(t => t.teamType === 'home').gamers.find(gamer => gamer.id === g.id).gamerNumber = g.gamerNumber
+        })
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname +
+            `/DB/game_${gameNumber}.json`), json, 'utf8');
+
+        res.send({resultCode: 0});
+
+        const io = req.app.locals.io;
+
+        io.emit(`getGame${gameNumber}`, DB.gameInfo)
+
+        io.emit(`getTeams${gameNumber}`, DB.teams)
+
+        io.emit(`getTime${gameNumber}`, DB.gameInfo.gameTime)
+
+    } catch
+        (e) {
+        console.log(e)
+    }
+})
+
 
 
 
