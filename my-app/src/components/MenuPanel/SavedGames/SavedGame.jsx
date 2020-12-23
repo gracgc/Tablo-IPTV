@@ -24,6 +24,14 @@ const SavedGame = (props) => {
         dispatch(putGameNumber(gameNumber))
     };
 
+    const deleteGameForever = async (gameNumber) => {
+        await confirm({description: 'Эта игра будет безвозвратно удалена',
+            title: 'Вы уверены?',
+            confirmationText: 'Хорошо',
+            cancellationText: 'Отменить'});
+        dispatch(deleteGame(gameNumber))
+    };
+
 
     return (
             <div>
@@ -54,7 +62,7 @@ const SavedGame = (props) => {
                         }
                     </div>
                     <div className={width === 1920 ? c1920.deleteButton : c.deleteButton}
-                         onClick={(e) => {dispatch(deleteGame(props.savedGame.gameNumber))}}>
+                         onClick={(e) => deleteGameForever(props.savedGame.gameNumber)}>
                         Удалить игру
                     </div>
                 </div>

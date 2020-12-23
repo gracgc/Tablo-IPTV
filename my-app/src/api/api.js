@@ -115,7 +115,7 @@ export const gameAPI = {
             })
     },
     deleteGame(gameNumber) {
-        return instance.put(`game/deleteGame/${gameNumber}`)
+        return instance.put(`savedGames/${gameNumber}`)
             .then(responce => {
                 return responce.data
             })

@@ -158,45 +158,6 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
     }
 })
 
-router.put('/deleteGame/:gameNumber', authMW, cors(), function (req, res) {
-    try {
-        let gameNumber = req.params.gameNumber;
-
-        fs.unlinkSync(path.join(__dirname +
-            `/DB/game_${gameNumber}.json`));
-
-        let data = fs.readFileSync(path.join(__dirname, `/DB/saved_games.json`));
-        let DB = JSON.parse(data);
-
-
-        let deletedGame = DB.savedGames.findIndex(g => g.gameNumber === +gameNumber)
-
-
-        DB.savedGames.splice(deletedGame, 1);
-
-        DB.savedGames.forEach(function(item, i, arr) {
-            if (i >= deletedGame) {
-                fs.renameSync(path.join(__dirname + `/DB/game_${arr[i].gameNumber}.json`)
-                    , path.join(__dirname + `/DB/game_${arr[i].gameNumber - 1}.json`));
-                arr[i].gameNumber -= 1
-                // console.log(arr[i].gameNumber)
-            }
-        });
-
-
-
-        let json = JSON.stringify(DB);
-
-        fs.writeFileSync(path.join(__dirname +
-            `/DB/saved_games.json`), json, 'utf8');
-
-        res.send({resultCode: 0});
-
-    } catch
-        (e) {
-        console.log(e)
-    }
-})
 
 
 

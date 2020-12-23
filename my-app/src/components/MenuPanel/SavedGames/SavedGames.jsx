@@ -3,9 +3,10 @@ import c from './SavedGames.module.css'
 import c1920 from './SavedGames_1920.module.css'
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getSavedGames} from "../../../redux/games_reducer";
+import {getSavedGames, setSavedGamesAC} from "../../../redux/games_reducer";
 import SavedGame from "./SavedGame";
-import {getGameNumber} from "../../../redux/app_reducer";
+import {getGameNumber, setGameNumberAC} from "../../../redux/app_reducer";
+import socket from "../../../socket/socket";
 
 const SavedGames = (props) => {
 
@@ -25,6 +26,14 @@ const SavedGames = (props) => {
         dispatch(getSavedGames());
         dispatch(getGameNumber())
 
+        socket.on('getGameNumber', gameNumber => {
+            dispatch(setGameNumberAC(gameNumber));
+            }
+        );
+
+        socket.on('getSavedGames', games => {
+            dispatch(setSavedGamesAC(games));
+        })
 
     }, []);
 
