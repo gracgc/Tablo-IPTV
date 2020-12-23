@@ -166,9 +166,16 @@ router.put('/deleteGame/:gameNumber', authMW, cors(), function (req, res) {
         let DB = JSON.parse(data);
 
 
-        let deletedGame = DB.savedGames.findIndex(g => g.gameNumber === gameNumber)
+        let deletedGame = DB.savedGames.findIndex(g => g.gameNumber === +gameNumber)
+
 
         DB.savedGames.splice(deletedGame, 1);
+
+        for (let game of DB.savedGames) {
+            if (DB.savedGames[game] >= deletedGame) {
+                DB.savedGames[game].gameNumber = DB.savedGames[game].gameNumber + 1
+            }
+        }
 
 
         let json = JSON.stringify(DB);
