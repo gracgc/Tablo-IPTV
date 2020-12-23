@@ -171,11 +171,12 @@ router.put('/deleteGame/:gameNumber', authMW, cors(), function (req, res) {
 
         DB.savedGames.splice(deletedGame, 1);
 
-        for (let game of DB.savedGames) {
-            if (DB.savedGames[game] >= deletedGame) {
-                DB.savedGames[game].gameNumber = DB.savedGames[game].gameNumber + 1
+        DB.savedGames.forEach(function(item, i, arr) {
+            if (arr[i] >= deletedGame) {
+                arr[i].gameNumber += 1
             }
-        }
+        });
+
 
 
         let json = JSON.stringify(DB);
