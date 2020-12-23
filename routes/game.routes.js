@@ -162,6 +162,9 @@ router.put('/deleteGame/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
+        fs.unlinkSync(path.join(__dirname +
+            `/DB/game_${gameNumber}.json`));
+
         let data = fs.readFileSync(path.join(__dirname, `/DB/saved_games.json`));
         let DB = JSON.parse(data);
 
@@ -173,6 +176,8 @@ router.put('/deleteGame/:gameNumber', authMW, cors(), function (req, res) {
 
         DB.savedGames.forEach(function(item, i, arr) {
             if (i >= deletedGame) {
+                fs.renameSync(path.join(__dirname + `/DB/game_${arr[i].gameNumber}.json`)
+                    , path.join(__dirname + `/DB/game_${arr[i].gameNumber - 1}.json`));
                 arr[i].gameNumber -= 1
                 // console.log(arr[i].gameNumber)
             }
@@ -181,9 +186,6 @@ router.put('/deleteGame/:gameNumber', authMW, cors(), function (req, res) {
 
 
         let json = JSON.stringify(DB);
-
-        fs.unlinkSync(path.join(__dirname +
-            `/DB/game_${gameNumber}.json`));
 
         fs.writeFileSync(path.join(__dirname +
             `/DB/saved_games.json`), json, 'utf8');
