@@ -172,8 +172,9 @@ router.put('/deleteGame/:gameNumber', authMW, cors(), function (req, res) {
         DB.savedGames.splice(deletedGame, 1);
 
         DB.savedGames.forEach(function(item, i, arr) {
-            if (arr[i] >= deletedGame) {
-                arr[i].gameNumber += 1
+            if (i >= deletedGame) {
+                arr[i].gameNumber -= 1
+                // console.log(arr[i].gameNumber)
             }
         });
 
