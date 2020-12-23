@@ -15,7 +15,7 @@ import {tabloAPI} from "../../../api/api";
 
 const TabloEdit = (props) => {
 
-    let gameNumber = props.match.params.gameNumber;
+    let [gameNumber, setGameNumber] = useState(props.match.params.gameNumber);
 
     const dispatch = useDispatch();
 
@@ -92,6 +92,15 @@ const TabloEdit = (props) => {
     let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
 
     useEffect(() => {
+        ////LOAD NEW DATA////
+        socket.on('getGameNumberAdmin', gameNumberX => {
+                props.history.push(`/adminPanel/${gameNumber - 1}`);
+                setGameNumber(gameNumberX)
+            }
+        );
+    }, [])
+
+    useEffect(() => {
         tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
             setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
             setPing(Math.round((Date.now() - r.dateClient) / 2))
@@ -140,7 +149,7 @@ const TabloEdit = (props) => {
                 setDeadLineTimeout(time.timeData.deadLine);
             }
         )
-    }, []);
+    }, [gameNumber]);
 
     useEffect(() => {
         setIsShowLog(true);
@@ -148,6 +157,7 @@ const TabloEdit = (props) => {
             setIsShowLog(false);
         }, 5000)
     }, [gameTempLogDep.length]);
+
 
     useEffect(() => {
 

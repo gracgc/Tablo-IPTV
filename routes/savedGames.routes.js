@@ -63,6 +63,8 @@ router.post('/', authMW, cors(), function (req, res) {
 
 router.put('/:gameNumber', authMW, cors(), function (req, res) {
     try {
+        const io = req.app.locals.io;
+
         let gameNumber = req.params.gameNumber;
 
         fs.unlinkSync(path.join(__dirname +
@@ -91,6 +93,7 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
 
         if (DB2.gameNumber >= DB.savedGames.find(g => g.gameNumber === +gameNumber).gameNumber) {
             DB2.gameNumber -= 1
+            io.emit('getGameNumberAdmin', DB2.gameNumber)
         }
 
 
@@ -105,11 +108,12 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
 
         res.send({resultCode: 0});
 
-        const io = req.app.locals.io;
+
 
         io.emit('getSavedGames', DB.savedGames)
 
         io.emit('getGameNumber', DB2.gameNumber)
+
 
     } catch
         (e) {
