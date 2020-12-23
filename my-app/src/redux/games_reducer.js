@@ -77,6 +77,13 @@ export const getSavedGames = () => async (dispatch) => {
     }
 };
 
+export const deleteGame = (gameNumber) => async (dispatch) => {
+    let response = await gameAPI.deleteGame(gameNumber);
+    if (response.resultCode === 0) {
+        // dispatch(deleteGameAC(response.savedGames));
+    }
+};
+
 export const createNewGame =
     (gameName, gameNumber, gameType, homeName, homeGamers, guestsName, guestsGamers) => async (dispatch) => {
     let responseGame = await gameAPI.createNewGame(gameName, gameNumber, gameType);

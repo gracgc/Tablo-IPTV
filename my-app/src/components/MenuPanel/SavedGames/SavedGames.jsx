@@ -24,6 +24,8 @@ const SavedGames = (props) => {
     useEffect(() => {
         dispatch(getSavedGames());
         dispatch(getGameNumber())
+
+
     }, []);
 
 
@@ -33,7 +35,7 @@ const SavedGames = (props) => {
             <span className={width === 1920 ? c1920.menuTitle : c.menuTitle}>Сохраненные игры</span>
 
             <div className={width === 1920 ? c1920.navbar : c.navbar}>
-                {savedGames.map(sg => <SavedGame gameNumber={gameNumber} savedGames={sg}/>)}
+                {savedGames.map(sg => <SavedGame gameNumber={gameNumber} savedGame={sg} savedGames={savedGames}/>)}
             </div>
             <NavLink to={'/tabloClient/'}>
                 <div className={width === 1920 ? c1920.navButtonClient : c.navButtonClient}>

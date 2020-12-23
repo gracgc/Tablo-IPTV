@@ -15,7 +15,7 @@ a {
     left: 130px;
     top: 160px;
     width: 1200px;
-    height: 370px;
+    height: 410px;
     overflow: auto;
 }
 
@@ -101,4 +101,14 @@ a {
 @keyframes blink {
     from { color: #ff1717}
     to { color: #731919;}
+}
+
+.deleteButton {
+    border: 2px solid black;
+    margin-top: 10px;
+    background: #f57878;
+    color: black;
+    width: 230px;
+    text-align: center;
+    cursor: pointer;
 }

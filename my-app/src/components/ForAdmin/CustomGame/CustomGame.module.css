@@ -26,7 +26,7 @@ a {
 .menuTitle {
     position: absolute;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 56px;
     left: 150px;
     top: 20px;
 }
@@ -34,6 +34,7 @@ a {
 .panelName {
     margin-bottom: 7px;
     font-weight: bold;
+    font-size: 20px;
 }
 
 
@@ -105,4 +106,12 @@ a {
     font-weight: bold;
     font-size: 22px;
     border: solid 2px black;
+}
+
+.successSave {
+    color: green;
+    position: absolute;
+    float: right;
+    left: 100px;
+    bottom: 105px;
 }

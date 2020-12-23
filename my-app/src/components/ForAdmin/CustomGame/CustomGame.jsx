@@ -9,6 +9,7 @@ import {getTeams} from "../../../redux/teams_reducer";
 import {Input} from "../../../common/FormsControls/FormsControls";
 import {tabloAPI} from "../../../api/api";
 import {customGame} from "../../../redux/games_reducer";
+import {maxTime, maxTime20, maxTime60, required} from "../../../utils/validators";
 
 
 const CustomGameForm = (props) => {
@@ -58,6 +59,7 @@ const CustomGameForm = (props) => {
         tabloAPI.getTimerStatus(props.gameNumber, Date.now()).then(r => {
             setTimeMemTimer(r.timeData.timeMemTimer);
             setPeriod(r.period)
+            props.dispatch(change('customGame', 'period', r.period));
         })
         props.dispatch(change('customGame', 'min', minutesTimer));
         props.dispatch(change('customGame', 'sec', secondsTimer));
@@ -72,33 +74,35 @@ const CustomGameForm = (props) => {
     return (
         <div>
             <form onSubmit={props.handleSubmit}>
-                <div className={c.customGameForm}>
+                <div className={width === 1920 ? c1920.customGameForm : c.customGameForm}>
                     <div style={{display: "none"}}>
-                        <Field placeholder={'мин'} name={'period'}
+                        <Field placeholder={''} name={'period'}
                                component={Input}/>
                     </div>
-                    <div className={c.customTime}>
-                        <div className={c.periodPanel}>
-                            <div className={c.panelName}>Периоды</div>
+                    <div className={width === 1920 ? c1920.customTime : c.customTime}>
+                        <div className={width === 1920 ? c1920.periodPanel : c.periodPanel}>
+                            <div className={width === 1920 ? c1920.panelName : c.panelName}>Периоды</div>
                             {periods.map(p => <span className={period === p ? c.choosenPeriod : c.periods}
                                                     onClick={(e) => choosePeriod(p)}>{p > 3 ? 'Овертайм' : p}</span>)}
                         </div>
-                        <div className={c.timePanel}>
-                            <div className={c.panelName}>Время таймера</div>
+                        <div className={width === 1920 ? c1920.timePanel : c.timePanel}>
+                            <div className={width === 1920 ? c1920.panelName : c.panelName}>Время таймера</div>
                             <div style={{display: "inline-flex"}}>
                                 <Field placeholder={'мин'} name={'min'}
+                                       validate={[maxTime20]}
                                        component={Input}/>
                                 <Field placeholder={'сек'} name={'sec'}
+                                       validate={[maxTime60]}
                                        component={Input}/>
                             </div>
                         </div>
                     </div>
-                    <div className={c.customGamers}>
-                        <div className={c.teamPanel}>
+                    <div className={width === 1920 ? c1920.customGamers : c.customGamers}>
+                        <div className={width === 1920 ? c1920.teamPanel : c.teamPanel}>
                             <Field placeholder={'название команды'} name={`homeName`}
                                    component={Input}/>
-                            <div className={c.panelName}>Игроки</div>
-                            {homeTeamGamers.map(g => <div className={c.team}>
+                            <div className={width === 1920 ? c1920.panelName : c.panelName}>Игроки</div>
+                            {homeTeamGamers.map(g => <div className={width === 1920 ? c1920.team : c.team}>
                                 <div>
                                     <Field placeholder={'имя игрока'} name={`homeGamerName${g.id}`}
                                            component={Input}/>
@@ -109,11 +113,11 @@ const CustomGameForm = (props) => {
                                 </div>
                             </div>)}
                         </div>
-                        <div className={c.teamPanel}>
+                        <div className={width === 1920 ? c1920.teamPanel : c.teamPanel}>
                             <Field placeholder={'название команды'} name={`guestsName`}
                                    component={Input}/>
-                            <div className={c.panelName}>Игроки</div>
-                            {guestsTeamGamers.map(g => <div className={c.team}>
+                            <div className={width === 1920 ? c1920.panelName : c.panelName}>Игроки</div>
+                            {guestsTeamGamers.map(g => <div className={width === 1920 ? c1920.team : c.team}>
                                 <div>
                                     <Field placeholder={'имя игрока'} name={`guestsGamerName${g.id}`}
                                            component={Input}/>
@@ -127,7 +131,8 @@ const CustomGameForm = (props) => {
                     </div>
                 </div>
                 <div>
-                    <button className={c.customGameButton}>Сохранить изменения</button>
+                    <button className={width === 1920 ? c1920.customGameButton : c.customGameButton}>Сохранить изменения</button>
+                    {props.successSave && <div className={width === 1920 ? c1920.successSave : c.successSave}>Изменения сохранены</div>}
                 </div>
             </form>
         </div>
@@ -145,6 +150,10 @@ const CustomGame = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
 
+    let [successSave, setSuccessSave] = useState(false);
+
+
+
     const teams = useSelector(
         state => state.teamsPage.teams
     );
@@ -161,6 +170,11 @@ const CustomGame = (props) => {
             formData.guestsName,
             guestsTeamGamers.map(g => ({id: g.id, fullName: eval(`formData.guestsGamerName${g.id}`), gamerNumber: eval(`formData.guestsGamerNumber${g.id}`) }))
             ))
+
+        setSuccessSave(true)
+        setTimeout(() => {
+            setSuccessSave(false)
+        }, 3000)
     };
 
 
@@ -170,6 +184,7 @@ const CustomGame = (props) => {
             <div className={width === 1920 ? c1920.customGamePanel : c.customGamePanel}>
                 <CustomGameReduxForm onSubmit={onSubmit}
                                      gameNumber={gameNumber}
+                                     successSave={successSave}
                 />
             </div>
 

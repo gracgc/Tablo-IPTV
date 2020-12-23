@@ -114,6 +114,12 @@ export const gameAPI = {
                 return responce.data
             })
     },
+    deleteGame(gameNumber) {
+        return instance.put(`game/deleteGame/${gameNumber}`)
+            .then(responce => {
+                return responce.data
+            })
+    },
     customGame(gameNumber, period, time, homeName, homeGamers, guestsName, guestsGamers) {
         return instance.put(`game/${gameNumber}`, {period, time, homeName, homeGamers, guestsName, guestsGamers})
             .then(responce => {

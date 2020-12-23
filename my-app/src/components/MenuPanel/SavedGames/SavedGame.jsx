@@ -5,6 +5,8 @@ import {putGameNumber} from "../../../redux/app_reducer";
 import {useDispatch, useSelector} from "react-redux";
 import c1920 from "./SavedGames_1920.module.css";
 import {useConfirm} from "material-ui-confirm";
+import {deleteGame} from "../../../redux/games_reducer";
+
 
 const SavedGame = (props) => {
 
@@ -23,25 +25,23 @@ const SavedGame = (props) => {
     };
 
 
-
-
     return (
             <div>
                 <div className={width === 1920 ? c1920.navButton : c.navButton}>
-                    {props.savedGames.gameNumber}
+                    {props.savedGame.gameNumber}
                     <div className={width === 1920 ? c1920.nameAndType : c.nameAndType}>
-                        {props.savedGames.gameName} — {props.savedGames.gameType}
+                        {props.savedGame.gameName} — {props.savedGame.gameType}
                     </div>
                     <div className={width === 1920 ? c1920.tabloChose : c.tabloChose}>
-                        <NavLink to={'/adminPanel/' + props.savedGames.gameNumber}>
+                        <NavLink to={'/adminPanel/' + props.savedGame.gameNumber}>
                             <div className={width === 1920 ? c1920.navButtonAdmin : c.navButtonAdmin}>
                                 Админ
                             </div>
                         </NavLink>
-                        {props.savedGames.gameNumber !== props.gameNumber
+                        {props.savedGame.gameNumber !== props.gameNumber
                             ? <div className={width === 1920 ? c1920.navButtonGameNumber : c.navButtonGameNumber}
                                    onClick={
-                                       (e) => setTabloGameNumber(props.savedGames.gameNumber)
+                                       (e) => setTabloGameNumber(props.savedGame.gameNumber)
                                    }>
                                 Поставить игру на табло
                             </div>
@@ -52,6 +52,10 @@ const SavedGame = (props) => {
                                 <div className={width === 1920 ? c1920.gameIsGoing : c.gameIsGoing}>●</div>
                             </div>
                         }
+                    </div>
+                    <div className={width === 1920 ? c1920.deleteButton : c.deleteButton}
+                         onClick={(e) => {dispatch(deleteGame(props.savedGame.gameNumber))}}>
+                        Удалить игру
                     </div>
                 </div>
             </div>

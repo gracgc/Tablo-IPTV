@@ -133,8 +133,8 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
         })
 
         guestsGamers.map(g => {
-            DB.teams.find(t => t.teamType === 'home').gamers.find(gamer => gamer.id === g.id).fullName = g.fullName
-            DB.teams.find(t => t.teamType === 'home').gamers.find(gamer => gamer.id === g.id).gamerNumber = g.gamerNumber
+            DB.teams.find(t => t.teamType === 'guests').gamers.find(gamer => gamer.id === g.id).fullName = g.fullName
+            DB.teams.find(t => t.teamType === 'guests').gamers.find(gamer => gamer.id === g.id).gamerNumber = g.gamerNumber
         })
 
         let json = JSON.stringify(DB);
@@ -158,6 +158,34 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
     }
 })
 
+router.put('/deleteGame/:gameNumber', authMW, cors(), function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname, `/DB/saved_games.json`));
+        let DB = JSON.parse(data);
+
+
+        let deletedGame = DB.savedGames.findIndex(g => g.gameNumber === gameNumber)
+
+        DB.savedGames.splice(deletedGame, 1);
+
+
+        let json = JSON.stringify(DB);
+
+        fs.unlinkSync(path.join(__dirname +
+            `/DB/game_${gameNumber}.json`));
+
+        fs.writeFileSync(path.join(__dirname +
+            `/DB/saved_games.json`), json, 'utf8');
+
+        res.send({resultCode: 0});
+
+    } catch
+        (e) {
+        console.log(e)
+    }
+})
 
 
 
