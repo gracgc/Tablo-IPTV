@@ -23,13 +23,17 @@ const Menu = (props) => {
                     </div>
                 </NavLink>
 
-                <div>
                     <NavLink to="/settings" className={c.hov} activeClassName={c.activeLink}>
                         <div className={width === 1920 ? c1920.navButton : c.navButton}>
                             Назначения устройств
                         </div>
                     </NavLink>
-                </div>
+
+                <NavLink to="/video" className={c.hov} activeClassName={c.activeLink}>
+                    <div className={width === 1920 ? c1920.navButton : c.navButton}>
+                        Видео
+                    </div>
+                </NavLink>
             </div>
         </div>
     )

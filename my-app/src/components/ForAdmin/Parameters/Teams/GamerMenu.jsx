@@ -66,7 +66,7 @@ const GamerMenu = (props) => {
                         {m}
                         {eval(`show${m}Menu`) &&
                         <div className={width === 1920 ? c1920.addAddMenu : c.addAddMenu}
-                             style={(difY < 330 && width === 1920 && m !== 'Goals') ? {top: `-200px`} : (difY < 180 && width !== 1920 && m !== 'Goals') ? {top: `-163px`} : {top: `0px`}}>
+                             style={(difY < 330 && width === 1920 && m !== 'Голы') ? {top: `-200px`} : (difY < 180 && width !== 1920 && m !== 'Голы') ? {top: `-163px`} : {top: `0px`}}>
                             {eval(`gamerMenu.${m}`).map(am => <div m={m.toString()} className={am.name === 'Вернуть'
                                 ? c.returnGamer
                                 : c.addAddMenuItem}

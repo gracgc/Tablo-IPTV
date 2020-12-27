@@ -23,12 +23,14 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-timer-hook": "^2.0.3",
+    "react-video-js-player": "^1.1.1",
     "redux": "^4.0.5",
     "redux-form": "^8.3.6",
     "redux-thunk": "^2.3.0",
     "remove-array-items": "^2.0.1",
     "socket.io-client": "^3.0.3",
-    "use-force-update": "^1.0.7"
+    "use-force-update": "^1.0.7",
+    "video.js": "^7.10.2"
   },
   "scripts": {
     "start": "react-scripts start",
