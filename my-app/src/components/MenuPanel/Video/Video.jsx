@@ -13,7 +13,7 @@ const Video = (props) => {
 
     let [player, setPlayer] = useState({})
 
-    let [videoContent, setVideoContent] = useState(video1)
+    let [videoContent, setVideoContent] = useState(video2)
 
 
     let onPlayerReady = (player) => {
@@ -24,9 +24,18 @@ const Video = (props) => {
         player.play()
     }
 
+    let stopVideo = () => {
+        player.pause()
+    }
+
+    let chooseVideo = async (video) => {
+        player.pause()
+        player.src({type: 'video/mp4', src: video})
+    }
+
 
     return (
-        <div>
+        <div className={width === 1920 ? c1920.video : c.video}>
             <VideoPlayer
                 controls={true}
                 src={videoContent}
@@ -35,6 +44,10 @@ const Video = (props) => {
                 onReady={onPlayerReady}
             />
             <button onClick={e => playVideo()}>play</button>
+            <button onClick={e => stopVideo()}>stop</button>
+            <button onClick={e => chooseVideo(video1)}>1</button>
+            <button onClick={e => chooseVideo(video2)}>2</button>
+            <button onClick={e => chooseVideo(video3)}>3</button>
         </div>
     )
 }
