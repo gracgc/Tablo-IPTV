@@ -13,7 +13,8 @@ const Device = (props) => {
     const [showDeviceMenu, setShowDeviceMenu] = useState(false);
 
     let devicesMenu = [
-        'Main Tablo'
+        'Main Tablo',
+        'Video'
     ]
 
     const openDeviceMenu = (y) => {

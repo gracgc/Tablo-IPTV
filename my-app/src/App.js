@@ -18,6 +18,7 @@ import SetDevice from "./components/MenuPanel/SetDevice/SetDevice";
 import {setSocketIDAC} from "./redux/app_reducer";
 import {useHistory} from "react-router";
 import CustomGame from "./components/ForAdmin/CustomGame/CustomGame";
+import Video2 from "./components/MenuPanel/Video/Video2";
 import Video from "./components/MenuPanel/Video/Video";
 
 

@@ -62,6 +62,8 @@ const Auth = (props) => {
         socket.on(`setDevicePage${socketID}`, deviceType => {
             if (deviceType === 'Main Tablo') {
                 history.push("/tabloClient/0");
+            } if (deviceType === 'Video') {
+                history.push("/video");
             }
         })
     }, [socketID])
