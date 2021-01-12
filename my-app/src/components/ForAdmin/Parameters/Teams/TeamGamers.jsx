@@ -38,6 +38,8 @@ const TeamGamers = (props) => {
         }
         if (props.status === 'deleted') {
             if (timeOfPenalty !== 0) {
+                dispatch(addNewLog(gameNumber,
+                    `${minutesStopwatch}:${secondsStopwatch < 10 ? '0' : ''}${secondsStopwatch} - ${props.fullName} удален на ${timeOfPenalty / 60000} минуты`));
                 dispatch(deleteGamer(gameNumber, teamType, gamerId, timeOfPenalty, props.timeMemTimer));
             } else {
                 dispatch(addNewLog(gameNumber,

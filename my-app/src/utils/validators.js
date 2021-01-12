@@ -1,6 +1,6 @@
 export const required = (value) => {
     if (value) return undefined;
-    return "Field is required";
+    return "Обязательное поле";
 };
 
 export const requiredShort = (value) => {
@@ -16,10 +16,10 @@ export const maxLengthCreator = (maxLength) => (value) => {
 
 export const maxTime20 = (value) => {
     if (value <= 20 && 0 <= value) return undefined;
-    return "Задайте от 0 до 20";
+    return "Только от 0 до 20";
 };
 
 export const maxTime60 = (value) => {
     if (value < 60 && 0 <= value) return undefined;
-    return "Задайте от 0 до 59";
+    return "Только от 0 до 59";
 };

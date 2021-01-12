@@ -192,7 +192,7 @@ const TabloEditClient = (props) => {
                         setTimeDifTimeout(timeMemTimeout + ((Date.now() + dif) - startTimeout));
                         setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
                     }
-                }, 30);
+                }, 33);
                 return () => clearInterval(interval);
             }
         );

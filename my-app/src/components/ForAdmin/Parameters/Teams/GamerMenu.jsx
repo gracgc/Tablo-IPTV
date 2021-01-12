@@ -77,13 +77,18 @@ const GamerMenu = (props) => {
                                                                            handleClickAway()
                                                                        }
                                                                        if (m === 'Штраф') {
-                                                                           props.changeStatus(props.gameNumber, props.teamType,
-                                                                               props.id, am.timeOfPenalty)
+                                                                           if (props.status === 'in game' && am.name === 'Вернуть') {
+                                                                               return
+                                                                           } else {
+                                                                               props.changeStatus(props.gameNumber, props.teamType,
+                                                                                   props.id, am.timeOfPenalty)
+                                                                           }
+
                                                                            handleClickAway()
                                                                        }
                                                                    }
                                                                    }>
-                                {am.name}
+                                {(m === 'Штраф' && props.status !== 'deleted' && am.name === 'Вернуть') ? null : am.name}
                             </div>)}
                         </div>}
                     </div>)}

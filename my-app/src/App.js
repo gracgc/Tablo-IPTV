@@ -30,7 +30,6 @@ function App(props) {
     );
 
 
-
     const dispatch = useDispatch();
 
     let history = useHistory();
@@ -77,6 +76,9 @@ function App(props) {
 
                     <Route path='/adminPanel/:gameNumber?'
                            render={() => <AdminPanel/>}/>
+                    <Route path='/videoAdmin/:gameNumber?'
+                           render={() => <AdminPanel/>}/>
+
                     <Route path='/savedGames' render={() => <SavedGames/>}/>
                     <Route path='/settings' render={() => <SetDevice/>}/>
 

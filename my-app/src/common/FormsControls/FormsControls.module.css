@@ -18,13 +18,13 @@
 
 .blockArea  {
     display: block;
-    height: 50px;
+    height: 60px;
 }
 
 .formControl input,
 .formControl textarea
 {
-    height: 60%;
+    height: 50%;
     width: 90%;
 }
 

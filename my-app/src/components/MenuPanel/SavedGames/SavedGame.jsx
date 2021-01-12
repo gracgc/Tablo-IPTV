@@ -25,7 +25,7 @@ const SavedGame = (props) => {
     };
 
     const deleteGameForever = async (gameNumber) => {
-        await confirm({description: 'Эта игра будет безвозвратно удалена',
+        await confirm({description: 'Эта игра будет безвозвратно удалена. (Не рекомендуется делать это во время того, как какая-либо игра идет сейчас)',
             title: 'Вы уверены?',
             confirmationText: 'Хорошо',
             cancellationText: 'Отменить'});
