@@ -2,8 +2,8 @@ import React, {useEffect} from 'react'
 import c from './Tablo.module.css'
 import c1920 from './Tablo_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {addNewLog, addNewTempLog, deleteConsLog} from "../../../redux/log_reducer";
-import {changeGamerStatus, deleteGamer} from "../../../redux/teams_reducer";
+import {addNewLog, addNewTempLog, deleteConsLog} from "../../../../redux/log_reducer";
+import {changeGamerStatus, deleteGamer} from "../../../../redux/teams_reducer";
 
 
 const TabloEvent = (props) => {

@@ -3,11 +3,11 @@ import c from './TeamsParameters.module.css';
 import c1920 from './TeamsParameters_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import TeamInfo from "./Teams/TeamInfo";
-import {getTeams, setTeamsAC} from "../../../redux/teams_reducer";
+import {getTeams, setTeamsAC} from "../../../../redux/teams_reducer";
 import {compose} from "redux";
 import {NavLink, withRouter} from "react-router-dom";
-import socket from "../../../socket/socket";
-import {tabloAPI} from "../../../api/api";
+import socket from "../../../../socket/socket";
+import {tabloAPI} from "../../../../api/api";
 
 
 const TeamsParameters = (props) => {

@@ -1,0 +1,30 @@
+.videoAdmin {
+
+}
+
+.videoAdmin__info {
+    height: 6vh;
+    background: #D5DEEF;
+}
+
+.videoAdmin__editor {
+    display: grid;
+    grid-template-columns: 65% 35%;
+    height: 36vh;
+    background: #B2CAEE;
+}
+
+.videoAdmin__presetsAndCamera {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    height: 32vh;
+    background: #89AFE0;
+}
+
+.videoAdmin__animations {
+    display: grid;
+    grid-template-rows: 50% 50%;
+    height: 26vh;
+    background: #89AFE0;
+}
+

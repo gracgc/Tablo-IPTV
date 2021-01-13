@@ -5,11 +5,11 @@ import {NavLink, withRouter} from "react-router-dom";
 import {change, Field, reduxForm} from "redux-form";
 import {compose} from "redux";
 import {useDispatch, useSelector} from "react-redux";
-import {getTeams} from "../../../redux/teams_reducer";
-import {Input} from "../../../common/FormsControls/FormsControls";
-import {tabloAPI} from "../../../api/api";
-import {customGame} from "../../../redux/games_reducer";
-import {maxTime, maxTime20, maxTime60, required} from "../../../utils/validators";
+import {getTeams} from "../../../../redux/teams_reducer";
+import {Input} from "../../../../common/FormsControls/FormsControls";
+import {tabloAPI} from "../../../../api/api";
+import {customGame} from "../../../../redux/games_reducer";
+import {maxTime, maxTime20, maxTime60, required} from "../../../../utils/validators";
 
 
 const CustomGameForm = (props) => {

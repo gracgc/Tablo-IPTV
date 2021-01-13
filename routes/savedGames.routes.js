@@ -83,18 +83,18 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
         DB.savedGames.splice(deletedGame, 1);
 
 
-        DB.savedGames.forEach(function (item, i, arr) {
-            if (i >= deletedGame) {
-                fs.renameSync(path.join(__dirname + `/DB/game_${arr[i].gameNumber}.json`)
-                    , path.join(__dirname + `/DB/game_${arr[i].gameNumber - 1}.json`));
-                arr[i].gameNumber -= 1
-            }
-        });
-
-        if (DB2.gameNumber >= DB.savedGames.find(g => g.gameNumber === +gameNumber).gameNumber) {
-            DB2.gameNumber -= 1
-            io.emit('getGameNumberAdmin', DB2.gameNumber)
-        }
+        // DB.savedGames.forEach(function (item, i, arr) {
+        //     if (i >= deletedGame) {
+        //         fs.renameSync(path.join(__dirname + `/DB/game_${arr[i].gameNumber}.json`)
+        //             , path.join(__dirname + `/DB/game_${arr[i].gameNumber - 1}.json`));
+        //         arr[i].gameNumber -= 1
+        //     }
+        // });
+        //
+        // if (DB2.gameNumber >= DB.savedGames.find(g => g.gameNumber === +gameNumber).gameNumber) {
+        //     DB2.gameNumber -= 1
+        //     io.emit('getGameNumberAdmin', DB2.gameNumber)
+        // }
 
 
         let json = JSON.stringify(DB);
@@ -112,7 +112,7 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
 
         io.emit('getSavedGames', DB.savedGames)
 
-        io.emit('getGameNumber', DB2.gameNumber)
+        // io.emit('getGameNumber', DB2.gameNumber)
 
 
     } catch

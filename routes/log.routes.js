@@ -3,7 +3,7 @@ const router = Router();
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
-const authMW = require('../middleware/authMW')
+const authMW = require('../middleware/authMW');
 
 
 router.get('/:gameNumber', function (req, res) {
@@ -29,30 +29,34 @@ router.post('/:gameNumber', authMW, cors(), function (req, res) {
 
         let newLogItem = req.body.newLogItem;
 
-        let newLogFirst = {
-            item: newLogItem,
-            id: 1
-        };
-
-        let newLog = {
-            item: newLogItem,
-            id: DB.logData.gameLog.length === 0 ? 0 : DB.logData.gameLog[DB.logData.gameLog.length - 1].id + 1
-        };
-
 
         if (DB.logData.gameLog.length === 0) {
-            DB.logData.gameLog.push(newLogFirst)
-        } else {
-            if (newLogItem !== DB.logData.gameLog[DB.logData.gameLog.length - 1].item && DB.logData.gameLog[DB.logData.gameLog.length - 1].item.indexOf('Конец') === -1) {
-                DB.logData.gameLog.push(newLog);
+            DB.logData.gameLog.push(
+                {
+                    item: newLogItem,
+                    id: 1
+                }
+            )
+        }
+        // if (newLogItem === DB.logData.gameLog[DB.logData.gameLog.length - 1].item && DB.logData.gameLog[DB.logData.gameLog.length - 1].item.indexOf('Конец') !== -1) {
+        //
+        // }
+        else {
+            if (newLogItem === DB.logData.gameLog[DB.logData.gameLog.length - 1].item && DB.logData.gameLog[DB.logData.gameLog.length - 1].item.indexOf('Конец') !== -1) {
+
+                } else {
+                DB.logData.gameLog.push(
+                    {
+                        item: newLogItem,
+                        id: DB.logData.gameLog[DB.logData.gameLog.length - 1].id + 1
+                    }
+                );
             }
         }
-
 
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname, `/DB/game_${gameNumber}.json`), json, 'utf8');
-
 
         res.send({resultCode: 0})
 
@@ -76,13 +80,11 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
 
         DB.logData.gameLog.splice(deletedItem, 1);
 
-
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname, `/DB/game_${gameNumber}.json`), json, 'utf8');
 
         res.send({resultCode: 0})
-
 
         const io = req.app.locals.io;
 
@@ -116,9 +118,7 @@ router.post('/temp/:gameNumber', authMW, cors(), function (req, res) {
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-
         res.send({resultCode: 0})
-
 
     } catch (e) {
         console.log(e)
@@ -152,9 +152,7 @@ router.post('/cons/:gameNumber', authMW, cors(), function (req, res) {
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-
         res.send({resultCode: 0})
-
 
     } catch (e) {
         console.log(e)
@@ -181,7 +179,6 @@ router.put('/cons/:gameNumber', authMW, cors(), function (req, res) {
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
         res.send({resultCode: 0})
-
 
     } catch (e) {
         console.log(e)

@@ -7,7 +7,7 @@ import Info from "./Info/Info";
 import AddOptions from "./AddOptions/AddOptions";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {tabloAPI} from "../../api/api";
+import {tabloAPI} from "../../../api/api";
 
 const AdminPanel = (props) => {
 

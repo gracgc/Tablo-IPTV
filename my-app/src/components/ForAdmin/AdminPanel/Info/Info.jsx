@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react'
 import c from './Info.module.css'
 import c1920 from './Info_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {getGame, setGameDataAC} from "../../../redux/games_reducer";
+import {getGame, setGameDataAC} from "../../../../redux/games_reducer";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
-import socket from "../../../socket/socket";
-import {tabloAPI} from "../../../api/api";
+import socket from "../../../../socket/socket";
+import {tabloAPI} from "../../../../api/api";
 
 
 const Info = (props) => {

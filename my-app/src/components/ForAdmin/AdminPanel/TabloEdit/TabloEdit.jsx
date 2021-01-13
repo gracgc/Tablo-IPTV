@@ -5,12 +5,12 @@ import {useState, useEffect} from 'react';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
 import Tablo from "./Tablo";
-import {teamGoal} from "../../../redux/teams_reducer";
-import {addNewLog, addNewTempLog} from "../../../redux/log_reducer";
+import {teamGoal} from "../../../../redux/teams_reducer";
+import {addNewLog, addNewTempLog} from "../../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import socket from "../../../socket/socket";
-import {tabloAPI} from "../../../api/api";
+import socket from "../../../../socket/socket";
+import {tabloAPI} from "../../../../api/api";
 
 
 const TabloEdit = (props) => {
@@ -91,14 +91,14 @@ const TabloEdit = (props) => {
 
     let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
 
-    useEffect(() => {
-        ////LOAD NEW DATA////
-        socket.on('getGameNumberAdmin', gameNumberX => {
-                props.history.push(`/adminPanel/${gameNumber - 1}`);
-                setGameNumber(gameNumberX)
-            }
-        );
-    }, [])
+    // useEffect(() => {
+    //     ////LOAD NEW DATA////
+    //     socket.on('getGameNumberAdmin', gameNumberX => {
+    //             props.history.push(`/adminPanel/${gameNumber - 1}`);
+    //             setGameNumber(gameNumberX)
+    //         }
+    //     );
+    // }, [])
 
     useEffect(() => {
         tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
@@ -299,6 +299,7 @@ const TabloEdit = (props) => {
                        addTeamGoal={addTeamGoal}
                        gameNumber={gameNumber}/>
             </div>
+            {props.history.location.pathname.indexOf('videoAdmin') === -1 &&
             <div className={width === 1920 ? c1920.allButtons : c.allButtons}>
                 {isRunningServer ?
                     <div className={width === 1920 ? c1920.gameButtons : c.gameButtons}>
@@ -329,7 +330,7 @@ const TabloEdit = (props) => {
                     <div className={width === 1920 ? c1920.beepButtons_beep : c.beepButtons_beep}>Биип</div>
                     <div className={width === 1920 ? c1920.beepButtons_beep : c.beepButtons_beep}>Биииип</div>
                 </div>
-            </div>
+            </div>}
         </div>
     )
 };

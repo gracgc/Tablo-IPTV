@@ -7,8 +7,8 @@ import {
     deleteGamer,
     gamerGoal,
     gamerOnField,
-} from "../../../../redux/teams_reducer";
-import {addNewConsLog, addNewLog, addNewTempLog, deleteConsLog} from "../../../../redux/log_reducer";
+} from "../../../../../redux/teams_reducer";
+import {addNewConsLog, addNewLog, addNewTempLog, deleteConsLog} from "../../../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import GamerMenu from "./GamerMenu";

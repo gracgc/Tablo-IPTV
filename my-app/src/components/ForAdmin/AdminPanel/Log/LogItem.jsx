@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import c from './Log.module.css'
 import c1920 from './Log_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {deleteLog} from "../../../redux/log_reducer";
+import {deleteLog} from "../../../../redux/log_reducer";
 
 
 

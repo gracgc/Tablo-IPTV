@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './App.css';
 import {Route, withRouter, Switch, Redirect} from "react-router-dom";
 import {compose} from "redux";
-import AdminPanel from "./components/ForAdmin/AdminPanel";
+import AdminPanel from "./components/ForAdmin/AdminPanel/AdminPanel";
 import Menu from "./components/MenuPanel/Menu/Menu";
 import CreateGame from "./components/MenuPanel/CreateGame/CreateGame";
 import SavedGames from "./components/MenuPanel/SavedGames/SavedGames";
@@ -17,9 +17,10 @@ import Cookies from "js-cookie"
 import SetDevice from "./components/MenuPanel/SetDevice/SetDevice";
 import {setSocketIDAC} from "./redux/app_reducer";
 import {useHistory} from "react-router";
-import CustomGame from "./components/ForAdmin/CustomGame/CustomGame";
+import CustomGame from "./components/ForAdmin/AdminPanel/CustomGame/CustomGame";
 import Video2 from "./components/MenuPanel/Video/Video2";
 import Video from "./components/MenuPanel/Video/Video";
+import VideoAdmin from "./components/ForAdmin/VideoAdmin/VideoAdmin";
 
 
 
@@ -77,7 +78,7 @@ function App(props) {
                     <Route path='/adminPanel/:gameNumber?'
                            render={() => <AdminPanel/>}/>
                     <Route path='/videoAdmin/:gameNumber?'
-                           render={() => <AdminPanel/>}/>
+                           render={() => <VideoAdmin/>}/>
 
                     <Route path='/savedGames' render={() => <SavedGames/>}/>
                     <Route path='/settings' render={() => <SetDevice/>}/>

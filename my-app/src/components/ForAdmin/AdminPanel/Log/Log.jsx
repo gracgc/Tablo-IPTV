@@ -6,10 +6,10 @@ import LogItem from "./LogItem";
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
 import {Field, reduxForm} from "redux-form";
-import {Input} from "../../../common/FormsControls/FormsControls";
-import {addNewLog, getLog, setLogDataAC} from "../../../redux/log_reducer";
+import {Input} from "../../../../common/FormsControls/FormsControls";
+import {addNewLog, getLog, setLogDataAC} from "../../../../redux/log_reducer";
 import {reset} from 'redux-form';
-import socket from "../../../socket/socket";
+import socket from "../../../../socket/socket";
 
 
 const AddLogForm = (props) => {
