@@ -10,7 +10,7 @@ let initialState = {
         gameName: "",
         gameNumber: null,
         gameType: "",
-        preset: 1,
+        preset: 4,
         gameStatus: "",
         gameTime: null
     },

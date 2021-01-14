@@ -1,5 +1,5 @@
 import React from 'react'
-import c from './TabloClient.module.css'
+import c from './TabloClient1.module.css'
 import {useSelector} from "react-redux";
 
 

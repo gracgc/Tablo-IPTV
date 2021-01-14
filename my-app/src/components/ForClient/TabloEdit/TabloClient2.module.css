@@ -1,0 +1,28 @@
+.tablo2 {
+    background-color: black;
+    color: #c2d9ff;
+    position: absolute;
+    bottom: 0;
+    height: 20%;
+    width: 100%;
+}
+
+.counters2 {
+    padding-left: 100px;
+    padding-right: 110px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    font-size: 300%;
+}
+
+.counter2 {
+    box-sizing: border-box;
+    border: #c2d9ff solid 3px;
+}
+
+.time2 {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 100px;
+}

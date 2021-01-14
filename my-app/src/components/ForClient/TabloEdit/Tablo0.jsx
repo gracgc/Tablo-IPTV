@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import c from './TabloClient.module.css'
+import c from './TabloClient1.module.css'
 import socket from "../../../socket/socket";
 import {compose} from "redux";
 import {withRouter} from "react-router";

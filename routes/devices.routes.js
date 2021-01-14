@@ -56,10 +56,7 @@ router.put('/preset/:gameNumber', authMW, cors(), function (req, res) {
         let preset = req.body.preset;
 
 
-
         DB.gameInfo.preset = preset
-
-        console.log(DB.gameInfo.preset)
 
         let json = JSON.stringify(DB);
 
