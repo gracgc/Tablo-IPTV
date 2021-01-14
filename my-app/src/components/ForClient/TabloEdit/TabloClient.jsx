@@ -1,13 +1,29 @@
 import React from 'react'
 import c from './TabloClient.module.css'
 import TabloEventClient from "./TabloEventClient";
+import {useDispatch, useSelector} from "react-redux";
+import {getGame, setGameDataAC, setPresetAC} from "../../../redux/games_reducer";
+import socket from "../../../socket/socket";
 
 
 
 const TabloClient = (props) => {
 
+    const dispatch = useDispatch();
+
+    const preset = useSelector(
+        (state => state.gamesPage.gameData.preset)
+    );
+
+    dispatch(getGame(props.gameNumber));
+
+    socket.on(`getPreset${props.gameNumber}`, preset => {
+        dispatch(setPresetAC(preset))
+    });
+
     return (
         <div className={c.tablo}>
+            {preset}
             <div className={c.time}>
                 {props.minutesTimer <= 0 ? 0 : props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}
                 {props.secondsTimer <= 0 ? 0 : props.secondsTimer}

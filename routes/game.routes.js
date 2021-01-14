@@ -51,6 +51,7 @@ router.post('/', authMW, cors(), function (req, res) {
                 gameNumber: gameNumber,
                 gameType: gameType,
                 gameStatus: "Not going",
+                preset: 1,
                 gameTime: {
                     timeData: {timeMem: 0, timeDif: 0, timeMemTimer: 1200000, deadLine: 1200000},
                     isRunning: false,

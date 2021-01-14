@@ -3,6 +3,7 @@ const router = Router();
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
+const authMW = require('../middleware/authMW')
 
 
 router.get('/', cors(), function (req, res) {
@@ -17,7 +18,7 @@ router.get('/', cors(), function (req, res) {
     }
 });
 
-router.put('/', cors(), function (req, res) {
+router.put('/', authMW, cors(), function (req, res) {
     try {
         let data = fs.readFileSync(path.join(__dirname + `/DB/devices.json`));
         let DB = JSON.parse(data);
@@ -44,6 +45,37 @@ router.put('/', cors(), function (req, res) {
         console.log(e)
     }
 });
+
+router.put('/preset/:gameNumber', authMW, cors(), function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname, `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+        let preset = req.body.preset;
+
+
+
+        DB.gameInfo.preset = preset
+
+        console.log(DB.gameInfo.preset)
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname, `/DB/game_${gameNumber}.json`), json, 'utf8');
+
+        res.send({resultCode: 0})
+
+        const io = req.app.locals.io;
+
+        io.emit(`getPreset${gameNumber}`, DB.gameInfo.preset)
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
 
 
 router.options('/', cors());

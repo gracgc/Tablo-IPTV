@@ -1,6 +1,7 @@
 import {gameAPI, teamsAPI} from "../api/api";
 
 const SET_GAME_DATA = 'games/SET_GAME_DATA';
+const SET_PRESET = 'games/SET_PRESET';
 const SET_SAVED_GAMES = 'games/SET_SAVED_GAMES';
 const CREATE_NEW_GAME = 'games/CREATE_NEW_GAME';
 
@@ -9,6 +10,7 @@ let initialState = {
         gameName: "",
         gameNumber: null,
         gameType: "",
+        preset: 1,
         gameStatus: "",
         gameTime: null
     },
@@ -29,6 +31,16 @@ const gamesReducer = (state = initialState, action) => {
             return {
                 ...state,
                 gameData: action.gameData
+            };
+
+        case SET_PRESET:
+
+            return {
+                ...state,
+                gameData: {
+                    ...state.gameData,
+                    preset: action.preset
+                }
             };
 
         case SET_SAVED_GAMES:
@@ -57,6 +69,7 @@ const gamesReducer = (state = initialState, action) => {
 };
 
 export const setGameDataAC = (gameData) => ({type: SET_GAME_DATA, gameData});
+export const setPresetAC = (preset) => ({type: SET_PRESET, preset});
 export const setSavedGamesAC = (savedGames) => ({type: SET_SAVED_GAMES, savedGames});
 export const createNewGameAC = (gameName, gameNumber, gameType) =>
     ({type: CREATE_NEW_GAME, gameName, gameNumber, gameType});

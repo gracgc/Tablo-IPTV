@@ -108,6 +108,12 @@ export const gameAPI = {
                 return responce.data
             })
     },
+    putPreset(gameNumber, preset) {
+        return instance.put(`devices/preset/${gameNumber}`, {preset})
+            .then(responce => {
+                return responce.data
+            })
+    },
     createNewGame(gameName, gameNumber, gameType) {
         return instance.post(`game`, {gameName, gameNumber, gameType})
             .then(responce => {

@@ -5,7 +5,7 @@ import {useState, useEffect} from 'react';
 import classNames from 'classnames';
 import {useDispatch, useSelector} from "react-redux";
 import Tablo from "./Tablo";
-import {teamGoal} from "../../../../redux/teams_reducer";
+import {getTeams, setTeamsAC, teamGoal} from "../../../../redux/teams_reducer";
 import {addNewLog, addNewTempLog} from "../../../../redux/log_reducer";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
@@ -149,6 +149,13 @@ const TabloEdit = (props) => {
                 setDeadLineTimeout(time.timeData.deadLine);
             }
         )
+
+        ////TEAMS LOAD///
+        dispatch(getTeams(gameNumber));
+        socket.on(`getTeams${gameNumber}`, teams => {
+                dispatch(setTeamsAC(teams))
+            }
+        );
     }, [gameNumber]);
 
     useEffect(() => {
