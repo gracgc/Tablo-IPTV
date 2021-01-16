@@ -5,6 +5,7 @@
     width: 100%;
     display: grid;
     grid-template-rows: 10% 85%;
+    grid-row-gap: 5%;
 }
 
 .teamName {
