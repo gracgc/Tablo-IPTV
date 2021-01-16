@@ -15,8 +15,8 @@
 .counters {
     padding-left: 110px;
     padding-right: 110px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    /*display: grid;*/
+    /*grid-template-columns: 1fr 1fr;*/
 
     text-align: center;
     font-size: 350%;

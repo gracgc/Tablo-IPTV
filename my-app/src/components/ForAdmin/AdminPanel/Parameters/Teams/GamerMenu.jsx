@@ -12,7 +12,7 @@ const GamerMenu = (props) => {
 
     const gamerMenu = {
         Штраф: [
-            {name: `2'`, timeOfPenalty: 3000},
+            {name: `2'`, timeOfPenalty: 120000},
             {name: `2'+2'`, timeOfPenalty: 240000},
             {name: `5'`, timeOfPenalty: 300000},
             {name: `10'`, timeOfPenalty: 600000},
