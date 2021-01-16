@@ -1,9 +1,7 @@
 import React, {useEffect, useState} from "react";
 import c from './Video.module.css'
 import c1920 from './Video_1920.module.css'
-import video1 from '../../../content/video/videoplayback.mp4'
-import video2 from '../../../content/video/videoplayback2.mp4'
-import video3 from '../../../content/video/Самое короткое видео на YouTube.mp4'
+
 
 
 
