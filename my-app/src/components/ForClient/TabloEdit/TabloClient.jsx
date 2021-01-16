@@ -6,6 +6,7 @@ import TabloEventClient from "./TabloEventClient";
 import {useDispatch, useSelector} from "react-redux";
 import {getGame, setGameDataAC, setPresetAC} from "../../../redux/games_reducer";
 import socket from "../../../socket/socket";
+import classNames from 'classnames'
 
 
 
@@ -35,12 +36,14 @@ const TabloClient = (props) => {
                         {props.minutesTimer <= 0 ? 0 : props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}
                         {props.secondsTimer <= 0 ? 0 : props.secondsTimer}
                     </div>
-                    {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> : <div></div>}
+                    {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> : <div className={c.tempLog}></div>}
                     <div>
-                        {(props.timeMemTimerTimeout > 0) &&
+
                         <div className={props.secondsTimerTimeout < 6 ? c.timeout5sec : c.timeout}>
-                            Таймаут {props.secondsTimerTimeout} секунд
-                        </div>}
+                            {(props.timeMemTimerTimeout > 0) &&
+                            `Таймаут ${props.secondsTimerTimeout} секунд`
+                            }
+                        </div>
                         <div className={c.consLog} >
                             {props.gameConsLog && props.gameConsLog.map(gcl => gcl.item !== '' && <TabloEventClient key={gcl.id}
                                                                                                                     item={gcl.item}
@@ -53,11 +56,11 @@ const TabloClient = (props) => {
 
                     </div>
                     <div className={c.counters}>
-                        <div className={c.counter}>
+                        <div className={classNames(c.counter, c.homeTeam)}>
                             {props.homeCounter} <br/>
                             {props.homeTeam.name}
                         </div>
-                        <div className={c.counter}>
+                        <div className={classNames(c.counter, c.guestsTeam)}>
                             {props.guestsCounter} <br/>
                             {props.guestsTeam.name}
                         </div>

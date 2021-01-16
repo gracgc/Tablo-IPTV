@@ -3,15 +3,13 @@
     color: #c2d9ff;
     height: 100%;
     width: 100%;
-    display: grid;
-    grid-template-rows: 10% 85%;
-    grid-row-gap: 5%;
 }
 
 .teamName {
     text-align: center;
     padding-top: 20px;
     font-size: 52px;
+    margin-bottom: 20px;
 }
 
 .gamers {

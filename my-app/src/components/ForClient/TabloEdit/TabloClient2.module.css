@@ -3,25 +3,25 @@
     color: #c2d9ff;
     position: absolute;
     bottom: 0;
-    height: 20%;
-    width: 100%;
+    height: 150px;
 }
 
 .counters2 {
-    padding-left: 100px;
-    padding-right: 110px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    text-align: center;
-    font-size: 300%;
+    display: inline-flex;
+    width: 1280px;
 }
 
 .counter2 {
+    text-align: center;
+    font-size: 50px;
+    width: 33%;
     box-sizing: border-box;
     border: #c2d9ff solid 3px;
+    margin: 0 40px;
 }
 
 .time2 {
+    width: 34%;
     text-align: center;
     padding-top: 10px;
     font-size: 100px;
