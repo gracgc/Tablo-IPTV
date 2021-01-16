@@ -8,6 +8,7 @@ import AddOptions from "./AddOptions/AddOptions";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import {tabloAPI} from "../../../api/api";
+import socket from "../../../socket/socket";
 
 const AdminPanel = (props) => {
 
@@ -18,6 +19,10 @@ const AdminPanel = (props) => {
     useEffect(() => {
         tabloAPI.getTimerStatus(gameNumber).then(r => {
                 setPeriod(r.period);
+            }
+        );
+        socket.on(`getTime${gameNumber}`, time => {
+                setPeriod(time.period);
             }
         );
     }, []);

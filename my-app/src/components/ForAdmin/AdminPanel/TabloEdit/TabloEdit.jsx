@@ -303,6 +303,7 @@ const TabloEdit = (props) => {
                        secondsTimerTimeout={secondsTimerTimeout} homeTeam={homeTeam} guestsTeam={guestsTeam}
                        homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
                        timeMem={timeMem}
+                       period={period}
                        addTeamGoal={addTeamGoal}
                        gameNumber={gameNumber}/>
             </div>

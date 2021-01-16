@@ -3,7 +3,6 @@ import c from './AddOptions.module.css'
 import c1920 from './AddOptions_1920.module.css'
 import {withRouter} from "react-router-dom";
 import {compose} from "redux";
-import * as axios from "axios";
 import {tabloAPI} from "../../../../api/api";
 
 

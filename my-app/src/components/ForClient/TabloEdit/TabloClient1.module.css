@@ -17,7 +17,7 @@
     padding-right: 110px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: 230px;
+
     text-align: center;
     font-size: 350%;
 }

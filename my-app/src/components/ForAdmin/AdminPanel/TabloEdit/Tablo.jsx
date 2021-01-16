@@ -31,6 +31,7 @@ const Tablo = (props) => {
                                                                                                       teamType={gcl.teamType}
                                                                                                       timeMemTimer={props.timeMemTimer}
                                                                                                       timeMem={props.timeMem}
+                                                                                                      period={props.period}
                                                                                                       gameNumber={props.gameNumber}
                     />)}
                 </div>
