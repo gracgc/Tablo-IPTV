@@ -37,7 +37,7 @@ const TabloClient = (props) => {
     useEffect(() => {
         if (preset === 2) {
             try {
-                player.setVideoWindow(0, 0, 1280, 540, true)
+                player.setVideoWindow(0, 0, 2000, 1000, false)
             } catch (e) {
 
             }
