@@ -1,7 +1,6 @@
 .tablo2 {
-    /*background-color: black;*/
-    color: #c2d9ff;
-    background-color: #e0223b;
+    background-color: black;
+    /*background-color: #e0223b;*/
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -10,12 +9,14 @@
 
 .counter2 {
     position: absolute;
+    color: #c2d9ff;
     text-align: center;
     font-size: 50px;
     box-sizing: border-box;
     border: #c2d9ff solid 3px;
     width: 380px;
     margin-top: 20px;
+    top: 540px;
 }
 
 .homeTeam2 {
@@ -27,9 +28,11 @@
 }
 
 .time2 {
+    color: #c2d9ff;
     position: absolute;
     text-align: center;
     padding-top: 10px;
     font-size: 100px;
     width: 100%;
+    top: 540px;
 }

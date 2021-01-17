@@ -69,8 +69,8 @@ const TabloClient = (props) => {
             }
 
             {preset === 2 &&
-            <div className={c2.tablo2}>
-                <div>
+            <div>
+                <div  className={c2.tablo2}>
 
                 </div>
                 <div className={classNames(c2.counter2, c2.homeTeam2)}>
