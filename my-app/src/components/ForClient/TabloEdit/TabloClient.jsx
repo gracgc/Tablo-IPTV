@@ -26,6 +26,24 @@ const TabloClient = (props) => {
         });
     }, [props.gameNumber])
 
+    let player = window.TvipPlayer;
+    
+    try {
+        player.playUrl("http://str1.iptvportal.ru:8080/britko_2019-06-19--1/index.m3u8", "live")
+    } catch (e) {
+        
+    }
+
+    useEffect(() => {
+        if (preset === 2) {
+            try {
+                player.setVideoWindow(0, 0, 1280, 540, true)
+            } catch (e) {
+
+            }
+        }
+    }, [preset])
+
 
 
     return (
