@@ -5,7 +5,7 @@
     bottom: 0;
     width: 100%;
     height: 180px;
-    filter: alpha(opacity: 0.70);
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
 }
 
 .counter2 {
