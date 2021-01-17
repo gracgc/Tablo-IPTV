@@ -89,7 +89,7 @@ const Info = (props) => {
 
         tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
 
-            if (r.timeSync + Math.round((Date.now() - r.dateClient) / 2) < dif) {
+            if (Math.round((Date.now() - r.dateClient) / 2) < ping) {
                 setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
                 setPing(Math.round((Date.now() - r.dateClient) / 2))
                 setIsRunningServer(r.isRunning);

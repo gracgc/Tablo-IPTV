@@ -130,7 +130,7 @@ const TabloEditClient = (props) => {
             })
 
 
-////Socket IO////
+            ////Socket IO////
             socket.on(`getTime${gameNumber}`, time => {
                     setIsRunningServer(time.isRunning);
                     setStartTime(time.runningTime)
@@ -156,7 +156,7 @@ const TabloEditClient = (props) => {
 
             tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
 
-                if (r.timeSync + Math.round((Date.now() - r.dateClient) / 2) < dif) {
+                if (Math.round((Date.now() - r.dateClient) / 2) < ping) {
                     setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
                     setPing(Math.round((Date.now() - r.dateClient) / 2))
                     setIsRunningServer(r.isRunning);
