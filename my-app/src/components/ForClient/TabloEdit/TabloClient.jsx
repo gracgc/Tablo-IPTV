@@ -84,19 +84,18 @@ const TabloClient = (props) => {
             {preset === 2 &&
             <div>
                 <div className={c2.tablo2}>
-
-                </div>
-                <div className={classNames(c2.counter2, c2.homeTeam2)}>
-                    {props.homeCounter} <br/>
-                    {props.homeTeam.name}
-                </div>
-                <div className={c2.time2}>
-                    {props.minutesTimer <= 0 ? 0 : props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}
-                    {props.secondsTimer <= 0 ? 0 : props.secondsTimer}
-                </div>
-                <div className={classNames(c2.counter2, c2.guestsTeam2)}>
-                    {props.guestsCounter} <br/>
-                    {props.guestsTeam.name}
+                    <div className={classNames(c2.counter2, c2.homeTeam2)}>
+                        {props.homeCounter} <br/>
+                        {props.homeTeam.name}
+                    </div>
+                    <div className={c2.time2}>
+                        {props.minutesTimer <= 0 ? 0 : props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}
+                        {props.secondsTimer <= 0 ? 0 : props.secondsTimer}
+                    </div>
+                    <div className={classNames(c2.counter2, c2.guestsTeam2)}>
+                        {props.guestsCounter} <br/>
+                        {props.guestsTeam.name}
+                    </div>
                 </div>
             </div>
             }

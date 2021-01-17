@@ -3,8 +3,9 @@
     /*background-color: #e0223b;*/
     position: absolute;
     bottom: 0;
-    width: 100%;
+    width: 1280px;
     height: 180px;
+    opacity: 0.9;
 }
 
 .counter2 {
@@ -16,7 +17,6 @@
     border: #c2d9ff solid 3px;
     width: 380px;
     margin-top: 20px;
-    top: 540px;
 }
 
 .homeTeam2 {
@@ -34,5 +34,4 @@
     padding-top: 10px;
     font-size: 100px;
     width: 100%;
-    top: 540px;
 }
