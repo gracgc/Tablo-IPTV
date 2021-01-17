@@ -30,9 +30,14 @@ const TabloClient = (props) => {
 
 
     useEffect(() => {
-        if (player && preset === 2) {
+        if (player && (preset === 2 || preset === 3)) {
             player.playUrl("http://str1.iptvportal.ru:8080/britko_2019-06-19--1/index.m3u8", "live")
-            player.setVideoWindow(0, 0, 1800, 800, false)
+        }  else {
+            try {
+                player.playUrl("", "")
+            } catch (e) {
+
+            }
         }
     }, [preset])
 
