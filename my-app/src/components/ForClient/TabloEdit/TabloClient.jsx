@@ -28,15 +28,12 @@ const TabloClient = (props) => {
     let player = window.TvipPlayer;
 
 
-
     useEffect(() => {
-        if (player && (preset === 2 || preset === 3)) {
-            player.playUrl("http://str1.iptvportal.ru:8080/britko_2019-06-19--1/index.m3u8", "live")
-        }  else {
-            try {
-                player.playUrl("", "")
-            } catch (e) {
-
+        if (player) {
+            if (preset === 2 || preset === 3) {
+                player.playUrl("http://str1.iptvportal.ru:8080/britko_2019-06-19--1/index.m3u8", "live")
+            } else {
+                player.playUrl("", "live")
             }
         }
     }, [preset])
