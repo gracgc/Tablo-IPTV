@@ -10,26 +10,23 @@
     width: 100%;
 }
 
-.counters {
-    display: flex;
-    width: 1280px;
-}
 
 .counter {
+    position: absolute;
     text-align: center;
     font-size: 50px;
-    width: 100%;
     box-sizing: border-box;
     border: #c2d9ff solid 3px;
-    margin: 0 100px;
+    top: 560px;
+    width: 400px;
 }
 
 .homeTeam {
-    float: left;
+    left: 120px;
 }
 
 .guestsTeam {
-    float: right;
+    right: 120px;
 }
 
 
