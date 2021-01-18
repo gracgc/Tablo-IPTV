@@ -4,7 +4,7 @@ import c2 from './TabloClient2.module.css'
 import c3 from './TabloClient3.module.css'
 import TabloEventClient from "./TabloEventClient";
 import {useDispatch, useSelector} from "react-redux";
-import {getGame, setGameDataAC, setPresetAC} from "../../../redux/games_reducer";
+import {getGame, setPresetAC} from "../../../redux/games_reducer";
 import socket from "../../../socket/socket";
 import classNames from 'classnames'
 

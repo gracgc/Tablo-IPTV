@@ -58,6 +58,7 @@
   "teams": [
     {
       "name": "312312",
+
       "counter": 21,
       "teamType": "home",
       "timeOut": false,

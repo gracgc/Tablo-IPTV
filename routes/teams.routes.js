@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const authMW = require('../middleware/authMW')
+const config = require('config')
 
 
 router.get('/:gameNumber', function (req, res) {
@@ -13,8 +14,44 @@ router.get('/:gameNumber', function (req, res) {
         let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
+
+
+        let url = config.get('baseUrl')
+
+        DB.teams.find(t => t.teamType === 'home').logo = `${url}/api/teams/homeLogo/${gameNumber}`;
+        DB.teams.find(t => t.teamType === 'guests').logo = `${url}/api/teams/guestsLogo/${gameNumber}`;
+
         DB.teams.resultCode = 0;
+
         res.send(DB.teams)
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.get('/homelogo/:gameNumber', function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let img = path.join(__dirname + `/DB/img/home_logo_${gameNumber}.jpg`);
+
+
+        res.sendFile(img);
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.get('/guestslogo/:gameNumber', function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let img = path.join(__dirname + `/DB/img/guests_logo_${gameNumber}.jpg`);
+
+
+        res.sendFile(img);
+
     } catch (e) {
         console.log(e)
     }

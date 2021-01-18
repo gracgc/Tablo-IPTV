@@ -12,6 +12,7 @@ let initialState = {
     teams: [
         {
             name: 'Name',
+            logo: "",
             counter: 0,
             teamType: 'home',
             timeOut: false,
@@ -270,6 +271,7 @@ let initialState = {
         },
         {
             name: 'Name',
+            logo: "",
             counter: 0,
             teamType: 'guests',
             timeOut: false,

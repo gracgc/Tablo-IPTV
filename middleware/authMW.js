@@ -1,7 +1,11 @@
 const jwt = require('jsonwebtoken');
-const {secretKey} = require('../config/default.json');
+const config = require('config')
+
 
 module.exports = (req, res, next) => {
+
+    const secretKey = config.get('secretKey')
+
     const authHeader = req.get('Authorization');
     if (!authHeader) {
         res.status(401).json({message: 'Token not provided'});
