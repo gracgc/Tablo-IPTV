@@ -8,7 +8,7 @@ const FormControl = ({input, meta, child, ...props}) => {
         <div className={c.formControl + " " + (hasError ? c.error : "")}>
             <div className={c.blockArea}>
                 {props.children}
-                { hasError && <div>{meta.error}</div> }
+                {hasError && <div>{meta.error}</div>}
             </div>
         </div>
     )
@@ -22,6 +22,13 @@ export const Textarea = (props) => {
 export const Input = (props) => {
     const {input, meta, child, ...restProps} = props;
     return <FormControl {...props}><input {...input} {...restProps} /></FormControl>
+};
+
+export const InputImg = (props) => {
+    const {input, meta, child, ...restProps} = props;
+    return <input type="file"
+                  hidden
+                  enctype="multipart/form-data" {...input} {...restProps} />
 };
 
 export const InputReadOnly = (props) => {

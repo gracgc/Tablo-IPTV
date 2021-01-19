@@ -56,7 +56,7 @@ router.get('/guestslogo/:gameNumber', function (req, res) {
     }
 });
 
-router.post('/homelogo/:gameNumber', function (req, res) {
+router.post('/homelogo/:gameNumber', async function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -66,7 +66,7 @@ router.post('/homelogo/:gameNumber', function (req, res) {
 
         img.name = `home_logo_${gameNumber}.png`
 
-        img.mv(`${__dirname}/DB/img/${img.name}`)
+        await img.mv(`${__dirname}/DB/img/${img.name}`)
 
         const options = {
             images: [path.join(__dirname + `/DB/img/home_logo_${gameNumber}.png`)],
@@ -191,6 +191,9 @@ router.put('/gamerGoal/:gameNumber', authMW, cors(), function (req, res) {
 
         const io = req.app.locals.io;
 
+        DB.teams.find(t => t.teamType === 'home').logo = `${url}/api/teams/homeLogo/${gameNumber}`;
+        DB.teams.find(t => t.teamType === 'guests').logo = `${url}/api/teams/guestsLogo/${gameNumber}`;
+
         io.emit(`getTeams${gameNumber}`, DB.teams)
 
 
@@ -229,6 +232,9 @@ router.put('/teamGoal/:gameNumber', authMW, cors(), function (req, res) {
 
         const io = req.app.locals.io;
 
+        DB.teams.find(t => t.teamType === 'home').logo = `${url}/api/teams/homeLogo/${gameNumber}`;
+        DB.teams.find(t => t.teamType === 'guests').logo = `${url}/api/teams/guestsLogo/${gameNumber}`;
+
         io.emit(`getTeams${gameNumber}`, DB.teams);
 
     } catch (e) {
@@ -265,6 +271,9 @@ router.put('/gamerStatus/:gameNumber', authMW, cors(), function (req, res) {
 
         const io = req.app.locals.io;
 
+        DB.teams.find(t => t.teamType === 'home').logo = `${url}/api/teams/homeLogo/${gameNumber}`;
+        DB.teams.find(t => t.teamType === 'guests').logo = `${url}/api/teams/guestsLogo/${gameNumber}`;
+
         io.emit(`getTeams${gameNumber}`, DB.teams)
 
 
@@ -298,6 +307,9 @@ router.put('/onField/:gameNumber', authMW, cors(), function (req, res) {
         res.send({resultCode: 0});
 
         const io = req.app.locals.io;
+
+        DB.teams.find(t => t.teamType === 'home').logo = `${url}/api/teams/homeLogo/${gameNumber}`;
+        DB.teams.find(t => t.teamType === 'guests').logo = `${url}/api/teams/guestsLogo/${gameNumber}`;
 
         io.emit(`getTeams${gameNumber}`, DB.teams)
 
@@ -334,6 +346,9 @@ router.put('/penalty/:gameNumber', authMW, cors(), function (req, res) {
         res.send({resultCode: 0});
 
         const io = req.app.locals.io;
+
+        DB.teams.find(t => t.teamType === 'home').logo = `${url}/api/teams/homeLogo/${gameNumber}`;
+        DB.teams.find(t => t.teamType === 'guests').logo = `${url}/api/teams/guestsLogo/${gameNumber}`;
 
         io.emit(`getTeams${gameNumber}`, DB.teams)
 

@@ -70,10 +70,6 @@ const Video = (props) => {
                     onChange={(e) => uploadLogo(e.target.files[0])}
                 />
             </Button>
-            <button onClick={(e) => {
-                uploadLogo()
-            }}>123
-            </button>
             <img src={homeTeamLogo} alt=""/>
             <img src={guestsTeamlogo} alt=""/>
         </div>

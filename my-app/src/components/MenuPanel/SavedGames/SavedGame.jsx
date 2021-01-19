@@ -41,11 +41,19 @@ const SavedGame = (props) => {
                         {props.savedGame.gameName} — {props.savedGame.gameType}
                     </div>
                     <div className={width === 1920 ? c1920.tabloChose : c.tabloChose}>
-                        <NavLink to={'/adminPanel/' + props.savedGame.gameNumber}>
-                            <div className={width === 1920 ? c1920.navButtonAdmin : c.navButtonAdmin}>
-                                Админ
-                            </div>
-                        </NavLink>
+                        <div>
+                            <NavLink to={'/adminPanel/' + props.savedGame.gameNumber}>
+                                <div className={width === 1920 ? c1920.navButtonAdmin : c.navButtonAdmin}>
+                                    Админ
+                                </div>
+                            </NavLink>
+                            <NavLink to={'/videoAdmin/' + props.savedGame.gameNumber}>
+                                <div style={{marginTop: '10px'}} className={width === 1920 ? c1920.navButtonAdmin : c.navButtonAdmin}>
+                                    Видео-админ
+                                </div>
+                            </NavLink>
+                        </div>
+
                         {props.savedGame.gameNumber !== props.gameNumber
                             ? <div className={width === 1920 ? c1920.navButtonGameNumber : c.navButtonGameNumber}
                                    onClick={

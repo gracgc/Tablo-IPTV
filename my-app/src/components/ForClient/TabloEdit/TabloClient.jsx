@@ -64,6 +64,14 @@ const TabloClient = (props) => {
                     </div>
 
                 </div>
+                <div className={c.logos}>
+                    <div className={classNames(c.logo, c.homeLogo)}>
+                        <img src={props.homeTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
+                    </div>
+                    <div className={classNames(c.logo, c.guestsLogo)}>
+                        <img src={props.guestsTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
+                    </div>
+                </div>
                 <div>
                     <div className={classNames(c.counter, c.homeTeam)}>
                         {props.homeCounter} <br/>

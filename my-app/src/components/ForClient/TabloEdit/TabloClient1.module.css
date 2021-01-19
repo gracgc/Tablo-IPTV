@@ -29,6 +29,24 @@
     right: 120px;
 }
 
+.logo {
+    position: absolute;
+    text-align: center;
+    width: 400px;
+}
+
+.logos {
+    height: 120px;
+}
+
+.homeLogo {
+    left: 120px;
+}
+
+.guestsLogo {
+    right: 120px;
+}
+
 
 .time {
     text-align: center;
@@ -50,7 +68,7 @@
 }
 
 .consLog {
-    height: 300px;
+    height: 180px;
 }
 
 .timeout {
