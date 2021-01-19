@@ -218,7 +218,7 @@ const CreateGame = (props) => {
     return (
         <div className={c.createGame}>
 
-            <span className={width === 1920 ? c1920.menuTitle : c.menuTitle}>Create new game</span>
+            <span className={width === 1920 ? c1920.menuTitle : c.menuTitle}>Создать новую игру</span>
             <div className={width === 1920 ? c1920.createGamePanel : c.createGamePanel}>
                 <CreateGameReduxForm onSubmit={onSubmit}
                                      gameTypes={gameTypes}

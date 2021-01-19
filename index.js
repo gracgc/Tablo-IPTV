@@ -3,6 +3,7 @@ const path = require('path');
 const config = require('config');
 const express = require('express');
 const fs = require('fs');
+const uploadFile = require('express-fileupload')
 
 
 const app = express();
@@ -20,6 +21,8 @@ app.use(function (req, res, next) {
     next();
 });
 
+
+app.use(uploadFile())
 
 app.use(bodyParser.json());
 

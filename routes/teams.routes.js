@@ -1,10 +1,11 @@
 const {Router} = require('express');
 const router = Router();
-const fs = require('fs');
+const fs = require('fs')
 const path = require('path');
 const cors = require('cors');
 const authMW = require('../middleware/authMW')
 const config = require('config')
+const resizeOptimizeImages = require('resize-optimize-images');
 
 
 router.get('/:gameNumber', function (req, res) {
@@ -13,7 +14,6 @@ router.get('/:gameNumber', function (req, res) {
 
         let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
-
 
 
         let url = config.get('baseUrl')
@@ -33,8 +33,7 @@ router.get('/homelogo/:gameNumber', function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
-        let img = path.join(__dirname + `/DB/img/home_logo_${gameNumber}.jpg`);
-
+        let img = path.join(__dirname + `/DB/img/home_logo_${gameNumber}.png`);
 
         res.sendFile(img);
 
@@ -47,7 +46,7 @@ router.get('/guestslogo/:gameNumber', function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
-        let img = path.join(__dirname + `/DB/img/guests_logo_${gameNumber}.jpg`);
+        let img = path.join(__dirname + `/DB/img/guests_logo_${gameNumber}.png`);
 
 
         res.sendFile(img);
@@ -56,6 +55,62 @@ router.get('/guestslogo/:gameNumber', function (req, res) {
         console.log(e)
     }
 });
+
+router.post('/homelogo/:gameNumber', function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let img = req.files.file
+
+        img.mimetype = 'image/png'
+
+        img.name = `home_logo_${gameNumber}.png`
+
+        img.mv(`${__dirname}/DB/img/${img.name}`)
+
+        const options = {
+            images: [path.join(__dirname + `/DB/img/home_logo_${gameNumber}.png`)],
+            width: 200,
+            quality: 50
+        };
+
+        resizeOptimizeImages(options);
+
+
+        res.send({resultCode: 0});
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.post('/guestslogo/:gameNumber', function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let img = req.files.file
+
+        img.mimetype = 'image/png'
+
+        img.name = `guests_logo_${gameNumber}.png`
+
+        img.mv(`${__dirname}/DB/img/${img.name}`)
+
+        const options = {
+            images: [path.join(__dirname + `/DB/img/home_logo_${gameNumber}.png`)],
+            width: 200,
+            quality: 50
+        };
+
+        resizeOptimizeImages(options);
+
+        res.send({resultCode: 0});
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
 
 router.post('/:gameNumber', authMW, cors(), function (req, res) {
     try {

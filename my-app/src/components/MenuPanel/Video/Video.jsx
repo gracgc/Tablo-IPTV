@@ -37,11 +37,19 @@ const Video = (props) => {
     }, []);
 
 
-    let uploadLogo = () => {
+    let uploadLogo = (file) => {
 
-        axios.get('/api/teams/logo/1')
+        let formData = new FormData;
+
+        formData.append('file', file)
+
+        axios.post('/api/teams/homeLogo/1', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
             .then((response) => {
-                setLogo(response.data)
+                console.log(response)
             })
     }
 
