@@ -15,9 +15,6 @@ const Cameras = (props) => {
     const dispatch = useDispatch();
 
 
-
-
-
     const videos = useSelector(
         (state => state.videosPage.videos)
     );

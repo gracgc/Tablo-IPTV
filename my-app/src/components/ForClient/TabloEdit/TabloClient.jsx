@@ -36,16 +36,16 @@ const TabloClient = (props) => {
             dispatch(setCurrentVideoDataAC(currentVideo))
             console.log(currentVideo)
         });
-    })
+    }, [])
 
     let player = window.TvipPlayer;
 
 
     useEffect(() => {
         if (player) {
-            player.playUrl(currentVideo.videoURL.toString(), currentVideo.videoType.toString())
+            player.playUrl(currentVideo.videoURL, currentVideo.videoType)
         }
-    }, [player])
+    }, [player, currentVideo])
 
 
     return (
