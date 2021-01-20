@@ -7,6 +7,8 @@ const authMW = require('../middleware/authMW')
 const config = require('config')
 const resizeOptimizeImages = require('resize-optimize-images');
 
+let url = `${config.get('baseUrl')}:${config.get('port')}`
+
 
 router.get('/:gameNumber', function (req, res) {
     try {
@@ -15,8 +17,6 @@ router.get('/:gameNumber', function (req, res) {
         let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
-
-        let url = `${config.get('baseUrl')}:${config.get('port')}`
 
         DB.teams.find(t => t.teamType === 'home').logo = `${url}/api/teams/homeLogo/${gameNumber}`;
         DB.teams.find(t => t.teamType === 'guests').logo = `${url}/api/teams/guestsLogo/${gameNumber}`;
@@ -153,6 +153,9 @@ router.post('/:gameNumber', authMW, cors(), function (req, res) {
 
         const io = req.app.locals.io;
 
+        DB.teams.find(t => t.teamType === 'home').logo = `${url}/api/teams/homeLogo/${gameNumber}`;
+        DB.teams.find(t => t.teamType === 'guests').logo = `${url}/api/teams/guestsLogo/${gameNumber}`;
+
         io.emit(`getTeams${gameNumber}`, DB.teams)
 
     } catch (e) {
@@ -163,6 +166,8 @@ router.post('/:gameNumber', authMW, cors(), function (req, res) {
 router.put('/gamerGoal/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
+
+
 
         let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
@@ -206,6 +211,7 @@ router.put('/teamGoal/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
+
         let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
@@ -245,6 +251,7 @@ router.put('/teamGoal/:gameNumber', authMW, cors(), function (req, res) {
 router.put('/gamerStatus/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
+
 
         let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
@@ -286,6 +293,7 @@ router.put('/onField/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
+
         let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
@@ -322,6 +330,7 @@ router.put('/onField/:gameNumber', authMW, cors(), function (req, res) {
 router.put('/penalty/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
+
 
         let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
