@@ -32,6 +32,7 @@ const TabloClient = (props) => {
 
         socket.on(`getCurrentVideo`, currentVideo => {
             dispatch(setCurrentVideoDataAC(currentVideo))
+            console.log(currentVideo)
         });
     }, [props.gameNumber])
 
