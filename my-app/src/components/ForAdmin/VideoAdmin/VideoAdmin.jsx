@@ -5,6 +5,7 @@ import Info from "../AdminPanel/Info/Info";
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import Presets from "./Presets/Presets";
+import Cameras from "./Cameras/Cameras";
 
 const VideoAdmin = (props) => {
 
@@ -25,7 +26,7 @@ const VideoAdmin = (props) => {
             </div>
             <div className={c.videoAdmin__presetsAndCamera}>
                 <div>
-                    Камеры
+                    <Cameras/>
                 </div>
                 <div>
                     <Presets/>

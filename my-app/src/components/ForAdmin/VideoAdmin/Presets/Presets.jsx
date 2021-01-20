@@ -6,6 +6,7 @@ import {gameAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import {getGame, setPresetAC} from "../../../../redux/games_reducer";
 import socket from "../../../../socket/socket";
+import {getVideos} from "../../../../redux/videos_reducer";
 
 const Presets = (props) => {
 
@@ -20,6 +21,7 @@ const Presets = (props) => {
 
     useEffect(() => {
         dispatch(getGame(gameNumber));
+
 
         socket.on(`getPreset${gameNumber}`, preset => {
             dispatch(setPresetAC(preset))

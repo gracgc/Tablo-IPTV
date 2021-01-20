@@ -98,6 +98,8 @@ app.use('/api/time', require('./routes/time.routes'));
 app.use('/api/gameNumber', require('./routes/gameNumber.routes'));
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/devices', require('./routes/devices.routes'));
+app.use('/api/videos', require('./routes/videos.routes'));
+
 
 if (process.env.NODE_ENV === 'production') {
 

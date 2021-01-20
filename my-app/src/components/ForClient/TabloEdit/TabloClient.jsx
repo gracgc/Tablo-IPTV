@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getGame, setPresetAC} from "../../../redux/games_reducer";
 import socket from "../../../socket/socket";
 import classNames from 'classnames'
+import {getCurrentVideo, setCurrentVideoDataAC} from "../../../redux/videos_reducer";
 
 
 const TabloClient = (props) => {
@@ -17,11 +18,20 @@ const TabloClient = (props) => {
         (state => state.gamesPage.gameData.preset)
     );
 
+    const currentVideo = useSelector(
+        (state => state.videosPage.currentVideo)
+    );
+
     useEffect(() => {
         dispatch(getGame(props.gameNumber));
+        dispatch(getCurrentVideo())
 
         socket.on(`getPreset${props.gameNumber}`, preset => {
             dispatch(setPresetAC(preset))
+        });
+
+        socket.on(`getCurrentVideo`, currentVideo => {
+            dispatch(setCurrentVideoDataAC(currentVideo))
         });
     }, [props.gameNumber])
 
@@ -30,7 +40,7 @@ const TabloClient = (props) => {
 
     useEffect(() => {
         if (player) {
-            player.playUrl("http://str1.iptvportal.ru:8080/britko_2019-06-19--1/index.m3u8", "live")
+            player.playUrl(currentVideo.videoURL, currentVideo.videoType)
         }
     }, [player])
 
@@ -116,7 +126,8 @@ const TabloClient = (props) => {
             {preset === 5 &&
             <div className={c3.tablo3}>
                 <div className={c3.teamName}>
-                    {props.homeTeam.name}
+                    {props.homeTeam.name} <br/>
+                    <img src={props.homeTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
                 </div>
                 <div className={c3.gamers}>
                     {props.homeTeam.gamers.map(g => <div>{g.gamerNumber} {g.fullName}</div>)}
@@ -127,7 +138,8 @@ const TabloClient = (props) => {
             {preset === 6 &&
             <div className={c3.tablo3}>
                 <div className={c3.teamName}>
-                    {props.guestsTeam.name}
+                    {props.guestsTeam.name} <br/>
+                    <img src={props.guestsTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
                 </div>
                 <div className={c3.gamers}>
                     {props.guestsTeam.gamers.map(g => <div>{g.gamerNumber} {g.fullName}</div>)}

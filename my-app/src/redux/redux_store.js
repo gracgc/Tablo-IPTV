@@ -7,6 +7,7 @@ import gamesReducer from "./games_reducer";
 import {reducer as formReducer} from "redux-form";
 import appReducer from "./app_reducer";
 import authReducer from "./auth_reducer";
+import videosReducer from "./videos_reducer";
 
 
 let reducers = combineReducers({
@@ -16,6 +17,7 @@ let reducers = combineReducers({
     gamesPage: gamesReducer,
     appPage: appReducer,
     authPage: authReducer,
+    videosPage: videosReducer,
     form: formReducer
 });
 

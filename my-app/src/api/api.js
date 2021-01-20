@@ -165,7 +165,7 @@ export const tabloAPI = {
         })
     },
     putTimerStatus(gameNumber, isRunning, timeDif,
-                            timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime) {
+                   timeMem, timeMemTimer, deadLine, period, smallOvertime, bigOvertime) {
         return instance.put(`time/isRunning/${gameNumber}`, {
             isRunning,
             timeDif,
@@ -205,5 +205,29 @@ export const authAPI = {
 export const devicesAPI = {
     putDeviceType(deviceType, deviceId) {
         return instance.put(`devices`, {deviceType, deviceId})
+            .then(responce => {
+                return responce.data
+            })
+    }
+};
+
+export const videosAPI = {
+    getVideos() {
+        return instance.get(`videos`)
+            .then(responce => {
+                return responce.data
+            })
+    },
+    getCurrentVideo() {
+        return instance.get(`videos/current`)
+            .then(responce => {
+                return responce.data
+            })
+    },
+    putCurrentVideo(currentVideo) {
+        return instance.put(`videos/current`, {currentVideo})
+            .then(responce => {
+                return responce.data
+            })
     }
 };
