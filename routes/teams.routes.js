@@ -16,7 +16,7 @@ router.get('/:gameNumber', function (req, res) {
         let DB = JSON.parse(data);
 
 
-        let url = config.get('baseUrl')
+        let url = `${config.get('baseUrl')}:${config.get('port')}`
 
         DB.teams.find(t => t.teamType === 'home').logo = `${url}/api/teams/homeLogo/${gameNumber}`;
         DB.teams.find(t => t.teamType === 'guests').logo = `${url}/api/teams/guestsLogo/${gameNumber}`;
