@@ -177,12 +177,6 @@ export const tabloAPI = {
             bigOvertime
         })
     },
-    getServerTime(gameNumber, localTime) {
-        return instance.post(`time/serverTime/${gameNumber}`, {localTime})
-            .then(responce => {
-                return responce.data
-            });
-    },
     putDeadline(gameNumber, deadLine, timeMemTimer, timeDif, timeMem) {
         return instance.put(`time/deadline/${gameNumber}`, {
             deadLine,
@@ -229,5 +223,17 @@ export const videosAPI = {
             .then(responce => {
                 return responce.data
             })
+    },
+    getVideoTime(gameNumber, dateClient) {
+        return instance.post(`videos/${gameNumber}`, {dateClient}).then(responce => {
+            return responce.data
+        })
+    },
+    putVideoTimeStatus(gameNumber, isRunning, timeDif, timeMem) {
+        return instance.put(`videos/isRunning/${gameNumber}`, {
+            isRunning,
+            timeDif,
+            timeMem
+        })
     }
 };

@@ -6,6 +6,7 @@ import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import Presets from "./Presets/Presets";
 import Cameras from "./Cameras/Cameras";
+import Editor from "./Editor/Editor";
 
 const VideoAdmin = (props) => {
 
@@ -18,7 +19,7 @@ const VideoAdmin = (props) => {
             </div>
             <div className={c.videoAdmin__editor}>
                 <div>
-                    Редактор видео
+                    <Editor/>
                 </div>
                 <div>
                     <TabloEdit/>

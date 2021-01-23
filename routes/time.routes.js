@@ -3,7 +3,7 @@ const router = Router();
 const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
-const authMW = require('../middleware/authMW')
+const authMW = require('../middleware/authMW');
 
 
 router.post('/:gameNumber', function (req, res) {
@@ -26,23 +26,7 @@ router.post('/:gameNumber', function (req, res) {
     }
 });
 
-router.post('/serverTime/:gameNumber', function (req, res) {
-    try {
-        let gameNumber = req.params.gameNumber;
 
-        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
-        let DB = JSON.parse(data);
-
-        let localTime = req.body.localTime;
-
-        res.send({serverTime: Date.now(), localTime: localTime,
-            runningTime: DB.gameInfo.gameTime.runningTime, runningTimeTimeout: DB.gameInfo.gameTime.timeoutData.runningTime})
-
-
-    } catch (e) {
-        console.log(e)
-    }
-});
 
 router.get('/timeout/:gameNumber', function (req, res) {
     try {
@@ -172,7 +156,7 @@ router.put('/deadline/:gameNumber', authMW, function (req, res) {
 
         fs.writeFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`), json, 'utf8');
 
-        res.send({resultCode: 0})
+        res.send({resultCode: 0});
 
         const io = req.app.locals.io;
 
@@ -184,24 +168,6 @@ router.put('/deadline/:gameNumber', authMW, function (req, res) {
     }
 });
 
-router.put('/dif', authMW, function (req, res) {
-    try {
-
-        let currentLocalTime = req.body.currentLocalTime;
-
-        let dif = new Date(2011, 0, 1, 0, 0, 0, 0) - currentLocalTime;
-
-
-        res.send({currentLocalTime: currentLocalTime, dif: dif})
-
-        const io = req.app.locals.io;
-
-        io.emit(`getTime${gameNumber}`, DB.gameInfo.gameTime)
-
-    } catch (e) {
-        console.log(e)
-    }
-});
 
 
 router.options('/', cors());

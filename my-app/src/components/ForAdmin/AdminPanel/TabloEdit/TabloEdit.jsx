@@ -15,7 +15,7 @@ import {tabloAPI} from "../../../../api/api";
 
 const TabloEdit = (props) => {
 
-    let [gameNumber, setGameNumber] = useState(props.match.params.gameNumber);
+    let gameNumber = props.match.params.gameNumber;
 
     const dispatch = useDispatch();
 
@@ -59,8 +59,12 @@ const TabloEdit = (props) => {
     let [isRunningServerTimeout, setIsRunningServerTimeout] = useState(false);
 
     let [dif, setDif] = useState();
+
+
+
     let [ping, setPing] = useState();
     let [tick, setTick] = useState(1500);
+
 
     let [period, setPeriod] = useState();
     let [smallOvertime, setSmallOvertime] = useState();
@@ -102,14 +106,14 @@ const TabloEdit = (props) => {
 
     useEffect(() => {
         tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
-            setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
-            setPing(Math.round((Date.now() - r.dateClient) / 2))
+            setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2));
+            setPing(Math.round((Date.now() - r.dateClient) / 2));
             setIsRunningServer(r.isRunning);
             setIsRunningServerTimeout(r.timeoutData.isRunning);
             return r
         }).then(r => {
             ////TIMER////
-            setStartTime(r.runningTime)
+            setStartTime(r.runningTime);
             setTimeMem(r.timeData.timeMem);
             setTimeDif(r.timeData.timeMem);
             setTimeMemTimer(r.timeData.timeMemTimer);
@@ -123,13 +127,13 @@ const TabloEdit = (props) => {
             setTimeDifTimeout(r.timeoutData.timeData.timeMem);
             setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
             setDeadLineTimeout(r.timeoutData.timeData.deadLine);
-        })
+        });
 
 
         ////Socket IO////
         socket.on(`getTime${gameNumber}`, time => {
                 setIsRunningServer(time.isRunning);
-                setStartTime(time.runningTime)
+                setStartTime(time.runningTime);
                 setTimeMem(time.timeData.timeMem);
                 setTimeDif(time.timeData.timeMem);
                 setTimeMemTimer(time.timeData.timeMemTimer);
@@ -148,7 +152,7 @@ const TabloEdit = (props) => {
                 setTimeMemTimerTimeout(time.timeData.timeMemTimer);
                 setDeadLineTimeout(time.timeData.deadLine);
             }
-        )
+        );
 
         ////TEAMS LOAD///
         dispatch(getTeams(gameNumber));
@@ -156,7 +160,7 @@ const TabloEdit = (props) => {
                 dispatch(setTeamsAC(teams))
             }
         );
-    }, [gameNumber]);
+    }, []);
 
     useEffect(() => {
         setIsShowLog(true);
@@ -171,13 +175,13 @@ const TabloEdit = (props) => {
         tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
 
             if (Math.round((Date.now() - r.dateClient) / 2) < ping) {
-                setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
-                setPing(Math.round((Date.now() - r.dateClient) / 2))
+                setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2));
+                setPing(Math.round((Date.now() - r.dateClient) / 2));
                 setIsRunningServer(r.isRunning);
             }
-            console.log(dif + ' ' + ping)
+            console.log(dif + ' ' + ping);
             setTimeout(() => {
-                setCount(count + 1)
+                setCount(count + 1);
                 if (tick < 5000) {
                     setTick(tick + 50)
                 }
@@ -189,12 +193,12 @@ const TabloEdit = (props) => {
 
     useEffect(() => {
         if (timeDif >= deadLine && isRunningServer) {
-            setIsRunningServer(false)
+            setIsRunningServer(false);
             if (period === 3) {
                 tabloAPI.putTimerStatus(gameNumber, false,
                     0,
                     0,
-                    0, 0, period + 1, smallOvertime, bigOvertime)
+                    0, 0, period + 1, smallOvertime, bigOvertime);
                 dispatch(addNewLog(gameNumber,
                     `Конец ${period} периода`));
                 dispatch(addNewTempLog(gameNumber,
@@ -205,7 +209,7 @@ const TabloEdit = (props) => {
                     tabloAPI.putTimerStatus(gameNumber, false,
                         0,
                         0,
-                        0, 0, period, smallOvertime + 1, bigOvertime)
+                        0, 0, period, smallOvertime + 1, bigOvertime);
                     dispatch(addNewLog(gameNumber,
                         `Конец овертайма`));
                     dispatch(addNewTempLog(gameNumber,
