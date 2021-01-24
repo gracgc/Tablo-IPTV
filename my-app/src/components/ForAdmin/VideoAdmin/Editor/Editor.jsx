@@ -5,7 +5,7 @@ import {withRouter} from "react-router-dom";
 import {tabloAPI, videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import socket from "../../../../socket/socket";
-import {addNewLog} from "../../../../redux/log_reducer";
+import { Draggable, Droppable } from 'react-drag-and-drop'
 
 
 const Editor = (props) => {
@@ -96,6 +96,12 @@ const Editor = (props) => {
             timeMem + ((Date.now() + dif) - startTime));
     };
 
+    const resetVideo = () => {
+        videosAPI.putVideoTimeStatus(gameNumber, false,
+            0,
+            0);
+    };
+
     let ms = timeDif % 1000;
     let seconds = Math.floor(timeDif / 1000) % 60;
     let minutes = Math.floor(timeDif / (1000 * 60));
@@ -105,8 +111,39 @@ const Editor = (props) => {
     };
 
     let editorStyle = {
-      msWidth: timeDif/100
+      msWidth: timeDif/50
     };
+
+    let [a, setA] = useState('a')
+
+    let onDrop = (data) => {
+        let key = Object.keys(data)
+
+        let firstKey = key[0]
+
+        let k = obj.find(d => d.videoName === data[firstKey])
+        console.log(k)
+        // console.log(firstKey)
+    }
+
+    let obj = [
+        {
+            videoName: "ВИДЕО1",
+            videoURL: "123",
+            videoType: "123"
+        },
+        {
+            videoName: "ВИДЕО2",
+            videoURL: "123",
+            videoType: "123"
+        },
+        {
+            videoName: "ВИДЕО3",
+            videoURL: "123",
+            videoType: "123"
+        }
+    ]
+
 
 
     return (
@@ -121,7 +158,22 @@ const Editor = (props) => {
             <div onClick={(e) => stopVideo()}>
                 Стоп
             </div>
+            <div onClick={(e) => resetVideo()}>
+                Резет
+            </div>
             {minutes}:{seconds}:{ms}
+
+            <Droppable
+                types={['fruit']} // <= allowed drop types
+                onDrop={(e) => onDrop(e)}
+                >
+                <div>{a}</div>
+            </Droppable>
+
+
+            <Draggable type="fruit" data={'ВИДЕО1'}><div>Banana</div></Draggable>
+            <Draggable type="fruit" data="Lemon"><div>Lemon</div></Draggable>
+
         </div>
     )
 };
