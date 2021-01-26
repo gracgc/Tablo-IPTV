@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const authMW = require('../middleware/authMW');
+const {getVideoDurationInSeconds} = require('get-video-duration');
 
 
 router.get('/', function (req, res) {
@@ -12,7 +13,16 @@ router.get('/', function (req, res) {
         let data = fs.readFileSync(path.join(__dirname, `/DB/videos.json`));
         let DB = JSON.parse(data);
 
-        res.send(DB.videos)
+
+        DB.videos.forEach((item, index, array) => {
+            if (item.videoType === 'vod') {
+                getVideoDurationInSeconds(item.videoURL)
+                    .then((duration => {
+                        item.duration = duration;
+                        res.send(DB.videos)
+                    }))
+            }
+        });
 
     } catch (e) {
         console.log(e)
