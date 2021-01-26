@@ -29,7 +29,13 @@
       "videoName": "БритькоЛАЙВ2",
       "videoURL": "https://str1.iptvportal.ru/britko_2019-03-19/video.m3u8",
       "videoType": "live"
+    },
+    {
+      "videoName": "Бритько3",
+      "videoURL": "    http://str1.iptvportal.ru/vod/britko_2019-06-19--1.mp4/index.m3u8",
+      "videoType": "live"
     }
+
   ],
   "currentVideo": {
     "videoName": "МузТВ",
