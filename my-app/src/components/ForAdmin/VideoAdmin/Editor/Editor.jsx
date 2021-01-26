@@ -180,13 +180,6 @@ const Editor = (props) => {
                 <div>Lemon</div>
             </Draggable>
 
-            <embed type="application/x-vlc-plugin" pluginspage="[http://www.videolan.org](http://www.videolan.org)"
-                   width='200'
-                   height='200'
-                   src="https://str1.iptvportal.ru/britko_2019-03-19/video.m3u8"
-            />
-
-
         </div>
     )
 };
