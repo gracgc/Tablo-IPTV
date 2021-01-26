@@ -178,8 +178,8 @@ const TabloEdit = (props) => {
                 setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2));
                 setPing(Math.round((Date.now() - r.dateClient) / 2));
                 setIsRunningServer(r.isRunning);
+                console.log('admin' + dif + ' ' + ping);
             }
-            console.log(dif + ' ' + ping);
             setTimeout(() => {
                 setCount(count + 1);
                 if (tick < 5000) {

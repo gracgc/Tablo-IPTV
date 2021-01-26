@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getGame, setPresetAC} from "../../../../redux/games_reducer";
 import socket from "../../../../socket/socket";
 import {getCurrentVideo, getVideos} from "../../../../redux/videos_reducer";
+import ReactHlsPlayer from "react-hls-player";
 
 const Cameras = (props) => {
 
@@ -38,7 +39,9 @@ const Cameras = (props) => {
         <div className={c.camerasBlock}>
             <div className={c.title}>Камеры</div>
             <div className={c.cameras}>
-                {videos.map(v => <div className={c.camera} onClick={(e) => setCurrentVideo(v)}>{v.videoName}</div>)}
+                {videos.map(v => <div className={c.camera} onClick={(e) => setCurrentVideo(v)}>
+                    {v.videoName}
+                </div>)}
             </div>
         </div>
     )

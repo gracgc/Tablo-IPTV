@@ -5,7 +5,7 @@ import {withRouter} from "react-router-dom";
 import {tabloAPI, videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import socket from "../../../../socket/socket";
-import { Draggable, Droppable } from 'react-drag-and-drop'
+import {Draggable, Droppable} from 'react-drag-and-drop'
 
 
 const Editor = (props) => {
@@ -57,14 +57,15 @@ const Editor = (props) => {
 
     useEffect(() => {
 
-        tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
+        videosAPI.getVideoTime(gameNumber, Date.now()).then(r => {
 
             if (Math.round((Date.now() - r.timeData.dateClient) / 2) < ping) {
                 setDif(r.timeData.timeSync + Math.round((Date.now() - r.timeData.dateClient) / 2));
                 setPing(Math.round((Date.now() - r.timeData.dateClient) / 2));
                 setIsRunningServer(r.timeData.isRunning);
+                console.log('video' + dif + ' ' + ping);
             }
-            console.log(dif + ' ' + ping);
+
             setTimeout(() => {
                 setCount(count + 1);
                 if (tick < 5000) {
@@ -72,7 +73,6 @@ const Editor = (props) => {
                 }
             }, tick)
         })
-
     }, [count]);
 
     useEffect(() => {
@@ -111,19 +111,19 @@ const Editor = (props) => {
     };
 
     let editorStyle = {
-      msWidth: timeDif/50
+        msWidth: timeDif / 50
     };
 
     let [a, setA] = useState('a')
 
     let onDrop = (data) => {
+
         let key = Object.keys(data)
 
         let firstKey = key[0]
 
         let k = obj.find(d => d.videoName === data[firstKey])
         console.log(k)
-        // console.log(firstKey)
     }
 
     let obj = [
@@ -145,7 +145,6 @@ const Editor = (props) => {
     ]
 
 
-
     return (
         <div className={c.editor}>
             <div className={c.title}>Редактор</div>
@@ -164,15 +163,29 @@ const Editor = (props) => {
             {minutes}:{seconds}:{ms}
 
             <Droppable
-                types={['fruit']} // <= allowed drop types
+                types={['video']} // <= allowed drop types
                 onDrop={(e) => onDrop(e)}
-                >
+            >
                 <div>{a}</div>
             </Droppable>
 
 
-            <Draggable type="fruit" data={'ВИДЕО1'}><div>Banana</div></Draggable>
-            <Draggable type="fruit" data="Lemon"><div>Lemon</div></Draggable>
+            <Draggable type="video" data={'ВИДЕО1'}>
+                <div>Banana</div>
+            </Draggable>
+            <Draggable type="video" data={'ВИДЕО2'}>
+                <div>Lemon</div>
+            </Draggable>
+            <Draggable type="video" data={'ВИДЕО3'}>
+                <div>Lemon</div>
+            </Draggable>
+
+            <embed type="application/x-vlc-plugin" pluginspage="[http://www.videolan.org](http://www.videolan.org)"
+                   width='200'
+                   height='200'
+                   src="https://str1.iptvportal.ru/britko_2019-03-19/video.m3u8"
+            />
+
 
         </div>
     )
