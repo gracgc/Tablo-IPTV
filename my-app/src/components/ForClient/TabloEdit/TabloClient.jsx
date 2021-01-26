@@ -44,7 +44,9 @@ const TabloClient = (props) => {
 
     useEffect(() => {
         if (player) {
-            player.playUrl(currentVideo.videoURL, currentVideo.videoType)
+            player.playUrl(currentVideo.videoURL, currentVideo.videoType);
+
+            player2.setVideoWindow(0, 0, 100, 100, true);
             player2.playUrl('https://str1.iptvportal.ru/britko_2019-03-19/video.m3u8', currentVideo.videoType)
         }
     }, [player, currentVideo]);
