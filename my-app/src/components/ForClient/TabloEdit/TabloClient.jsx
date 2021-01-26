@@ -47,7 +47,7 @@ const TabloClient = (props) => {
             player.pause();
             setTimeout(() => {
                 player.unpause()
-            }, 5000)
+            }, 10000)
         }
     }, [player, currentVideo]);
 
