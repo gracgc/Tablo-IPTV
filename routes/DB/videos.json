@@ -16,11 +16,6 @@
       "videoType": "live"
     },
     {
-      "videoName": "ТНТ3600",
-      "videoURL": "https://str1.iptvportal.ru/tnt/video-1611140400-3600.m3u8",
-      "videoType": "vod"
-    },
-    {
       "videoName": "БритькоЛАЙВ",
       "videoURL": "https://str1.iptvportal.ru/britko_2019-06-19--1/video.m3u8",
       "videoType": "live"

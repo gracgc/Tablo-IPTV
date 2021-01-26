@@ -114,14 +114,14 @@ const Editor = (props) => {
       msWidth: timeDif/50
     };
 
-    let [a, setA] = useState('a')
+    let [a, setA] = useState('a');
 
     let onDrop = (data) => {
-        let key = Object.keys(data)
+        let key = Object.keys(data);
 
-        let firstKey = key[0]
+        let firstKey = key[0];
 
-        let k = obj.find(d => d.videoName === data[firstKey])
+        let k = obj.find(d => d.videoName === data[firstKey]);
         console.log(k)
         // console.log(firstKey)
     }
