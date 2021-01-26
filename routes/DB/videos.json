@@ -32,7 +32,12 @@
     },
     {
       "videoName": "Бритько3",
-      "videoURL": "    http://str1.iptvportal.ru/vod/britko_2019-06-19--1.mp4/index.m3u8",
+      "videoURL": "http://str1.iptvportal.ru/vod/britko_2019-06-19--1.mp4/index.m3u8",
+      "videoType": "live"
+    },
+    {
+      "videoName": "Бритько4",
+      "videoURL": "http://str1.iptvportal.ru/vod/britko_2019-03-19.mp4/video.m3u8",
       "videoType": "live"
     }
 
