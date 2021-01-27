@@ -44,10 +44,8 @@ const TabloClient = (props) => {
     useEffect(() => {
         if (player) {
             player.playUrl(currentVideo.videoURL, '');
-            player.pause();
-            setTimeout(() => {
-                player.unpause()
-            }, 10000)
+        } if (window.stb) {
+            window.stb.play(currentVideo.videoURL)
         }
     }, [player, currentVideo]);
 

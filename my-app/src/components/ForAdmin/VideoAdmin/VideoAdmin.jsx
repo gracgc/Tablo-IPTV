@@ -3,7 +3,7 @@ import c from './VideoAdmin.module.css'
 import TabloEdit from "../AdminPanel/TabloEdit/TabloEdit";
 import Info from "../AdminPanel/Info/Info";
 import {compose} from "redux";
-import {withRouter} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 import Presets from "./Presets/Presets";
 import Cameras from "./Cameras/Cameras";
 import Editor from "./Editor/Editor";
@@ -39,6 +39,11 @@ const VideoAdmin = (props) => {
                 </div>
                 <div>
                     Видеоматериалы
+                    <NavLink to="/">
+                        <div className={c.navBackButton}>
+                            Вернуться в меню
+                        </div>
+                    </NavLink>
                 </div>
             </div>
         </div>

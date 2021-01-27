@@ -28,12 +28,6 @@ const Menu = (props) => {
                             Назначения устройств
                         </div>
                     </NavLink>
-
-                <NavLink to="/video" className={c.hov} activeClassName={c.activeLink}>
-                    <div className={width === 1920 ? c1920.navButton : c.navButton}>
-                        Видео
-                    </div>
-                </NavLink>
             </div>
         </div>
     )

@@ -28,3 +28,16 @@
     background: #89AFE0;
 }
 
+.navBackButton {
+    position: absolute;
+    float: right;
+    right: 30px;
+    bottom: 30px;
+    width: 200px;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+    font-size: 22px;
+    border: solid 2px black;
+}
+
