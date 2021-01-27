@@ -58,7 +58,11 @@ const Cameras = (props) => {
 
     const onSubmit = (formData) => {
         if (formData.addCamera !== undefined) {
-            dispatch(getCurrentVideo(gameNumber, formData.addCamera));
+            videosAPI.putCurrentVideo({
+                videoName: "videoTEST",
+                videoURL: formData.addCamera,
+                videoType: ""
+            });
             dispatch(reset('addCamera'))
         }
     };
