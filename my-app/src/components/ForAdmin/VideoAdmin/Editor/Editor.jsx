@@ -114,7 +114,6 @@ const Editor = (props) => {
         msWidth: timeDif / 50
     };
 
-    let [a, setA] = useState('a')
 
     let onDrop = (data) => {
 
@@ -166,7 +165,7 @@ const Editor = (props) => {
                 types={['video']} // <= allowed drop types
                 onDrop={(e) => onDrop(e)}
             >
-                <div>{a}</div>
+                <div>ААА</div>
             </Droppable>
 
 

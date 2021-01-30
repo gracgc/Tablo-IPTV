@@ -69,7 +69,7 @@ function App(props) {
                            render={() => <Redirect to={"/menu"}/>}/>
                     <Route exact path='/adminPanel'
                            render={() => <Redirect to={"/menu"}/>}/>
-                    <Route path='/menu' render={() => <Menu/>}/>
+                    <Route path='/menuOld' render={() => <Menu/>}/>
                     <Route path='/createGame' render={() => <CreateGame/>}/>
                     <Route exact path='/adminPanel'
                            render={() => <Menu/>}/>
@@ -79,7 +79,7 @@ function App(props) {
                     <Route path='/videoAdmin/:gameNumber?'
                            render={() => <VideoAdmin/>}/>
 
-                    <Route path='/savedGames' render={() => <SavedGames/>}/>
+                    <Route path='/menu' render={() => <SavedGames/>}/>
                     <Route path='/settings' render={() => <SetDevice/>}/>
 
                     <Route exact path='/tabloClient'

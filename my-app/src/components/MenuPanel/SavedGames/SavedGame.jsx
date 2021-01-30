@@ -34,21 +34,21 @@ const SavedGame = (props) => {
 
 
     return (
-            <div>
+            <div className={width === 1920 ? c1920.savedGamesMenu : c.savedGamesMenu}>
                 <div className={width === 1920 ? c1920.navButton : c.navButton}>
                     {props.savedGame.gameNumber}
                     <div className={width === 1920 ? c1920.nameAndType : c.nameAndType}>
                         {props.savedGame.gameName} — {props.savedGame.gameType}
                     </div>
                     <div className={width === 1920 ? c1920.tabloChose : c.tabloChose}>
-                        <div>
+                        <div className={width === 1920 ? c1920.adminChose : c.adminChose}>
                             <NavLink to={'/adminPanel/' + props.savedGame.gameNumber}>
                                 <div className={width === 1920 ? c1920.navButtonAdmin : c.navButtonAdmin}>
                                     Админ
                                 </div>
                             </NavLink>
                             <NavLink to={'/videoAdmin/' + props.savedGame.gameNumber}>
-                                <div style={{marginTop: '10px'}} className={width === 1920 ? c1920.navButtonAdmin : c.navButtonAdmin}>
+                                <div className={width === 1920 ? c1920.navButtonAdmin : c.navButtonAdmin}>
                                     Видео-админ
                                 </div>
                             </NavLink>
@@ -69,10 +69,10 @@ const SavedGame = (props) => {
                             </div>
                         }
                     </div>
-                    <div className={width === 1920 ? c1920.deleteButton : c.deleteButton}
-                         onClick={(e) => deleteGameForever(props.savedGame.gameNumber)}>
-                        Удалить игру
-                    </div>
+                </div>
+                <div className={width === 1920 ? c1920.deleteButton : c.deleteButton}
+                     onClick={(e) => deleteGameForever(props.savedGame.gameNumber)}>
+                    Удалить
                 </div>
             </div>
     )

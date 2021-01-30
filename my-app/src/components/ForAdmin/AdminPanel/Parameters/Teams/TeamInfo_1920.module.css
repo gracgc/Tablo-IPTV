@@ -11,7 +11,7 @@
 
 .teamGamers {
     display: block;
-    max-height: 360px;
+    max-height: 380px;
     overflow-y: scroll;
 }
 
@@ -34,5 +34,10 @@
     border: 1px solid #595d61;
     background: #b6c9db;
 }
+.points {
+    display: inline-flex;
+    height: 30px;
+}
+
 
 

@@ -246,7 +246,7 @@ const CreateGame = (props) => {
                     fullName: eval(`formData.homeGamer${n}`),
                     gamerNumber: eval(`formData.homeNumber${n}`),
                     status: "in game",
-                    onField: (n <= 6) ? true : (n > 6) && false,
+                    onField: (n <= 6),
                     goals: 0,
                     timeOfPenalty: 0,
                     whenWasPenalty: 0
@@ -257,7 +257,7 @@ const CreateGame = (props) => {
                     fullName: eval(`formData.guestsGamer${n}`),
                     gamerNumber: eval(`formData.guestsNumber${n}`),
                     status: "in game",
-                    onField: (n <= 6) && true ? (n > 6) : false,
+                    onField: (n <= 6),
                     goals: 0,
                     timeOfPenalty: 0,
                     whenWasPenalty: 0

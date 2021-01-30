@@ -10,14 +10,14 @@
 .adminPanel__mainPanel {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    height: 40vh;
+    height: 39vh;
     background: #B2CAEE;
 }
 
 .adminPanel__addPanel {
     display: grid;
     grid-template-columns: 75% 25%;
-    height: 54vh;
+    height: 55vh;
     background: #89AFE0;
 }
 

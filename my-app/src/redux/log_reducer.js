@@ -123,35 +123,35 @@ export const getLog = (gameNumber) => async (dispatch) => {
 export const addNewLog = (gameNumber, newLogItem) => async (dispatch) => {
     let response = await logAPI.postLog(gameNumber, newLogItem);
     if (response.resultCode === 0) {
-        dispatch(addLogAC(newLogItem));
+        // dispatch(addLogAC(newLogItem));
     }
 };
 
 export const deleteLog = (gameNumber, deletedItem) => async (dispatch) => {
     let response = await logAPI.deleteLog(gameNumber, deletedItem);
     if (response.resultCode === 0) {
-        dispatch(deleteLogAC(deletedItem));
+        // dispatch(deleteLogAC(deletedItem));
     }
 };
 
 export const addNewTempLog = (gameNumber, newLogItem) => async (dispatch) => {
     let response = await logAPI.postTempLog(gameNumber, newLogItem);
     if (response.resultCode === 0) {
-        dispatch(addTempTabloLogAC(newLogItem));
+        // dispatch(addTempTabloLogAC(newLogItem));
     }
 };
 
 export const addNewConsLog = (gameNumber, gamerId, teamType, newLogItem) => async (dispatch) => {
     let response = await logAPI.postConsLog(gameNumber, gamerId, teamType, newLogItem);
     if (response.resultCode === 0) {
-        dispatch(addConsTabloLogAC(gamerId, teamType, newLogItem));
+        // dispatch(addConsTabloLogAC(gamerId, teamType, newLogItem));
     }
 };
 
 export const deleteConsLog = (gameNumber, deletedItem) => async (dispatch) => {
     let response = await logAPI.deleteConsLog(gameNumber, deletedItem);
     if (response.resultCode === 0) {
-        dispatch(deleteConsTabloLogAC(deletedItem));
+        // dispatch(deleteConsTabloLogAC(deletedItem));
     }
 };
 

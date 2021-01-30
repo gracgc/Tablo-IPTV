@@ -1,6 +1,6 @@
 .tablo {
     display: grid;
-    grid-template-rows: 23% 8% 40% 20%;
+    grid-template-rows: 23% 10% 39% 28%;
     background-color: white;
     height: 100%;
     width: 100%;
@@ -8,18 +8,28 @@
 
 .counters {
     position: relative;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding-left: 30px;
+    padding-right: 30px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-column-gap: 80px;
+    grid-column-gap: 40px;
     text-align: center;
     font-size: 36px;
+    margin-bottom: 10px;
 }
 
 .counter {
     box-sizing: border-box;
     border: black solid 3px;
+    display: grid;
+    grid-template-columns: 35% 65%;
+}
+
+.counter2 {
+    box-sizing: border-box;
+    border: black solid 3px;
+    display: grid;
+    grid-template-columns: 65% 35%;
 }
 
 .time {
@@ -54,17 +64,8 @@
 }
 
 .addGoal {
-    position: absolute;
-    margin-left: 160px;
-    font-size: 38px;
+    background: #fc8b8b;
+    font-size: 58px;
     color: blue;
-    cursor: pointer;
-}
-
-.deleteGoal {
-    position: absolute;
-    margin-left: 30px;
-    font-size: 38px;
-    color: red;
     cursor: pointer;
 }

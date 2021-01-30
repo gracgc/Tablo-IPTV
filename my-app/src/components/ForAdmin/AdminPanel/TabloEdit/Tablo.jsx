@@ -42,21 +42,20 @@ const Tablo = (props) => {
                     <div className={width === 1920 ? c1920.addGoal : c.addGoal}
                          onClick={(e) => props.addTeamGoal('home', props.homeTeam.name, '+')}>+
                     </div>
-                    <div className={width === 1920 ? c1920.deleteGoal : c.deleteGoal}
-                         onClick={(e) => props.addTeamGoal('home', props.homeTeam.name, '-')}>-
+                    <div>
+                        {props.homeCounter} <br/>
+                        {props.homeTeam.name}
                     </div>
-                    {props.homeCounter} <br/>
-                    {props.homeTeam.name}
+
                 </div>
-                <div className={width === 1920 ? c1920.counter : c.counter}>
+                <div className={width === 1920 ? c1920.counter2 : c.counter2}>
+                    <div>
+                        {props.guestsCounter} <br/>
+                        {props.guestsTeam.name}
+                    </div>
                     <div className={width === 1920 ? c1920.addGoal : c.addGoal}
                          onClick={(e) => props.addTeamGoal('guests', props.guestsTeam.name, '+')}>+
                     </div>
-                    <div className={width === 1920 ? c1920.deleteGoal : c.deleteGoal}
-                         onClick={(e) => props.addTeamGoal('guests', props.guestsTeam.name, '-')}>-
-                    </div>
-                    {props.guestsCounter} <br/>
-                    {props.guestsTeam.name}
                 </div>
             </div>
         </div>
