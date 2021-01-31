@@ -81,8 +81,25 @@ router.post('/', authMW, cors(), function (req, res) {
         };
 
 
+        let newVideo = {
+            currentVideo: {
+                videoName: "",
+                videoURL: "",
+                videoType: ""
+            },
+            timeData: {
+                timeMem: 0,
+                timeDif: 0,
+                isRunning: false,
+                runningTime: 0
+            },
+            videos: []
+        }
+
+
         let newGameJson = JSON.stringify(newGame);
         let newSaveJson = JSON.stringify(DB);
+        let newVideoJson = JSON.stringify(newVideo);
 
         fs.writeFileSync(path.join(__dirname +
             `/DB/game_${newGame.gameInfo.gameNumber}.json`), newGameJson, 'utf8');
@@ -90,11 +107,14 @@ router.post('/', authMW, cors(), function (req, res) {
         fs.writeFileSync(path.join(__dirname +
             `/DB/saved_games.json`), newSaveJson, 'utf8');
 
+        fs.writeFileSync(path.join(__dirname +
+            `/DB/video_${newGame.gameInfo.gameNumber}.json`), newVideoJson, 'utf8');
+
         res.send({resultCode: 0});
 
         const io = req.app.locals.io;
 
-        io.emit(`getGame${gameNumber}`, DB.gameInfo)
+        io.emit(`getSavedGames`, DB.savedGames)
 
     } catch
         (e) {

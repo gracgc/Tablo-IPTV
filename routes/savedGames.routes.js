@@ -69,12 +69,18 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
 
         fs.unlinkSync(path.join(__dirname +
             `/DB/game_${gameNumber}.json`));
+        
+        try {
+            fs.unlinkSync(path.join(__dirname +
+                `/DB/img/home_logo_${gameNumber}.png`));
 
-        fs.unlinkSync(path.join(__dirname +
-            `/DB/img/home_logo_${gameNumber}.png`));
+            fs.unlinkSync(path.join(__dirname +
+                `/DB/img/guests_logo_${gameNumber}.png`)); 
+        } catch (e) {
+            
+        }
 
-        fs.unlinkSync(path.join(__dirname +
-            `/DB/img/guests_logo_${gameNumber}.png`));
+       
 
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/saved_games.json`));

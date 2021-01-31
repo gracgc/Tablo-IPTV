@@ -81,10 +81,14 @@ const TabloClient = (props) => {
                 </div>
                 <div className={c.logos}>
                     <div className={classNames(c.logo, c.homeLogo)}>
+                        {props.homeTeam.logo &&
                         <img src={props.homeTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
+                        }
                     </div>
                     <div className={classNames(c.logo, c.guestsLogo)}>
+                        {props.guestsTeam.logo &&
                         <img src={props.guestsTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
+                        }
                     </div>
                 </div>
                 <div>
@@ -132,7 +136,9 @@ const TabloClient = (props) => {
             <div className={c3.tablo3}>
                 <div className={c3.teamName}>
                     {props.homeTeam.name} <br/>
+                    {props.homeTeam.logo &&
                     <img src={props.homeTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
+                    }
                 </div>
                 <div className={c3.gamers}>
                     {props.homeTeam.gamers.map(g => <div>{g.gamerNumber} {g.fullName}</div>)}
@@ -144,7 +150,10 @@ const TabloClient = (props) => {
             <div className={c3.tablo3}>
                 <div className={c3.teamName}>
                     {props.guestsTeam.name} <br/>
-                    <img src={props.guestsTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
+                    {props.guestsTeam.logo &&
+                        <img src={props.guestsTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
+                    }
+
                 </div>
                 <div className={c3.gamers}>
                     {props.guestsTeam.gamers.map(g => <div>{g.gamerNumber} {g.fullName}</div>)}

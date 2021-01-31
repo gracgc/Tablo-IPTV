@@ -3,7 +3,6 @@ import './App.css';
 import {Route, withRouter, Switch, Redirect} from "react-router-dom";
 import {compose} from "redux";
 import AdminPanel from "./components/ForAdmin/AdminPanel/AdminPanel";
-import Menu from "./components/MenuPanel/Menu/Menu";
 import CreateGame from "./components/MenuPanel/CreateGame/CreateGame";
 import SavedGames from "./components/MenuPanel/SavedGames/SavedGames";
 import TabloEditClient from "./components/ForClient/TabloEdit/TabloEditClient";
@@ -69,10 +68,9 @@ function App(props) {
                            render={() => <Redirect to={"/menu"}/>}/>
                     <Route exact path='/adminPanel'
                            render={() => <Redirect to={"/menu"}/>}/>
-                    <Route path='/menuOld' render={() => <Menu/>}/>
                     <Route path='/createGame' render={() => <CreateGame/>}/>
                     <Route exact path='/adminPanel'
-                           render={() => <Menu/>}/>
+                           render={() => <SavedGames/>}/>
 
                     <Route path='/adminPanel/:gameNumber?'
                            render={() => <AdminPanel/>}/>

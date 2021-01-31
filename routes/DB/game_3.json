@@ -7,13 +7,13 @@
     "preset": 1,
     "gameTime": {
       "timeData": {
-        "timeMem": 69390,
-        "timeDif": 69390,
-        "timeMemTimer": 1130610,
+        "timeMem": 75890,
+        "timeDif": 75890,
+        "timeMemTimer": 1124110,
         "deadLine": 1200000
       },
       "isRunning": false,
-      "runningTime": 1610551305442,
+      "runningTime": 1612097070175,
       "timeoutData": {
         "timeData": {
           "timeMem": 0,
@@ -30,7 +30,20 @@
     }
   },
   "logData": {
-    "gameLog": [],
+    "gameLog": [
+      {
+        "item": "61:09 - СТАРТ",
+        "id": 1
+      },
+      {
+        "item": "61:14 - ГОЛ для 31241342!",
+        "id": 2
+      },
+      {
+        "item": "61:15 - СТОП",
+        "id": 3
+      }
+    ],
     "tabloLog": {
       "tempLog": [
         {
@@ -50,6 +63,9 @@
         },
         {
           "item": "ГОЛ для 312312!"
+        },
+        {
+          "item": "ГОЛ для 31241342!"
         }
       ],
       "consLog": []
@@ -58,7 +74,6 @@
   "teams": [
     {
       "name": "312312",
-
       "counter": 21,
       "teamType": "home",
       "timeOut": false,
@@ -127,7 +142,7 @@
     },
     {
       "name": "31241342",
-      "counter": 11,
+      "counter": 12,
       "teamType": "guests",
       "timeOut": false,
       "gamers": [

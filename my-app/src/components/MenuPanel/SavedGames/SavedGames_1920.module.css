@@ -10,69 +10,135 @@ a {
     text-decoration: none;
 }
 
+.search {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.searchInput {
+    height: 32px;
+    width: 400px;
+}
+
+.currentGame {
+    display: inline-flex;
+    font-weight: bold;
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
 .navbar {
     position: relative;
-    left: 130px;
-    top: 160px;
-    width: 1200px;
-    height: 540px;
+    left: 80px;
+    top: 80px;
+    width: 1400px;
+    height: 750px;
     overflow: auto;
+}
+
+.savedGamesMenu {
+    display: grid;
+    grid-template-columns: 86% 10%;
+    grid-column-gap: 4%;
 }
 
 .navButton {
     margin-bottom: 20px;
     padding: 10px;
-    width: 1000px;
     font-weight: bold;
-    font-size: 30px;
+    font-size: 32px;
     border: solid 2px black;
 }
 
-.navBackButton {
+.createGameButton {
+    position: absolute;
+    left: 80px;
+    bottom: 30px;
+    width: 760px;
+    text-align: center;
+    padding: 30px;
+    font-weight: bold;
+    font-size: 32px;
+    border: solid 3px black;
+    background: #8cede5;
+}
+
+.createGameButton:hover {
+    background: #D5DEEF;
+}
+
+.devicesButton {
+    position: absolute;
+    right: 30px;
+    bottom: 180px;
+    width: 280px;
+    text-align: center;
+    padding: 30px;
+    font-weight: bold;
+    font-size: 32px;
+    border: solid 3px black;
+    background: #8cede5;
+}
+
+
+.devicesButton:hover {
+    background: #D5DEEF;
+}
+
+.navButtonClient {
     position: absolute;
     float: right;
     right: 30px;
     bottom: 30px;
     width: 280px;
     text-align: center;
-    padding: 20px;
+    padding: 30px;
     font-weight: bold;
-    font-size: 30px;
-    border: solid 2px black;
-}
-
-.navButtonClient{
-    position: absolute;
-    float: right;
-    right: 30px;
-    bottom: 140px;
-    width: 280px;
-    text-align: center;
-    padding: 20px;
-    font-weight: bold;
-    font-size: 30px;
-    border: solid 2px black;
+    font-size: 32px;
+    border: solid 3px black;
     background-color: #130757;
     color: white;
+}
+
+.navButtonClient:hover {
+    background: #040e1c;
+}
+
+.createFastGameButton {
+    position: absolute;
+    left: 1000px;
+    bottom: 30px;
+    width: 280px;
+    text-align: center;
+    padding: 30px;
+    font-weight: bold;
+    font-size: 32px;
+    border: solid 3px black;
+    background-color: #8cede5;
+    cursor: pointer;
+}
+
+.createFastGameButton:hover {
+    background: #D5DEEF;
 }
 
 .menuTitle {
     position: relative;
     font-weight: bold;
-    font-size: 46px;
+    font-size: 50px;
     left: 160px;
-    top: 80px;
+    top: 40px;
 }
 
 .iptv {
     position: absolute;
     font-weight: bold;
     font-family: Impact;
-    font-size: 28px;
-    top: 20px;
+    font-size: 50px;
+    top: 40px;
     right: 50px;
     border: 3px solid;
-    padding: 5px 5px;
+    padding: 10px 10px;
 }
 
 .nameAndType {
@@ -80,46 +146,58 @@ a {
     float: right;
 }
 
-.navButtonAdmin{
+.navButtonAdmin {
     border: 2px solid black;
     background-color: #232961;
-    color:white;
+    color: white;
     text-align: center;
 }
 
-.navButtonGameNumber{
+.navButtonGameNumber {
     border: 2px solid black;
     background-color: #d1fff5;
-    color:black;
+    color: black;
     text-align: center;
 }
 
-.tabloChose{
+
+
+.tabloChose {
     display: grid;
-    grid-template-columns: 25% 45%;
-    grid-column-gap: 25%;
-    padding-top: 3%;
+    grid-template-columns: 52% 43%;
+    grid-column-gap: 5%;
+    padding-top: 15px;
     border-top: 2px solid black;
     cursor: pointer;
+}
+
+.adminChose {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 5%;
 }
 
 .gameIsGoing {
     color: #ff1717;
     animation: blink 1s infinite;
-    font-size: 30px;
+    font-size: 32px;
 }
 
 @keyframes blink {
-    from { color: #ff1717}
-    to { color: #731919;}
+    from {
+        color: #ff1717
+    }
+    to {
+        color: #731919;
+    }
 }
 
 .deleteButton {
     border: 2px solid black;
-    margin-top: 10px;
     background: #f57878;
+    height: 32px;
     color: black;
-    width: 230px;
     text-align: center;
     cursor: pointer;
+    font-size: 24px;
 }

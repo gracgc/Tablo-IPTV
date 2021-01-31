@@ -10,14 +10,14 @@ let initialState = {
         gameName: "",
         gameNumber: null,
         gameType: "",
-        preset: 4,
+        preset: 1,
         gameStatus: "",
         gameTime: null
     },
     savedGames: [
         {
             gameName: "",
-            gameNumber: null,
+            gameNumber: 1,
             gameType: ""
         }
     ]
@@ -101,9 +101,9 @@ export const createNewGame =
     (gameName, gameNumber, gameType, homeName, homeGamers, guestsName, guestsGamers) => async (dispatch) => {
     let responseGame = await gameAPI.createNewGame(gameName, gameNumber, gameType);
     let responseTeam = await teamsAPI.createTeams(gameNumber, homeName, homeGamers, guestsName, guestsGamers);
-    if (responseGame.resultCode === 0 && responseTeam.resultCode === 0) {
-        dispatch(createNewGameAC(gameName, gameNumber, gameType));
-    }
+    // if (responseGame.resultCode === 0 && responseTeam.resultCode === 0) {
+    //     dispatch(createNewGameAC(gameName, gameNumber, gameType));
+    // }
 };
 
 export const customGame =
