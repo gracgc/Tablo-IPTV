@@ -69,6 +69,9 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
 
         fs.unlinkSync(path.join(__dirname +
             `/DB/game_${gameNumber}.json`));
+
+        fs.unlinkSync(path.join(__dirname +
+            `/DB/video_${gameNumber}.json`));
         
         try {
             fs.unlinkSync(path.join(__dirname +

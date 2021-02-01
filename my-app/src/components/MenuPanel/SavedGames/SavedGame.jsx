@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import c from './SavedGames.module.css'
 import {NavLink} from "react-router-dom";
 import {putGameNumber} from "../../../redux/app_reducer";
@@ -15,6 +15,8 @@ const SavedGame = (props) => {
     const confirm = useConfirm();
 
     let width = window.innerWidth;
+
+    const [showDeleteButton, setShowDeleteButton] = useState(false);
 
     const setTabloGameNumber = async (gameNumber) => {
         await confirm({description: 'Сейчас на табло идет другая игра. Это действие может помешать игровому процессу.',
@@ -34,7 +36,9 @@ const SavedGame = (props) => {
 
 
     return (
-            <div className={width === 1920 ? c1920.savedGamesMenu : c.savedGamesMenu}>
+            <div className={width === 1920 ? c1920.savedGamesMenu : c.savedGamesMenu}
+                 onMouseOver={(e) => setShowDeleteButton(true)}
+                 onMouseLeave={(e) => setShowDeleteButton(false)}>
                 <div className={width === 1920 ? c1920.navButton : c.navButton}>
                     {props.savedGame.gameNumber}
                     <div className={width === 1920 ? c1920.nameAndType : c.nameAndType}>
@@ -70,10 +74,11 @@ const SavedGame = (props) => {
                         }
                     </div>
                 </div>
+                {showDeleteButton &&
                 <div className={width === 1920 ? c1920.deleteButton : c.deleteButton}
                      onClick={(e) => deleteGameForever(props.savedGame.gameNumber)}>
                     Удалить
-                </div>
+                </div>}
             </div>
     )
 };
