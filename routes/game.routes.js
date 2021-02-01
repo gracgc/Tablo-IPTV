@@ -37,13 +37,19 @@ router.post('/', authMW, cors(), function (req, res) {
         let gameNumber = req.body.gameNumber;
         let gameType = req.body.gameType;
 
+        let date = new Date;
+
         let newSave = {
             gameName: gameName,
             gameNumber: gameNumber,
-            gameType: gameType
+            gameType: gameType,
+            dateOfCreation:
+                `${date.getDate() < 10 && '0'}${date.getDate()}.${date.getMonth() < 10 && '0'}${date.getMonth()+1}.${date.getFullYear()}
+                UTC${(-date.getTimezoneOffset() / 60) < 0 ? '-' : '+'}${-date.getTimezoneOffset() / 60}`
         };
 
         DB.savedGames.push(newSave);
+
 
         let newGame = {
             gameInfo: {
@@ -57,7 +63,7 @@ router.post('/', authMW, cors(), function (req, res) {
                     isRunning: false,
                     runningTime: 0,
                     timeoutData: {
-                        timeData: {timeMem: 0, timeDif: 0, timeMemTimer: 30000, deadLine: 30000},
+                        timeData: {timeMem: 0, timeDif: 0, timeMemTimer: 0, deadLine: 0},
                         isRunning: false,
                         runningTime: 0
                     },
@@ -178,8 +184,6 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
         console.log(e)
     }
 })
-
-
 
 
 router.options('/', cors());

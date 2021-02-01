@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import c1920 from "./SavedGames_1920.module.css";
 import {useConfirm} from "material-ui-confirm";
 import {deleteGame} from "../../../redux/games_reducer";
+import GameMenu from "./GameMenu";
 
 
 const SavedGame = (props) => {
@@ -15,6 +16,7 @@ const SavedGame = (props) => {
     const confirm = useConfirm();
 
     let width = window.innerWidth;
+
 
     const [showDeleteButton, setShowDeleteButton] = useState(false);
 
@@ -35,14 +37,15 @@ const SavedGame = (props) => {
     };
 
 
+
+
+
     return (
-            <div className={width === 1920 ? c1920.savedGamesMenu : c.savedGamesMenu}
-                 onMouseOver={(e) => setShowDeleteButton(true)}
-                 onMouseLeave={(e) => setShowDeleteButton(false)}>
+            <div className={width === 1920 ? c1920.savedGamesMenu : c.savedGamesMenu}>
                 <div className={width === 1920 ? c1920.navButton : c.navButton}>
-                    {props.savedGame.gameNumber}
+                    {props.savedGame.gameName} — {props.savedGame.gameType}
                     <div className={width === 1920 ? c1920.nameAndType : c.nameAndType}>
-                        {props.savedGame.gameName} — {props.savedGame.gameType}
+                        {props.savedGame.dateOfCreation}
                     </div>
                     <div className={width === 1920 ? c1920.tabloChose : c.tabloChose}>
                         <div className={width === 1920 ? c1920.adminChose : c.adminChose}>
@@ -57,7 +60,6 @@ const SavedGame = (props) => {
                                 </div>
                             </NavLink>
                         </div>
-
                         {props.savedGame.gameNumber !== props.gameNumber
                             ? <div className={width === 1920 ? c1920.navButtonGameNumber : c.navButtonGameNumber}
                                    onClick={
@@ -72,6 +74,8 @@ const SavedGame = (props) => {
                                 <div className={width === 1920 ? c1920.gameIsGoing : c.gameIsGoing}>●</div>
                             </div>
                         }
+                        <GameMenu showDeleteButton={showDeleteButton} setShowDeleteButton={setShowDeleteButton}/>
+
                     </div>
                 </div>
                 {showDeleteButton &&

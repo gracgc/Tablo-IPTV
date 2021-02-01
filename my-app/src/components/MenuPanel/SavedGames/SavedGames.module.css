@@ -40,12 +40,15 @@ a {
     color: white;
 }
 
-.navbar {
-    position: relative;
+.menu {
+    position: absolute;
     left: 60px;
-    top: 40px;
+    top: 100px;
+}
+
+.navbar {
     width: 900px;
-    height: 520px;
+    height: 410px;
     overflow: auto;
 }
 
@@ -60,7 +63,7 @@ a {
     padding: 10px;
     font-weight: bold;
     font-size: 20px;
-    border: solid 2px black;
+    border: solid 1px black;
 }
 
 
@@ -178,8 +181,8 @@ a {
 
 .tabloChose {
     display: grid;
-    grid-template-columns: 52% 43%;
-    grid-column-gap: 5%;
+    grid-template-columns: 52% 35% 5%;
+    grid-column-gap: 4%;
     padding-top: 10px;
     border-top: 2px solid black;
     cursor: pointer;

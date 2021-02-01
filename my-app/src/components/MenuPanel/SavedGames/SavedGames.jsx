@@ -5,9 +5,11 @@ import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {createNewGame, getSavedGames, setSavedGamesAC} from "../../../redux/games_reducer";
 import SavedGame from "./SavedGame";
-import {getGameNumber, setGameNumberAC} from "../../../redux/app_reducer";
+import {getGameNumber, putGameNumber, setGameNumberAC} from "../../../redux/app_reducer";
 import socket from "../../../socket/socket";
-import {gameAPI} from "../../../api/api";
+import {useConfirm} from "material-ui-confirm";
+import {useHistory} from "react-router";
+import {gameAPI, teamsAPI} from "../../../api/api";
 
 const SavedGames = (props) => {
 
@@ -22,6 +24,11 @@ const SavedGames = (props) => {
     let width = window.innerWidth;
 
     const dispatch = useDispatch();
+
+    const confirm = useConfirm();
+
+    let history = useHistory();
+
 
     useEffect(() => {
         dispatch(getSavedGames());
@@ -45,23 +52,42 @@ const SavedGames = (props) => {
     let lastGameNumber = savedGames[savedGames.length - 1].gameNumber
 
 
-    let createFastGame = () => {
-        dispatch(createNewGame('Быстрая игра', lastGameNumber + 1, 'Классический хоккей',
+    let createFastGame = async () => {
+        let responseGame = await gameAPI.createNewGame('Быстрая игра', lastGameNumber + 1, 'Классический хоккей');
+        let responseTeam = await teamsAPI.createTeams(
+            lastGameNumber + 1,
             'Команда 1',
             [],
             'Команда 2',
-            []
-        ))
+            []);
+
+        return {responseGame, responseTeam}
     }
+
+    const fastGameAlert = async (gameNumber) => {
+        await confirm({
+            description: 'После создания быстрой игры вы будете сразу перенаправлены в административную панель и на табло поставится эта игра.',
+            title: 'Вы уверены?',
+            confirmationText: 'Хорошо',
+            cancellationText: 'Отменить'
+        });
+
+        let r = await createFastGame()
+
+        if (r.responseGame.resultCode === 0 && r.responseTeam.resultCode === 0) {
+            dispatch(putGameNumber(lastGameNumber + 1))
+            history.push('/adminPanel/' + (lastGameNumber + 1));
+        }
+
+    };
 
     let searchGame = useRef('')
 
     let [searchWord, setSearchWord] = useState('')
 
     let search = () => {
-        setSearchWord(searchGame.current.value)
+        setSearchWord(searchGame.current.value.toLowerCase())
     }
-
 
 
     return (
@@ -69,9 +95,10 @@ const SavedGames = (props) => {
             <span className={width === 1920 ? c1920.menuTitle : c.menuTitle}>Список игр</span>
             <div className={width === 1920 ? c1920.iptv : c.iptv}>IPTV PORTAL <br/> TABLO beta</div>
 
-            <div className={width === 1920 ? c1920.navbar : c.navbar}>
+            <div className={width === 1920 ? c1920.menu : c.menu}>
                 <div className={width === 1920 ? c1920.search : c.search}>
-                    Поиск по названию: <input className={width === 1920 ? c1920.searchInput : c.searchInput} type="text" ref={searchGame} onChange={(e) => search()}/>
+                    Поиск по названию: <input className={width === 1920 ? c1920.searchInput : c.searchInput} type="text"
+                                              ref={searchGame} onChange={(e) => search()}/>
                 </div>
                 {currentGame &&
                 <div className={width === 1920 ? c1920.currentGame : c.currentGame}>
@@ -79,7 +106,11 @@ const SavedGames = (props) => {
                     <div className={c.curentGameMenu}>Админ</div>
                     <div className={c.curentGameMenu}>Видео-админ</div>
                 </div>}
-                {savedGames.map(sg => (sg.gameName.indexOf(searchWord) !== -1) && <SavedGame gameNumber={gameNumber} savedGame={sg} savedGames={savedGames}/>)}
+                <div className={width === 1920 ? c1920.navbar : c.navbar}>
+                    {savedGames.map(sg => (sg.gameName.toLowerCase().indexOf(searchWord) !== -1) &&
+                        <SavedGame gameNumber={gameNumber} savedGame={sg} savedGames={savedGames}/>)}
+                </div>
+
             </div>
             <NavLink to={'/tabloClient/'}>
                 <div className={width === 1920 ? c1920.navButtonClient : c.navButtonClient}>
@@ -101,7 +132,7 @@ const SavedGames = (props) => {
 
 
             <div className={width === 1920 ? c1920.createFastGameButton : c.createFastGameButton}
-                 onClick={(e) => createFastGame()}>
+                 onClick={(e) => fastGameAlert()}>
                 Быстрая игра
             </div>
 

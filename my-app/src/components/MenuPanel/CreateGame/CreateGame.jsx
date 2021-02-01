@@ -8,6 +8,7 @@ import {required, requiredShort} from "../../../utils/validators";
 import {useDispatch, useSelector} from "react-redux";
 import {createNewGame, getSavedGames} from "../../../redux/games_reducer";
 import Button from "@material-ui/core/Button";
+import {useHistory} from "react-router";
 
 const axios = require('axios');
 
@@ -191,6 +192,8 @@ const CreateGame = (props) => {
 
     let width = window.innerWidth;
 
+    let history = useHistory();
+
     let [numberOfHomePlayers, setNumberOfHomePlayers] = useState([1, 2, 3, 4, 5, 6]);
     let [numberOfGuestsPlayers, setNumberOfGuestsPlayers] = useState([1, 2, 3, 4, 5, 6]);
 
@@ -267,6 +270,10 @@ const CreateGame = (props) => {
             uploadLogo(homeLogo, guestsLogo)
 
             setSuccessMessage(true);
+
+            setTimeout(() => {
+                history.push('/menu');
+            }, 2000)
         }
 
 
@@ -278,11 +285,6 @@ const CreateGame = (props) => {
             <div className={c.successMessage}>
                 Игра успешно создана!
             </div>
-            <NavLink to="/">
-                <div className={width === 1920 ? c1920.navBackButton : c.navBackButton}>
-                    Вернуться в меню
-                </div>
-            </NavLink>
         </div>
     }
 
