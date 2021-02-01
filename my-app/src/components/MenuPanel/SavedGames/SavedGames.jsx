@@ -103,8 +103,12 @@ const SavedGames = (props) => {
                 {currentGame &&
                 <div className={width === 1920 ? c1920.currentGame : c.currentGame}>
                     Текущая игра: {currentGame.gameNumber} — {currentGame.gameName} — {currentGame.gameType}
-                    <div className={c.curentGameMenu}>Админ</div>
-                    <div className={c.curentGameMenu}>Видео-админ</div>
+                    <NavLink to={'/adminPanel/' + currentGame.gameNumber}>
+                        <div className={c.curentGameMenu}>Админ</div>
+                    </NavLink>
+                    <NavLink to={'/videoAdmin/' + currentGame.gameNumber}>
+                        <div className={c.curentGameMenu}>Видео-админ</div>
+                    </NavLink>
                 </div>}
                 <div className={width === 1920 ? c1920.navbar : c.navbar}>
                     {savedGames.map(sg => (sg.gameName.toLowerCase().indexOf(searchWord) !== -1) &&
