@@ -31,8 +31,10 @@
     "get-video-duration": "^3.0.2",
     "gm": "^1.23.1",
     "jsonwebtoken": "^8.5.1",
+    "node-video-duration": "^1.0.1",
     "resize-img": "^2.0.0",
     "resize-optimize-images": "^1.1.2",
-    "sharp": "^0.27.0"
+    "sharp": "^0.27.0",
+    "video-length": "^2.0.6"
   }
 }

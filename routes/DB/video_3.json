@@ -1,8 +1,7 @@
 {
   "currentVideo": {
     "videoName": "МузТВ",
-    "videoURL": "https://str1.iptvportal.ru/muz-tv/video.m3u8",
-    "videoType": "live"
+    "videoURL": "https://str1.iptvportal.ru/muz-tv/video.m3u8"
   },
   "timeData": {
     "timeMem": 2490,

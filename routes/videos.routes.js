@@ -14,15 +14,8 @@ router.get('/', function (req, res) {
         let DB = JSON.parse(data);
 
 
-        DB.videos.forEach((item, index, array) => {
-            if (item.videoType === 'vod') {
-                getVideoDurationInSeconds(item.videoURL)
-                    .then((duration => {
-                        item.duration = duration;
-                        res.send(DB.videos)
-                    }))
-            }
-        });
+        res.send(DB.videos)
+
 
     } catch (e) {
         console.log(e)

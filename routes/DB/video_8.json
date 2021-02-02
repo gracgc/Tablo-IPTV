@@ -1,1 +1,13 @@
-{"currentVideo":{"videoName":"","videoURL":"","videoType":""},"timeData":{"timeMem":0,"timeDif":0,"isRunning":false,"runningTime":0},"videos":[]}
+{
+  "currentVideo": {
+    "videoName": "",
+    "videoURL": ""
+  },
+  "timeData": {
+    "timeMem": 0,
+    "timeDif": 0,
+    "isRunning": false,
+    "runningTime": 0
+  },
+  "videos": []
+}
