@@ -17,28 +17,28 @@
       "videoURL": "https://str1.iptvportal.ru/britko_2019-06-19--1/video.m3u8"
     },
     {
-      "videoName": "БритькоВОД",
+      "videoName": "БритькоВОД~!",
       "videoURL": "https://str1.iptvportal.ru/vod/britko_2019-06-19--1.mp4/video.m3u8",
-      "duration": 366.95
+      "duration": 366950
     },
     {
       "videoName": "БритькоЛАЙВ2",
       "videoURL": "https://str1.iptvportal.ru/britko_2019-03-19/video.m3u8"
     },
     {
-      "videoName": "Бритько3 Для редактора",
+      "videoName": "Бритько3 Для редактора~!",
       "videoURL": "http://str1.iptvportal.ru/vod/britko_2019-06-19--1.mp4/index.m3u8",
-      "duration": 366.95
+      "duration": 366950
     },
     {
-      "videoName": "Бритько4 Для редактора",
+      "videoName": "Бритько4 Для редактора~!",
       "videoURL": "http://str1.iptvportal.ru/vod/britko_2019-06-19--1.mp4/index.m3u8",
-      "duration": 366.95
+      "duration": 366950
     },
     {
-      "videoName": "тест",
+      "videoName": "тест~!",
       "videoURL": "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8",
-      "duration": 210
+      "duration": 210000
     }
 
   ],

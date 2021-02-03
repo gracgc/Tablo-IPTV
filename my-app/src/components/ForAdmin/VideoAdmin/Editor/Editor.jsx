@@ -1,11 +1,12 @@
-import React, {useEffect, useRef, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import c from './Editor.module.css'
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {tabloAPI, videosAPI} from "../../../../api/api";
+import {videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import socket from "../../../../socket/socket";
 import {Draggable, Droppable} from 'react-drag-and-drop'
+import {getVideoEditor} from "../../../../redux/videos_reducer";
 
 
 const Editor = (props) => {
@@ -13,6 +14,7 @@ const Editor = (props) => {
     let gameNumber = props.match.params.gameNumber;
 
     const dispatch = useDispatch();
+
 
     let [dif, setDif] = useState();
     let [ping, setPing] = useState();
@@ -29,8 +31,8 @@ const Editor = (props) => {
     let [timeDif, setTimeDif] = useState();
     let [timeMem, setTimeMem] = useState();
 
-    const videos = useSelector(
-        (state => state.videosPage.videos)
+    const videoEditor = useSelector(
+        (state => state.videosPage.videoEditor)
     );
 
 
@@ -45,6 +47,8 @@ const Editor = (props) => {
             setTimeMem(r.timeData.timeMem);
             setTimeDif(r.timeData.timeMem);
         });
+
+        dispatch(getVideoEditor(gameNumber))
 
         socket.on(`getVideoTime${gameNumber}`, time => {
                 setIsRunningServer(time.timeData.isRunning);
@@ -85,6 +89,15 @@ const Editor = (props) => {
         }
     );
 
+    useEffect(() => {
+        if (videoEditor.editorData.duration - timeDif <= 0) {
+            setIsRunningServer(false);
+            videosAPI.putVideoTimeStatus(gameNumber, false,
+                0,
+                0);
+        }
+    }, [videoEditor.editorData.duration - timeDif <= 0]);
+
     const startVideo = () => {
         videosAPI.putVideoTimeStatus(gameNumber, true, timeDif,
             timeMem);
@@ -110,9 +123,12 @@ const Editor = (props) => {
         videosAPI.putCurrentVideo(currentVideo)
     };
 
+    let scale = 1500
+
     let editorStyle = {
-        msWidth: timeDif / 50
+        msWidth: (videoEditor.editorData.duration - timeDif)/scale
     };
+
 
 
     let onDrop = (data) => {
@@ -147,6 +163,10 @@ const Editor = (props) => {
     return (
         <div className={c.editor}>
             <div className={c.title}>Редактор</div>
+            <div style={{display: 'inline-flex'}}>
+                {videoEditor.videos.map(v => <div style={{height: "30px", backgroundColor: 'blue', width: v.duration/scale, textAlign: 'center'}}>{v.videoName}</div>)}
+            </div>
+
             <div style={{width: editorStyle.msWidth, height: "10px", backgroundColor: 'pink'}}>
 
             </div>
@@ -162,10 +182,10 @@ const Editor = (props) => {
             {minutes}:{seconds}:{ms}
 
             <Droppable
-                types={['video']} // <= allowed drop types
+                types={['video']}
                 onDrop={(e) => onDrop(e)}
             >
-                <div>ААА</div>
+                <div>Перетаскивать сюда</div>
             </Droppable>
 
 
@@ -178,7 +198,6 @@ const Editor = (props) => {
             <Draggable type="video" data={'ВИДЕО3'}>
                 <div>Lemon</div>
             </Draggable>
-
         </div>
     )
 };
