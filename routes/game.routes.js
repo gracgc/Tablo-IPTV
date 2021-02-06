@@ -4,6 +4,8 @@ const fs = require('fs');
 const path = require('path');
 const cors = require('cors');
 const authMW = require('../middleware/authMW')
+const config = require('config')
+let url = `${config.get('baseUrl')}:${config.get('port')}`
 
 
 router.get('/:gameNumber', function (req, res) {
@@ -142,6 +144,8 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
         let homeGamers = req.body.homeGamers;
         let guestsName = req.body.guestsName;
         let guestsGamers = req.body.guestsGamers;
+        let additionalHomeGamers = req.body.additionalHomeGamers;
+        let additionalGuestsGamers = req.body.additionalGuestsGamers;
 
         if (time > 1200000) {
             time = 1200000
@@ -168,6 +172,10 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
             DB.teams.find(t => t.teamType === 'guests').gamers.find(gamer => gamer.id === g.id).gamerNumber = g.gamerNumber
         })
 
+        DB.teams.find(t => t.teamType === 'home').gamers = DB.teams.find(t => t.teamType === 'home').gamers.concat(additionalHomeGamers)
+
+        DB.teams.find(t => t.teamType === 'guests').gamers = DB.teams.find(t => t.teamType === 'guests').gamers.concat(additionalGuestsGamers)
+
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname +
@@ -178,6 +186,9 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
         const io = req.app.locals.io;
 
         io.emit(`getGame${gameNumber}`, DB.gameInfo)
+
+        DB.teams.find(t => t.teamType === 'home').logo = `${url}/api/teams/homeLogo/${gameNumber}/${Date.now()}`;
+        DB.teams.find(t => t.teamType === 'guests').logo = `${url}/api/teams/guestsLogo/${gameNumber}/${Date.now()}`;
 
         io.emit(`getTeams${gameNumber}`, DB.teams)
 

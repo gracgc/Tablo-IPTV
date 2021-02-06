@@ -114,3 +114,34 @@ a {
     bottom: 120px;
     font-size: 22px;
 }
+
+.addDeleteGamerButtons {
+    display: inline-flex;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.addGamerButton {
+    background: lightgreen;
+    text-align: center;
+    width: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-right: 20px;
+    box-sizing: border-box;
+    border: 2px solid black;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.deleteGamerButton {
+    background: #e0223b;
+    text-align: center;
+    width: 60px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-sizing: border-box;
+    border: 2px solid black;
+    font-size: 30px;
+    cursor: pointer;
+}

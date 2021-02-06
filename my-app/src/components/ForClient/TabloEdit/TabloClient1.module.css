@@ -57,17 +57,39 @@
 .tempLog {
     text-align: center;
     font-size: 50px;
-    height: 72px;
+    height: 252px;
 }
 
 .consLogItem {
-    position: relative;
-    padding-left: 100px;
     font-size: 32px;
+    display: inline-flex;
+    /*width: 140px;*/
 }
 
-.consLog {
-    height: 180px;
+.consLogHome {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.consLogGuests {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.gamerNumber {
+    text-align: center;
+    box-sizing: border-box;
+    border: 2px solid white;
+    width: 70px;
+}
+
+.timerOfDelete {
+    text-align: center;
+    box-sizing: border-box;
+    border: 2px solid white;
+    width: 130px;
 }
 
 .timeout {
@@ -75,7 +97,7 @@
     color: blue;
     text-align: center;
     font-size: 32px;
-
+    height: 44px;
 }
 
 .timeout5sec {

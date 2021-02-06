@@ -67,8 +67,18 @@ const TabloClient = (props) => {
                         `Таймаут ${props.secondsTimerTimeout} секунд`
                         }
                     </div>
-                    <div className={c.consLog}>
-                        {props.gameConsLog && props.gameConsLog.map(gcl => gcl.item !== '' &&
+                    <div className={c.consLogHome}>
+                        {props.gameConsLog && props.gameConsLog.map(gcl => (gcl.item !== '' && gcl.teamType === 'home') &&
+                            <TabloEventClient key={gcl.id}
+                                              item={gcl.item}
+                                              id={gcl.id}
+                                              teamType={gcl.teamType}
+                                              timeMemTimer={props.timeMemTimer}
+                                              gameNumber={props.gameNumber}
+                            />)}
+                    </div>
+                    <div className={c.consLogGuests}>
+                        {props.gameConsLog && props.gameConsLog.map(gcl => (gcl.item !== '' && gcl.teamType === 'guests') &&
                             <TabloEventClient key={gcl.id}
                                               item={gcl.item}
                                               id={gcl.id}

@@ -9,7 +9,11 @@ import {getTeams} from "../../../../redux/teams_reducer";
 import {Input} from "../../../../common/FormsControls/FormsControls";
 import {tabloAPI} from "../../../../api/api";
 import {customGame} from "../../../../redux/games_reducer";
-import {maxTime, maxTime20, maxTime60, required} from "../../../../utils/validators";
+import {maxTime, maxTime20, maxTime60, required, requiredShort} from "../../../../utils/validators";
+import Button from "@material-ui/core/Button";
+import {useHistory} from "react-router";
+
+const axios = require('axios');
 
 
 const CustomGameForm = (props) => {
@@ -70,6 +74,26 @@ const CustomGameForm = (props) => {
         props.dispatch(change('customGame', 'period', period));
     }
 
+    let addPlayer = (team, setTeam) => {
+        let newArray
+        if (team.length === 0) {
+            newArray = [...team, 1];
+        } else {
+            newArray = [...team, (team[team.length - 1]) + 1];
+        }
+
+        setTeam(newArray)
+
+    };
+
+    let deletePlayer = async (team, setTeam) => {
+        let newArray = [...team];
+        if (newArray.length > 0) {
+            await newArray.pop();
+            setTeam(newArray)
+        }
+    };
+
 
     return (
         <div>
@@ -99,12 +123,27 @@ const CustomGameForm = (props) => {
                     </div>
                     <div className={width === 1920 ? c1920.customGamers : c.customGamers}>
                         <div className={width === 1920 ? c1920.teamPanel : c.teamPanel}>
-                            <Field placeholder={'название команды'} name={`homeName`}
+                            <Field placeholder={'Название команды'} name={`homeName`}
                                    component={Input}/>
+
+                            <Button
+                                variant="contained"
+                                component="label"
+                            >
+                                Изменить лого
+                                <input
+                                    name="homeLogo"
+                                    type="file"
+                                    hidden
+                                    onChange={(e) => props.setHomeLogo(e.target.files[0])}
+                                />
+                            </Button>
+                            {props.homeLogo &&
+                            <span style={{marginLeft: '10px', color: 'green'}}>Лого загружен</span>}
                             <div className={width === 1920 ? c1920.panelName : c.panelName}>Игроки</div>
                             {homeTeamGamers.map(g => <div className={width === 1920 ? c1920.team : c.team}>
                                 <div>
-                                    <Field placeholder={'имя игрока'} name={`homeGamerName${g.id}`}
+                                    <Field placeholder={'Имя игрока'} name={`homeGamerName${g.id}`}
                                            component={Input}/>
                                 </div>
                                 <div>
@@ -112,14 +151,56 @@ const CustomGameForm = (props) => {
                                            component={Input}/>
                                 </div>
                             </div>)}
+                            {props.numberOfAdditionalHomePlayers.map(n => <div
+                                className={width === 1920 ? c1920.team : c.team}>
+                                <div>
+                                    <Field placeholder={'Дополнительный игрок'}
+                                           name={`additionalHomeGamer${n}`}
+                                           validate={[required]}
+                                           component={Input}/>
+                                </div>
+                                <div>
+                                    <Field placeholder={`№`} name={`additionalHomeNumber${n}`}
+                                           validate={[requiredShort]}
+                                           component={Input}/>
+                                </div>
+                            </div>)}
+                            <div className={width === 1920 ? c1920.addDeleteGamerButtons : c.addDeleteGamerButtons}>
+                                <div className={width === 1920 ? c1920.addGamerButton : c.addGamerButton}
+                                     onClick={(e) =>
+                                         addPlayer(props.numberOfAdditionalHomePlayers, props.setNumberOfAdditionalHomePlayers)}>
+                                    +
+                                </div>
+                                <div className={width === 1920 ? c1920.deleteGamerButton : c.deleteGamerButton}
+                                     onClick={(e) =>
+                                         deletePlayer(props.numberOfAdditionalHomePlayers, props.setNumberOfAdditionalHomePlayers)}>
+                                    -
+                                </div>
+                            </div>
                         </div>
                         <div className={width === 1920 ? c1920.teamPanel : c.teamPanel}>
-                            <Field placeholder={'название команды'} name={`guestsName`}
+
+                            <Field placeholder={'Название команды'} name={`guestsName`}
                                    component={Input}/>
+
+                            <Button
+                                variant="contained"
+                                component="label"
+                            >
+                                Изменить лого
+                                <input
+                                    name="guestsLogo"
+                                    type="file"
+                                    hidden
+                                    onChange={(e) => props.setGuestsLogo(e.target.files[0])}
+                                />
+                            </Button>
+                            {props.guestsLogo &&
+                            <span style={{marginLeft: '10px', color: 'green'}}>Лого загружен</span>}
                             <div className={width === 1920 ? c1920.panelName : c.panelName}>Игроки</div>
                             {guestsTeamGamers.map(g => <div className={width === 1920 ? c1920.team : c.team}>
                                 <div>
-                                    <Field placeholder={'имя игрока'} name={`guestsGamerName${g.id}`}
+                                    <Field placeholder={'Имя игрока'} name={`guestsGamerName${g.id}`}
                                            component={Input}/>
                                 </div>
                                 <div>
@@ -127,6 +208,32 @@ const CustomGameForm = (props) => {
                                            component={Input}/>
                                 </div>
                             </div>)}
+                            {props.numberOfAdditionalGuestsPlayers.map(n => <div
+                                className={width === 1920 ? c1920.team : c.team}>
+                                <div>
+                                    <Field placeholder={'Дополнительный игрок'}
+                                           name={`additionalGuestsGamer${n}`}
+                                           validate={[required]}
+                                           component={Input}/>
+                                </div>
+                                <div>
+                                    <Field placeholder={`№`} name={`additionalGuestsNumber${n}`}
+                                           validate={[requiredShort]}
+                                           component={Input}/>
+                                </div>
+                            </div>)}
+                            <div className={width === 1920 ? c1920.addDeleteGamerButtons : c.addDeleteGamerButtons}>
+                                <div className={width === 1920 ? c1920.addGamerButton : c.addGamerButton}
+                                     onClick={(e) =>
+                                         addPlayer(props.numberOfAdditionalGuestsPlayers, props.setNumberOfAdditionalGuestsPlayers)}>
+                                    +
+                                </div>
+                                <div className={width === 1920 ? c1920.deleteGamerButton : c.deleteGamerButton}
+                                     onClick={(e) =>
+                                         deletePlayer(props.numberOfAdditionalGuestsPlayers, props.setNumberOfAdditionalGuestsPlayers)}>
+                                    -
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -151,9 +258,17 @@ const CustomGame = (props) => {
 
     let dispatch = useDispatch();
 
+    let history = useHistory();
+
     let gameNumber = props.match.params.gameNumber;
 
     let [successSave, setSuccessSave] = useState(false);
+
+    let [numberOfAdditionalHomePlayers, setNumberOfAdditionalHomePlayers] = useState([]);
+    let [numberOfAdditionalGuestsPlayers, setNumberOfAdditionalGuestsPlayers] = useState([]);
+
+    let [homeLogo, setHomeLogo] = useState()
+    let [guestsLogo, setGuestsLogo] = useState()
 
 
     const teams = useSelector(
@@ -163,6 +278,25 @@ const CustomGame = (props) => {
     const homeTeamGamers = teams.find(t => t.teamType === 'home').gamers;
 
     const guestsTeamGamers = teams.find(t => t.teamType === 'guests').gamers;
+
+    let uploadLogo = (teamType ,logo) => {
+
+        let logoFormData = new FormData;
+
+        logoFormData.append('file', logo)
+
+
+        if (logo) {
+            axios.post(`/api/teams/${teamType}Logo/${gameNumber}`, logoFormData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        }
+    }
+
+
+
 
 
     const onSubmit = (formData) => {
@@ -179,14 +313,37 @@ const CustomGame = (props) => {
                 id: g.id,
                 fullName: eval(`formData.guestsGamerName${g.id}`),
                 gamerNumber: eval(`formData.guestsGamerNumber${g.id}`)
+            })),
+            numberOfAdditionalHomePlayers.map(n => ({
+                id: homeTeamGamers.length + n,
+                fullName: eval(`formData.additionalHomeGamer${n}`),
+                gamerNumber: eval(`formData.additionalHomeNumber${n}`),
+                status: "in game",
+                onField: false,
+                goals: 0,
+                timeOfPenalty: 0,
+                whenWasPenalty: 0
+            })),
+            numberOfAdditionalGuestsPlayers.map(n => ({
+                id: guestsTeamGamers.length + n,
+                fullName: eval(`formData.additionalGuestsGamer${n}`),
+                gamerNumber: eval(`formData.additionalGuestsNumber${n}`),
+                status: "in game",
+                onField: false,
+                goals: 0,
+                timeOfPenalty: 0,
+                whenWasPenalty: 0
             }))
         ))
+
+        uploadLogo('home', homeLogo)
+        uploadLogo('guests', guestsLogo)
 
 
         setSuccessSave(true)
         setTimeout(() => {
-            setSuccessSave(false)
-        }, 3000)
+            history.push(`/adminPanel/${gameNumber}`);
+        }, 1000)
 
     };
 
@@ -198,6 +355,14 @@ const CustomGame = (props) => {
                 <CustomGameReduxForm onSubmit={onSubmit}
                                      gameNumber={gameNumber}
                                      successSave={successSave}
+                                     numberOfAdditionalHomePlayers={numberOfAdditionalHomePlayers}
+                                     setNumberOfAdditionalHomePlayers={setNumberOfAdditionalHomePlayers}
+                                     numberOfAdditionalGuestsPlayers={numberOfAdditionalGuestsPlayers}
+                                     setNumberOfAdditionalGuestsPlayers={setNumberOfAdditionalGuestsPlayers}
+                                     homeLogo={homeLogo}
+                                     setHomeLogo={setHomeLogo}
+                                     guestsLogo={guestsLogo}
+                                     setGuestsLogo={setGuestsLogo}
                 />
             </div>
 

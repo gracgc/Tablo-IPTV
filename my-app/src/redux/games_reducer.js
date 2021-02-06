@@ -109,8 +109,8 @@ export const createNewGame =
 };
 
 export const customGame =
-    (gameNumber, period, time, homeName, homeGamers, guestsName, guestsGamers) => async (dispatch) => {
-        let response = await gameAPI.customGame(gameNumber, period, time, homeName, homeGamers, guestsName, guestsGamers);
+    (gameNumber, period, time, homeName, homeGamers, guestsName, guestsGamers, additionalHomeGamers, additionalGuestsGamers) => async (dispatch) => {
+        let response = await gameAPI.customGame(gameNumber, period, time, homeName, homeGamers, guestsName, guestsGamers, additionalHomeGamers, additionalGuestsGamers);
         if (response.resultCode === 0) {
             // dispatch(customGameAC(gameNumber));
         }
