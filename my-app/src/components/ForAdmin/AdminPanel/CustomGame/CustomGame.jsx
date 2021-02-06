@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import c from './CustomGame.module.css'
 import c1920 from './CustomGame_1920.module.css'
 import {NavLink, withRouter} from "react-router-dom";
-import {change, Field, reduxForm} from "redux-form";
+import {change, Field, reduxForm, stopSubmit} from "redux-form";
 import {compose} from "redux";
 import {useDispatch, useSelector} from "react-redux";
 import {getTeams} from "../../../../redux/teams_reducer";
@@ -131,8 +131,11 @@ const CustomGameForm = (props) => {
                     </div>
                 </div>
                 <div>
-                    <button className={width === 1920 ? c1920.customGameButton : c.customGameButton}>Сохранить изменения</button>
-                    {props.successSave && <div className={width === 1920 ? c1920.successSave : c.successSave}>Изменения сохранены</div>}
+                    <button className={width === 1920 ? c1920.customGameButton : c.customGameButton}>Сохранить
+                        изменения
+                    </button>
+                    {props.successSave &&
+                    <div className={width === 1920 ? c1920.successSave : c.successSave}>Изменения сохранены</div>}
                 </div>
             </form>
         </div>
@@ -153,7 +156,6 @@ const CustomGame = (props) => {
     let [successSave, setSuccessSave] = useState(false);
 
 
-
     const teams = useSelector(
         state => state.teamsPage.teams
     );
@@ -163,24 +165,35 @@ const CustomGame = (props) => {
     const guestsTeamGamers = teams.find(t => t.teamType === 'guests').gamers;
 
 
-
     const onSubmit = (formData) => {
-        dispatch(customGame(gameNumber, formData.period, (formData.min*60000 + formData.sec*1000), formData.homeName,
-            homeTeamGamers.map(g => ({id: g.id, fullName: eval(`formData.homeGamerName${g.id}`), gamerNumber: eval(`formData.homeGamerNumber${g.id}`) })),
+
+
+        dispatch(customGame(gameNumber, formData.period, (formData.min * 60000 + formData.sec * 1000), formData.homeName,
+            homeTeamGamers.map(g => ({
+                id: g.id,
+                fullName: eval(`formData.homeGamerName${g.id}`),
+                gamerNumber: eval(`formData.homeGamerNumber${g.id}`)
+            })),
             formData.guestsName,
-            guestsTeamGamers.map(g => ({id: g.id, fullName: eval(`formData.guestsGamerName${g.id}`), gamerNumber: eval(`formData.guestsGamerNumber${g.id}`) }))
-            ))
+            guestsTeamGamers.map(g => ({
+                id: g.id,
+                fullName: eval(`formData.guestsGamerName${g.id}`),
+                gamerNumber: eval(`formData.guestsGamerNumber${g.id}`)
+            }))
+        ))
+
 
         setSuccessSave(true)
         setTimeout(() => {
             setSuccessSave(false)
         }, 3000)
+
     };
 
 
     return (
         <div className={c.customGame}>
-            <div className={c.menuTitle}>Задайте свои параметры</div>
+            <div className={c.menuTitle}>Задайте новые параметры</div>
             <div className={width === 1920 ? c1920.customGamePanel : c.customGamePanel}>
                 <CustomGameReduxForm onSubmit={onSubmit}
                                      gameNumber={gameNumber}

@@ -143,6 +143,10 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
         let guestsName = req.body.guestsName;
         let guestsGamers = req.body.guestsGamers;
 
+        if (time > 1200000) {
+            time = 1200000
+        }
+
 
         DB.gameInfo.gameTime.period = period
         DB.gameInfo.gameTime.smallOvertime = 0
