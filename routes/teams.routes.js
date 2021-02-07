@@ -63,12 +63,10 @@ router.post('/homelogo/:gameNumber', async function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
-        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
-        let DB = JSON.parse(data);
 
         let img = req.files.file
 
-        img.mimetype = 'image/png'
+
 
         img.name = `home_logo_${gameNumber}.png`
 
@@ -102,12 +100,10 @@ router.post('/guestslogo/:gameNumber', function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
-        let data = fs.readFileSync(path.join(__dirname + `/DB/game_${gameNumber}.json`));
-        let DB = JSON.parse(data);
 
         let img = req.files.file
 
-        img.mimetype = 'image/png'
+
 
         img.name = `guests_logo_${gameNumber}.png`
 

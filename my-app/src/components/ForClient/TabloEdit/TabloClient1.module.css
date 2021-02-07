@@ -4,66 +4,71 @@
 }
 
 .tablo1 {
-    background-color: black;
+    background-image: url("../../../content/img/TABLO-1.png");
+    /*background-color: black;*/
     color: #c2d9ff;
     height: 720px;
     width: 1280px;
-    opacity: 0.8;
+    z-index: 1000;
 }
 
 
 .counter {
     position: absolute;
     text-align: center;
-    font-size: 54px;
+    font-size: 64px;
     box-sizing: border-box;
     width: 400px;
 }
 
 .homeTeam {
-    left: 120px;
+    left: 230px;
 }
 
 .guestsTeam {
-    right: 120px;
+    right: 230px;
 }
 
 .logo {
     position: absolute;
     text-align: center;
-    width: 400px;
 }
 
 .logos {
-    height: 120px;
+
 }
 
 .homeLogo {
-    left: 120px;
+    bottom: 0;
+    left: 0;
+    z-index: -100;
+    max-height: 500px;
 }
 
 .guestsLogo {
-    right: 120px;
+    bottom: 0;
+    right: 0;
+    z-index: -100;
+    max-height: 500px;
 }
 
 
 .time {
     text-align: center;
     padding-top: 10px;
-    font-size: 100px;
-    height: 140px;
+    font-size: 124px;
+    height: 154px;
 }
 
 .tempLog {
     text-align: center;
     font-size: 50px;
-    height: 252px;
+    height: 52px;
 }
 
 .consLogItem {
     font-size: 32px;
     display: inline-flex;
-    /*width: 140px;*/
 }
 
 .consLogHome {
@@ -81,14 +86,14 @@
 .gamerNumber {
     text-align: center;
     box-sizing: border-box;
-    border: 2px solid white;
+    border: 2px solid #c2d9ff;
     width: 70px;
 }
 
 .timerOfDelete {
     text-align: center;
     box-sizing: border-box;
-    border: 2px solid white;
+    border: 2px solid #c2d9ff;
     width: 130px;
 }
 
@@ -97,7 +102,7 @@
     color: blue;
     text-align: center;
     font-size: 32px;
-    height: 44px;
+    height: 324px;
 }
 
 .timeout5sec {
@@ -105,7 +110,7 @@
     color: red;
     text-align: center;
     font-size: 32px;
-    height: 44px;
+    height: 324px;
 }
 
 .tablo0 {

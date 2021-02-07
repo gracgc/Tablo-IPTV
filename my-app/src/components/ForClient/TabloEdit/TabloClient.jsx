@@ -89,26 +89,26 @@ const TabloClient = (props) => {
                     </div>
 
                 </div>
-                <div className={c.logos}>
+                <div>
                     <div className={classNames(c.logo, c.homeLogo)}>
                         {props.homeTeam.logo &&
-                        <img src={props.homeTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
+                        <img src={props.homeTeam.logo} style={{width: '500px', height: '500px'}} alt=""/>
                         }
                     </div>
                     <div className={classNames(c.logo, c.guestsLogo)}>
                         {props.guestsTeam.logo &&
-                        <img src={props.guestsTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
+                        <img src={props.guestsTeam.logo} style={{width: '500px', height: '500px'}} alt=""/>
                         }
                     </div>
                 </div>
                 <div>
                     <div className={classNames(c.counter, c.homeTeam)}>
                         {props.homeCounter} <br/>
-                        {props.homeTeam.name}
+                        {props.homeTeam.name.slice(0, 3).toUpperCase()}
                     </div>
                     <div className={classNames(c.counter, c.guestsTeam)}>
                         {props.guestsCounter} <br/>
-                        {props.guestsTeam.name}
+                        {props.guestsTeam.name.slice(0, 3).toUpperCase()}
                     </div>
                 </div>
             </div>
