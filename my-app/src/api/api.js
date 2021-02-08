@@ -143,6 +143,12 @@ export const gameAPI = {
             .then(responce => {
                 return responce.data
             })
+    },
+    resetGame(gameNumber) {
+        return instance.put(`game/reset/${gameNumber}`, {})
+            .then(responce => {
+                return responce.data
+            })
     }
 };
 

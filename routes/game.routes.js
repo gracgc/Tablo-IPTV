@@ -200,6 +200,102 @@ router.put('/:gameNumber', authMW, cors(), function (req, res) {
     }
 })
 
+router.put('/reset/:gameNumber', authMW, cors(), function (req, res) {
+    try {
+        let gameNumber = req.params.gameNumber;
+
+        let data = fs.readFileSync(path.join(__dirname, `/DB/game_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+
+
+        DB.gameInfo.gameStatus = "Not going"
+        DB.gameInfo.gameTime = {
+            timeData: {
+                timeMem: 0,
+                timeDif: 0,
+                timeMemTimer: 1200000,
+                deadLine: 1200000
+            },
+            isRunning: false,
+            runningTime: 0,
+            timeoutData: {
+                timeData: {
+                    timeMem: 0,
+                    timeDif: 0,
+                    timeMemTimer: 0,
+                    deadLine: 0
+                },
+                isRunning: false,
+                runningTime: 0
+            },
+            period: 1,
+            smallOvertime: 0,
+            bigOvertime: 0
+        }
+
+
+        DB.logData = {
+            gameLog: [],
+            tabloLog: {
+                tempLog: [
+                    {
+                        item: ""
+                    }
+                ],
+                consLog: []
+            }
+        }
+
+
+        DB.teams.forEach(value => {
+            value.counter = 0
+        })
+
+
+        DB.teams.find(t => t.teamType === 'home').gamers.forEach(value => {
+            value.onField = value.id <= 6;
+            value.status = 'in game'
+            value.goals = 0
+            value.timeOfPenalty = 0
+            value.whenWasPenalty = 0
+        })
+
+        DB.teams.find(t => t.teamType === 'guests').gamers.forEach(value => {
+            value.onField = value.id <= 6;
+            value.status = 'in game'
+            value.goals = 0
+            value.timeOfPenalty = 0
+            value.whenWasPenalty = 0
+        })
+
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname +
+            `/DB/game_${gameNumber}.json`), json, 'utf8');
+
+        res.send({resultCode: 0});
+
+        const io = req.app.locals.io;
+
+        io.emit(`getGame${gameNumber}`, DB.gameInfo)
+
+        DB.teams.find(t => t.teamType === 'home').logo = `${url}/api/teams/homeLogo/${gameNumber}/${Date.now()}`;
+        DB.teams.find(t => t.teamType === 'guests').logo = `${url}/api/teams/guestsLogo/${gameNumber}/${Date.now()}`;
+
+        io.emit(`getTeams${gameNumber}`, DB.teams)
+
+        io.emit(`getTime${gameNumber}`, DB.gameInfo.gameTime)
+
+        io.emit(`getLog${gameNumber}`, DB.logData)
+
+    } catch
+        (e) {
+        console.log(e)
+    }
+})
+
 
 router.options('/', cors());
 

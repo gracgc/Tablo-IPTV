@@ -1,0 +1,181 @@
+{
+  "gameInfo": {
+    "gameName": "adw",
+    "gameNumber": 11,
+    "gameType": "Классический хоккей",
+    "gameStatus": "Not going",
+    "preset": 1,
+    "gameTime": {
+      "timeData": {
+        "timeMem": 0,
+        "timeDif": 0,
+        "timeMemTimer": 1200000,
+        "deadLine": 1200000
+      },
+      "isRunning": false,
+      "runningTime": 0,
+      "timeoutData": {
+        "timeData": {
+          "timeMem": 0,
+          "timeDif": 0,
+          "timeMemTimer": 0,
+          "deadLine": 0
+        },
+        "isRunning": false,
+        "runningTime": 0
+      },
+      "period": 1,
+      "smallOvertime": 0,
+      "bigOvertime": 0
+    }
+  },
+  "logData": {
+    "gameLog": [],
+    "tabloLog": {
+      "tempLog": [
+        {
+          "item": ""
+        }
+      ],
+      "consLog": []
+    }
+  },
+  "teams": [
+    {
+      "name": "adawd",
+      "counter": 0,
+      "teamType": "home",
+      "timeOut": false,
+      "gamers": [
+        {
+          "id": 1,
+          "fullName": "adwaw",
+          "gamerNumber": "3",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 2,
+          "fullName": "awdawdawd",
+          "gamerNumber": "2",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 3,
+          "fullName": "awd",
+          "gamerNumber": "3",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 4,
+          "fullName": "awda",
+          "gamerNumber": "4",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 5,
+          "fullName": "dawd",
+          "gamerNumber": "5",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 6,
+          "fullName": "awd",
+          "gamerNumber": "6",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        }
+      ]
+    },
+    {
+      "name": "dawd",
+      "counter": 0,
+      "teamType": "guests",
+      "timeOut": false,
+      "gamers": [
+        {
+          "id": 1,
+          "fullName": "awd",
+          "gamerNumber": "23",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 2,
+          "fullName": "awd",
+          "gamerNumber": "45",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 3,
+          "fullName": "awd",
+          "gamerNumber": "32",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 4,
+          "fullName": "eqwe",
+          "gamerNumber": "1",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 5,
+          "fullName": "wqeqw",
+          "gamerNumber": "2",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        },
+        {
+          "id": 6,
+          "fullName": "qweqw",
+          "gamerNumber": "5",
+          "status": "in game",
+          "onField": true,
+          "goals": 0,
+          "timeOfPenalty": 0,
+          "whenWasPenalty": 0
+        }
+      ]
+    }
+  ]
+}

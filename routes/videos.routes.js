@@ -5,6 +5,9 @@ const path = require('path');
 const cors = require('cors');
 const authMW = require('../middleware/authMW');
 const {getVideoDurationInSeconds} = require('get-video-duration');
+const config = require('config')
+
+let url = `${config.get('baseUrl')}:${config.get('port')}`
 
 
 router.get('/', function (req, res) {
@@ -81,6 +84,20 @@ router.get('/current', function (req, res) {
         let DB = JSON.parse(data);
 
         res.send(DB.currentVideo)
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.get('/mp4/:videoNumber/:dateNow', function (req, res) {
+    try {
+
+        let videoNumber = req.params.videoNumber;
+
+        let video = path.join(__dirname + `/DB/videos/video_${videoNumber}.mp4`);
+
+        res.sendFile(video);
 
     } catch (e) {
         console.log(e)

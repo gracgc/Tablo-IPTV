@@ -7,12 +7,16 @@ import {getTeams, setTeamsAC} from "../../../../redux/teams_reducer";
 import {compose} from "redux";
 import {NavLink, withRouter} from "react-router-dom";
 import socket from "../../../../socket/socket";
-import {tabloAPI} from "../../../../api/api";
+import {gameAPI, tabloAPI} from "../../../../api/api";
+import {useConfirm} from "material-ui-confirm";
+
 
 
 const TeamsParameters = (props) => {
 
     let gameNumber = props.match.params.gameNumber;
+
+    const confirm = useConfirm();
 
     let [isRunningServer, setIsRunningServer] = useState(false);
 
@@ -63,6 +67,14 @@ const TeamsParameters = (props) => {
 
     const guestsTeamInfo = teams.find(t => t.teamType === 'guests');
 
+    let resetGame = async () => {
+        await confirm({description: 'Вы уверены, что хотете обнулить игру? Все параметры вернутся к изначальным значениям.',
+            title: 'Вы уверены?',
+            confirmationText: 'Хорошо',
+            cancellationText: 'Отменить'});
+        gameAPI.resetGame(gameNumber)
+    }
+
 
     return (
         <div className={c.parameters}>
@@ -84,11 +96,18 @@ const TeamsParameters = (props) => {
                 />
             </div>
 
+            {!isRunningServer &&
+            <div className={width === 1920 ? c1920.resetGameButton : c.resetGameButton} onClick={(e) => resetGame()}>
+                Резет игры
+            </div>}
+
             {!isRunningServer && <NavLink to={`/customGame/${gameNumber}`}>
                 <div className={width === 1920 ? c1920.customGameButton : c.customGameButton}>
                     Кастомизировать
                 </div>
             </NavLink>}
+
+
 
             <NavLink to="/">
                 <div className={width === 1920 ? c1920.navBackButton : c.navBackButton}>

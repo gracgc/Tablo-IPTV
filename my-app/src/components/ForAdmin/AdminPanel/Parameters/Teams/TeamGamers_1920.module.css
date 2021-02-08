@@ -52,11 +52,11 @@
     position: absolute;
     border: solid 1px;
     background-color: #fff3eb;
-    margin-left: 100px;
+    margin-left: 140px;
     /*margin-top: -40px;*/
     font-size: 28px;
     cursor: pointer;
-    width: 170px;
+    width: 200px;
 }
 
 .addAddMenuItem {
