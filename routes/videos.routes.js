@@ -95,7 +95,7 @@ router.get('/mp4/:videoNumber/:dateNow', function (req, res) {
 
         let videoNumber = req.params.videoNumber;
 
-        let video = path.join(__dirname + `/DB/videos/video_${videoNumber}.mp4`);
+        let video = path.join(__dirname + `/DB/videosMP4/video_${videoNumber}.mp4`);
 
         res.sendFile(video);
 

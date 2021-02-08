@@ -41,13 +41,14 @@ const TabloClient = (props) => {
     let player = window.TvipPlayer;
 
 
-    useEffect(() => {
-        if (player) {
-            player.playUrl(currentVideo.videoURL, '');
-        } if (window.stb) {
-            window.stb.play(currentVideo.videoURL)
-        }
-    }, [player, currentVideo]);
+    // useEffect(() => {
+    //     if (player) {
+    //         player.playUrl(currentVideo.videoURL, '');
+    //         player.setVideoWindow(0, 0, 0, 0, false)
+    //     } if (window.stb) {
+    //         window.stb.play(currentVideo.videoURL)
+    //     }
+    // }, [player, currentVideo]);
 
 
     return (

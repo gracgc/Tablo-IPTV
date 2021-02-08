@@ -19,7 +19,7 @@ const VideoAdmin = (props) => {
             </div>
             <div className={c.videoAdmin__editor}>
                 <div>
-                    <Editor/>
+                    {/*<Editor/>*/}
                 </div>
                 <div>
                     <TabloEdit/>

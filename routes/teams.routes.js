@@ -59,6 +59,7 @@ router.get('/guestslogo/:gameNumber/:dateNow', function (req, res) {
     }
 });
 
+
 router.post('/homelogo/:gameNumber', async function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
