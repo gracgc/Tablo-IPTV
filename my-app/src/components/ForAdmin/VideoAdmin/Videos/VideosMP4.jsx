@@ -11,6 +11,8 @@ import {Field, reduxForm, reset} from "redux-form";
 import {Input} from "../../../../common/FormsControls/FormsControls";
 import Button from "@material-ui/core/Button";
 
+import * as axios from "axios";
+
 
 const AddVideoMP4 = (props) => {
 
@@ -24,7 +26,7 @@ const AddVideoMP4 = (props) => {
                         variant="contained"
                         component="label"
                     >
-                        Добавить лого
+                        Добавить видео
                         <input
                             name="videoMP4"
                             type="file"
@@ -72,7 +74,7 @@ const VideosMP4 = (props) => {
         videoFormData.append('file', videoMP4)
 
 
-        axios.post(`/api/videos/mp4`, videoName, {
+        axios.post(`/api/videos/mp4/${videoName}`, videoFormData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
@@ -83,7 +85,7 @@ const VideosMP4 = (props) => {
     const onSubmit = (formData) => {
         if (formData.videoName !== undefined && videoMP4) {
             uploadVideo(formData.videoName)
-            dispatch(reset('addVideoMP4'))
+            dispatch(reset('addVideo'))
         }
     };
 
@@ -95,7 +97,7 @@ const VideosMP4 = (props) => {
                     {v.videoName}
                 </div>)}
             </div>
-            <AddVideoReduxForm onSubmit={onSubmit}/>
+            <AddVideoReduxForm onSubmit={onSubmit} setVideoMP4={setVideoMP4}/>
         </div>
     )
 };

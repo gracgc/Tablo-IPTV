@@ -128,10 +128,10 @@ router.get('/mp4/:videoName', function (req, res) {
     }
 });
 
-router.post('/mp4', async function (req, res) {
+router.post('/mp4/:videoName', async function (req, res) {
     try {
 
-        let videoName = req.body.videoName;
+        let videoName = req.params.videoName;
 
 
         let video = req.files.file
@@ -140,40 +140,41 @@ router.post('/mp4', async function (req, res) {
 
         await video.mv(`${__dirname}/DB/videosMP4/${video.name}`)
 
-        if (config.get('port') === 5000) {
-            let data = fs.readFileSync(path.join(__dirname, `/DB/videosMP4_local.json`));
-            let DB = JSON.parse(data);
+
+        getVideoDurationInSeconds(`${url}/api/videos/mp4/${videoName}`).then((duration) => {
 
 
-            getVideoDurationInSeconds(`${url}/api/videos/mp4/${videoName}`).then((duration) => {
-                DB.videos.push({
-                    videoName: videoName,
-                    videoURL: `${url}/api/videos/mp4/${videoName}`,
-                    duration: duration
-                })
-            })
+                if (config.get('port') === 5000) {
+                    let data = fs.readFileSync(path.join(__dirname, `/DB/videosMP4_local.json`));
+                    let DB = JSON.parse(data);
+
+                    DB.videos.push({
+                        videoName: videoName,
+                        videoURL: `${url}/api/videos/mp4/${videoName}`,
+                        duration: duration*1000
+                    })
+
+                    let json = JSON.stringify(DB);
+
+                    fs.writeFileSync(path.join(__dirname, `/DB/videosMP4_local.json`), json, 'utf8');
+
+                } else {
+                    let data = fs.readFileSync(path.join(__dirname, `/DB/videosMP4.json`));
+                    let DB = JSON.parse(data);
+
+                    DB.videos.push({
+                        videoName: videoName,
+                        videoURL: `${url}/api/videos/mp4/${videoName}`,
+                        duration: duration*1000
+                    })
 
 
-            let json = JSON.stringify(DB);
+                    let json = JSON.stringify(DB);
 
-            fs.writeFileSync(path.join(__dirname, `/DB/videosMP4_local.json`), json, 'utf8');
-        } else {
-            let data = fs.readFileSync(path.join(__dirname, `/DB/videosMP4.json`));
-            let DB = JSON.parse(data);
-
-            getVideoDurationInSeconds(`${url}/api/videos/mp4/${videoName}`).then((duration) => {
-                DB.videos.push({
-                    videoName: videoName,
-                    videoURL: `${url}/api/videos/mp4/${videoName}`,
-                    duration: duration
-                })
-            })
-
-
-            let json = JSON.stringify(DB);
-
-            fs.writeFileSync(path.join(__dirname, `/DB/videosMP4.json`), json, 'utf8');
-        }
+                    fs.writeFileSync(path.join(__dirname, `/DB/videosMP4.json`), json, 'utf8');
+                }
+            }
+        )
 
 
         res.send({resultCode: 0});

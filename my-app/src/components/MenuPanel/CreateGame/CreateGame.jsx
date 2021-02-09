@@ -10,7 +10,7 @@ import {createNewGame, getSavedGames} from "../../../redux/games_reducer";
 import Button from "@material-ui/core/Button";
 import {useHistory} from "react-router";
 
-const axios = require('axios');
+import * as axios from "axios";
 
 
 const CreateGameForm = (props) => {

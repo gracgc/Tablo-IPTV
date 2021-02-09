@@ -1,16 +1,19 @@
 {
   "videos": [
     {
-      "videoName": "1",
-      "videoURL": "https://localhost:5000/api/videos/mp4/1"
+      "videoName": "video1",
+      "videoURL": "http://localhost:5000/api/videos/mp4/video1",
+      "duration": 11010
     },
     {
-      "videoName": "2",
-      "videoURL": "https://localhost:5000/api/videos/mp4/2"
+      "videoName": "video2",
+      "videoURL": "http://localhost:5000/api/videos/mp4/video2",
+      "duration": 23680
     },
     {
-      "videoName": "3",
-      "videoURL": "https://localhost:5000/api/videos/mp4/3"
+      "videoName": "video3",
+      "videoURL": "http://localhost:5000/api/videos/mp4/video3",
+      "duration": 14330
     }
   ]
 }
