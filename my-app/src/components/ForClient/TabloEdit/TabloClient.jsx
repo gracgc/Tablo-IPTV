@@ -41,14 +41,15 @@ const TabloClient = (props) => {
     let player = window.TvipPlayer;
 
 
-    // useEffect(() => {
-    //     if (player) {
-    //         player.playUrl(currentVideo.videoURL, '');
-    //         player.setVideoWindow(0, 0, 0, 0, false)
-    //     } if (window.stb) {
-    //         window.stb.play(currentVideo.videoURL)
-    //     }
-    // }, [player, currentVideo]);
+    useEffect(() => {
+        if (player) {
+            player.playUrl(currentVideo.videoURL, '');
+            player.setVideoWindow(0, 0, 0, 0, false)
+        }
+        if (window.stb) {
+            window.stb.play(currentVideo.videoURL)
+        }
+    }, [player, currentVideo]);
 
 
     return (
@@ -162,7 +163,7 @@ const TabloClient = (props) => {
                 <div className={c3.teamName}>
                     {props.guestsTeam.name} <br/>
                     {props.guestsTeam.logo &&
-                        <img src={props.guestsTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
+                    <img src={props.guestsTeam.logo} style={{width: '120px', height: '120px'}} alt=""/>
                     }
 
                 </div>

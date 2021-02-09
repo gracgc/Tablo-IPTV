@@ -10,6 +10,8 @@ import {getCurrentVideo, getVideos} from "../../../../redux/videos_reducer";
 import {Field, reduxForm, reset} from "redux-form";
 import {Input} from "../../../../common/FormsControls/FormsControls";
 
+const axios = require('axios');
+
 
 const AddCamera = (props) => {
 

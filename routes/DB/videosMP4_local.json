@@ -1,0 +1,16 @@
+{
+  "videos": [
+    {
+      "videoName": "1",
+      "videoURL": "https://localhost:5000/api/videos/mp4/1"
+    },
+    {
+      "videoName": "2",
+      "videoURL": "https://localhost:5000/api/videos/mp4/2"
+    },
+    {
+      "videoName": "3",
+      "videoURL": "https://localhost:5000/api/videos/mp4/3"
+    }
+  ]
+}

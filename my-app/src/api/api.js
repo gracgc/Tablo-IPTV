@@ -218,6 +218,12 @@ export const videosAPI = {
                 return responce.data
             })
     },
+    getVideosMP4() {
+        return instance.get(`videos/mp4`)
+            .then(responce => {
+                return responce.data
+            })
+    },
     getVideoEditor(gameNumber) {
         return instance.get(`videos/editor/${gameNumber}`)
             .then(responce => {

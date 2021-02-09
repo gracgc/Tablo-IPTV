@@ -42,7 +42,7 @@ router.get('/editor/:gameNumber', function (req, res) {
     }
 });
 
-router.put('editor/current:gameNumber', authMW, function (req, res) {
+router.put('/editor/current:gameNumber', authMW, function (req, res) {
     try {
 
         let gameNumber = req.params.gameNumber;
@@ -90,14 +90,94 @@ router.get('/current', function (req, res) {
     }
 });
 
-router.get('/mp4/:videoNumber/:dateNow', function (req, res) {
+router.get('/mp4', function (req, res) {
     try {
 
-        let videoNumber = req.params.videoNumber;
 
-        let video = path.join(__dirname + `/DB/videosMP4/video_${videoNumber}.mp4`);
+        let dataLocal = fs.readFileSync(path.join(__dirname, `/DB/videosMP4_local.json`));
+        let DBLocal = JSON.parse(dataLocal);
+
+        let data = fs.readFileSync(path.join(__dirname, `/DB/videosMP4.json`));
+        let DB = JSON.parse(data);
+
+
+        if (config.get('port') === 5000) {
+            res.send(DBLocal.videos)
+        } else {
+            res.send(DB.videos)
+        }
+
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+
+router.get('/mp4/:videoName', function (req, res) {
+    try {
+
+        let videoName = req.params.videoName;
+
+        let video = path.join(__dirname + `/DB/videosMP4/video_${videoName}.mp4`);
 
         res.sendFile(video);
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.post('/mp4', async function (req, res) {
+    try {
+
+        let videoName = req.body.videoName;
+
+
+        let video = req.files.file
+
+        video.name = `video_${videoName}.mp4`
+
+        await video.mv(`${__dirname}/DB/videosMP4/${video.name}`)
+
+        if (config.get('port') === 5000) {
+            let data = fs.readFileSync(path.join(__dirname, `/DB/videosMP4_local.json`));
+            let DB = JSON.parse(data);
+
+
+            getVideoDurationInSeconds(`${url}/api/videos/mp4/${videoName}`).then((duration) => {
+                DB.videos.push({
+                    videoName: videoName,
+                    videoURL: `${url}/api/videos/mp4/${videoName}`,
+                    duration: duration
+                })
+            })
+
+
+            let json = JSON.stringify(DB);
+
+            fs.writeFileSync(path.join(__dirname, `/DB/videosMP4_local.json`), json, 'utf8');
+        } else {
+            let data = fs.readFileSync(path.join(__dirname, `/DB/videosMP4.json`));
+            let DB = JSON.parse(data);
+
+            getVideoDurationInSeconds(`${url}/api/videos/mp4/${videoName}`).then((duration) => {
+                DB.videos.push({
+                    videoName: videoName,
+                    videoURL: `${url}/api/videos/mp4/${videoName}`,
+                    duration: duration
+                })
+            })
+
+
+            let json = JSON.stringify(DB);
+
+            fs.writeFileSync(path.join(__dirname, `/DB/videosMP4.json`), json, 'utf8');
+        }
+
+
+        res.send({resultCode: 0});
+
 
     } catch (e) {
         console.log(e)

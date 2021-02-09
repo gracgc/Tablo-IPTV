@@ -1,0 +1,36 @@
+.camerasBlock {
+
+}
+
+.title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+.videos {
+    display: inline-flex;
+    width: 1030px;
+    overflow-x: scroll;
+}
+
+.video {
+    border: 3px solid;
+    min-width: 200px;
+    padding: 5px 8px 0 8px;
+    text-align: center;
+    margin: 0 20px;
+    font-size: 20px;
+}
+
+.videoForm {
+    display: grid;
+    width: 500px;
+    grid-template-columns: 80% 20%;
+}
+
+.addVideoButton {
+    width: 80px;
+    height: 36px;
+}

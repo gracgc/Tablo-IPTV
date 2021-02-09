@@ -1,0 +1,16 @@
+{
+  "videos": [
+    {
+      "videoName": "1",
+      "videoURL": "http://tablo-beta-v191220.f247.iptvportal.ru:3000/api/videos/mp4/1"
+    },
+    {
+      "videoName": "2",
+      "videoURL": "http://tablo-beta-v191220.f247.iptvportal.ru:3000/api/videos/mp4/2"
+    },
+    {
+      "videoName": "3",
+      "videoURL": "http://tablo-beta-v191220.f247.iptvportal.ru:3000/api/videos/mp4/3"
+    }
+  ]
+}

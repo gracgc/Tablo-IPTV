@@ -6,11 +6,10 @@ import {compose} from "redux";
 import {NavLink, withRouter} from "react-router-dom";
 import Presets from "./Presets/Presets";
 import Cameras from "./Cameras/Cameras";
-import Editor from "./Editor/Editor";
+import VideosMP4 from "./Videos/VideosMP4";
 
 const VideoAdmin = (props) => {
 
-    let gameNumber = props.match.params.gameNumber;
 
     return (
         <div className={c.videoAdmin}>
@@ -38,14 +37,14 @@ const VideoAdmin = (props) => {
                     Анимации
                 </div>
                 <div>
-                    Видеоматериалы
-                    <NavLink to="/">
-                        <div className={c.navBackButton}>
-                            Вернуться в меню
-                        </div>
-                    </NavLink>
+                    <VideosMP4/>
                 </div>
             </div>
+            <NavLink to="/">
+                <div className={c.navBackButton}>
+                    Вернуться в меню
+                </div>
+            </NavLink>
         </div>
     )
 };
