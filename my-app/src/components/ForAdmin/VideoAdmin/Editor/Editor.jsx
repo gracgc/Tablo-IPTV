@@ -150,7 +150,7 @@ const Editor = (props) => {
         msWidth: (videoEditor.editorData.duration - timeDif) / scale
     };
 
-    //n=0
+
     let currentDuration = videoEditor.editorData.duration - timeDif
 
 
@@ -169,10 +169,6 @@ const Editor = (props) => {
             if (currentDuration <= duration1
                 && duration2 <= currentDuration) {
                 //videoSTART
-                console.log('start')
-                console.log(duration0)
-                console.log(duration1)
-                console.log(duration2)
                 videosAPI.putCurrentVideoEditor(gameNumber);
                 videosAPI.putPaddingVideoEditor(gameNumber)
             }
@@ -184,10 +180,6 @@ const Editor = (props) => {
         if (isRunningServer) {
             if ((currentDuration <= duration0
                 && duration1 <= currentDuration)) {
-                console.log('stop')
-                console.log(duration0)
-                console.log(duration1)
-                console.log(duration2)
                 setCurrentVideo(videos[2 * n + 1]); //stop
                 videosAPI.putPaddingVideoEditor(gameNumber)
 

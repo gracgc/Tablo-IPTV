@@ -84,13 +84,13 @@ const TabloClient = (props) => {
                 player.unpause()
             }
         }
-    }, [padding]);
+    }, [padding, player]);
 
 
     return (
         <div className={c.tablo}>
-            <div style={{textAlign: 'center', position: 'absolute'}}>{pad}</div>
-            <div style={{textAlign: 'center', position: 'absolute'}}>{n}</div>
+            <div style={{textAlign: 'center', position: 'absolute', left: '30px', color: 'green'}}>{pad}</div>
+            <div style={{textAlign: 'center', position: 'absolute', color: 'green'}}>{n}</div>
             {preset === 1 &&
             <div className={c.tablo1}>
                 <div className={c.time}>
