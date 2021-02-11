@@ -25,6 +25,36 @@ router.get('/', function (req, res) {
     }
 });
 
+router.post('/', async function (req, res) {
+    try {
+
+        let videoName = req.params.videoName;
+        let videoURL = req.params.videoURL;
+
+
+        let data = fs.readFileSync(path.join(__dirname, `/DB/videos.json`));
+        let DB = JSON.parse(data);
+
+        DB.videos.push({
+            videoName: videoName,
+            videoURL: videoURL
+        });
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname, `/DB/videosMP4_local.json`), json, 'utf8');
+
+        res.send({resultCode: 0});
+
+        const io = req.app.locals.io;
+
+        io.emit('getVideos', DB.videos)
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
 router.get('/editor/:gameNumber', function (req, res) {
     try {
 
@@ -34,7 +64,7 @@ router.get('/editor/:gameNumber', function (req, res) {
         let DB = JSON.parse(data);
 
 
-        res.send(DB.videos)
+        res.send(DB)
 
 
     } catch (e) {
@@ -42,12 +72,11 @@ router.get('/editor/:gameNumber', function (req, res) {
     }
 });
 
-router.put('/editor/current:gameNumber', authMW, function (req, res) {
+router.put('/editor/current/:gameNumber', authMW, function (req, res) {
     try {
 
         let gameNumber = req.params.gameNumber;
 
-        let currentVideo = req.body.currentVideo;
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
@@ -69,7 +98,7 @@ router.put('/editor/current:gameNumber', authMW, function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getCurrentVideoEditor', DB.currentVideo)
+        io.emit(`getCurrentVideoEditor${gameNumber}`, DB)
 
     } catch (e) {
         console.log(e)
@@ -84,6 +113,32 @@ router.get('/current', function (req, res) {
         let DB = JSON.parse(data);
 
         res.send(DB.currentVideo)
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.put('/current', authMW, function (req, res) {
+    try {
+
+        let currentVideo = req.body.currentVideo;
+
+        let data = fs.readFileSync(path.join(__dirname, `/DB/videos.json`));
+        let DB = JSON.parse(data);
+
+        DB.currentVideo = currentVideo;
+        DB.currentVideoStream = currentVideo;
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname, `/DB/videos.json`), json, 'utf8');
+
+        res.send({resultCode: 0});
+
+        const io = req.app.locals.io;
+
+        io.emit('getCurrentVideo', DB.currentVideo)
 
     } catch (e) {
         console.log(e)
@@ -131,6 +186,9 @@ router.get('/mp4/:videoName', function (req, res) {
 router.post('/mp4/:videoName', async function (req, res) {
     try {
 
+
+        const io = req.app.locals.io;
+
         let videoName = req.params.videoName;
 
 
@@ -151,12 +209,15 @@ router.post('/mp4/:videoName', async function (req, res) {
                     DB.videos.push({
                         videoName: videoName,
                         videoURL: `${url}/api/videos/mp4/${videoName}`,
-                        duration: duration*1000
+                        duration: duration * 1000
                     })
 
                     let json = JSON.stringify(DB);
 
                     fs.writeFileSync(path.join(__dirname, `/DB/videosMP4_local.json`), json, 'utf8');
+
+
+                    io.emit('getVideosMP4', DB.videos)
 
                 } else {
                     let data = fs.readFileSync(path.join(__dirname, `/DB/videosMP4.json`));
@@ -165,13 +226,16 @@ router.post('/mp4/:videoName', async function (req, res) {
                     DB.videos.push({
                         videoName: videoName,
                         videoURL: `${url}/api/videos/mp4/${videoName}`,
-                        duration: duration*1000
+                        duration: duration * 1000
                     })
 
 
                     let json = JSON.stringify(DB);
 
                     fs.writeFileSync(path.join(__dirname, `/DB/videosMP4.json`), json, 'utf8');
+
+
+                    io.emit('getVideosMP4', DB.videos)
                 }
             }
         )
@@ -186,33 +250,10 @@ router.post('/mp4/:videoName', async function (req, res) {
 });
 
 
-router.put('/current', authMW, function (req, res) {
-    try {
-
-        let currentVideo = req.body.currentVideo;
-
-        let data = fs.readFileSync(path.join(__dirname, `/DB/videos.json`));
-        let DB = JSON.parse(data);
-
-        DB.currentVideo = currentVideo;
-
-        let json = JSON.stringify(DB);
-
-        fs.writeFileSync(path.join(__dirname, `/DB/videos.json`), json, 'utf8');
-
-        res.send({resultCode: 0});
-
-        const io = req.app.locals.io;
-
-        io.emit('getCurrentVideo', DB.currentVideo)
-
-    } catch (e) {
-        console.log(e)
-    }
-});
 
 
-router.post('/:gameNumber', function (req, res) {
+
+router.post('/sync/:gameNumber', function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 

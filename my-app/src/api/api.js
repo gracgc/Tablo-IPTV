@@ -230,8 +230,8 @@ export const videosAPI = {
                 return responce.data
             })
     },
-    putCurrentVideoEditor(gameNumber, currentVideo) {
-        return instance.put(`videos/editor/current/${gameNumber}`, {currentVideo})
+    putCurrentVideoEditor(gameNumber) {
+        return instance.put(`videos/editor/current/${gameNumber}`, {})
             .then(responce => {
                 return responce.data
             })
@@ -249,7 +249,7 @@ export const videosAPI = {
             })
     },
     getVideoTime(gameNumber, dateClient) {
-        return instance.post(`videos/${gameNumber}`, {dateClient}).then(responce => {
+        return instance.post(`videos/sync/${gameNumber}`, {dateClient}).then(responce => {
             return responce.data
         })
     },

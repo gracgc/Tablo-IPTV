@@ -7,6 +7,7 @@ import {NavLink, withRouter} from "react-router-dom";
 import Presets from "./Presets/Presets";
 import Cameras from "./Cameras/Cameras";
 import VideosMP4 from "./Videos/VideosMP4";
+import Editor from "./Editor/Editor";
 
 const VideoAdmin = (props) => {
 
@@ -18,7 +19,7 @@ const VideoAdmin = (props) => {
             </div>
             <div className={c.videoAdmin__editor}>
                 <div>
-                    {/*<Editor/>*/}
+                    <Editor/>
                 </div>
                 <div>
                     <TabloEdit/>

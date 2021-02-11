@@ -32,9 +32,8 @@ let initialState = {
             duration: 10
         },
         currentVideo: {
-            videoName: "ВИДЕО",
-            videoURL: "",
-            videoType: ""
+            n: 1,
+            padding: true
         },
         videos: [
             {
@@ -78,9 +77,11 @@ const videosReducer = (state = initialState, action) => {
                 ...state,
                 videoEditor: {
                     ...state.videoEditor,
-                    videos: action.videosData,
-                    editorData: {...state.videoEditor.editorData, duration: action.videosData.map(v => v.duration).reduce((sum, current) => sum + current, 0)},
-                    currentVideo: action.videosData[action.videosData.length - 1]
+                    videos: action.videosData.videos,
+                    editorData: {...state.videoEditor.editorData, duration: action.videosData.videos.map(v => v.duration)
+                            .reduce((sum, current) => sum + current, 0)},
+                    currentVideo:{...state.videoEditor.currentVideo, n: action.videosData.currentVideo.n,
+                        padding: action.videosData.currentVideo.padding}
                 },
             }
 

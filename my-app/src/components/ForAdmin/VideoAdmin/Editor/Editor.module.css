@@ -8,3 +8,11 @@
     margin-bottom: 20px;
     margin-left: 20px;
 }
+
+.video {
+    height: 30px;
+    background-color: blue;
+    text-align: center;
+    border: 1px solid;
+    box-sizing: border-box;
+}

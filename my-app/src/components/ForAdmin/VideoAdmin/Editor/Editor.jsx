@@ -6,7 +6,7 @@ import {videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import socket from "../../../../socket/socket";
 import {Draggable, Droppable} from 'react-drag-and-drop'
-import {getVideoEditor} from "../../../../redux/videos_reducer";
+import {getVideoEditor, setCurrentVideoDataAC, setVideosMP4DataAC} from "../../../../redux/videos_reducer";
 
 
 const Editor = (props) => {
@@ -34,6 +34,10 @@ const Editor = (props) => {
     const videoEditor = useSelector(
         (state => state.videosPage.videoEditor)
     );
+
+    let videos = videoEditor.videos.reverse();
+
+    let n = videoEditor.currentVideo.n
 
 
     useEffect(() => {
@@ -90,6 +94,13 @@ const Editor = (props) => {
     );
 
     useEffect(() => {
+        socket.on(`getVideosMP4`, videosMP4 => {
+                dispatch(setVideosMP4DataAC(videosMP4))
+            }
+        );
+    }, []);
+
+    useEffect(() => {
         if (videoEditor.editorData.duration - timeDif <= 0) {
             setIsRunningServer(false);
             videosAPI.putVideoTimeStatus(gameNumber, false,
@@ -123,48 +134,74 @@ const Editor = (props) => {
         videosAPI.putCurrentVideo(currentVideo)
     };
 
-    let scale = 1500
+
+    let scale = videoEditor.editorData.duration / 900;
 
     let editorStyle = {
-        msWidth: (videoEditor.editorData.duration - timeDif)/scale
+        msWidth: (videoEditor.editorData.duration - timeDif) / scale
     };
 
+    //n=0
 
+    useEffect(() => {
 
-    let onDrop = (data) => {
+        if (editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n).map(v => v.duration)
+            .reduce((sum, current) => sum + current, 0)) {
+            //videoSTART
+            //n+1
+            //padding(false)
+        }
 
-        let key = Object.keys(data)
+    }, [editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n).map(v => v.duration)
+        .reduce((sum, current) => sum + current, 0)]);
 
-        let firstKey = key[0]
+    useEffect(() => {
 
-        let k = obj.find(d => d.videoName === data[firstKey])
-        console.log(k)
-    }
+        if (editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n + 1).map(v => v.duration)
+            .reduce((sum, current) => sum + current, 0) || n === 0) {
+            setCurrentVideo(videos[2 * n + 1]) //stop
+            //padding(true)
+        }
+
+    }, [editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n + 1).map(v => v.duration)
+        .reduce((sum, current) => sum + current, 0)]);
 
     let obj = [
         {
             videoName: "ВИДЕО1",
             videoURL: "123",
-            videoType: "123"
+            duration: 1000
         },
         {
             videoName: "ВИДЕО2",
             videoURL: "123",
-            videoType: "123"
+            duration: 1000
         },
         {
             videoName: "ВИДЕО3",
             videoURL: "123",
-            videoType: "123"
+            duration: 1000
         }
-    ]
+    ];
+
+
+    let onDrop = (data) => {
+
+        let key = Object.keys(data);
+
+        let firstKey = key[0];
+
+        let k = obj.find(d => d.videoName === data[firstKey]);
+        console.log(k)
+    };
 
 
     return (
         <div className={c.editor}>
             <div className={c.title}>Редактор</div>
             <div style={{display: 'inline-flex'}}>
-                {videoEditor.videos.map(v => <div style={{height: "30px", backgroundColor: 'blue', width: v.duration/scale, textAlign: 'center'}}>{v.videoName}</div>)}
+                {videoEditor.videos.map(v => <div className={c.video}
+                                                  style={{width: v.duration / scale}}>{v.videoName}</div>)}
             </div>
 
             <div style={{width: editorStyle.msWidth, height: "10px", backgroundColor: 'pink'}}>

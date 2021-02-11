@@ -6,11 +6,9 @@ import {videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import {setPresetAC} from "../../../../redux/games_reducer";
 import socket from "../../../../socket/socket";
-import {getCurrentVideo, getVideos} from "../../../../redux/videos_reducer";
+import {getCurrentVideo, getVideos, setCurrentVideoDataAC, setVideosDataAC} from "../../../../redux/videos_reducer";
 import {Field, reduxForm, reset} from "redux-form";
 import {Input} from "../../../../common/FormsControls/FormsControls";
-
-
 
 
 const AddCamera = (props) => {
@@ -51,6 +49,13 @@ const Cameras = (props) => {
         socket.on(`getPreset${gameNumber}`, preset => {
             dispatch(setPresetAC(preset))
         });
+
+
+        socket.on(`getVideos`, videos => {
+                dispatch(setVideosDataAC(videos))
+            }
+        );
+
     }, []);
 
     let setCurrentVideo = (currentVideo) => {

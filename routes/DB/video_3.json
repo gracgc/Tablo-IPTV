@@ -1,9 +1,7 @@
 {
   "currentVideo": {
-    "videoName": "|",
-    "videoURL": "",
-    "duration": 3000,
-    "n": 1
+    "n": 0,
+    "padding": true
   },
   "timeData": {
     "timeMem": 0,
@@ -15,7 +13,37 @@
     {
       "videoName": "|",
       "videoURL": "",
-      "duration": 3000
+      "duration": 2000
+    },
+    {
+      "videoName": "video1",
+      "videoURL": "http://localhost:5000/api/videos/mp4/video1",
+      "duration": 11010
+    },
+    {
+      "videoName": "|",
+      "videoURL": "",
+      "duration": 2000
+    },
+    {
+      "videoName": "video2",
+      "videoURL": "http://localhost:5000/api/videos/mp4/video2",
+      "duration": 23680
+    },
+    {
+      "videoName": "|",
+      "videoURL": "",
+      "duration": 2000
+    },
+    {
+      "videoName": "video3",
+      "videoURL": "http://localhost:5000/api/videos/mp4/video3",
+      "duration": 14330
+    },
+    {
+      "videoName": "|",
+      "videoURL": "",
+      "duration": 2000
     }
   ]
 }
