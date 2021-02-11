@@ -91,9 +91,8 @@ router.post('/', authMW, cors(), function (req, res) {
 
         let newVideo = {
             currentVideo: {
-                videoName: "",
-                videoURL: "",
-                videoType: ""
+                n: 0,
+                padding: true
             },
             timeData: {
                 timeMem: 0,

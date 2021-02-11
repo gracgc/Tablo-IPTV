@@ -144,27 +144,28 @@ const Editor = (props) => {
     //n=0
 
     useEffect(() => {
-
-        if (editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n).map(v => v.duration)
-            .reduce((sum, current) => sum + current, 0)) {
-            //videoSTART
-            //n+1
-            //padding(false)
+        if (isRunningServer) {
+            if (editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n).map(v => v.duration)
+                .reduce((sum, current) => sum + current, 0)) {
+                //videoSTART
+                videosAPI.putCurrentVideoEditor(gameNumber);
+                videosAPI.putPaddingVideoEditor(gameNumber)
+            }
         }
-
     }, [editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n).map(v => v.duration)
-        .reduce((sum, current) => sum + current, 0)]);
+        .reduce((sum, current) => sum + current, 0), isRunningServer]);
 
     useEffect(() => {
 
-        if (editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n + 1).map(v => v.duration)
-            .reduce((sum, current) => sum + current, 0) || n === 0) {
-            setCurrentVideo(videos[2 * n + 1]) //stop
-            //padding(true)
+        if (isRunningServer) {
+            if (editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n + 1).map(v => v.duration)
+                .reduce((sum, current) => sum + current, 0) || n === 0) {
+                setCurrentVideo(videos[2 * n + 1]); //stop
+                videosAPI.putPaddingVideoEditor(gameNumber)
+            }
         }
-
     }, [editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n + 1).map(v => v.duration)
-        .reduce((sum, current) => sum + current, 0)]);
+        .reduce((sum, current) => sum + current, 0), isRunningServer]);
 
     let obj = [
         {

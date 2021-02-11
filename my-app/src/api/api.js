@@ -236,6 +236,12 @@ export const videosAPI = {
                 return responce.data
             })
     },
+    putPaddingVideoEditor(gameNumber) {
+        return instance.put(`videos/editor/padding/${gameNumber}`, {})
+            .then(responce => {
+                return responce.data
+            })
+    },
     getCurrentVideo() {
         return instance.get(`videos/current`)
             .then(responce => {

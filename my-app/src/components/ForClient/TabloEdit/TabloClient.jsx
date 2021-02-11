@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import c from './TabloClient1.module.css'
 import c2 from './TabloClient2.module.css'
 import c3 from './TabloClient3.module.css'
@@ -7,7 +7,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {getGame, setPresetAC} from "../../../redux/games_reducer";
 import socket from "../../../socket/socket";
 import classNames from 'classnames'
-import {getCurrentVideo, setCurrentVideoDataAC} from "../../../redux/videos_reducer";
+import {
+    getCurrentVideo,
+    getVideoEditor,
+    setCurrentVideoDataAC,
+    setVideoEditorDataAC
+} from "../../../redux/videos_reducer";
 
 
 const TabloClient = (props) => {
@@ -22,14 +27,29 @@ const TabloClient = (props) => {
         (state => state.videosPage.currentVideo)
     );
 
+    const videoEditor = useSelector(
+        (state => state.videosPage.videoEditor)
+    );
+
+    let n = videoEditor.currentVideo.n
+
+    let padding = videoEditor.currentVideo.padding
+
+    let [pad, setPad] = useState()
+
     useEffect(() => {
         dispatch(getGame(props.gameNumber));
-        dispatch(getCurrentVideo())
+        dispatch(getCurrentVideo());
+        dispatch(getVideoEditor(props.gameNumber))
     }, [props.gameNumber]);
 
     useEffect(() => {
         socket.on(`getPreset${props.gameNumber}`, preset => {
             dispatch(setPresetAC(preset))
+        });
+
+        socket.on(`getCurrentVideoEditor${props.gameNumber}`, editorData => {
+            dispatch(setVideoEditorDataAC(editorData));
         });
 
         socket.on(`getCurrentVideo`, currentVideo => {
@@ -52,8 +72,20 @@ const TabloClient = (props) => {
     }, [player, currentVideo]);
 
 
+    useEffect(() => {
+        if (padding) {
+            setPad('Переход')
+            player.pause()
+        } else {
+            setPad('')
+            player.unpause()
+        }
+    }, [padding]);
+
+
     return (
         <div className={c.tablo}>
+            <div style={{textAlign: 'center', position: 'absolute'}}>{pad}</div>
             {preset === 1 &&
             <div className={c.tablo1}>
                 <div className={c.time}>
