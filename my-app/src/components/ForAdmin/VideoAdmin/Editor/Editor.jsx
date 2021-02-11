@@ -6,7 +6,12 @@ import {videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import socket from "../../../../socket/socket";
 import {Draggable, Droppable} from 'react-drag-and-drop'
-import {getVideoEditor, setCurrentVideoDataAC, setVideosMP4DataAC} from "../../../../redux/videos_reducer";
+import {
+    getVideoEditor,
+    setCurrentVideoDataAC,
+    setVideoEditorDataAC,
+    setVideosMP4DataAC
+} from "../../../../redux/videos_reducer";
 
 
 const Editor = (props) => {
@@ -35,7 +40,7 @@ const Editor = (props) => {
         (state => state.videosPage.videoEditor)
     );
 
-    let videos = videoEditor.videos.reverse();
+    let videos = videoEditor.videos.slice().reverse();
 
     let n = videoEditor.currentVideo.n
 
@@ -98,6 +103,10 @@ const Editor = (props) => {
                 dispatch(setVideosMP4DataAC(videosMP4))
             }
         );
+
+        socket.on(`getCurrentVideoEditor${gameNumber}`, editorData => {
+            dispatch(setVideoEditorDataAC(editorData));
+        });
     }, []);
 
     useEffect(() => {
@@ -135,37 +144,56 @@ const Editor = (props) => {
     };
 
 
-    let scale = videoEditor.editorData.duration / 900;
+    let scale = videoEditor.editorData.duration / 800;
 
     let editorStyle = {
         msWidth: (videoEditor.editorData.duration - timeDif) / scale
     };
 
     //n=0
+    let currentDuration = videoEditor.editorData.duration - timeDif
+
+
+    let duration0 = videoEditor.editorData.duration - videos.slice(0, 2 * n).map(v => v.duration)
+        .reduce((sum, current) => sum + current, 0)
+
+    let duration1 = videoEditor.editorData.duration - videos.slice(0, 2 * n + 1).map(v => v.duration)
+        .reduce((sum, current) => sum + current, 0)
+
+    let duration2 = videoEditor.editorData.duration - videos.slice(0, 2 * n + 2).map(v => v.duration)
+        .reduce((sum, current) => sum + current, 0)
+
 
     useEffect(() => {
         if (isRunningServer) {
-            if (editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n).map(v => v.duration)
-                .reduce((sum, current) => sum + current, 0)) {
+            if (currentDuration <= duration1
+                && duration2 <= currentDuration) {
                 //videoSTART
+                console.log('start')
+                console.log(duration0)
+                console.log(duration1)
+                console.log(duration2)
                 videosAPI.putCurrentVideoEditor(gameNumber);
                 videosAPI.putPaddingVideoEditor(gameNumber)
             }
         }
-    }, [editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n).map(v => v.duration)
-        .reduce((sum, current) => sum + current, 0), isRunningServer]);
+    }, [currentDuration <= duration1, duration2 <= currentDuration, isRunningServer, n]);
 
     useEffect(() => {
 
         if (isRunningServer) {
-            if (editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n + 1).map(v => v.duration)
-                .reduce((sum, current) => sum + current, 0) || n === 0) {
+            if ((currentDuration <= duration0
+                && duration1 <= currentDuration)) {
+                console.log('stop')
+                console.log(duration0)
+                console.log(duration1)
+                console.log(duration2)
                 setCurrentVideo(videos[2 * n + 1]); //stop
                 videosAPI.putPaddingVideoEditor(gameNumber)
+
             }
         }
-    }, [editorStyle.msWidth <= videoEditor.editorData.duration - videos.slice(0, 2 * n + 1).map(v => v.duration)
-        .reduce((sum, current) => sum + current, 0), isRunningServer]);
+    }, [currentDuration <= duration0, duration1 <= currentDuration, isRunningServer, n]);
 
     let obj = [
         {
@@ -199,7 +227,7 @@ const Editor = (props) => {
 
     return (
         <div className={c.editor}>
-            <div className={c.title}>Редактор</div>
+            <div className={c.title}>Редактор{n}</div>
             <div style={{display: 'inline-flex'}}>
                 {videoEditor.videos.map(v => <div className={c.video}
                                                   style={{width: v.duration / scale}}>{v.videoName}</div>)}

@@ -75,10 +75,14 @@ const TabloClient = (props) => {
     useEffect(() => {
         if (padding) {
             setPad('Переход')
-            player.pause()
+            if (player) {
+                player.pause()
+            }
         } else {
             setPad('')
-            player.unpause()
+            if (player) {
+                player.unpause()
+            }
         }
     }, [padding]);
 
@@ -86,6 +90,7 @@ const TabloClient = (props) => {
     return (
         <div className={c.tablo}>
             <div style={{textAlign: 'center', position: 'absolute'}}>{pad}</div>
+            <div style={{textAlign: 'center', position: 'absolute'}}>{n}</div>
             {preset === 1 &&
             <div className={c.tablo1}>
                 <div className={c.time}>
