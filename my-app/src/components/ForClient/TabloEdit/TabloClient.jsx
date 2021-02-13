@@ -64,14 +64,7 @@ const TabloClient = (props) => {
     useEffect(() => {
         if (player) {
             player.playUrl(currentVideo.videoURL, '');
-            player.setVideoWindow(0, 0, 0, 0, false)
-            if (padding) {
-                setPad('Переход')
-                player.pause()
-            } else {
-                setPad('')
-                player.unpause()
-            }
+            player.setVideoWindow(0, 0, 0, 0, false);
         }
         if (window.stb) {
             window.stb.play(currentVideo.videoURL)
@@ -79,19 +72,25 @@ const TabloClient = (props) => {
     }, [player, currentVideo, padding]);
 
 
-    // useEffect(() => {
-    //     if (padding) {
-    //         setPad('Переход')
-    //         if (player) {
-    //             player.pause()
-    //         }
-    //     } else {
-    //         setPad('')
-    //         if (player) {
-    //             player.unpause()
-    //         }
-    //     }
-    // }, [padding, player]);
+    useEffect(() => {
+        if (padding) {
+            setPad('Переход');
+            if (player) {
+                setTimeout(() => {
+                    player.pause()
+                }, 50)
+
+            }
+        } else {
+            setPad('');
+            if (player) {
+                setTimeout(() => {
+                    player.unpause()
+                }, 50)
+
+            }
+        }
+    }, [padding, player]);
 
 
     return (
