@@ -65,26 +65,33 @@ const TabloClient = (props) => {
         if (player) {
             player.playUrl(currentVideo.videoURL, '');
             player.setVideoWindow(0, 0, 0, 0, false)
+            if (padding) {
+                setPad('Переход')
+                player.pause()
+            } else {
+                setPad('')
+                player.unpause()
+            }
         }
         if (window.stb) {
             window.stb.play(currentVideo.videoURL)
         }
-    }, [player, currentVideo]);
+    }, [player, currentVideo, padding]);
 
 
-    useEffect(() => {
-        if (padding) {
-            setPad('Переход')
-            if (player) {
-                player.pause()
-            }
-        } else {
-            setPad('')
-            if (player) {
-                player.unpause()
-            }
-        }
-    }, [padding, player]);
+    // useEffect(() => {
+    //     if (padding) {
+    //         setPad('Переход')
+    //         if (player) {
+    //             player.pause()
+    //         }
+    //     } else {
+    //         setPad('')
+    //         if (player) {
+    //             player.unpause()
+    //         }
+    //     }
+    // }, [padding, player]);
 
 
     return (
