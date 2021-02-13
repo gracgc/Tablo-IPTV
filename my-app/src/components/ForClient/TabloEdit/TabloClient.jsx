@@ -31,11 +31,11 @@ const TabloClient = (props) => {
         (state => state.videosPage.videoEditor)
     );
 
-    let n = videoEditor.currentVideo.n
+    let n = videoEditor.currentVideo.n;
 
-    let padding = videoEditor.currentVideo.padding
+    let padding = videoEditor.currentVideo.padding;
 
-    let [pad, setPad] = useState()
+    let [pad, setPad] = useState();
 
     useEffect(() => {
         dispatch(getGame(props.gameNumber));
@@ -64,7 +64,7 @@ const TabloClient = (props) => {
     useEffect(() => {
         if (player) {
             player.playUrl(currentVideo.videoURL, '');
-            player.setVideoWindow(0, 0, 0, 0, false);
+            player.pause();
         }
         if (window.stb) {
             window.stb.play(currentVideo.videoURL)
@@ -75,22 +75,11 @@ const TabloClient = (props) => {
     useEffect(() => {
         if (padding) {
             setPad('Переход');
-            if (player) {
-                setTimeout(() => {
-                    player.pause()
-                }, 50)
-
-            }
         } else {
             setPad('');
-            if (player) {
-                setTimeout(() => {
-                    player.unpause()
-                }, 50)
-
-            }
+            player.unpause()
         }
-    }, [padding, player]);
+    }, [padding]);
 
 
     return (

@@ -109,11 +109,8 @@ router.put('/editor/padding/:gameNumber', authMW, function (req, res) {
         let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
-        if (DB.currentVideo.n === 0) {
-            DB.currentVideo.padding === true
-        } else {
-            DB.currentVideo.padding = !DB.currentVideo.padding;
-        }
+        DB.currentVideo.padding = !DB.currentVideo.padding;
+
 
 
 
