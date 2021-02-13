@@ -204,7 +204,7 @@ router.get('/mp4/:videoName', function (req, res) {
 
         let videoName = req.params.videoName;
 
-        let video = path.join(__dirname + `/DB/videosMP4/video_${videoName}.mp4`);
+        let video = path.join(__dirname + `/DB/videosMP4/${videoName}.mp4`);
 
         res.sendFile(video);
 
@@ -224,7 +224,7 @@ router.post('/mp4/:videoName', async function (req, res) {
 
         let video = req.files.file
 
-        video.name = `video_${videoName}.mp4`
+        video.name = `${videoName}.mp4`
 
         await video.mv(`${__dirname}/DB/videosMP4/${video.name}`)
 
