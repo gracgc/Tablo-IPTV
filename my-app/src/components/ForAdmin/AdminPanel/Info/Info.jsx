@@ -53,13 +53,13 @@ const Info = (props) => {
         });
 
         tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
-            setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
-            setPing(Math.round((Date.now() - r.dateClient) / 2))
+            setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2));
+            setPing(Math.round((Date.now() - r.dateClient) / 2));
             setIsRunningServer(r.isRunning);
             return r
         }).then(r => {
             ////TIMER////
-            setStartTime(r.runningTime)
+            setStartTime(r.runningTime);
             setTimeMem(r.timeData.timeMem);
             setTimeDif(r.timeData.timeMem);
             setTimeMemTimer(r.timeData.timeMemTimer);
@@ -67,12 +67,12 @@ const Info = (props) => {
             setPeriod(r.period);
             setSmallOvertime(r.smallOvertime);
             setBigOvertime(r.bigOvertime);
-        })
+        });
 
         ////Socket IO////
         socket.on(`getTime${gameNumber}`, time => {
                 setIsRunningServer(time.isRunning);
-                setStartTime(time.runningTime)
+                setStartTime(time.runningTime);
                 setTimeMem(time.timeData.timeMem);
                 setTimeDif(time.timeData.timeMem);
                 setTimeMemTimer(time.timeData.timeMemTimer);
@@ -90,20 +90,20 @@ const Info = (props) => {
         tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
 
             if (Math.round((Date.now() - r.dateClient) / 2) < ping) {
-                setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
-                setPing(Math.round((Date.now() - r.dateClient) / 2))
+                setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2));
+                setPing(Math.round((Date.now() - r.dateClient) / 2));
                 setIsRunningServer(r.isRunning);
             }
 
             setTimeout(() => {
-                setCount(count + 1)
+                setCount(count + 1);
                 if (tick < 5000) {
                     setTick(tick + 500)
                 }
             }, tick)
         })
 
-    }, [count])
+    }, [count]);
 
 
     useEffect(() => {

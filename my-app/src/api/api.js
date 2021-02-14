@@ -218,6 +218,12 @@ export const videosAPI = {
                 return responce.data
             })
     },
+    addVideo(videoName, videoURL) {
+        return instance.post(`videos`, {videoName, videoURL})
+            .then(responce => {
+                return responce.data
+            })
+    },
     getVideosMP4() {
         return instance.get(`videos/mp4`)
             .then(responce => {

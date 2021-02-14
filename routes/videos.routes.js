@@ -42,7 +42,7 @@ router.post('/', async function (req, res) {
 
         let json = JSON.stringify(DB);
 
-        fs.writeFileSync(path.join(__dirname, `/DB/videosMP4_local.json`), json, 'utf8');
+        fs.writeFileSync(path.join(__dirname, `/DB/videos.json`), json, 'utf8');
 
         res.send({resultCode: 0});
 

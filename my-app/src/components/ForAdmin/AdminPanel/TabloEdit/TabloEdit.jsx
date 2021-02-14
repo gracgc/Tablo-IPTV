@@ -188,7 +188,7 @@ const TabloEdit = (props) => {
             }, tick)
         })
 
-    }, [count])
+    }, [count]);
 
 
     useEffect(() => {

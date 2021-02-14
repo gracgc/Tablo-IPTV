@@ -42,7 +42,7 @@ const Editor = (props) => {
 
     let videos = videoEditor.videos.slice().reverse();
 
-    let n = videoEditor.currentVideo.n
+    let n = videoEditor.currentVideo.n;
 
 
     useEffect(() => {
@@ -57,7 +57,7 @@ const Editor = (props) => {
             setTimeDif(r.timeData.timeMem);
         });
 
-        dispatch(getVideoEditor(gameNumber))
+        dispatch(getVideoEditor(gameNumber));
 
         socket.on(`getVideoTime${gameNumber}`, time => {
                 setIsRunningServer(time.timeData.isRunning);
@@ -151,17 +151,17 @@ const Editor = (props) => {
     };
 
 
-    let currentDuration = videoEditor.editorData.duration - timeDif
+    let currentDuration = videoEditor.editorData.duration - timeDif;
 
 
     let duration0 = videoEditor.editorData.duration - videos.slice(0, 2 * n).map(v => v.duration)
-        .reduce((sum, current) => sum + current, 0)
+        .reduce((sum, current) => sum + current, 0);
 
     let duration1 = videoEditor.editorData.duration - videos.slice(0, 2 * n + 1).map(v => v.duration)
-        .reduce((sum, current) => sum + current, 0)
+        .reduce((sum, current) => sum + current, 0);
 
     let duration2 = videoEditor.editorData.duration - videos.slice(0, 2 * n + 2).map(v => v.duration)
-        .reduce((sum, current) => sum + current, 0)
+        .reduce((sum, current) => sum + current, 0);
 
 
     useEffect(() => {
@@ -225,37 +225,40 @@ const Editor = (props) => {
                                                   style={{width: v.duration / scale}}>{v.videoName}</div>)}
             </div>
 
-            <div style={{width: editorStyle.msWidth, height: "10px", backgroundColor: 'pink'}}>
+            <div style={{width: editorStyle.msWidth, height: "30px", backgroundColor: 'pink'}}>
 
             </div>
-            <div onClick={(e) => startVideo()}>
-                Старт
+            <div style={{display: 'inline-flex'}}>
+                <div onClick={(e) => startVideo()}>
+                    Старт
+                </div>
+                <div onClick={(e) => stopVideo()}>
+                    Стоп
+                </div>
+                <div onClick={(e) => resetVideo()}>
+                    Резет
+                </div>
+                {minutes}:{seconds}:{ms}
             </div>
-            <div onClick={(e) => stopVideo()}>
-                Стоп
-            </div>
-            <div onClick={(e) => resetVideo()}>
-                Резет
-            </div>
-            {minutes}:{seconds}:{ms}
-
-            <Droppable
-                types={['video']}
-                onDrop={(e) => onDrop(e)}
-            >
-                <div>Перетаскивать сюда</div>
-            </Droppable>
 
 
-            <Draggable type="video" data={'ВИДЕО1'}>
-                <div>Banana</div>
-            </Draggable>
-            <Draggable type="video" data={'ВИДЕО2'}>
-                <div>Lemon</div>
-            </Draggable>
-            <Draggable type="video" data={'ВИДЕО3'}>
-                <div>Lemon</div>
-            </Draggable>
+            {/*<Droppable*/}
+            {/*    types={['video']}*/}
+            {/*    onDrop={(e) => onDrop(e)}*/}
+            {/*>*/}
+            {/*    <div>Перетаскивать сюда</div>*/}
+            {/*</Droppable>*/}
+
+
+            {/*<Draggable type="video" data={'ВИДЕО1'}>*/}
+            {/*    <div>Banana</div>*/}
+            {/*</Draggable>*/}
+            {/*<Draggable type="video" data={'ВИДЕО2'}>*/}
+            {/*    <div>Lemon</div>*/}
+            {/*</Draggable>*/}
+            {/*<Draggable type="video" data={'ВИДЕО3'}>*/}
+            {/*    <div>Lemon</div>*/}
+            {/*</Draggable>*/}
         </div>
     )
 };

@@ -10,21 +10,21 @@
 .videoAdmin__editor {
     display: grid;
     grid-template-columns: 65% 35%;
-    height: 36vh;
+    height: 34vh;
     background: #B2CAEE;
 }
 
 .videoAdmin__presetsAndCamera {
     display: grid;
     grid-template-columns: 82% 18%;
-    height: 28vh;
+    height: 20vh;
     background: #89AFE0;
 }
 
 .videoAdmin__animations {
     display: grid;
     grid-template-rows: 50% 50%;
-    height: 30vh;
+    height: 40vh;
     background: #89AFE0;
 }
 
