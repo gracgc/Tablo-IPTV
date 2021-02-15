@@ -214,8 +214,29 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
         let data2 = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
         let DB2 = JSON.parse(data2);
 
+        let playVideoWithPadding = () => {
+            DB2.currentVideo.padding = true;
+
+            let json1 = JSON.stringify(DB2);
+
+            fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json1, 'utf8');
+
+            io.emit(`getCurrentVideoEditor${gameNumber}`, DB2);
+            setTimeout(() => {
+                DB2.currentVideo.padding = false;
+
+                let json2 = JSON.stringify(DB2);
+
+                fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json2, 'utf8');
+
+                io.emit(`getCurrentVideoEditor${gameNumber}`, DB2)
+            }, 3000);
+        }
+
         if (!DB2.timeData.isRunning) {
             DB.currentVideo = currentVideo;
+
+            playVideoWithPadding();
 
             io.emit('getCurrentVideo', DB.currentVideo);
             if (!currentVideo.duration) {
@@ -228,28 +249,12 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
                 io.emit('getCurrentVideo', DB.currentVideo)
 
             } else {
-                DB2.currentVideo.padding = true;
-
-                let json1 = JSON.stringify(DB2);
-
-                fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json1, 'utf8');
-
-                io.emit(`getCurrentVideoEditor${gameNumber}`, DB2);
-                setTimeout(() => {
-                    DB2.currentVideo.padding = false;
-
-                    let json2 = JSON.stringify(DB2);
-
-                    fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json2, 'utf8');
-
-                    io.emit(`getCurrentVideoEditor${gameNumber}`, DB2)
-                }, 3000);
+                playVideoWithPadding();
 
                 if (!currentVideo.duration) {
                     DB.currentVideoStream = currentVideo;
                 }
             }
-
         }
 
         let json = JSON.stringify(DB);

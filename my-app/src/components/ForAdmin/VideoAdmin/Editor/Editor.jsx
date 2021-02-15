@@ -174,7 +174,7 @@ const Editor = (props) => {
                 0);
 
             videosAPI.resetVideoEditor(gameNumber);
-            videosAPI.clearEditorVideos(gameNumber)
+            // videosAPI.clearEditorVideos(gameNumber)
         }
     }, [videoEditor.editorData.duration - timeDif <= 0]);
 
