@@ -200,7 +200,7 @@ const Editor = (props) => {
                 } else {
                     videosAPI.resetCurrentVideo();
                 }
-                
+
                 videosAPI.putPaddingVideoEditor(gameNumber);
 
             }
