@@ -112,10 +112,6 @@ router.put('/editor/padding/:gameNumber', authMW, function (req, res) {
         DB.currentVideo.padding = !DB.currentVideo.padding;
 
 
-
-
-
-
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8');
@@ -218,30 +214,53 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
         let data2 = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
         let DB2 = JSON.parse(data2);
 
-        DB.currentVideo = currentVideo;
-        if (!currentVideo.duration) {
-            DB.currentVideoStream = currentVideo;
-        }
+        if (!DB2.timeData.isRunning) {
+            DB.currentVideo = currentVideo;
 
-        if (!isEditor) {
-            DB2.currentVideo.padding = true;
-            io.emit(`getCurrentVideoEditor${gameNumber}`, DB2);
-            setTimeout(() => {
-                DB2.currentVideo.padding = false;
-                io.emit(`getCurrentVideoEditor${gameNumber}`, DB2)
-            }, 3000)
-        }
+            io.emit('getCurrentVideo', DB.currentVideo);
+            if (!currentVideo.duration) {
+                DB.currentVideoStream = currentVideo;
+            }
+        } else {
+            if (isEditor) {
+                DB.currentVideo = currentVideo;
 
+                io.emit('getCurrentVideo', DB.currentVideo)
+
+            } else {
+                DB2.currentVideo.padding = true;
+
+                let json1 = JSON.stringify(DB2);
+
+                fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json1, 'utf8');
+
+                io.emit(`getCurrentVideoEditor${gameNumber}`, DB2);
+                setTimeout(() => {
+                    DB2.currentVideo.padding = false;
+
+                    let json2 = JSON.stringify(DB2);
+
+                    fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json2, 'utf8');
+
+                    io.emit(`getCurrentVideoEditor${gameNumber}`, DB2)
+                }, 3000);
+
+                if (!currentVideo.duration) {
+                    DB.currentVideoStream = currentVideo;
+                }
+            }
+
+        }
 
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname, `/DB/videos.json`), json, 'utf8');
 
+
+
+
         res.send({resultCode: 0});
 
-
-
-        io.emit('getCurrentVideo', DB.currentVideo)
 
     } catch (e) {
         console.log(e)
@@ -310,7 +329,6 @@ router.get('/mp4/:videoName', function (req, res) {
         console.log(e)
     }
 });
-
 
 
 router.post('/mp4/:videoName', async function (req, res) {
