@@ -109,30 +109,33 @@ const Editor = (props) => {
         });
     }, []);
 
-    useEffect(() => {
-        if (videoEditor.editorData.duration - timeDif <= 0) {
-            setIsRunningServer(false);
-            videosAPI.putVideoTimeStatus(gameNumber, false,
-                0,
-                0);
-        }
-    }, [videoEditor.editorData.duration - timeDif <= 0]);
 
     const startVideo = () => {
         videosAPI.putVideoTimeStatus(gameNumber, true, timeDif,
             timeMem);
     };
 
-    const stopVideo = () => {
-        videosAPI.putVideoTimeStatus(gameNumber, false,
-            timeMem + (Date.now() + dif) - startTime,
-            timeMem + ((Date.now() + dif) - startTime));
-    };
+    // const stopVideo = () => {
+    //     videosAPI.putVideoTimeStatus(gameNumber, false,
+    //         timeMem + (Date.now() + dif) - startTime,
+    //         timeMem + ((Date.now() + dif) - startTime));
+    // };
 
     const resetVideo = () => {
         videosAPI.putVideoTimeStatus(gameNumber, false,
             0,
             0);
+        videosAPI.resetVideoEditor(gameNumber);
+        videosAPI.resetCurrentVideo();
+    };
+
+    const clearVideo = () => {
+        videosAPI.putVideoTimeStatus(gameNumber, false,
+            0,
+            0);
+        videosAPI.resetVideoEditor(gameNumber);
+        videosAPI.resetCurrentVideo();
+        videosAPI.clearEditorVideos(gameNumber)
     };
 
     let ms = timeDif % 1000;
@@ -163,29 +166,46 @@ const Editor = (props) => {
     let duration2 = videoEditor.editorData.duration - videos.slice(0, 2 * n + 2).map(v => v.duration)
         .reduce((sum, current) => sum + current, 0);
 
+    useEffect(() => {
+        if (videoEditor.editorData.duration - timeDif <= 0) {
+            setIsRunningServer(false);
+            videosAPI.putVideoTimeStatus(gameNumber, false,
+                0,
+                0);
+
+            videosAPI.resetVideoEditor(gameNumber);
+            videosAPI.clearEditorVideos(gameNumber)
+        }
+    }, [videoEditor.editorData.duration - timeDif <= 0]);
+
 
     useEffect(() => {
         if (isRunningServer) {
-            if (currentDuration <= duration1
-                && duration2 <= currentDuration) {
+            if (currentDuration < duration1
+                && duration2 < currentDuration) {
                 //videoSTART
+                videosAPI.putPaddingVideoEditor(gameNumber);
                 videosAPI.putCurrentVideoEditor(gameNumber);
-                videosAPI.putPaddingVideoEditor(gameNumber)
             }
         }
-    }, [currentDuration <= duration1, duration2 <= currentDuration, isRunningServer, n]);
+    }, [currentDuration < duration1, duration2 < currentDuration, isRunningServer]);
 
     useEffect(() => {
 
         if (isRunningServer) {
-            if ((currentDuration <= duration0
-                && duration1 <= currentDuration)) {
-                setCurrentVideo(videos[2 * n + 1]); //stop
-                videosAPI.putPaddingVideoEditor(gameNumber)
+            if ((currentDuration < duration0
+                && duration1 < currentDuration)) {
+                if (videos[2 * n + 1]) {
+                    setCurrentVideo(videos[2 * n + 1]); //stop
+                } else {
+                    videosAPI.resetCurrentVideo();
+                }
+                
+                videosAPI.putPaddingVideoEditor(gameNumber);
 
             }
         }
-    }, [currentDuration <= duration0, duration1 <= currentDuration, isRunningServer, n]);
+    }, [currentDuration < duration0, duration1 < currentDuration, isRunningServer]);
 
     let obj = [
         {
@@ -225,18 +245,20 @@ const Editor = (props) => {
                                                   style={{width: v.duration / scale}}>{v.videoName}</div>)}
             </div>
 
-            <div style={{width: editorStyle.msWidth, height: "30px", backgroundColor: 'pink'}}>
+            <div style={videoEditor.editorData.duration !== 0
+                ? {width: editorStyle.msWidth, height: "30px", backgroundColor: 'pink'}
+                : {width: 0, height: "30px"}}>
 
             </div>
             <div style={{display: 'inline-flex'}}>
                 <div onClick={(e) => startVideo()}>
                     Старт
                 </div>
-                <div onClick={(e) => stopVideo()}>
-                    Стоп
-                </div>
                 <div onClick={(e) => resetVideo()}>
                     Резет
+                </div>
+                <div onClick={(e) => clearVideo()}>
+                    Очистить
                 </div>
                 {minutes}:{seconds}:{ms}
             </div>

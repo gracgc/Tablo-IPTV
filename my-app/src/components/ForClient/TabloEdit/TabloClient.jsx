@@ -69,7 +69,7 @@ const TabloClient = (props) => {
         if (window.stb) {
             window.stb.play(currentVideo.videoURL)
         }
-    }, [player, currentVideo, padding]);
+    }, [player, currentVideo]);
 
 
     useEffect(() => {
@@ -77,7 +77,9 @@ const TabloClient = (props) => {
             setPad('Переход');
         } else {
             setPad('');
-            player.unpause()
+            if (player) {
+                player.unpause()
+            }
         }
     }, [padding]);
 

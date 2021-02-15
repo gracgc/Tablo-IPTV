@@ -24,7 +24,7 @@ let initialState = {
         {
             videoName: "ВИДЕО",
             videoURL: "",
-            duration: 10
+            duration: 0
         }
     ],
     videoEditor: {

@@ -230,6 +230,12 @@ export const videosAPI = {
                 return responce.data
             })
     },
+    clearEditorVideos(gameNumber) {
+        return instance.put(`videos/editor/clear/${gameNumber}`, {})
+            .then(responce => {
+                return responce.data
+            })
+    },
     getVideoEditor(gameNumber) {
         return instance.get(`videos/editor/${gameNumber}`)
             .then(responce => {
@@ -248,6 +254,12 @@ export const videosAPI = {
                 return responce.data
             })
     },
+    resetVideoEditor(gameNumber) {
+        return instance.put(`videos/editor/reset/${gameNumber}`, {})
+            .then(responce => {
+                return responce.data
+            })
+    },
     getCurrentVideo() {
         return instance.get(`videos/current`)
             .then(responce => {
@@ -256,6 +268,12 @@ export const videosAPI = {
     },
     putCurrentVideo(currentVideo) {
         return instance.put(`videos/current`, {currentVideo})
+            .then(responce => {
+                return responce.data
+            })
+    },
+    resetCurrentVideo() {
+        return instance.put(`videos/reset`, {})
             .then(responce => {
                 return responce.data
             })

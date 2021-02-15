@@ -1,11 +1,11 @@
 {
   "currentVideo": {
     "n": 0,
-    "padding": true
+    "padding": false
   },
   "timeData": {
-    "timeMem": 31407,
-    "timeDif": 31407,
+    "timeMem": 0,
+    "timeDif": 0,
     "isRunning": false,
     "runningTime": 1613236903171
   },
@@ -13,7 +13,7 @@
     {
       "videoName": "|",
       "videoURL": "",
-      "duration": 2000
+      "duration": 3000
     },
     {
       "videoName": "1",
@@ -23,7 +23,7 @@
     {
       "videoName": "|",
       "videoURL": "",
-      "duration": 2000
+      "duration": 3000
     },
     {
       "videoName": "2",
@@ -33,7 +33,7 @@
     {
       "videoName": "|",
       "videoURL": "",
-      "duration": 2000
+      "duration": 3000
     },
     {
       "videoName": "3",
@@ -43,7 +43,7 @@
     {
       "videoName": "|",
       "videoURL": "",
-      "duration": 2000
+      "duration": 3000
     }
   ]
 }
