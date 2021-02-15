@@ -249,7 +249,6 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
                 io.emit('getCurrentVideo', DB.currentVideo)
 
             } else {
-                playVideoWithPadding();
 
                 if (!currentVideo.duration) {
                     DB.currentVideoStream = currentVideo;
