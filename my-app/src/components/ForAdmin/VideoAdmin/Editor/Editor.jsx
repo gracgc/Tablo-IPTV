@@ -143,7 +143,7 @@ const Editor = (props) => {
     let minutes = Math.floor(timeDif / (1000 * 60));
 
     let setCurrentVideo = (currentVideo) => {
-        videosAPI.putCurrentVideo(currentVideo)
+        videosAPI.putCurrentVideo(gameNumber, currentVideo, true)
     };
 
 

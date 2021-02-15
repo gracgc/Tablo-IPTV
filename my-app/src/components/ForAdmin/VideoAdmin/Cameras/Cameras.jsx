@@ -75,7 +75,7 @@ const Cameras = (props) => {
     };
 
     let setCurrentVideo = (currentVideo) => {
-        videosAPI.putCurrentVideo(currentVideo)
+        videosAPI.putCurrentVideo(gameNumber, currentVideo, false)
     };
 
     const onSubmit = (formData) => {

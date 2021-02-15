@@ -201,17 +201,35 @@ router.get('/current', function (req, res) {
 });
 
 
-router.put('/current', authMW, function (req, res) {
+router.put('/current/:gameNumber', authMW, function (req, res) {
     try {
 
+        const io = req.app.locals.io;
+
+        let gameNumber = req.params.gameNumber;
+
         let currentVideo = req.body.currentVideo;
+
+        let isEditor = req.body.isEditor;
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/videos.json`));
         let DB = JSON.parse(data);
 
+        let data2 = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
+        let DB2 = JSON.parse(data2);
+
         DB.currentVideo = currentVideo;
         if (!currentVideo.duration) {
             DB.currentVideoStream = currentVideo;
+        }
+
+        if (!isEditor) {
+            DB2.currentVideo.padding = true;
+            io.emit(`getCurrentVideoEditor${gameNumber}`, DB2);
+            setTimeout(() => {
+                DB2.currentVideo.padding = false;
+                io.emit(`getCurrentVideoEditor${gameNumber}`, DB2)
+            }, 3000)
         }
 
 
@@ -221,7 +239,7 @@ router.put('/current', authMW, function (req, res) {
 
         res.send({resultCode: 0});
 
-        const io = req.app.locals.io;
+
 
         io.emit('getCurrentVideo', DB.currentVideo)
 

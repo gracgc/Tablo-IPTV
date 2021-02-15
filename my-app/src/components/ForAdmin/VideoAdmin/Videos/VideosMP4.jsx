@@ -78,7 +78,7 @@ const VideosMP4 = (props) => {
     }, []);
 
     let setCurrentVideo = (currentVideo) => {
-        videosAPI.putCurrentVideo(currentVideo)
+        videosAPI.putCurrentVideo(gameNumber, currentVideo, false)
     };
 
     let uploadVideo = (videoName) => {

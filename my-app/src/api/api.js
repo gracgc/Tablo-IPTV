@@ -266,8 +266,8 @@ export const videosAPI = {
                 return responce.data
             })
     },
-    putCurrentVideo(currentVideo) {
-        return instance.put(`videos/current`, {currentVideo})
+    putCurrentVideo(gameNumber, currentVideo, isEditor) {
+        return instance.put(`videos/current/${gameNumber}`, {currentVideo, isEditor})
             .then(responce => {
                 return responce.data
             })
