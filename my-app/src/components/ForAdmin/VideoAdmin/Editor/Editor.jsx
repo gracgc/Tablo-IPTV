@@ -119,28 +119,7 @@ const Editor = (props) => {
     }, []);
 
 
-    const startVideo = () => {
-        videosAPI.putVideoTimeStatus(gameNumber, true, timeDif,
-            timeMem);
-    };
 
-
-    const resetVideo = () => {
-        videosAPI.putVideoTimeStatus(gameNumber, false,
-            0,
-            0);
-        videosAPI.resetVideoEditor(gameNumber);
-        videosAPI.resetCurrentVideo(gameNumber);
-    };
-
-    const clearVideo = () => {
-        videosAPI.putVideoTimeStatus(gameNumber, false,
-            0,
-            0);
-        videosAPI.clearEditorVideos(gameNumber);
-        videosAPI.resetVideoEditor(gameNumber);
-        videosAPI.resetCurrentVideo(gameNumber);
-    };
 
     let ms = (videoEditor.editorData.duration - timeDif) % 1000;
     let seconds = Math.floor((videoEditor.editorData.duration - timeDif) / 1000) % 60;
@@ -177,7 +156,6 @@ const Editor = (props) => {
                 0,
                 0);
 
-            videosAPI.resetVideoEditor(gameNumber);
             videosAPI.clearEditorVideos(gameNumber)
         }
     }, [videoEditor.editorData.duration - timeDif <= 0]);
@@ -210,6 +188,20 @@ const Editor = (props) => {
             }
         }
     }, [currentDuration < duration0, duration1 < currentDuration, isRunningServer]);
+
+    const startVideo = () => {
+        videosAPI.putVideoTimeStatus(gameNumber, true, timeDif,
+            timeMem);
+    };
+
+
+    const clearVideo = () => {
+        videosAPI.putVideoTimeStatus(gameNumber, false,
+            0,
+            0);
+        videosAPI.clearEditorVideos(gameNumber);
+        videosAPI.resetCurrentVideo();
+    };
 
 
 
@@ -254,9 +246,6 @@ const Editor = (props) => {
                 <div className={c.playerButtons}>
                     <div className={c.playerButton} onClick={(e) => startVideo()}>
                         Старт
-                    </div>
-                    <div className={c.playerButton} onClick={(e) => resetVideo()}>
-                        Резет
                     </div>
                     <div className={c.playerButton} onClick={(e) => clearVideo()}>
                         Очистить

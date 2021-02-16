@@ -260,12 +260,6 @@ export const videosAPI = {
                 return responce.data
             })
     },
-    resetVideoEditor(gameNumber) {
-        return instance.put(`videos/editor/reset/${gameNumber}`, {})
-            .then(responce => {
-                return responce.data
-            })
-    },
     getCurrentVideo() {
         return instance.get(`videos/current`)
             .then(responce => {
