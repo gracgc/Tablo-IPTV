@@ -5,6 +5,7 @@ const path = require('path');
 const cors = require('cors');
 const authMW = require('../middleware/authMW');
 const {getVideoDurationInSeconds} = require('get-video-duration');
+const cyrillicToTranslit = require('cyrillic-to-translit-js');
 const config = require('config');
 
 let url = `${config.get('baseUrl')}:${config.get('port')}`;
@@ -79,7 +80,6 @@ router.post('/editor/:gameNumber', authMW, function (req, res) {
         let gameNumber = req.params.gameNumber;
 
         let video = req.body.video;
-
 
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
@@ -179,7 +179,6 @@ router.put('/editor/padding/:gameNumber', authMW, function (req, res) {
         console.log(e)
     }
 });
-
 
 
 router.put('/editor/clear/:gameNumber', function (req, res) {
@@ -374,12 +373,14 @@ router.post('/mp4/:videoName', async function (req, res) {
 
         let video = req.files.file;
 
-        video.name = `${videoName}.mp4`;
+        let videoNameEN = cyrillicToTranslit().transform(videoName);
 
-        await video.mv(`${__dirname}/DB/videosMP4/${video.name}`);
+        video.name = `${videoNameEN}.mp4`;
+
+        await video.mv(`${__dirname}/DB/videosMP4/${videoNameEN}.mp4`);
 
 
-        getVideoDurationInSeconds(`${url}/api/videos/mp4/${videoName}`).then((duration) => {
+        getVideoDurationInSeconds(`${url}/api/videos/mp4/${videoNameEN}`).then((duration) => {
 
 
                 if (config.get('port') === 5000) {
@@ -388,16 +389,18 @@ router.post('/mp4/:videoName', async function (req, res) {
 
                     DB.videos.push({
                         videoName: videoName,
-                        videoURL: `${url}/api/videos/mp4/${videoName}`,
+                        videoURL: `${url}/api/videos/mp4/${videoNameEN}`,
                         duration: duration * 1000
-                    })
+                    });
 
                     let json = JSON.stringify(DB);
 
                     fs.writeFileSync(path.join(__dirname, `/DB/videosMP4_local.json`), json, 'utf8');
 
 
-                    io.emit('getVideosMP4', DB.videos)
+                    io.emit('getVideosMP4', DB.videos);
+
+                    res.send({resultCode: 0});
 
                 } else {
                     let data = fs.readFileSync(path.join(__dirname, `/DB/videosMP4.json`));
@@ -405,7 +408,7 @@ router.post('/mp4/:videoName', async function (req, res) {
 
                     DB.videos.push({
                         videoName: videoName,
-                        videoURL: `${url}/api/videos/mp4/${videoName}`,
+                        videoURL: `${url}/api/videos/mp4/${videoNameEN}`,
                         duration: duration * 1000
                     });
 
@@ -415,13 +418,13 @@ router.post('/mp4/:videoName', async function (req, res) {
                     fs.writeFileSync(path.join(__dirname, `/DB/videosMP4.json`), json, 'utf8');
 
 
-                    io.emit('getVideosMP4', DB.videos)
+                    io.emit('getVideosMP4', DB.videos);
+
+                    res.send({resultCode: 0});
                 }
             }
         )
 
-
-        res.send({resultCode: 0});
 
 
     } catch (e) {

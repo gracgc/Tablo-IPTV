@@ -9,6 +9,7 @@ import socket from "../../../../socket/socket";
 import {getCurrentVideo, getVideos, setCurrentVideoDataAC, setVideosDataAC} from "../../../../redux/videos_reducer";
 import {Field, reduxForm, reset} from "redux-form";
 import {Input} from "../../../../common/FormsControls/FormsControls";
+import {requiredShort} from "../../../../utils/validators";
 
 
 const AddCamera = (props) => {
@@ -20,8 +21,10 @@ const AddCamera = (props) => {
             <form onSubmit={props.handleSubmit}>
                 <div className={c.cameraForm}>
                     <Field placeholder={'Название потока'} name={'addCameraName'}
+                           validate={[requiredShort]}
                            component={Input}/>
                     <Field placeholder={'URL потока'} name={'addCameraURL'}
+                           validate={[requiredShort]}
                            component={Input}/>
                     <button className={c.addCameraButton}>
                         Добавить

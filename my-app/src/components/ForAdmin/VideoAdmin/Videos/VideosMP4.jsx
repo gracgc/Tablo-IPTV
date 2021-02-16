@@ -19,6 +19,7 @@ import Button from "@material-ui/core/Button";
 
 import * as axios from "axios";
 import {Draggable, Droppable} from "react-drag-and-drop";
+import {requiredShort} from "../../../../utils/validators";
 
 
 const AddVideoMP4 = (props) => {
@@ -32,6 +33,7 @@ const AddVideoMP4 = (props) => {
             <form onSubmit={props.handleSubmit}>
                 <div className={c.videoForm}>
                     <Field placeholder={'Название видео'} name={'videoName'}
+                           validate={[requiredShort]}
                            component={Input}/>
                     <Button
                         variant="contained"
@@ -146,7 +148,7 @@ const VideosMP4 = (props) => {
                     {videos.slice(paginatorScale * paginatorN, 3 + paginatorScale * paginatorN)
                         .map(v =>
                             <Draggable type="video" data={v.videoName}>
-                                <div className={c.video} onClick={(e) => setCurrentVideo(v)}>
+                                <div className={c.video}>
                                     {v.videoName}
                                 </div>
                             </Draggable>
