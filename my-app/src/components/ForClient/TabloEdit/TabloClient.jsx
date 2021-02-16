@@ -10,8 +10,8 @@ import classNames from 'classnames'
 import {
     getCurrentVideo,
     getVideoEditor,
-    setCurrentVideoDataAC,
-    setVideoEditorDataAC
+    setCurrentVideoDataAC, setCurrentVideoEditorDataAC,
+    setVideoEditorDataAC, setVideosEditorAC
 } from "../../../redux/videos_reducer";
 
 
@@ -48,8 +48,12 @@ const TabloClient = (props) => {
             dispatch(setPresetAC(preset))
         });
 
-        socket.on(`getCurrentVideoEditor${props.gameNumber}`, editorData => {
-            dispatch(setVideoEditorDataAC(editorData));
+        socket.on(`getCurrentVideoEditor${props.gameNumber}`, currentVideo => {
+            dispatch(setCurrentVideoEditorDataAC(currentVideo));
+        });
+
+        socket.on(`getVideosEditor${props.gameNumber}`, videos => {
+            dispatch(setVideosEditorAC(videos));
         });
 
         socket.on(`getCurrentVideo`, currentVideo => {

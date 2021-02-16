@@ -72,6 +72,57 @@ router.get('/editor/:gameNumber', function (req, res) {
     }
 });
 
+router.post('/editor/:gameNumber', authMW, function (req, res) {
+    try {
+
+        let gameNumber = req.params.gameNumber;
+
+        let newVideo = req.body.newVideo;
+
+
+        let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+        if (DB.videos.length === 0) {
+            DB.videos.unshift(
+                {
+                    "videoName": "|",
+                    "videoURL": "",
+                    "duration": 3000
+                },
+                newVideo,
+                {
+                    "videoName": "|",
+                    "videoURL": "",
+                    "duration": 3000
+                })
+        } else {
+            DB.videos.unshift(
+                {
+                    "videoName": "|",
+                    "videoURL": "",
+                    "duration": 3000
+                },
+                newVideo
+            )
+        }
+
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8');
+
+        res.send({resultCode: 0});
+
+        const io = req.app.locals.io;
+
+        io.emit(`getVideosEditor${gameNumber}`, DB.videos)
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
 router.put('/editor/current/:gameNumber', authMW, function (req, res) {
     try {
 
@@ -93,7 +144,7 @@ router.put('/editor/current/:gameNumber', authMW, function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit(`getCurrentVideoEditor${gameNumber}`, DB)
+        io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
 
     } catch (e) {
         console.log(e)
@@ -120,7 +171,7 @@ router.put('/editor/padding/:gameNumber', authMW, function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit(`getCurrentVideoEditor${gameNumber}`, DB)
+        io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
 
     } catch (e) {
         console.log(e)
@@ -149,7 +200,7 @@ router.put('/editor/reset/:gameNumber', authMW, function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit(`getCurrentVideoEditor${gameNumber}`, DB)
+        io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
 
     } catch (e) {
         console.log(e)
@@ -175,7 +226,7 @@ router.put('/editor/clear/:gameNumber', function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit(`getCurrentVideoEditor${gameNumber}`, DB)
+        io.emit(`getVideosEditor${gameNumber}`, DB.videos)
 
     } catch (e) {
         console.log(e)
@@ -229,9 +280,9 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
 
                 fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json2, 'utf8');
 
-                io.emit(`getCurrentVideoEditor${gameNumber}`, DB2)
+                io.emit(`getCurrentVideoEditor${gameNumber}`, DB2.currentVideo)
             }, 3000);
-        }
+        };
 
         if (!DB2.timeData.isRunning) {
             DB.currentVideo = currentVideo;
@@ -259,8 +310,6 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname, `/DB/videos.json`), json, 'utf8');
-
-
 
 
         res.send({resultCode: 0});

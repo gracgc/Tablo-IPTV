@@ -16,3 +16,13 @@
     border: 1px solid;
     box-sizing: border-box;
 }
+
+.editorPlayer {
+    position: relative;
+    left: 20px;
+}
+
+.droppableVideo {
+    margin-right: 20px;
+    border: 2px solid;
+}

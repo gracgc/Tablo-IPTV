@@ -12,6 +12,7 @@ import {Input} from "../../../../common/FormsControls/FormsControls";
 import Button from "@material-ui/core/Button";
 
 import * as axios from "axios";
+import {Draggable, Droppable} from "react-drag-and-drop";
 
 
 const AddVideoMP4 = (props) => {
@@ -112,6 +113,16 @@ const VideosMP4 = (props) => {
         }
     };
 
+    let onDrop = (data) => {
+
+        let key = Object.keys(data);
+
+        let firstKey = key[0];
+
+        let k = videos.find(d => d.videoName === data[firstKey]);
+        console.log(k)
+    };
+
     return (
         <div className={c.camerasBlock}>
             <div className={c.title}>Видеоматериалы</div>
@@ -131,9 +142,13 @@ const VideosMP4 = (props) => {
                 }
                 <div className={c.videos}>
                     {videos.slice(paginatorScale * paginatorN, 3 + paginatorScale * paginatorN)
-                        .map(v => <div className={c.video} onClick={(e) => setCurrentVideo(v)}>
-                            {v.videoName}
-                        </div>)}
+                        .map(v =>
+                            <Draggable type="video" data={v.videoName}>
+                                <div className={c.video} onClick={(e) => setCurrentVideo(v)}>
+                                    {v.videoName}
+                                </div>
+                            </Draggable>
+                            )}
                 </div>
                 {videos.slice(paginatorScale * (paginatorN + 1), 3 + paginatorScale * (paginatorN + 1)).length !== 0 ?
                     <div className={c.paginator} onClick={(e) => {
@@ -147,6 +162,7 @@ const VideosMP4 = (props) => {
             </div>
             {showAddVideoForm && <AddVideoReduxForm onSubmit={onSubmit} setShowAddVideoForm={setShowAddVideoForm}
                                                     videoMP4={videoMP4} setVideoMP4={setVideoMP4}/>}
+
         </div>
     )
 };

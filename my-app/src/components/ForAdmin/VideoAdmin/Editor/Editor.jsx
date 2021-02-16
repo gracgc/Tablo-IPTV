@@ -8,8 +8,8 @@ import socket from "../../../../socket/socket";
 import {Draggable, Droppable} from 'react-drag-and-drop'
 import {
     getVideoEditor,
-    setCurrentVideoDataAC,
-    setVideoEditorDataAC,
+    setCurrentVideoDataAC, setCurrentVideoEditorDataAC,
+    setVideoEditorDataAC, setVideosEditorAC,
     setVideosMP4DataAC
 } from "../../../../redux/videos_reducer";
 
@@ -104,8 +104,12 @@ const Editor = (props) => {
             }
         );
 
-        socket.on(`getCurrentVideoEditor${gameNumber}`, editorData => {
-            dispatch(setVideoEditorDataAC(editorData));
+        socket.on(`getCurrentVideoEditor${gameNumber}`, currentVideo => {
+            dispatch(setCurrentVideoEditorDataAC(currentVideo));
+        });
+
+        socket.on(`getVideosEditor${gameNumber}`, videos => {
+            dispatch(setVideosEditorAC(videos));
         });
     }, []);
 
@@ -115,11 +119,6 @@ const Editor = (props) => {
             timeMem);
     };
 
-    // const stopVideo = () => {
-    //     videosAPI.putVideoTimeStatus(gameNumber, false,
-    //         timeMem + (Date.now() + dif) - startTime,
-    //         timeMem + ((Date.now() + dif) - startTime));
-    // };
 
     const resetVideo = () => {
         videosAPI.putVideoTimeStatus(gameNumber, false,
@@ -147,7 +146,7 @@ const Editor = (props) => {
     };
 
 
-    let scale = videoEditor.editorData.duration / 800;
+    let scale = videoEditor.editorData.duration / 680;
 
     let editorStyle = {
         msWidth: (videoEditor.editorData.duration - timeDif) / scale
@@ -225,51 +224,58 @@ const Editor = (props) => {
         }
     ];
 
+    let [droppedVideo, setDroppedVideo] = useState();
+
 
     let onDrop = (data) => {
 
         let key = Object.keys(data);
 
         let firstKey = key[0];
+        
+        videosAPI.addVideoEditor(videos.find(d => d.videoName === data[firstKey]))
 
-        let k = obj.find(d => d.videoName === data[firstKey]);
-        console.log(k)
+        // setDroppedVideo(videos.find(d => d.videoName === data[firstKey]));
+
     };
 
 
     return (
         <div className={c.editor}>
             <div className={c.title}>Редактор{n}</div>
-            <div style={{display: 'inline-flex'}}>
-                {videoEditor.videos.map(v => <div className={c.video}
-                                                  style={{width: v.duration / scale}}>{v.videoName}</div>)}
-            </div>
+            <div className={c.editorPlayer}>
+                <div style={{display: 'inline-flex'}}>
+                    <Droppable
+                        types={['video']}
+                        onDrop={(e) => onDrop(e)}
+                    >
+                        <div className={c.droppableVideo}>Перетаскивать сюда</div>
+                    </Droppable>
+                    <div>
+                        <div style={{display: 'inline-flex'}}>
+                            {videoEditor.videos.map(v => <div className={c.video}
+                                                              style={{width: v.duration / scale}}>{v.videoName}</div>)}
+                        </div>
 
-            <div style={videoEditor.editorData.duration !== 0
-                ? {width: editorStyle.msWidth, height: "30px", backgroundColor: 'pink'}
-                : {width: 0, height: "30px"}}>
-
-            </div>
-            <div style={{display: 'inline-flex'}}>
-                <div onClick={(e) => startVideo()}>
-                    Старт
+                        <div style={videoEditor.editorData.duration !== 0
+                            ? {width: editorStyle.msWidth, height: "30px", backgroundColor: 'pink'}
+                            : {width: 0, height: "30px"}}>
+                        </div>
+                    </div>
                 </div>
-                <div onClick={(e) => resetVideo()}>
-                    Резет
+                <div style={{display: 'inline-flex'}}>
+                    <div onClick={(e) => startVideo()}>
+                        Старт
+                    </div>
+                    <div onClick={(e) => resetVideo()}>
+                        Резет
+                    </div>
+                    <div onClick={(e) => clearVideo()}>
+                        Очистить
+                    </div>
+                    {minutes}:{seconds}:{ms}
                 </div>
-                <div onClick={(e) => clearVideo()}>
-                    Очистить
-                </div>
-                {minutes}:{seconds}:{ms}
             </div>
-
-
-            {/*<Droppable*/}
-            {/*    types={['video']}*/}
-            {/*    onDrop={(e) => onDrop(e)}*/}
-            {/*>*/}
-            {/*    <div>Перетаскивать сюда</div>*/}
-            {/*</Droppable>*/}
 
 
             {/*<Draggable type="video" data={'ВИДЕО1'}>*/}
