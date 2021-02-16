@@ -137,8 +137,9 @@ const Editor = (props) => {
         videosAPI.putVideoTimeStatus(gameNumber, false,
             0,
             0);
+        videosAPI.clearEditorVideos(gameNumber);
         videosAPI.resetVideoEditor(gameNumber);
-        videosAPI.clearEditorVideos(gameNumber)
+        videosAPI.resetCurrentVideo(gameNumber);
     };
 
     let ms = (videoEditor.editorData.duration - timeDif) % 1000;
@@ -219,7 +220,6 @@ const Editor = (props) => {
         let firstKey = key[0];
 
         videosAPI.addVideoEditor(gameNumber, videosMP4.find(d => d.videoName === data[firstKey]))
-
 
     };
 

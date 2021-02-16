@@ -325,32 +325,8 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
 router.put('/reset', authMW, function (req, res) {
     try {
 
-        let gameNumber = req.params.gameNumber;
-
         let data = fs.readFileSync(path.join(__dirname, `/DB/videos.json`));
         let DB = JSON.parse(data);
-
-        let data2 = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
-        let DB2 = JSON.parse(data2);
-
-        let playVideoWithPadding = () => {
-            DB2.currentVideo.padding = true;
-
-            let json1 = JSON.stringify(DB2);
-
-            fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json1, 'utf8');
-
-            io.emit(`getCurrentVideoEditor${gameNumber}`, DB2.currentVideo);
-            setTimeout(() => {
-                DB2.currentVideo.padding = false;
-
-                let json2 = JSON.stringify(DB2);
-
-                fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json2, 'utf8');
-
-                io.emit(`getCurrentVideoEditor${gameNumber}`, DB2.currentVideo)
-            }, 3000);
-        };
 
 
         DB.currentVideo = DB.currentVideoStream;

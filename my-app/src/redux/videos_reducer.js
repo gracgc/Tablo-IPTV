@@ -34,7 +34,7 @@ let initialState = {
         },
         currentVideo: {
             n: 1,
-            padding: true
+            padding: false
         },
         videos: [
             {
