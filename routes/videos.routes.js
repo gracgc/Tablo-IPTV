@@ -220,7 +220,7 @@ router.get('/current', function (req, res) {
         let data = fs.readFileSync(path.join(__dirname, `/DB/videos.json`));
         let DB = JSON.parse(data);
 
-        res.send(DB.currentVideo)
+        res.send({currentVideo: DB.currentVideo, currentVideoStream: DB.currentVideoStream})
 
     } catch (e) {
         console.log(e)
@@ -269,7 +269,7 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
 
             playVideoWithPadding();
 
-            io.emit('getCurrentVideo', DB.currentVideo);
+            io.emit('getCurrentVideo', {currentVideo: DB.currentVideo, currentVideoStream: DB.currentVideoStream});
             if (!currentVideo.duration) {
                 DB.currentVideoStream = currentVideo;
             }
@@ -277,7 +277,7 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
             if (isEditor) {
                 DB.currentVideo = currentVideo;
 
-                io.emit('getCurrentVideo', DB.currentVideo)
+                io.emit('getCurrentVideo', {currentVideo: DB.currentVideo, currentVideoStream: DB.currentVideoStream})
 
             } else {
 
@@ -317,7 +317,7 @@ router.put('/reset', authMW, function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit('getCurrentVideo', DB.currentVideo)
+        io.emit('getCurrentVideo', {currentVideo: DB.currentVideo, currentVideoStream: DB.currentVideoStream})
 
     } catch (e) {
         console.log(e)

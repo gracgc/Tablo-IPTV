@@ -40,6 +40,10 @@ const Editor = (props) => {
         (state => state.videosPage.videosMP4)
     );
 
+    const currentVideoStream = useSelector(
+        (state => state.videosPage.currentVideoStream)
+    );
+
     const videoEditor = useSelector(
         (state => state.videosPage.videoEditor)
     );
@@ -104,10 +108,6 @@ const Editor = (props) => {
     );
 
     useEffect(() => {
-        socket.on(`getVideosMP4`, videosMP4 => {
-                dispatch(setVideosMP4DataAC(videosMP4))
-            }
-        );
 
         socket.on(`getCurrentVideoEditor${gameNumber}`, currentVideo => {
             dispatch(setCurrentVideoEditorDataAC(currentVideo));
@@ -115,6 +115,10 @@ const Editor = (props) => {
 
         socket.on(`getVideosEditor${gameNumber}`, videos => {
             dispatch(setVideosEditorAC(videos));
+        });
+
+        socket.on(`getCurrentVideo`, currentVideo => {
+            dispatch(setCurrentVideoDataAC(currentVideo));
         });
     }, []);
 
@@ -200,7 +204,7 @@ const Editor = (props) => {
             0,
             0);
         videosAPI.clearEditorVideos(gameNumber);
-        videosAPI.resetCurrentVideo();
+        setCurrentVideo(currentVideoStream)
     };
 
 

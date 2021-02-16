@@ -21,6 +21,11 @@ let initialState = {
         videoURL: "",
         videoType: ""
     },
+    currentVideoStream: {
+        videoName: "ВИДЕО",
+        videoURL: "",
+        videoType: ""
+    },
     videosMP4: [
         {
             videoName: "ВИДЕО",
@@ -68,7 +73,8 @@ const videosReducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                currentVideo: action.currentVideo
+                currentVideo: action.currentVideo.currentVideo,
+                currentVideoStream: action.currentVideo.currentVideoStream
             };
 
 

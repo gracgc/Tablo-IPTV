@@ -6,7 +6,13 @@ import {videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import {setPresetAC} from "../../../../redux/games_reducer";
 import socket from "../../../../socket/socket";
-import {getCurrentVideo, getVideos, getVideosMP4} from "../../../../redux/videos_reducer";
+import {
+    getCurrentVideo,
+    getVideos,
+    getVideosMP4,
+    setCurrentVideoEditorDataAC,
+    setVideosMP4DataAC
+} from "../../../../redux/videos_reducer";
 import {Field, reduxForm, reset} from "redux-form";
 import {Input} from "../../../../common/FormsControls/FormsControls";
 import Button from "@material-ui/core/Button";
@@ -76,6 +82,11 @@ const VideosMP4 = (props) => {
 
     useEffect(() => {
         dispatch(getVideosMP4());
+
+        socket.on(`getVideosMP4`, videos => {
+            dispatch(setVideosMP4DataAC(videos));
+        });
+
     }, []);
 
     let setCurrentVideo = (currentVideo) => {
@@ -108,20 +119,11 @@ const VideosMP4 = (props) => {
     const onSubmit = (formData) => {
         if (formData.videoName !== undefined && videoMP4) {
             uploadVideo(formData.videoName);
-            dispatch(reset('addVideo'))
+            dispatch(reset('addVideo'));
             setShowAddVideoForm(false)
         }
     };
 
-    let onDrop = (data) => {
-
-        let key = Object.keys(data);
-
-        let firstKey = key[0];
-
-        let k = videos.find(d => d.videoName === data[firstKey]);
-        console.log(k)
-    };
 
     return (
         <div className={c.camerasBlock}>
