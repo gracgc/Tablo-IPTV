@@ -25,4 +25,29 @@
 .droppableVideo {
     margin-right: 20px;
     border: 2px solid;
+    height: 75px;
+    background-color: #8cede5;
+    padding: 5px;
+    text-align: center;
+}
+
+.playerButton {
+    border: 1px solid;
+    background-color: #8cede5;
+    margin-right: 15px;
+    padding: 3px 10px;
+}
+
+.playerTime {
+    border: 1px solid;
+    background-color: white;
+    margin-right: 15px;
+    padding: 3px 10px;
+}
+
+.playerButtons {
+    position: relative;
+    display: inline-flex;
+    padding-top: 10px;
+    left: 155px;
 }

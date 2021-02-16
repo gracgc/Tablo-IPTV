@@ -5,9 +5,9 @@ const path = require('path');
 const cors = require('cors');
 const authMW = require('../middleware/authMW');
 const {getVideoDurationInSeconds} = require('get-video-duration');
-const config = require('config')
+const config = require('config');
 
-let url = `${config.get('baseUrl')}:${config.get('port')}`
+let url = `${config.get('baseUrl')}:${config.get('port')}`;
 
 
 router.get('/', function (req, res) {
@@ -72,12 +72,14 @@ router.get('/editor/:gameNumber', function (req, res) {
     }
 });
 
+
 router.post('/editor/:gameNumber', authMW, function (req, res) {
     try {
 
         let gameNumber = req.params.gameNumber;
 
-        let newVideo = req.body.newVideo;
+        let video = req.body.video;
+
 
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
@@ -90,7 +92,7 @@ router.post('/editor/:gameNumber', authMW, function (req, res) {
                     "videoURL": "",
                     "duration": 3000
                 },
-                newVideo,
+                video,
                 {
                     "videoName": "|",
                     "videoURL": "",
@@ -103,7 +105,7 @@ router.post('/editor/:gameNumber', authMW, function (req, res) {
                     "videoURL": "",
                     "duration": 3000
                 },
-                newVideo
+                video
             )
         }
 
