@@ -274,7 +274,7 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
 
             fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json1, 'utf8');
 
-            io.emit(`getCurrentVideoEditor${gameNumber}`, DB2);
+            io.emit(`getCurrentVideoEditor${gameNumber}`, DB2.currentVideo);
             setTimeout(() => {
                 DB2.currentVideo.padding = false;
 
