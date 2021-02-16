@@ -325,9 +325,32 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
 router.put('/reset', authMW, function (req, res) {
     try {
 
+        let gameNumber = req.params.gameNumber;
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/videos.json`));
         let DB = JSON.parse(data);
+
+        let data2 = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
+        let DB2 = JSON.parse(data2);
+
+        let playVideoWithPadding = () => {
+            DB2.currentVideo.padding = true;
+
+            let json1 = JSON.stringify(DB2);
+
+            fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json1, 'utf8');
+
+            io.emit(`getCurrentVideoEditor${gameNumber}`, DB2.currentVideo);
+            setTimeout(() => {
+                DB2.currentVideo.padding = false;
+
+                let json2 = JSON.stringify(DB2);
+
+                fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json2, 'utf8');
+
+                io.emit(`getCurrentVideoEditor${gameNumber}`, DB2.currentVideo)
+            }, 3000);
+        };
 
 
         DB.currentVideo = DB.currentVideoStream;
@@ -395,11 +418,11 @@ router.post('/mp4/:videoName', async function (req, res) {
         let videoName = req.params.videoName;
 
 
-        let video = req.files.file
+        let video = req.files.file;
 
-        video.name = `${videoName}.mp4`
+        video.name = `${videoName}.mp4`;
 
-        await video.mv(`${__dirname}/DB/videosMP4/${video.name}`)
+        await video.mv(`${__dirname}/DB/videosMP4/${video.name}`);
 
 
         getVideoDurationInSeconds(`${url}/api/videos/mp4/${videoName}`).then((duration) => {
@@ -430,7 +453,7 @@ router.post('/mp4/:videoName', async function (req, res) {
                         videoName: videoName,
                         videoURL: `${url}/api/videos/mp4/${videoName}`,
                         duration: duration * 1000
-                    })
+                    });
 
 
                     let json = JSON.stringify(DB);

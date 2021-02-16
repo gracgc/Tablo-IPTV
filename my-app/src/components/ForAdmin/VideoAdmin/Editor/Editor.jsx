@@ -130,7 +130,7 @@ const Editor = (props) => {
             0,
             0);
         videosAPI.resetVideoEditor(gameNumber);
-        videosAPI.resetCurrentVideo();
+        videosAPI.resetCurrentVideo(gameNumber);
     };
 
     const clearVideo = () => {
@@ -138,7 +138,6 @@ const Editor = (props) => {
             0,
             0);
         videosAPI.resetVideoEditor(gameNumber);
-        videosAPI.resetCurrentVideo();
         videosAPI.clearEditorVideos(gameNumber)
     };
 
