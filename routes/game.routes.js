@@ -101,7 +101,7 @@ router.post('/', authMW, cors(), function (req, res) {
                 runningTime: 0
             },
             videos: []
-        }
+        };
 
 
         let newGameJson = JSON.stringify(newGame);
@@ -114,8 +114,11 @@ router.post('/', authMW, cors(), function (req, res) {
         fs.writeFileSync(path.join(__dirname +
             `/DB/saved_games.json`), newSaveJson, 'utf8');
 
-        fs.writeFileSync(path.join(__dirname +
-            `/DB/video_${newGame.gameInfo.gameNumber}.json`), newVideoJson, 'utf8');
+        if (gameName !== 'Быстрая игра') {
+            fs.writeFileSync(path.join(__dirname +
+                `/DB/video_${newGame.gameInfo.gameNumber}.json`), newVideoJson, 'utf8');
+        }
+
 
         res.send({resultCode: 0});
 
