@@ -45,9 +45,7 @@ router.post('/', authMW, cors(), function (req, res) {
             gameName: gameName,
             gameNumber: gameNumber,
             gameType: gameType,
-            dateOfCreation:
-                `${date.getDate() < 10 && '0'}${date.getDate()}.${date.getMonth() < 10 && '0'}${date.getMonth()+1}.${date.getFullYear()}
-                UTC${(-date.getTimezoneOffset() / 60) < 0 ? '-' : '+'}${-date.getTimezoneOffset() / 60}`
+            dateOfCreation: `${date.getDate() < 10 ? '0' : ''}${date.getDate()}.${date.getMonth() < 10 && '0'}${date.getMonth() + 1}.${date.getFullYear()} UTC${(-date.getTimezoneOffset() / 60) < 0 ? '-' : '+'}${-date.getTimezoneOffset() / 60}`
         };
 
         DB.savedGames.push(newSave);
@@ -92,7 +90,7 @@ router.post('/', authMW, cors(), function (req, res) {
         let newVideo = {
             currentVideo: {
                 n: 0,
-                padding: true
+                padding: false
             },
             timeData: {
                 timeMem: 0,
@@ -114,10 +112,9 @@ router.post('/', authMW, cors(), function (req, res) {
         fs.writeFileSync(path.join(__dirname +
             `/DB/saved_games.json`), newSaveJson, 'utf8');
 
-        if (gameName !== 'Быстрая игра') {
-            fs.writeFileSync(path.join(__dirname +
-                `/DB/video_${newGame.gameInfo.gameNumber}.json`), newVideoJson, 'utf8');
-        }
+
+        fs.writeFileSync(path.join(__dirname +
+            `/DB/video_${newGame.gameInfo.gameNumber}.json`), newVideoJson, 'utf8');
 
 
         res.send({resultCode: 0});
@@ -208,7 +205,6 @@ router.put('/reset/:gameNumber', authMW, cors(), function (req, res) {
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/game_${gameNumber}.json`));
         let DB = JSON.parse(data);
-
 
 
         DB.gameInfo.gameStatus = "Not going"

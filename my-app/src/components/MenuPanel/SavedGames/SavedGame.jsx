@@ -28,12 +28,15 @@ const SavedGame = (props) => {
         dispatch(putGameNumber(gameNumber))
     };
 
-    const deleteGameForever = async (gameNumber) => {
+    const deleteGameForever = async (gameNumber, isCurrentGame) => {
         await confirm({description: 'Эта игра будет безвозвратно удалена. (Не рекомендуется делать это во время того, как какая-либо игра идет сейчас)',
             title: 'Вы уверены?',
             confirmationText: 'Хорошо',
             cancellationText: 'Отменить'});
-        dispatch(deleteGame(gameNumber))
+        dispatch(deleteGame(gameNumber));
+        if (isCurrentGame) {
+            dispatch(putGameNumber(0))
+        }
     };
 
 
@@ -54,11 +57,14 @@ const SavedGame = (props) => {
                                     Админ
                                 </div>
                             </NavLink>
-                            <NavLink to={'/videoAdmin/' + props.savedGame.gameNumber}>
-                                <div className={width === 1920 ? c1920.navButtonAdmin : c.navButtonAdmin}>
-                                    Видео-админ
-                                </div>
-                            </NavLink>
+                            {props.savedGame.gameName !== 'Быстрая игра' &&
+                                <NavLink to={'/videoAdmin/' + props.savedGame.gameNumber}>
+                                    <div className={width === 1920 ? c1920.navButtonAdmin : c.navButtonAdmin}>
+                                        Видео-админ
+                                    </div>
+                                </NavLink>
+                            }
+
                         </div>
                         {props.savedGame.gameNumber !== props.gameNumber
                             ? <div className={width === 1920 ? c1920.navButtonGameNumber : c.navButtonGameNumber}
@@ -80,7 +86,7 @@ const SavedGame = (props) => {
                 </div>
                 {showDeleteButton &&
                 <div className={width === 1920 ? c1920.deleteButton : c.deleteButton}
-                     onClick={(e) => deleteGameForever(props.savedGame.gameNumber)}>
+                     onClick={(e) => deleteGameForever(props.savedGame.gameNumber, props.savedGame.gameNumber === props.gameNumber)}>
                     Удалить
                 </div>}
             </div>
