@@ -106,18 +106,20 @@ const TabloClient = (props) => {
                         }
                     </div>
                     <div className={c.consLogHome}>
-                        {props.gameConsLog && props.gameConsLog.map((gcl, index) => (gcl.item !== '' && gcl.teamType === 'home') &&
-                            <TabloEventClient key={gcl.id}
-                                              index={index}
-                                              item={gcl.item}
-                                              id={gcl.id}
-                                              teamType={gcl.teamType}
-                                              timeMemTimer={props.timeMemTimer}
-                                              gameNumber={props.gameNumber}
-                            />)}
+                        {props.gameConsLog && props.gameConsLog.filter(gcl => (gcl.item !== '' && gcl.teamType === 'home'))
+                            .map((gcl, index) =>
+                                <TabloEventClient key={gcl.id}
+                                                  index={index}
+                                                  item={gcl.item}
+                                                  id={gcl.id}
+                                                  teamType={gcl.teamType}
+                                                  timeMemTimer={props.timeMemTimer}
+                                                  gameNumber={props.gameNumber}
+                                />)}
                     </div>
                     <div className={c.consLogGuests}>
-                        {props.gameConsLog && props.gameConsLog.map((gcl, index) => (gcl.item !== '' && gcl.teamType === 'guests') &&
+                        {props.gameConsLog && props.gameConsLog.filter(gcl => (gcl.item !== '' && gcl.teamType === 'guests'))
+                            .map((gcl, index) =>
                             <TabloEventClient key={gcl.id}
                                               index={index}
                                               item={gcl.item}
