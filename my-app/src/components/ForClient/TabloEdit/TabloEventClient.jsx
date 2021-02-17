@@ -21,20 +21,26 @@ const TabloEventClient = (props) => {
         <div>
             {props.teamType === 'home'
                 ? <div className={c.consLogItem}>
-                    <div className={c.gamerNumber}>{deletedGamer.gamerNumber}</div>
-                    <div className={c.timerOfDelete}>
+                    <div className={c.gamerNumber}  style={{position: 'absolute', top: 43*props.index, left: 0}}>
+                        {deletedGamer.gamerNumber}
+
+                    </div>
+                    <div className={c.timerOfDelete} style={{position: 'absolute', top: 43*props.index, left: 70}}>
                         {minutesTimerOfDeletedGamer <= 0 ? 0 : minutesTimerOfDeletedGamer}
                         :
                         {secondsTimerOfDeletedGamer < 10 ? '0' : ''}{secondsTimerOfDeletedGamer < 1 ? 0 : secondsTimerOfDeletedGamer}
+
                     </div>
                 </div>
                 : <div className={c.consLogItem}>
-                    <div className={c.timerOfDelete}>
+                    <div className={c.timerOfDelete}  style={{position: 'absolute', top: 43*props.index, right: 70}}>
                         {minutesTimerOfDeletedGamer <= 0 ? 0 : minutesTimerOfDeletedGamer}
                         :
                         {secondsTimerOfDeletedGamer < 10 ? '0' : ''}{secondsTimerOfDeletedGamer < 1 ? 0 : secondsTimerOfDeletedGamer}
                     </div>
-                    <div className={c.gamerNumber}>{deletedGamer.gamerNumber}</div>
+                    <div className={c.gamerNumber}   style={{position: 'absolute', top: 43*props.index, right: 0}}>
+                        {deletedGamer.gamerNumber}
+                    </div>
                 </div>
             }
         </div>
