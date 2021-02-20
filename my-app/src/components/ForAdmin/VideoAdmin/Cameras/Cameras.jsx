@@ -6,10 +6,11 @@ import {videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import {setPresetAC} from "../../../../redux/games_reducer";
 import socket from "../../../../socket/socket";
-import {getCurrentVideo, getVideos, setCurrentVideoDataAC, setVideosDataAC} from "../../../../redux/videos_reducer";
+import {getCurrentVideo, getVideos, setVideosDataAC} from "../../../../redux/videos_reducer";
 import {Field, reduxForm, reset} from "redux-form";
 import {Input} from "../../../../common/FormsControls/FormsControls";
 import {requiredShort} from "../../../../utils/validators";
+import ReactHlsPlayer from "react-hls-player";
 
 
 const AddCamera = (props) => {
@@ -45,12 +46,17 @@ const Cameras = (props) => {
 
     const [paginatorN, setPaginatorN] = useState(0);
 
-    const paginatorScale = 3;
+    const paginatorScale = 4;
 
 
     const videos = useSelector(
         (state => state.videosPage.videos)
     );
+
+    const currentVideoStream = useSelector(
+        (state => state.videosPage.currentVideoStream)
+    );
+
 
 
     useEffect(() => {
@@ -78,7 +84,7 @@ const Cameras = (props) => {
     };
 
     let setCurrentVideo = (currentVideo) => {
-        videosAPI.putCurrentVideo(gameNumber, currentVideo, false)
+        videosAPI.putCurrentVideo(gameNumber, currentVideo, false);
     };
 
     const onSubmit = (formData) => {
@@ -98,8 +104,8 @@ const Cameras = (props) => {
         <div className={c.camerasBlock}>
             <div className={c.title}>Камеры</div>
             <div style={{display: 'inline-flex'}}>
-                <div className={c.camera} style={{background: '#232961', color: 'white'}} onClick={e => setShowAddCameraForm(true)}>
-                    Добавить камеру
+                <div className={c.addButton} onClick={e => setShowAddCameraForm(true)}>
+                    +
                 </div>
                 {paginatorN > 0 ?
                     <div className={c.paginator} onClick={(e) => {
@@ -111,16 +117,32 @@ const Cameras = (props) => {
                         ←
                     </div>
                 }
-
                 <div className={c.cameras}>
+                    {videos.slice(paginatorScale * paginatorN, paginatorScale + paginatorScale * paginatorN)
+                        .map(v =>
+                            <div className={currentVideoStream.videoURL === v.videoURL ? c.currentCamera : c.camera}
+                                 onClick={(e) => setCurrentVideo(v)}>
+                                <div>
+                                    <ReactHlsPlayer
+                                        url={v.videoURL}
+                                        autoplay={false}
+                                        muted={true}
+                                        controls={false}
+                                        width={170}
+                                    />
+                                </div>
 
-                    {videos.slice(paginatorScale * paginatorN, 3 + paginatorScale * paginatorN)
-                        .map(v => <div className={c.camera} onClick={(e) => setCurrentVideo(v)}>
-                            {v.videoName}
-                        </div>)}
+                                <div>
+                                    {v.videoName}
+                                </div>
+
+                            </div>
+                        )}
                 </div>
-                {videos.slice(paginatorScale * (paginatorN+1), 3 + paginatorScale * (paginatorN+1)).length !== 0 ?
-                    <div className={c.paginator} onClick={(e) => {changePaginatorN('+')}}>
+                {videos.slice(paginatorScale * (paginatorN + 1), paginatorScale + paginatorScale * (paginatorN + 1)).length !== 0 ?
+                    <div className={c.paginator} onClick={(e) => {
+                        changePaginatorN('+')
+                    }}>
                         →
                     </div> :
                     <div className={c.paginator} style={{opacity: '0.5'}}>

@@ -70,7 +70,7 @@ const VideosMP4 = (props) => {
 
     const [paginatorN, setPaginatorN] = useState(0);
 
-    const paginatorScale = 3;
+    const paginatorScale = 4;
 
 
     const videos = useSelector(
@@ -131,8 +131,8 @@ const VideosMP4 = (props) => {
         <div className={c.camerasBlock}>
             <div className={c.title}>Видеоматериалы</div>
             <div style={{display: 'inline-flex'}}>
-                <div className={c.video} style={{background: '#232961', color: 'white'}} onClick={e => setShowAddVideoForm(true)}>
-                    Добавить видео
+                <div className={c.addButton} onClick={e => setShowAddVideoForm(true)}>
+                    +
                 </div>
                 {paginatorN > 0 ?
                     <div className={c.paginator} onClick={(e) => {
@@ -145,16 +145,19 @@ const VideosMP4 = (props) => {
                     </div>
                 }
                 <div className={c.videos}>
-                    {videos.slice(paginatorScale * paginatorN, 3 + paginatorScale * paginatorN)
+                    {videos.slice(paginatorScale * paginatorN, paginatorScale + paginatorScale * paginatorN)
                         .map(v =>
-                            <Draggable type="video" data={v.videoName}>
-                                <div className={c.video}>
+                            <div className={c.video}>
+                                <Draggable type="video" data={v.videoName}>
+                                    <video src={v.videoURL} width={170}></video>
+                                </Draggable>
+                                <div>
                                     {v.videoName}
                                 </div>
-                            </Draggable>
+                            </div>
                             )}
                 </div>
-                {videos.slice(paginatorScale * (paginatorN + 1), 3 + paginatorScale * (paginatorN + 1)).length !== 0 ?
+                {videos.slice(paginatorScale * (paginatorN + 1), paginatorScale + paginatorScale * (paginatorN + 1)).length !== 0 ?
                     <div className={c.paginator} onClick={(e) => {
                         changePaginatorN('+')
                     }}>

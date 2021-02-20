@@ -134,7 +134,7 @@ const Editor = (props) => {
     };
 
 
-    let scale = videoEditor.editorData.duration / 680;
+    let scale = videoEditor.editorData.duration / 660;
 
     let editorStyle = {
         msWidth: (videoEditor.editorData.duration - timeDif) / scale
@@ -225,6 +225,21 @@ const Editor = (props) => {
             <div className={c.title}>Редактор</div>
             <div className={c.editorPlayer}>
                 <div style={{display: 'inline-flex'}}>
+                    < div>
+                        < div style={{display: 'inline-flex'}}>
+                            {videoEditor.videos.map(v => <div className={c.video}
+                                                              style={videoEditor.editorData.duration !== 0
+                                                              ? {width: v.duration / scale}
+                                                              : {display: "none"}}>
+                                {v.videoName}
+                            </div>)}
+                        </div>
+
+                        <div className={c.editorLine} style={videoEditor.editorData.duration !== 0
+                            ? {width: editorStyle.msWidth, height: 140, backgroundColor: 'pink'}
+                            : {display: "none"}}>
+                        </div>
+                    </div>
                     {!isRunningServer
                         ? <Droppable
                             types={['video']}
@@ -234,17 +249,6 @@ const Editor = (props) => {
                         </Droppable>
                         : <div className={c.droppableVideo} style={{opacity: 0.5}}>Перетаскивать сюда из видеоматериалов</div>
                     }
-                    < div>
-                        < div style={{display: 'inline-flex'}}>
-                            {videoEditor.videos.map(v => <div className={c.video}
-                                                              style={{width: v.duration / scale}}>{v.videoName}</div>)}
-                        </div>
-
-                        <div style={videoEditor.editorData.duration !== 0
-                            ? {width: editorStyle.msWidth, height: "20px", backgroundColor: 'pink'}
-                            : {width: 0, height: "20px"}}>
-                        </div>
-                    </div>
                 </div>
                 {videos.length !== 0 &&
                 <div className={c.playerButtons}>

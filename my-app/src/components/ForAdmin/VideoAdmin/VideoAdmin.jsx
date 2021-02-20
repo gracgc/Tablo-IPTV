@@ -25,20 +25,17 @@ const VideoAdmin = (props) => {
                     <TabloEdit/>
                 </div>
             </div>
-            <div className={c.videoAdmin__presetsAndCamera}>
+            <div className={c.videoAdmin__presetsAndVideos}>
                 <div>
-                    <Cameras/>
+                    <VideosMP4/>
                 </div>
                 <div>
                     <Presets/>
                 </div>
             </div>
-            <div className={c.videoAdmin__animations}>
+            <div className={c.videoAdmin__camera}>
                 <div>
-                    Анимации
-                </div>
-                <div>
-                    <VideosMP4/>
+                    <Cameras/>
                 </div>
             </div>
             <NavLink to="/">

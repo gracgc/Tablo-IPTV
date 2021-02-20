@@ -71,7 +71,7 @@
 }
 
 .returnGamer {
-    padding: 5px 50px 5px 25px;
+    padding: 5px 0 5px 10px;
     border: solid 1px;
     background-color: darkcyan;
     cursor: pointer;
@@ -79,4 +79,8 @@
 
 .returnGamer:hover {
     background-color: #77cde0;
+}
+
+.none {
+    display: none;
 }

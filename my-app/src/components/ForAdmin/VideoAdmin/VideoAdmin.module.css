@@ -14,17 +14,16 @@
     background: #B2CAEE;
 }
 
-.videoAdmin__presetsAndCamera {
+.videoAdmin__camera {
     display: grid;
-    grid-template-columns: 82% 18%;
-    height: 20vh;
+    height: 30vh;
     background: #89AFE0;
 }
 
-.videoAdmin__animations {
+.videoAdmin__presetsAndVideos {
     display: grid;
-    grid-template-rows: 50% 50%;
-    height: 40vh;
+    grid-template-columns: 82% 18%;
+    height: 30vh;
     background: #89AFE0;
 }
 

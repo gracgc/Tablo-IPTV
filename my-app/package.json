@@ -35,7 +35,8 @@
     "remove-array-items": "^2.0.1",
     "socket.io-client": "^3.0.3",
     "use-force-update": "^1.0.7",
-    "video.js": "^7.10.2"
+    "video.js": "^7.10.2",
+    "videojs-hlsjs-plugin": "^1.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -10,7 +10,7 @@
 }
 
 .video {
-    height: 100px;
+    height: 140px;
     background-color: blue;
     text-align: center;
     border: 1px solid;
@@ -22,12 +22,20 @@
     left: 20px;
 }
 
+.editorLine {
+    position: absolute;
+    top: 0;
+    opacity: 0.3;
+}
+
 .droppableVideo {
-    margin-right: 20px;
+    position: absolute;
+    right: 0;
+    margin-left: 20px;
     border: 2px solid;
-    height: 75px;
+    width: 140px;
     background-color: #8cede5;
-    padding: 5px;
+    padding: 37px 5px;
     text-align: center;
 }
 
@@ -49,5 +57,4 @@
     position: relative;
     display: inline-flex;
     padding-top: 10px;
-    left: 155px;
 }

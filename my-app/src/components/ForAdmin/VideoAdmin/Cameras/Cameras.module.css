@@ -11,17 +11,41 @@
 
 .cameras {
     display: inline-flex;
-    max-width: 700px;
-    /*overflow-x: scroll;*/
+    max-width: 800px;
 }
 
 .camera {
     border: 3px solid;
+    height: 135px;
     min-width: 170px;
     text-align: center;
     margin: 0 10px;
     font-size: 20px;
     cursor: pointer;
+}
+
+.currentCamera {
+    border: forestgreen 4px solid;
+    background-color: darkcyan;
+    height: 135px;
+    min-width: 170px;
+    text-align: center;
+    margin: 0 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+.addButton {
+    border: 3px solid #232961;
+    height: 30px;
+    text-align: center;
+    padding: 0 20px;
+    margin: 0 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background: white;
+    color: #232961;
 }
 
 .cameraForm {
@@ -39,6 +63,7 @@
 .paginator {
     border: 3px solid;
     width: 50px;
+    height: 30px;
     background: #232961;
     color: white;
     text-align: center;
@@ -48,7 +73,7 @@
 
 .addCameraForm {
     position: absolute;
-    bottom: 290px;
+    bottom: 76px;
     left: 10px;
     border-radius: 5px;
     border: 1px solid;
@@ -67,3 +92,5 @@
     font-size: 22px;
     cursor: pointer;
 }
+
+
