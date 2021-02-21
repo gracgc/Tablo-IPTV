@@ -1,1 +1,32 @@
-{"videos":[{"videoName":"БритькоЛАЙВ","videoURL":"https://str1.iptvportal.ru/britko_2019-06-19--1/video.m3u8"},{"videoName":"БритькоВОД~!","videoURL":"https://str1.iptvportal.ru/vod/britko_2019-06-19--1.mp4/video.m3u8"},{"videoName":"БритькоЛАЙВ2","videoURL":"https://str1.iptvportal.ru/britko_2019-03-19/video.m3u8"},{"videoName":"Бритько3","videoURL":"http://str1.iptvportal.ru/vod/britko_2019-06-19--1.mp4/index.m3u8"},{"videoName":"тест~!","videoURL":"https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"}],"currentVideo":{"videoName":"БритькоВОД~!","videoURL":"https://str1.iptvportal.ru/vod/britko_2019-06-19--1.mp4/video.m3u8"},"currentVideoStream":{"videoName":"БритькоВОД~!","videoURL":"https://str1.iptvportal.ru/vod/britko_2019-06-19--1.mp4/video.m3u8"}}
+{
+  "videos": [
+    {
+      "videoName": "Карусель",
+      "videoURL": "http://test_stream.iptvportal.cloud/karusel/mono.m3u8?token=ares"
+    },
+    {
+      "videoName": "ОТР",
+      "videoURL": "http://test_stream.iptvportal.cloud/otr/mono.m3u8?token=ares"
+    },
+    {
+      "videoName": "Рен ТВ",
+      "videoURL": "http://test_stream.iptvportal.cloud/ren-tv/mono.m3u8?token=ares"
+    },
+    {
+      "videoName": "Спас",
+      "videoURL": "http://test_stream.iptvportal.cloud/spas/mono.m3u8?token=ares"
+    },
+    {
+      "videoName": "Домашний",
+      "videoURL": "http://test_stream.iptvportal.cloud/domashniy/mono.m3u8?token=ares"
+    }
+  ],
+  "currentVideo": {
+    "videoName": "Домашний",
+    "videoURL": "http://test_stream.iptvportal.cloud/domashniy/mono.m3u8?token=ares"
+  },
+  "currentVideoStream": {
+    "videoName": "Домашний",
+    "videoURL": "http://test_stream.iptvportal.cloud/domashniy/mono.m3u8?token=ares"
+  }
+}
