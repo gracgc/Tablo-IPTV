@@ -73,7 +73,7 @@ const videosReducer = (state = initialState, action) => {
 
             return {
                 ...state,
-                currentVideo: action.currentVideo.currentVideo,
+                currentVideo: action.currentVideo.currentVideo !== null && action.currentVideo.currentVideo,
                 currentVideoStream: action.currentVideo.currentVideoStream
             };
 

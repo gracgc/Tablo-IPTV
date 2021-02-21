@@ -297,6 +297,8 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
 
                     fs.writeFileSync(path.join(__dirname, `/DB/videos.json`), json, 'utf8');
 
+                    io.emit('getCurrentVideo', {currentVideo: null, currentVideoStream: DB.currentVideoStream})
+
                 }
             }
         }
