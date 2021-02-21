@@ -240,15 +240,16 @@ const Editor = (props) => {
                             : {display: "none"}}>
                         </div>
                     </div>
-                    {!isRunningServer
-                        ? <Droppable
+                    {/*{!isRunningServer*/}
+                    {/*    ? */}
+                        <Droppable
                             types={['video']}
                             onDrop={(e) => onDrop(e)}
                         >
                             <div className={c.droppableVideo}>Перетаскивать сюда из видеоматериалов</div>
                         </Droppable>
-                        : <div className={c.droppableVideo} style={{opacity: 0.5}}>Перетаскивать сюда из видеоматериалов</div>
-                    }
+                {/*        : <div className={c.droppableVideo} style={{opacity: 0.5}}>Перетаскивать сюда из видеоматериалов</div>*/}
+                {/*    }*/}
                 </div>
                 {videos.length !== 0 &&
                 <div className={c.playerButtons}>

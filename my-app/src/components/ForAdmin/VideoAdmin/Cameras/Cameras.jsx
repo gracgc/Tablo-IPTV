@@ -6,7 +6,7 @@ import {videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import {setPresetAC} from "../../../../redux/games_reducer";
 import socket from "../../../../socket/socket";
-import {getCurrentVideo, getVideos, setVideosDataAC} from "../../../../redux/videos_reducer";
+import {getCurrentVideo, getVideos, setCurrentVideoDataAC, setVideosDataAC} from "../../../../redux/videos_reducer";
 import {Field, reduxForm, reset} from "redux-form";
 import {Input} from "../../../../common/FormsControls/FormsControls";
 import {requiredShort} from "../../../../utils/validators";
@@ -49,11 +49,11 @@ const Cameras = (props) => {
     const paginatorScale = 4;
 
 
-    const videos = useSelector(
+    let videos = useSelector(
         (state => state.videosPage.videos)
     );
 
-    const currentVideoStream = useSelector(
+    let currentVideoStream = useSelector(
         (state => state.videosPage.currentVideoStream)
     );
 
@@ -72,6 +72,7 @@ const Cameras = (props) => {
                 dispatch(setVideosDataAC(videos))
             }
         );
+
 
     }, []);
 

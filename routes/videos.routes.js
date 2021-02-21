@@ -265,10 +265,16 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
 
         if (!DB2.timeData.isRunning) {
             DB.currentVideo = currentVideo;
+            DB.currentVideoStream = currentVideo;
 
             playVideoWithPadding();
 
+            let json = JSON.stringify(DB);
+
+            fs.writeFileSync(path.join(__dirname, `/DB/videos.json`), json, 'utf8');
+
             io.emit('getCurrentVideo', {currentVideo: DB.currentVideo, currentVideoStream: DB.currentVideoStream});
+
             if (!currentVideo.duration) {
                 DB.currentVideoStream = currentVideo;
             }
@@ -276,12 +282,25 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
             if (isEditor) {
                 DB.currentVideo = currentVideo;
 
+                let json = JSON.stringify(DB);
+
+                fs.writeFileSync(path.join(__dirname, `/DB/videos.json`), json, 'utf8');
+
                 io.emit('getCurrentVideo', {currentVideo: DB.currentVideo, currentVideoStream: DB.currentVideoStream})
 
             } else {
 
                 if (!currentVideo.duration) {
                     DB.currentVideoStream = currentVideo;
+
+                    let json = JSON.stringify(DB);
+
+                    fs.writeFileSync(path.join(__dirname, `/DB/videos.json`), json, 'utf8');
+
+                    io.emit('getCurrentVideo', {
+                        currentVideo: DB.currentVideo,
+                        currentVideoStream: DB.currentVideoStream
+                    })
                 }
             }
         }
@@ -424,7 +443,6 @@ router.post('/mp4/:videoName', async function (req, res) {
                 }
             }
         )
-
 
 
     } catch (e) {
