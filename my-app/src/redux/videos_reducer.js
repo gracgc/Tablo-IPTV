@@ -70,12 +70,19 @@ const videosReducer = (state = initialState, action) => {
             };
 
         case SET_CURRENT_VIDEO_DATA:
+            if (action.currentVideo.currentVideo === null) {
+                return {
+                    ...state,
+                    currentVideoStream: action.currentVideo.currentVideoStream
+                };
+            } else {
+                return {
+                    ...state,
+                    currentVideo: action.currentVideo.currentVideo,
+                    currentVideoStream: action.currentVideo.currentVideoStream
+                };
+            }
 
-            return {
-                ...state,
-                currentVideo: action.currentVideo.currentVideo !== null && action.currentVideo.currentVideo,
-                currentVideoStream: action.currentVideo.currentVideoStream
-            };
 
 
         case SET_VIDEO_EDITOR_DATA:
@@ -85,10 +92,14 @@ const videosReducer = (state = initialState, action) => {
                 videoEditor: {
                     ...state.videoEditor,
                     videos: action.videosData.videos,
-                    editorData: {...state.videoEditor.editorData, duration: action.videosData.videos.map(v => v.duration)
-                            .reduce((sum, current) => sum + current, 0)},
-                    currentVideo:{...state.videoEditor.currentVideo, n: action.videosData.currentVideo.n,
-                        padding: action.videosData.currentVideo.padding}
+                    editorData: {
+                        ...state.videoEditor.editorData, duration: action.videosData.videos.map(v => v.duration)
+                            .reduce((sum, current) => sum + current, 0)
+                    },
+                    currentVideo: {
+                        ...state.videoEditor.currentVideo, n: action.videosData.currentVideo.n,
+                        padding: action.videosData.currentVideo.padding
+                    }
                 },
             };
 
@@ -99,8 +110,10 @@ const videosReducer = (state = initialState, action) => {
                 videoEditor: {
                     ...state.videoEditor,
                     videos: action.videos,
-                    editorData: {...state.videoEditor.editorData, duration: action.videos.map(v => v.duration)
-                            .reduce((sum, current) => sum + current, 0)}
+                    editorData: {
+                        ...state.videoEditor.editorData, duration: action.videos.map(v => v.duration)
+                            .reduce((sum, current) => sum + current, 0)
+                    }
                 }
             };
 
@@ -126,7 +139,6 @@ export const setCurrentVideoDataAC = (currentVideo) => ({type: SET_CURRENT_VIDEO
 export const setVideoEditorDataAC = (videosData) => ({type: SET_VIDEO_EDITOR_DATA, videosData});
 export const setVideosEditorAC = (videos) => ({type: SET_VIDEOS_EDITOR, videos});
 export const setCurrentVideoEditorDataAC = (currentVideo) => ({type: SET_CURRENT_VIDEO_EDITOR_DATA, currentVideo});
-
 
 
 export const getVideos = () => async (dispatch) => {

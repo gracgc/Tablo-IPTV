@@ -19,6 +19,11 @@
       "videoName": "daw",
       "videoURL": "http://localhost:5000/api/videos/mp4/dawd",
       "duration": 11010
+    },
+    {
+      "videoName": "rethy",
+      "videoURL": "http://localhost:5000/api/videos/mp4/rethy",
+      "duration": 11010
     }
   ]
 }

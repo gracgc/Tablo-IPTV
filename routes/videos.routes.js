@@ -153,6 +153,36 @@ router.put('/editor/current/:gameNumber', authMW, function (req, res) {
     }
 });
 
+router.put('/editor/delete/:gameNumber', authMW, function (req, res) {
+    try {
+
+        let gameNumber = req.params.gameNumber;
+
+        let index = req.body.index;
+
+
+        let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+
+        DB.videos.splice(index, 2);
+
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8');
+
+        res.send({resultCode: 0});
+
+        const io = req.app.locals.io;
+
+        io.emit(`getVideosEditor${gameNumber}`, DB.videos)
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
 router.put('/editor/padding/:gameNumber', authMW, function (req, res) {
     try {
 

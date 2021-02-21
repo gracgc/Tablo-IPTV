@@ -254,6 +254,12 @@ export const videosAPI = {
                 return responce.data
             })
     },
+    deleteVideoFromEditor(gameNumber, index) {
+        return instance.put(`videos/editor/delete/${gameNumber}`, {index})
+            .then(responce => {
+                return responce.data
+            })
+    },
     putPaddingVideoEditor(gameNumber) {
         return instance.put(`videos/editor/padding/${gameNumber}`, {})
             .then(responce => {

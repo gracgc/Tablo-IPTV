@@ -12,6 +12,7 @@ import {
     setVideoEditorDataAC, setVideosEditorAC,
     setVideosMP4DataAC
 } from "../../../../redux/videos_reducer";
+import EditorLine from "./EditorLine";
 
 
 const Editor = (props) => {
@@ -125,10 +126,6 @@ const Editor = (props) => {
 
 
 
-    let ms = (videoEditor.editorData.duration - timeDif) % 1000;
-    let seconds = Math.floor((videoEditor.editorData.duration - timeDif) / 1000) % 60;
-    let minutes = Math.floor((videoEditor.editorData.duration - timeDif) / (1000 * 60));
-
     let setCurrentVideo = (currentVideo) => {
         videosAPI.putCurrentVideo(gameNumber, currentVideo, true)
     };
@@ -140,21 +137,27 @@ const Editor = (props) => {
         msWidth: (videoEditor.editorData.duration - timeDif) / scale
     };
 
+    let duration = videoEditor.editorData.duration;
 
-    let currentDuration = videoEditor.editorData.duration - timeDif;
+    let currentDuration = duration - timeDif;
 
 
-    let duration0 = videoEditor.editorData.duration - videos.slice(0, 2 * n).map(v => v.duration)
+    let ms = currentDuration % 1000;
+    let seconds = Math.floor(currentDuration / 1000) % 60;
+    let minutes = Math.floor(currentDuration / (1000 * 60));
+
+
+    let duration0 = duration - videos.slice(0, 2 * n).map(v => v.duration)
         .reduce((sum, current) => sum + current, 0);
 
-    let duration1 = videoEditor.editorData.duration - videos.slice(0, 2 * n + 1).map(v => v.duration)
+    let duration1 = duration - videos.slice(0, 2 * n + 1).map(v => v.duration)
         .reduce((sum, current) => sum + current, 0);
 
-    let duration2 = videoEditor.editorData.duration - videos.slice(0, 2 * n + 2).map(v => v.duration)
+    let duration2 = duration - videos.slice(0, 2 * n + 2).map(v => v.duration)
         .reduce((sum, current) => sum + current, 0);
 
     useEffect(() => {
-        if (videoEditor.editorData.duration && videoEditor.editorData.duration - timeDif <= 0) {
+        if (duration && currentDuration <= 0) {
             setIsRunningServer(false);
             videosAPI.putVideoTimeStatus(gameNumber, false,
                 0,
@@ -162,7 +165,7 @@ const Editor = (props) => {
 
             videosAPI.clearEditorVideos(gameNumber)
         }
-    }, [videoEditor.editorData.duration - timeDif <= 0]);
+    }, [currentDuration <= 0]);
 
 
     useEffect(() => {
@@ -208,7 +211,6 @@ const Editor = (props) => {
     };
 
 
-
     let onDrop = (data) => {
 
         let key = Object.keys(data);
@@ -220,32 +222,37 @@ const Editor = (props) => {
     };
 
 
+
     return (
         <div className={c.editor}>
             <div className={c.title}>Редактор</div>
             <div className={c.editorPlayer}>
                 <div style={{display: 'inline-flex'}}>
-                    < div>
-                        < div style={{display: 'inline-flex'}}>
-                            {videoEditor.videos.map(v => <div className={c.video}
-                                                              style={videoEditor.editorData.duration !== 0
-                                                              ? {width: v.duration / scale}
-                                                              : {display: "none"}}>
-                                {v.videoName}
-                            </div>)}
+                    <div>
+                        <div style={{display: 'inline-flex'}}>
+                            {videoEditor.videos.map((v, index) => <EditorLine v={v} index={index} videoEditor={videoEditor}
+                                                                      scale={scale} currentDuration={currentDuration}
+                                                                              duration={duration} videos={videoEditor.videos}
+                                                                             />)}
                         </div>
 
-                        <div className={c.editorLine} style={videoEditor.editorData.duration !== 0
-                            ? {width: editorStyle.msWidth, height: 140, backgroundColor: 'pink'}
+                        <div className={c.editorLine} style={currentDuration !== 0
+                            ? {width: editorStyle.msWidth, height: 140}
                             : {display: "none"}}>
                         </div>
+
                     </div>
-                        <Droppable
+                    {currentDuration <= 3500 && currentDuration !== 0
+                        ? <div className={c.droppableVideo} style={{opacity: 0.5}}>Перетаскивать сюда из
+                            видеоматериалов</div>
+
+                        : <Droppable
                             types={['video']}
                             onDrop={(e) => onDrop(e)}
                         >
                             <div className={c.droppableVideo}>Перетаскивать сюда из видеоматериалов</div>
                         </Droppable>
+                    }
                 </div>
                 {videos.length !== 0 &&
                 <div className={c.playerButtons}>
