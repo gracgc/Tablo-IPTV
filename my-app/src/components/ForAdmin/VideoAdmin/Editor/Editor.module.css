@@ -33,8 +33,7 @@
 
 .editorLine {
     position: absolute;
-    background-color: black;
-    top: 0;
+    background-color: white;
 }
 
 .droppableVideo {

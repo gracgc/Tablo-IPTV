@@ -167,6 +167,11 @@ router.put('/editor/delete/:gameNumber', authMW, function (req, res) {
 
         DB.videos.splice(index, 2);
 
+        if (index === 0) {
+            DB.currentVideo.deletedN += 1
+            DB.currentVideo.n = 0
+        }
+
 
         let json = JSON.stringify(DB);
 
@@ -177,6 +182,8 @@ router.put('/editor/delete/:gameNumber', authMW, function (req, res) {
         const io = req.app.locals.io;
 
         io.emit(`getVideosEditor${gameNumber}`, DB.videos)
+
+        io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
 
     } catch (e) {
         console.log(e)
@@ -508,7 +515,10 @@ router.put('/isRunning/:gameNumber', authMW, function (req, res) {
         let timeDif = req.body.timeDif;
         let timeMem = req.body.timeMem;
 
-        DB.timeData.isRunning = isRunning;
+        if (isRunning !== undefined) {
+            DB.timeData.isRunning = isRunning;
+        }
+
         DB.timeData.timeDif = timeDif;
         DB.timeData.timeMem = timeMem;
         DB.timeData.runningTime = Date.now();

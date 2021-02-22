@@ -124,8 +124,6 @@ const Editor = (props) => {
     }, []);
 
 
-
-
     let setCurrentVideo = (currentVideo) => {
         videosAPI.putCurrentVideo(gameNumber, currentVideo, true)
     };
@@ -134,7 +132,7 @@ const Editor = (props) => {
     let scale = videoEditor.editorData.duration / 660;
 
     let editorStyle = {
-        msWidth: (videoEditor.editorData.duration - timeDif) / scale
+        msWidth: timeDif / scale
     };
 
     let duration = videoEditor.editorData.duration;
@@ -196,6 +194,16 @@ const Editor = (props) => {
         }
     }, [currentDuration < duration0, duration1 < currentDuration, isRunningServer]);
 
+    useEffect(() => {
+        if (currentDuration <= videos.map(v => v.duration).slice(0, videoEditor.videos.length - 2)
+            .reduce((sum, current) => sum + current, 0) && videoEditor.videos.length !== 3 && videoEditor.videos.length !== 0) {
+            videosAPI.deleteVideoFromEditor(gameNumber, 0)
+            videosAPI.putVideoTimeStatus(gameNumber, undefined, 0,
+                0);
+        }
+    }, [currentDuration <= videos.map(v => v.duration).slice(0, videoEditor.videos.length - 2)
+        .reduce((sum, current) => sum + current, 0) && videoEditor.videos.length !== 3 && videoEditor.videos.length !== 0])
+
     const startVideo = () => {
         videosAPI.putVideoTimeStatus(gameNumber, true, timeDif,
             timeMem);
@@ -222,7 +230,6 @@ const Editor = (props) => {
     };
 
 
-
     return (
         <div className={c.editor}>
             <div className={c.title}>Редактор</div>
@@ -230,17 +237,15 @@ const Editor = (props) => {
                 <div style={{display: 'inline-flex'}}>
                     <div>
                         <div style={{display: 'inline-flex'}}>
-                            {videoEditor.videos.map((v, index) => <EditorLine v={v} index={index} videoEditor={videoEditor}
-                                                                      scale={scale} currentDuration={currentDuration}
-                                                                              duration={duration} videos={videoEditor.videos}
-                                                                             />)}
+                            {videos.map((v, index) => <EditorLine v={v} index={index} videoEditor={videoEditor}
+                                                                  scale={scale} isRunningServer={isRunningServer}
+                                                                  duration={duration} videos={videoEditor.videos}
+                            />)}
+                            <div className={c.editorLine} style={currentDuration !== 0
+                                ? {width: editorStyle.msWidth, height: 140}
+                                : {display: "none"}}>
+                            </div>
                         </div>
-
-                        <div className={c.editorLine} style={currentDuration !== 0
-                            ? {width: editorStyle.msWidth, height: 140}
-                            : {display: "none"}}>
-                        </div>
-
                     </div>
                     {currentDuration <= 3500 && currentDuration !== 0
                         ? <div className={c.droppableVideo} style={{opacity: 0.5}}>Перетаскивать сюда из

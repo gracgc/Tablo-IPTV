@@ -27,8 +27,8 @@ const EditorLine = (props) => {
                      onMouseOver={(e) => setShowDeleteButton(true)}
                      onMouseLeave={(e) => setShowDeleteButton(false)}>
                     <div>
-                        {props.v.videoName.slice(0, 4)}
-                        {props.v.videoName.length > 4 && '.'}
+                        {props.v.videoName.slice(0, 5)}
+                        {props.v.videoName.length > 5 && '.'}
                     </div>
 
 
@@ -36,8 +36,7 @@ const EditorLine = (props) => {
                         ? {width: props.v.duration / props.scale, margin: 'auto'}
                         : {width: 155, margin: 'auto'}}/>
                     {props.v.videoName !== '|' && showDeleteButton
-                    && props.currentDuration >= props.videos.map(v => v.duration).slice(0, props.index + 2)
-                        .reduce((sum, current) => sum + current, 0)
+                    && (props.index !== 1 || !props.isRunningServer)
 
                         ? <div className={c.exitForm} onClick={e => deleteVideoFromEditor(props.index)}>
                             Удалить

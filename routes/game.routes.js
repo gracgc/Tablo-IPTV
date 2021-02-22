@@ -90,6 +90,7 @@ router.post('/', authMW, cors(), function (req, res) {
         let newVideo = {
             currentVideo: {
                 n: 0,
+                deletedN: 0,
                 padding: false
             },
             timeData: {

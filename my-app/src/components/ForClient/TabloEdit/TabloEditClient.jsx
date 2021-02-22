@@ -160,7 +160,6 @@ const TabloEditClient = (props) => {
                     setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2))
                     setPing(Math.round((Date.now() - r.dateClient) / 2))
                 }
-                console.log(dif + ' ' + ping)
 
                 setTimeout(() => {
                     setCount(count + 1)
@@ -191,7 +190,7 @@ const TabloEditClient = (props) => {
                         setTimeDifTimeout(timeMemTimeout + ((Date.now() + dif) - startTimeout));
                         setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
                     }
-                }, 33);
+                }, 77);
                 return () => clearInterval(interval);
             }
         );

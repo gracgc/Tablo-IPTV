@@ -39,6 +39,7 @@ let initialState = {
         },
         currentVideo: {
             n: 1,
+            deletedN: 0,
             padding: false
         },
         videos: [
@@ -98,6 +99,7 @@ const videosReducer = (state = initialState, action) => {
                     },
                     currentVideo: {
                         ...state.videoEditor.currentVideo, n: action.videosData.currentVideo.n,
+                        deletedN: action.videosData.currentVideo.deletedN,
                         padding: action.videosData.currentVideo.padding
                     }
                 },
