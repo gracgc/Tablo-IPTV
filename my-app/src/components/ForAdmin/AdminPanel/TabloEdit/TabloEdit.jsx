@@ -95,14 +95,6 @@ const TabloEdit = (props) => {
 
     let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
 
-    // useEffect(() => {
-    //     ////LOAD NEW DATA////
-    //     socket.on('getGameNumberAdmin', gameNumberX => {
-    //             props.history.push(`/adminPanel/${gameNumber - 1}`);
-    //             setGameNumber(gameNumberX)
-    //         }
-    //     );
-    // }, [])
 
     useEffect(() => {
         tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
@@ -144,6 +136,19 @@ const TabloEdit = (props) => {
             }
         );
 
+        socket.on(`getTimeSync${gameNumber}`, time => {
+                setIsRunningServer(time.isRunning);
+                setStartTime(time.runningTime);
+                setTimeMem(time.timeData.timeMem);
+                setTimeDif(time.timeData.timeMem);
+                setTimeMemTimer(time.timeData.timeMemTimer);
+                setDeadLine(time.timeData.deadLine);
+                setPeriod(time.period);
+                setSmallOvertime(time.smallOvertime);
+                setBigOvertime(time.bigOvertime);
+            }
+        );
+
         socket.on(`getTimeout${gameNumber}`, time => {
                 setIsRunningServerTimeout(time.isRunning);
                 setStartTimeout(time.runningTime);
@@ -172,14 +177,13 @@ const TabloEdit = (props) => {
 
     useEffect(() => {
 
-        tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
+        tabloAPI.getTimerSync(gameNumber, Date.now()).then(r => {
 
             if (Math.round((Date.now() - r.dateClient) / 2) < ping) {
                 setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2));
                 setPing(Math.round((Date.now() - r.dateClient) / 2));
-                setIsRunningServer(r.isRunning);
-                console.log('admin' + dif + ' ' + ping);
             }
+            console.log('admin' + dif + ' ' + ping);
             setTimeout(() => {
                 setCount(count + 1);
                 if (tick < 5000) {
@@ -189,6 +193,7 @@ const TabloEdit = (props) => {
         })
 
     }, [count]);
+
 
 
     useEffect(() => {

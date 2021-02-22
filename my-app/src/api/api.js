@@ -158,6 +158,11 @@ export const tabloAPI = {
             return responce.data
         })
     },
+    getTimerSync(gameNumber, dateClient) {
+        return instance.post(`time/sync/${gameNumber}`, {dateClient}).then(responce => {
+            return responce.data
+        })
+    },
     putTimeoutStatus(gameNumber, isRunning, timeDif,
                      timeMem, timeMemTimer, deadLine) {
         return instance.put(`time/isRunningTimeout/${gameNumber}`, {

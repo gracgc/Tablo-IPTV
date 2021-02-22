@@ -124,13 +124,13 @@ const Cameras = (props) => {
                             <div className={currentVideoStream.videoURL === v.videoURL ? c.currentCamera : c.camera}
                                  onClick={(e) => setCurrentVideo(v)}>
                                 <div>
-                                    <ReactHlsPlayer
-                                        url={v.videoURL}
-                                        autoplay={false}
-                                        muted={true}
-                                        controls={false}
-                                        width={170}
-                                    />
+                                    {/*<ReactHlsPlayer*/}
+                                    {/*    url={v.videoURL}*/}
+                                    {/*    autoplay={false}*/}
+                                    {/*    muted={true}*/}
+                                    {/*    controls={false}*/}
+                                    {/*    width={170}*/}
+                                    {/*/>*/}
                                 </div>
 
                                 <div>

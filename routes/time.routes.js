@@ -6,6 +6,8 @@ const cors = require('cors');
 const authMW = require('../middleware/authMW');
 
 
+
+
 router.post('/:gameNumber', function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
@@ -21,11 +23,25 @@ router.post('/:gameNumber', function (req, res) {
 
         res.send(DB.gameInfo.gameTime);
 
+
     } catch (e) {
         console.log(e)
     }
 });
 
+router.post('/sync/:gameNumber', function (req, res) {
+    try {
+
+        let dateClient = req.body.dateClient;
+
+
+        res.send({dateClient: dateClient, timeSync: Date.now() - dateClient});
+
+
+    } catch (e) {
+        console.log(e)
+    }
+});
 
 
 router.get('/timeout/:gameNumber', function (req, res) {
@@ -38,9 +54,6 @@ router.get('/timeout/:gameNumber', function (req, res) {
         DB.resultCode = 0;
         res.send(DB.gameInfo.gameTime.timeoutData);
 
-        const io = req.app.locals.io;
-
-        io.emit(`getTime${gameNumber}`, DB.gameInfo.gameTime)
 
     } catch (e) {
         console.log(e)

@@ -29,7 +29,7 @@ const LogItem = (props) => {
                  onMouseLeave={(e) => setShowDeleteButton(false)}
             >
                 {props.logItem}
-
+                {showDeleteButton &&
                 <div className={c.deleteButton} onClick={(e) => {deleteLogItem(gameLog.findIndex(c => c.id === props.id))}}>
                     ✖
                 </div>}
