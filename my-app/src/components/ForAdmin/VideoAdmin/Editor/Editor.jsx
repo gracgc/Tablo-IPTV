@@ -53,6 +53,8 @@ const Editor = (props) => {
 
     let n = videoEditor.currentVideo.n;
 
+    let deletedN = videoEditor.currentVideo.deletedN
+
 
     useEffect(() => {
 
@@ -155,7 +157,7 @@ const Editor = (props) => {
         .reduce((sum, current) => sum + current, 0);
 
     useEffect(() => {
-        if (duration && currentDuration <= 0) {
+        if (duration && timeDif >= videos.map(v => v.duration).slice(deletedN*2, videos.length).reduce((sum, current) => sum + current, 0)) {
             setIsRunningServer(false);
             videosAPI.putVideoTimeStatus(gameNumber, false,
                 0,
@@ -163,7 +165,7 @@ const Editor = (props) => {
 
             videosAPI.clearEditorVideos(gameNumber)
         }
-    }, [currentDuration <= 0]);
+    }, [timeDif >= videos.map(v => v.duration).slice(deletedN*2, videos.length).reduce((sum, current) => sum + current, 0)]);
 
 
     useEffect(() => {
@@ -196,13 +198,13 @@ const Editor = (props) => {
 
     useEffect(() => {
         if (currentDuration <= videos.map(v => v.duration).slice(0, videoEditor.videos.length - 2)
-            .reduce((sum, current) => sum + current, 0) && videoEditor.videos.length !== 3 && videoEditor.videos.length !== 0) {
+            .reduce((sum, current) => sum + current, 0) && videoEditor.videos.length > 3) {
             videosAPI.deleteVideoFromEditor(gameNumber, 0)
             videosAPI.putVideoTimeStatus(gameNumber, undefined, 0,
                 0);
         }
     }, [currentDuration <= videos.map(v => v.duration).slice(0, videoEditor.videos.length - 2)
-        .reduce((sum, current) => sum + current, 0) && videoEditor.videos.length !== 3 && videoEditor.videos.length !== 0])
+        .reduce((sum, current) => sum + current, 0) && videoEditor.videos.length > 3])
 
     const startVideo = () => {
         videosAPI.putVideoTimeStatus(gameNumber, true, timeDif,
@@ -237,7 +239,7 @@ const Editor = (props) => {
                 <div style={{display: 'inline-flex'}}>
                     <div>
                         <div style={{display: 'inline-flex'}}>
-                            {videos.map((v, index) => <EditorLine v={v} index={index} videoEditor={videoEditor}
+                            {videos.slice(deletedN*2, videos.length).map((v, index) => <EditorLine v={v} index={index} videoEditor={videoEditor}
                                                                   scale={scale} isRunningServer={isRunningServer}
                                                                   duration={duration} videos={videoEditor.videos}
                             />)}

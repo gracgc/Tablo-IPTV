@@ -165,11 +165,12 @@ router.put('/editor/delete/:gameNumber', authMW, function (req, res) {
         let DB = JSON.parse(data);
 
 
-        DB.videos.splice(index, 2);
+
 
         if (index === 0) {
             DB.currentVideo.deletedN += 1
-            DB.currentVideo.n = 0
+        } else {
+            DB.videos.splice(index, 2);
         }
 
 
@@ -229,6 +230,8 @@ router.put('/editor/clear/:gameNumber', function (req, res) {
         DB.currentVideo.padding = false;
 
         DB.currentVideo.n = 0;
+
+        DB.currentVideo.deletedN = 0;
 
         DB.videos = [];
 
