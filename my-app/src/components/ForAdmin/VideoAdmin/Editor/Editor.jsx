@@ -139,7 +139,9 @@ const Editor = (props) => {
 
     let duration = videoEditor.editorData.duration;
 
-    let currentDuration = duration - timeDif;
+    let durationWithDeletedVideos =  videos.slice(deletedN*2, videos.length).map(v => v.duration).reduce((sum, current) => sum + current, 0)
+
+    let currentDuration = durationWithDeletedVideos - timeDif;
 
 
     let ms = currentDuration % 1000;
@@ -157,7 +159,7 @@ const Editor = (props) => {
         .reduce((sum, current) => sum + current, 0);
 
     useEffect(() => {
-        if (duration && timeDif >= videos.map(v => v.duration).slice(deletedN*2, videos.length).reduce((sum, current) => sum + current, 0)) {
+        if (duration && timeDif >= durationWithDeletedVideos) {
             setIsRunningServer(false);
             videosAPI.putVideoTimeStatus(gameNumber, false,
                 0,
@@ -165,7 +167,7 @@ const Editor = (props) => {
 
             videosAPI.clearEditorVideos(gameNumber)
         }
-    }, [timeDif >= videos.map(v => v.duration).slice(deletedN*2, videos.length).reduce((sum, current) => sum + current, 0)]);
+    }, [timeDif >= durationWithDeletedVideos]);
 
 
     useEffect(() => {
