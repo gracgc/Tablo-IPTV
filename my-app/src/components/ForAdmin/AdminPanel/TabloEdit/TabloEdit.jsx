@@ -96,10 +96,13 @@ const TabloEdit = (props) => {
     let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
 
 
+
     useEffect(() => {
         tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
 
-            let serverPing = Math.round((Date.now() - r.dateClient)) / 2;
+            let clientTime = Date.now()
+
+            let serverPing = Math.round((Date.now() - r.dateClient) / 2);
             let timeSyncServer = r.dateServer - r.dateClient
 
             setDif(timeSyncServer + serverPing);
@@ -183,7 +186,7 @@ const TabloEdit = (props) => {
 
         tabloAPI.getTimerSync(gameNumber, Date.now()).then(r => {
 
-            let serverPing = Math.round((Date.now() - r.dateClient)) / 2;
+            let serverPing = Math.round((Date.now() - r.dateClient) / 2);
             let timeSyncServer = r.dateServer - r.dateClient
 
             if (serverPing < ping) {

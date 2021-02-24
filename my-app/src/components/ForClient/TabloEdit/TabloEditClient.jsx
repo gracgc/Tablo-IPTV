@@ -109,7 +109,7 @@ const TabloEditClient = (props) => {
 
             ////TIME LOAD////
             tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
-                let serverPing = Math.round((Date.now() - r.dateClient)) / 2;
+                let serverPing = Math.round((Date.now() - r.dateClient) / 2);
                 let timeSyncServer = r.dateServer - r.dateClient
 
                 setDif(timeSyncServer + serverPing);
@@ -159,7 +159,7 @@ const TabloEditClient = (props) => {
 
             tabloAPI.getTimerSync(gameNumber, Date.now()).then(r => {
 
-                let serverPing = Math.round((Date.now() - r.dateClient)) / 2;
+                let serverPing = Math.round((Date.now() - r.dateClient) / 2);
                 let timeSyncServer = r.dateServer - r.dateClient
 
                 if (serverPing < ping) {
@@ -185,18 +185,23 @@ const TabloEditClient = (props) => {
             }, 5000)
         }, [gameTempLogDep.length]);
 
+        let [timeOut, setTimeOut] = useState(0)
+
 
         useEffect(() => {
                 let interval = setInterval(() => {
                     if (isRunningServer) {
                         setTimeDif(timeMem + ((Date.now() + dif) - startTime));
                         setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
+                        setTimeOut(1000 - timeMemTimer % 1000)
+
                     }
                     if (isRunningServerTimeout) {
                         setTimeDifTimeout(timeMemTimeout + ((Date.now() + dif) - startTimeout));
                         setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
+                        setTimeOut(1000 - timeMemTimeout % 1000)
                     }
-                }, 77);
+                }, timeOut);
                 return () => clearInterval(interval);
             }
         );
@@ -209,7 +214,7 @@ const TabloEditClient = (props) => {
                              timeMemTimerTimeout={timeMemTimerTimeout}
                              secondsTimerTimeout={secondsTimerTimeout} homeTeam={homeTeam} guestsTeam={guestsTeam}
                              homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
-                             gameNumber={gameNumber} ping={ping} dif={dif}/>
+                             gameNumber={gameNumber} ping={ping} dif={dif} timeOut={timeOut}/>
             </div>
         )
     }
