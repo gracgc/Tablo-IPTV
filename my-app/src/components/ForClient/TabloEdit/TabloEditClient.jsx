@@ -66,12 +66,10 @@ const TabloEditClient = (props) => {
 
         let [deadLineTimeout, setDeadLineTimeout] = useState();
 
-        let [timeDif, setTimeDif] = useState();
         let [timeMem, setTimeMem] = useState();
         let [timeMemTimer, setTimeMemTimer] = useState();
 
 
-        let [timeDifTimeout, setTimeDifTimeout] = useState();
         let [timeMemTimeout, setTimeMemTimeout] = useState();
         let [timeMemTimerTimeout, setTimeMemTimerTimeout] = useState();
 
@@ -121,13 +119,11 @@ const TabloEditClient = (props) => {
                 ////TIMER////
                 setStartTime(r.runningTime)
                 setTimeMem(r.timeData.timeMem);
-                setTimeDif(r.timeData.timeMem);
                 setTimeMemTimer(r.timeData.timeMemTimer);
                 setDeadLine(r.timeData.deadLine);
                 ////TIMEOUT////
                 setStartTimeout(r.timeoutData.runningTime);
                 setTimeMemTimeout(r.timeoutData.timeData.timeMem);
-                setTimeDifTimeout(r.timeoutData.timeData.timeMem);
                 setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
                 setDeadLineTimeout(r.timeoutData.timeData.deadLine);
             })
@@ -138,7 +134,6 @@ const TabloEditClient = (props) => {
                     setIsRunningServer(time.isRunning);
                     setStartTime(time.runningTime)
                     setTimeMem(time.timeData.timeMem);
-                    setTimeDif(time.timeData.timeMem);
                     setTimeMemTimer(time.timeData.timeMemTimer);
                     setDeadLine(time.timeData.deadLine);
                 }
@@ -147,7 +142,6 @@ const TabloEditClient = (props) => {
             socket.on(`getTimeout${gameNumber}`, time => {
                     setIsRunningServerTimeout(time.isRunning);
                     setStartTimeout(time.runningTime);
-                    setTimeDifTimeout(time.timeData.timeDif);
                     setTimeMemTimeout(time.timeData.timeMem);
                     setTimeMemTimerTimeout(time.timeData.timeMemTimer);
                     setDeadLineTimeout(time.timeData.deadLine);
@@ -185,23 +179,19 @@ const TabloEditClient = (props) => {
             }, 5000)
         }, [gameTempLogDep.length]);
 
-        let [timeOut, setTimeOut] = useState(0)
+    let ms = timeMemTimer % 1000;
+
 
 
         useEffect(() => {
                 let interval = setInterval(() => {
                     if (isRunningServer) {
-                        setTimeDif(timeMem + ((Date.now() + dif) - startTime));
                         setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
-                        setTimeOut(1000 - timeMemTimer % 1000)
-
                     }
                     if (isRunningServerTimeout) {
-                        setTimeDifTimeout(timeMemTimeout + ((Date.now() + dif) - startTimeout));
                         setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
-                        setTimeOut(1000 - timeMemTimeout % 1000)
                     }
-                }, timeOut);
+                }, 20);
                 return () => clearInterval(interval);
             }
         );
@@ -214,7 +204,7 @@ const TabloEditClient = (props) => {
                              timeMemTimerTimeout={timeMemTimerTimeout}
                              secondsTimerTimeout={secondsTimerTimeout} homeTeam={homeTeam} guestsTeam={guestsTeam}
                              homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
-                             gameNumber={gameNumber} ping={ping} dif={dif} timeOut={timeOut}/>
+                             gameNumber={gameNumber} ping={ping} dif={dif} ms={ms}/>
             </div>
         )
     }

@@ -89,7 +89,7 @@ const TabloClient = (props) => {
 
     return (
         <div className={c.tablo}>
-            <div style={{textAlign: 'center', position: 'absolute', right: '30px', color: 'green'}}>TimeOut:{props.timeOut} Dif:{props.dif} Ping:{props.ping}</div>
+            <div style={{textAlign: 'center', position: 'absolute', right: '30px', color: 'green'}}>Dif:{props.dif} Ping:{props.ping}</div>
             <div style={{textAlign: 'center', position: 'absolute', left: '30px', color: 'green'}}>{pad}</div>
             {preset === 1 &&
             <div className={c.tablo1}>

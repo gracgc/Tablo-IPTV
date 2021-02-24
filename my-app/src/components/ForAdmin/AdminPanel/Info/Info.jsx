@@ -113,6 +113,8 @@ const Info = (props) => {
     }, [count]);
 
 
+
+
     useEffect(() => {
             let interval = setInterval(() => {
                 if (isRunningServer) {

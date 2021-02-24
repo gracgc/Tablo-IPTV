@@ -100,7 +100,6 @@ const TabloEdit = (props) => {
     useEffect(() => {
         tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
 
-            let clientTime = Date.now()
 
             let serverPing = Math.round((Date.now() - r.dateClient) / 2);
             let timeSyncServer = r.dateServer - r.dateClient
@@ -268,6 +267,8 @@ const TabloEdit = (props) => {
         }
     }, [timeDifTimeout >= deadLineTimeout]);
 
+    let ms = timeMemTimer % 1000;
+
 
     useEffect(() => {
             let interval = setInterval(() => {
@@ -279,7 +280,7 @@ const TabloEdit = (props) => {
                     setTimeDifTimeout(timeMemTimeout + ((Date.now() + dif) - startTimeout));
                     setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
                 }
-            }, 33);
+            }, 9);
             return () => clearInterval(interval);
         }
     );
@@ -324,7 +325,7 @@ const TabloEdit = (props) => {
                        timeMem={timeMem}
                        period={period}
                        addTeamGoal={addTeamGoal}
-                       gameNumber={gameNumber}/>
+                       gameNumber={gameNumber} ms={ms}/>
             </div>
             {props.history.location.pathname.indexOf('videoAdmin') === -1 &&
             <div className={width === 1920 ? c1920.allButtons : c.allButtons}>
