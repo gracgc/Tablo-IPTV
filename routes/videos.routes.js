@@ -86,7 +86,7 @@ router.post('/editor/:gameNumber', authMW, function (req, res) {
         let DB = JSON.parse(data);
 
         if (DB.videos.length === 0) {
-            DB.videos.unshift(
+            DB.videos.push(
                 {
                     "videoName": "|",
                     "videoURL": "",
@@ -99,13 +99,13 @@ router.post('/editor/:gameNumber', authMW, function (req, res) {
                     "duration": 3000
                 })
         } else {
-            DB.videos.unshift(
+            DB.videos.push(
+                video,
                 {
                     "videoName": "|",
                     "videoURL": "",
                     "duration": 3000
-                },
-                video
+                }
             )
         }
 
@@ -163,8 +163,6 @@ router.put('/editor/delete/:gameNumber', authMW, function (req, res) {
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
-
-
 
 
         if (index === 0) {
@@ -342,7 +340,6 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
                 }
             }
         }
-
 
 
         res.send({resultCode: 0});
