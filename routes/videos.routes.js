@@ -160,16 +160,20 @@ router.put('/editor/delete/:gameNumber', authMW, function (req, res) {
 
         let index = req.body.index;
 
+        let isAuto = req.body.isAuto;
+
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
 
-        if (index === 0) {
+        if (isAuto) {
             DB.currentVideo.deletedN += 1
         } else {
             DB.videos.splice(index, 2);
         }
+
+
 
 
         let json = JSON.stringify(DB);
@@ -182,7 +186,9 @@ router.put('/editor/delete/:gameNumber', authMW, function (req, res) {
 
         io.emit(`getVideosEditor${gameNumber}`, DB.videos)
 
-        io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
+
+
+        io.emit(`getDeletedN${gameNumber}`, DB.currentVideo.deletedN)
 
     } catch (e) {
         console.log(e)

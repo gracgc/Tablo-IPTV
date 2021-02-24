@@ -259,8 +259,8 @@ export const videosAPI = {
                 return responce.data
             })
     },
-    deleteVideoFromEditor(gameNumber, index) {
-        return instance.put(`videos/editor/delete/${gameNumber}`, {index})
+    deleteVideoFromEditor(gameNumber, index, isAuto) {
+        return instance.put(`videos/editor/delete/${gameNumber}`, {index, isAuto})
             .then(responce => {
                 return responce.data
             })

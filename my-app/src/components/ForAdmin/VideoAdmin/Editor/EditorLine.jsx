@@ -13,7 +13,7 @@ const EditorLine = (props) => {
     const [showDeleteButton, setShowDeleteButton] = useState(false);
 
     let deleteVideoFromEditor = (index) => {
-        videosAPI.deleteVideoFromEditor(gameNumber, index)
+        videosAPI.deleteVideoFromEditor(gameNumber, index, false)
     };
 
 
