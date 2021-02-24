@@ -19,7 +19,7 @@ router.post('/:gameNumber', function (req, res) {
 
         DB.gameInfo.gameTime.resultCode = 0;
         DB.gameInfo.gameTime.dateClient = dateClient;
-        DB.gameInfo.gameTime.timeSync = Date.now() - dateClient;
+        DB.gameInfo.gameTime.dateServer = Date.now();
 
         res.send(DB.gameInfo.gameTime);
 
@@ -35,7 +35,7 @@ router.post('/sync/:gameNumber', function (req, res) {
         let dateClient = req.body.dateClient;
 
 
-        res.send({dateClient: dateClient, timeSync: Date.now() - dateClient});
+        res.send({dateClient: dateClient, dateServer: Date.now()});
 
 
     } catch (e) {

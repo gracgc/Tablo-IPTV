@@ -98,8 +98,12 @@ const TabloEdit = (props) => {
 
     useEffect(() => {
         tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
-            setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2));
-            setPing(Math.round((Date.now() - r.dateClient) / 2));
+
+            let serverPing = Math.round((Date.now() - r.dateClient)) / 2;
+            let timeSyncServer = r.dateServer - r.dateClient
+
+            setDif(timeSyncServer + serverPing);
+            setPing(serverPing);
             setIsRunningServer(r.isRunning);
             setIsRunningServerTimeout(r.timeoutData.isRunning);
             return r
@@ -179,9 +183,12 @@ const TabloEdit = (props) => {
 
         tabloAPI.getTimerSync(gameNumber, Date.now()).then(r => {
 
-            if (Math.round((Date.now() - r.dateClient) / 2) < ping) {
-                setDif(r.timeSync + Math.round((Date.now() - r.dateClient) / 2));
-                setPing(Math.round((Date.now() - r.dateClient) / 2));
+            let serverPing = Math.round((Date.now() - r.dateClient)) / 2;
+            let timeSyncServer = r.dateServer - r.dateClient
+
+            if (serverPing < ping) {
+                setDif(timeSyncServer + serverPing);
+                setPing(serverPing);
             }
             console.log('admin' + dif + ' ' + ping);
             setTimeout(() => {
