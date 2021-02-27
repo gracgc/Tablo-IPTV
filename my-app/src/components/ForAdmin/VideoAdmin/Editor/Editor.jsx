@@ -57,7 +57,6 @@ const Editor = (props) => {
     let videos = allVideos.slice(deletedN * 2, allVideos.length);
 
 
-
     useEffect(() => {
 
         videosAPI.getVideoTime(gameNumber, Date.now()).then(r => {
@@ -113,9 +112,6 @@ const Editor = (props) => {
             return () => clearInterval(interval);
         }
     );
-
-
-
 
 
     useEffect(() => {
@@ -215,7 +211,6 @@ const Editor = (props) => {
     }, [currentDuration < duration0, duration1 < currentDuration, isRunningServer]);
 
 
-
     const startVideo = () => {
         videosAPI.putVideoTimeStatus(gameNumber, true, timeDif,
             timeMem);
@@ -223,7 +218,7 @@ const Editor = (props) => {
 
     const stopVideo = () => {
         videosAPI.putVideoTimeStatus(gameNumber, false, timeMem + ((Date.now() + dif) - startTime),
-        timeMem + ((Date.now() + dif) - startTime));
+            timeMem + ((Date.now() + dif) - startTime));
     };
 
 
@@ -255,11 +250,11 @@ const Editor = (props) => {
                     <div>
                         <div style={{display: 'inline-flex'}}>
                             {videos.map((v, index) => <EditorLine v={v} index={index}
-                                                                                                     videoEditor={videoEditor}
-                                                                                                     scale={scale}
-                                                                                                     isRunningServer={isRunningServer}
-                                                                                                     duration={duration}
-                                                                                                     videos={videos}
+                                                                  videoEditor={videoEditor}
+                                                                  scale={scale}
+                                                                  isRunningServer={isRunningServer}
+                                                                  duration={duration}
+                                                                  videos={videos}
                             />)}
                             <div className={c.editorLine} style={currentDuration !== 0
                                 ? {width: editorStyle.msWidth, height: 140}
@@ -281,12 +276,33 @@ const Editor = (props) => {
                 </div>
                 {videos.length !== 0 &&
                 <div className={c.playerButtons}>
-                    <div className={c.playerButton} onClick={(e) => startVideo()}>
-                        Старт
-                    </div>
-                    <div className={c.playerButton} onClick={(e) => stopVideo()}>
-                        Стоп
-                    </div>
+                    {isRunningServer
+                        ? <div style={{display: 'inline-flex'}}>
+                            <div className={c.playerButton} style={{opacity: 0.5}}>
+                                Старт
+                            </div>
+                            {(currentDuration < duration0
+                            && duration1 < currentDuration)
+                                ? <div className={c.playerButton} style={{opacity: 0.5}}>
+                                    Стоп
+                                </div>
+                                : <div className={c.playerButton} onClick={(e) => stopVideo()}>
+                                    Стоп
+                                </div>
+                            }
+
+                        </div>
+                        : <div style={{display: 'inline-flex'}}>
+                            <div className={c.playerButton} onClick={(e) => startVideo()}>
+                                Старт
+                            </div>
+                            <div className={c.playerButton} style={{opacity: 0.5}}>
+                                Стоп
+                            </div>
+                        </div>
+
+                    }
+
                     <div className={c.playerButton} onClick={(e) => clearVideo()}>
                         Очистить
                     </div>
