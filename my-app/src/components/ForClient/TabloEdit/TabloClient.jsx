@@ -37,6 +37,8 @@ const TabloClient = (props) => {
 
     let [pad, setPad] = useState();
 
+    let player = window.TvipPlayer;
+
     useEffect(() => {
         dispatch(getGame(props.gameNumber));
         dispatch(getCurrentVideo());
@@ -44,8 +46,6 @@ const TabloClient = (props) => {
     }, [props.gameNumber]);
 
     useEffect(() => {
-
-        // videosAPI.putCurrentVideo(props.gameNumber, currentVideo, false)
 
         socket.on(`getPreset${props.gameNumber}`, preset => {
             dispatch(setPresetAC(preset))
@@ -64,16 +64,22 @@ const TabloClient = (props) => {
             console.log(currentVideo)
         });
 
-        socket.on(`getPlayerStatus`, isRunning => {
-            if (isRunning) {
-                player.unpause();
-            } else {
-                player.pause();
-            }
-        });
+
     }, []);
 
-    let player = window.TvipPlayer;
+    useEffect(() => {
+        socket.on(`getPlayerStatus`, isRunning => {
+            console.log(isRunning)
+            if (player) {
+                if (isRunning) {
+                    player.unpause();
+                } else {
+                    player.pause();
+                }
+            }
+        });
+    }, [player])
+
 
     useEffect(() => {
         if (player) {
