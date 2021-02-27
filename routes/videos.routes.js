@@ -306,7 +306,7 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
             }, 3000);
         };
 
-        if (DB2.timeData.timeMem > 0) {
+        if (DB2.timeData.timeMem !== 0) {
             DB.currentVideo = currentVideo;
             DB.currentVideoStream = currentVideo;
 
