@@ -106,19 +106,6 @@ const videosReducer = (state = initialState, action) => {
                 },
             };
 
-        case SET_DELETED_N:
-
-            return {
-                ...state,
-                videoEditor: {
-                    ...state.videoEditor,
-                    currentVideo: {
-                        ...state.videoEditor.currentVideo,
-                        deletedN: action.deletedN
-
-                    }
-                },
-            };
 
         case SET_VIDEOS_EDITOR:
 
@@ -156,7 +143,7 @@ export const setCurrentVideoDataAC = (currentVideo) => ({type: SET_CURRENT_VIDEO
 export const setVideoEditorDataAC = (videosData) => ({type: SET_VIDEO_EDITOR_DATA, videosData});
 export const setVideosEditorAC = (videos) => ({type: SET_VIDEOS_EDITOR, videos});
 export const setCurrentVideoEditorDataAC = (currentVideo) => ({type: SET_CURRENT_VIDEO_EDITOR_DATA, currentVideo});
-export const setDeletedNAC = (deletedN) => ({type: SET_DELETED_N, deletedN});
+
 
 
 export const getVideos = () => async (dispatch) => {

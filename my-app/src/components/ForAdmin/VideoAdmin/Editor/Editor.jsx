@@ -125,9 +125,7 @@ const Editor = (props) => {
             dispatch(setCurrentVideoDataAC(currentVideo));
         });
 
-        socket.on(`getDeletedN${gameNumber}`, deletedN => {
-            dispatch(setDeletedNAC(deletedN));
-        });
+
     }, []);
 
 
@@ -195,9 +193,9 @@ const Editor = (props) => {
                 && duration1 < currentDuration)) {
                 if (videos[2 * n + 1]) {
                     setCurrentVideo(videos[2 * n + 1]); //stop
-                    if (n !== 0) {
-                        videosAPI.deleteVideoFromEditor(gameNumber, 0, true)
-                    }
+
+                    videosAPI.deleteVideoFromEditor(gameNumber, 0, true)
+
                 } else {
                     videosAPI.resetCurrentVideo();
                 }
@@ -207,7 +205,6 @@ const Editor = (props) => {
             }
         }
     }, [currentDuration < duration0, duration1 < currentDuration, isRunningServer]);
-
 
 
     const startVideo = () => {
@@ -244,11 +241,11 @@ const Editor = (props) => {
                     <div>
                         <div style={{display: 'inline-flex'}}>
                             {videos.map((v, index) => <EditorLine v={v} index={index}
-                                                                                                     videoEditor={videoEditor}
-                                                                                                     scale={scale}
-                                                                                                     isRunningServer={isRunningServer}
-                                                                                                     duration={duration}
-                                                                                                     videos={videos}
+                                                                  videoEditor={videoEditor}
+                                                                  scale={scale}
+                                                                  isRunningServer={isRunningServer}
+                                                                  duration={duration}
+                                                                  videos={videos}
                             />)}
                             <div className={c.editorLine} style={currentDuration !== 0
                                 ? {width: editorStyle.msWidth, height: 140}
