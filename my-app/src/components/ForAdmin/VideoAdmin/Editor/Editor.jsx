@@ -5,12 +5,11 @@ import {withRouter} from "react-router-dom";
 import {videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import socket from "../../../../socket/socket";
-import {Draggable, Droppable} from 'react-drag-and-drop'
+import {Droppable} from 'react-drag-and-drop'
 import {
-    getVideoEditor, getVideosMP4,
-    setCurrentVideoDataAC, setCurrentVideoEditorDataAC, setDeletedNAC,
-    setVideoEditorDataAC, setVideosEditorAC,
-    setVideosMP4DataAC
+    getVideoEditor,
+    setCurrentVideoDataAC, setCurrentVideoEditorDataAC,
+    setVideosEditorAC
 } from "../../../../redux/videos_reducer";
 import EditorLine from "./EditorLine";
 
@@ -53,7 +52,10 @@ const Editor = (props) => {
 
     let deletedN = videoEditor.currentVideo.deletedN
 
-    let videos = videoEditor.videos.slice(deletedN * 2, videoEditor.videos.length);
+    let allVideos = videoEditor.videos;
+
+    let videos = allVideos.slice(deletedN * 2, allVideos.length);
+
 
 
     useEffect(() => {
@@ -70,6 +72,7 @@ const Editor = (props) => {
         });
 
         dispatch(getVideoEditor(gameNumber));
+
 
         socket.on(`getVideoTime${gameNumber}`, time => {
                 setIsRunningServer(time.timeData.isRunning);
@@ -111,6 +114,10 @@ const Editor = (props) => {
         }
     );
 
+
+
+
+
     useEffect(() => {
 
         socket.on(`getCurrentVideoEditor${gameNumber}`, currentVideo => {
@@ -137,7 +144,7 @@ const Editor = (props) => {
 
     let totalDuration = videoEditor.editorData.duration;
 
-    let deletedDuration = videoEditor.videos.slice(0, deletedN * 2).map(v => v.duration).reduce((sum, current) => sum + current, 0);
+    let deletedDuration = allVideos.slice(0, deletedN * 2).map(v => v.duration).reduce((sum, current) => sum + current, 0);
 
     let scale = duration / 660;
 
@@ -154,14 +161,15 @@ const Editor = (props) => {
     let minutes = Math.floor(currentDuration / (1000 * 60));
 
 
-    let duration0 = totalDuration - videoEditor.videos.slice(0, 2 * n).map(v => v.duration)
+    let duration0 = totalDuration - allVideos.slice(0, 2 * n).map(v => v.duration)
         .reduce((sum, current) => sum + current, 0);
 
-    let duration1 = totalDuration - videoEditor.videos.slice(0, 2 * n + 1).map(v => v.duration)
+    let duration1 = totalDuration - allVideos.slice(0, 2 * n + 1).map(v => v.duration)
         .reduce((sum, current) => sum + current, 0);
 
-    let duration2 = totalDuration - videoEditor.videos.slice(0, 2 * n + 2).map(v => v.duration)
+    let duration2 = totalDuration - allVideos.slice(0, 2 * n + 2).map(v => v.duration)
         .reduce((sum, current) => sum + current, 0);
+
 
     useEffect(() => {
         if (duration && timeDif - deletedDuration >= duration) {
@@ -191,11 +199,11 @@ const Editor = (props) => {
         if (isRunningServer) {
             if ((currentDuration < duration0
                 && duration1 < currentDuration)) {
-                if (videos[2 * n + 1]) {
-                    setCurrentVideo(videos[2 * n + 1]); //stop
-
-                    videosAPI.deleteVideoFromEditor(gameNumber, 0, true)
-
+                if (allVideos[2 * n + 1]) {
+                    setCurrentVideo(allVideos[2 * n + 1]); //stop
+                    if (n !== 0) {
+                        videosAPI.deleteVideoFromEditor(gameNumber, 0, true)
+                    }
                 } else {
                     videosAPI.resetCurrentVideo();
                 }
@@ -207,9 +215,15 @@ const Editor = (props) => {
     }, [currentDuration < duration0, duration1 < currentDuration, isRunningServer]);
 
 
+
     const startVideo = () => {
         videosAPI.putVideoTimeStatus(gameNumber, true, timeDif,
             timeMem);
+    };
+
+    const stopVideo = () => {
+        videosAPI.putVideoTimeStatus(gameNumber, false, timeMem + ((Date.now() + dif) - startTime),
+        timeMem + ((Date.now() + dif) - startTime));
     };
 
 
@@ -241,11 +255,11 @@ const Editor = (props) => {
                     <div>
                         <div style={{display: 'inline-flex'}}>
                             {videos.map((v, index) => <EditorLine v={v} index={index}
-                                                                  videoEditor={videoEditor}
-                                                                  scale={scale}
-                                                                  isRunningServer={isRunningServer}
-                                                                  duration={duration}
-                                                                  videos={videos}
+                                                                                                     videoEditor={videoEditor}
+                                                                                                     scale={scale}
+                                                                                                     isRunningServer={isRunningServer}
+                                                                                                     duration={duration}
+                                                                                                     videos={videos}
                             />)}
                             <div className={c.editorLine} style={currentDuration !== 0
                                 ? {width: editorStyle.msWidth, height: 140}
@@ -269,6 +283,9 @@ const Editor = (props) => {
                 <div className={c.playerButtons}>
                     <div className={c.playerButton} onClick={(e) => startVideo()}>
                         Старт
+                    </div>
+                    <div className={c.playerButton} onClick={(e) => stopVideo()}>
+                        Стоп
                     </div>
                     <div className={c.playerButton} onClick={(e) => clearVideo()}>
                         Очистить

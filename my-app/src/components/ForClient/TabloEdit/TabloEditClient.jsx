@@ -89,6 +89,8 @@ const TabloEditClient = (props) => {
         }, [])
 
 
+
+
         useEffect(() => {
 
             ////LOG LOAD///

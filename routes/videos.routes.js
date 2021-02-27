@@ -294,6 +294,7 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
             fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json1, 'utf8');
 
             io.emit(`getCurrentVideoEditor${gameNumber}`, DB2.currentVideo);
+
             setTimeout(() => {
                 DB2.currentVideo.padding = false;
 
@@ -537,6 +538,8 @@ router.put('/isRunning/:gameNumber', authMW, function (req, res) {
         const io = req.app.locals.io;
 
         io.emit(`getVideoTime${gameNumber}`, DB);
+
+        io.emit('getPlayerStatus', DB.timeData.isRunning)
 
     } catch (e) {
         console.log(e)

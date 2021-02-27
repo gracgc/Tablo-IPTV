@@ -13,6 +13,7 @@ import {
     setCurrentVideoDataAC, setCurrentVideoEditorDataAC,
     setVideoEditorDataAC, setVideosEditorAC
 } from "../../../redux/videos_reducer";
+import {videosAPI} from "../../../api/api";
 
 
 const TabloClient = (props) => {
@@ -43,6 +44,9 @@ const TabloClient = (props) => {
     }, [props.gameNumber]);
 
     useEffect(() => {
+
+        // videosAPI.putCurrentVideo(props.gameNumber, currentVideo, false)
+
         socket.on(`getPreset${props.gameNumber}`, preset => {
             dispatch(setPresetAC(preset))
         });
@@ -59,9 +63,25 @@ const TabloClient = (props) => {
             dispatch(setCurrentVideoDataAC(currentVideo));
             console.log(currentVideo)
         });
+
+        socket.on(`getPlayerStatus`, isRunning => {
+            if (isRunning) {
+                player.unpause();
+            } else {
+                player.pause();
+            }
+        });
     }, []);
 
     let player = window.TvipPlayer;
+
+    useEffect(() => {
+        if (player) {
+            setTimeout(() => {
+                player.unpause();
+            }, 2000)
+        }
+    }, [])
 
 
     useEffect(() => {
@@ -71,6 +91,7 @@ const TabloClient = (props) => {
         }
         if (window.stb) {
             window.stb.play(currentVideo.videoURL)
+            window.stb.pause();
         }
     }, [player, currentVideo]);
 
@@ -89,7 +110,12 @@ const TabloClient = (props) => {
 
     return (
         <div className={c.tablo}>
-            <div style={{textAlign: 'center', position: 'absolute', right: '30px', color: 'green'}}>Dif:{props.dif} Ping:{props.ping}</div>
+            <div style={{
+                textAlign: 'center',
+                position: 'absolute',
+                right: '30px',
+                color: 'green'
+            }}>Dif:{props.dif} Ping:{props.ping}</div>
             <div style={{textAlign: 'center', position: 'absolute', left: '30px', color: 'green'}}>{pad}</div>
             {preset === 1 &&
             <div className={c.tablo1}>
@@ -121,14 +147,14 @@ const TabloClient = (props) => {
                     <div className={c.consLogGuests}>
                         {props.gameConsLog && props.gameConsLog.filter(gcl => (gcl.item !== '' && gcl.teamType === 'guests'))
                             .map((gcl, index) =>
-                            <TabloEventClient key={gcl.id}
-                                              index={index}
-                                              item={gcl.item}
-                                              id={gcl.id}
-                                              teamType={gcl.teamType}
-                                              timeMemTimer={props.timeMemTimer}
-                                              gameNumber={props.gameNumber}
-                            />)}
+                                <TabloEventClient key={gcl.id}
+                                                  index={index}
+                                                  item={gcl.item}
+                                                  id={gcl.id}
+                                                  teamType={gcl.teamType}
+                                                  timeMemTimer={props.timeMemTimer}
+                                                  gameNumber={props.gameNumber}
+                                />)}
                     </div>
 
                 </div>
