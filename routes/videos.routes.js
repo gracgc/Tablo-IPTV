@@ -188,7 +188,7 @@ router.put('/editor/delete/:gameNumber', authMW, function (req, res) {
 
         io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
 
-        // io.emit(`getDeletedN${gameNumber}`, DB.currentVideo.deletedN)
+        io.emit(`getDeletedN${gameNumber}`, DB.currentVideo.deletedN)
 
     } catch (e) {
         console.log(e)
