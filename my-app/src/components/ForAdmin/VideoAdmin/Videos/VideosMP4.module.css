@@ -15,6 +15,7 @@
 }
 
 .video {
+    position: relative;
     height: 135px;
     border: 3px solid;
     min-width: 170px;
@@ -79,6 +80,16 @@
     background-color: #e0223b;
     right: 5px;
     top: 5px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.deleteVideo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 1px solid;
+    background-color: #e0223b;
     font-size: 22px;
     cursor: pointer;
 }

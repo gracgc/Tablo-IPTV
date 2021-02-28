@@ -237,24 +237,27 @@ const Editor = (props) => {
 
         let firstKey = key[0];
 
-        videosAPI.addVideoEditor(gameNumber, videosMP4.find(d => d.videoName === data[firstKey]))
+        videosAPI.addVideoEditor(gameNumber, videosMP4.find(d => d.videoName === data[firstKey]), allVideos.length - 1)
 
     };
 
 
     return (
         <div className={c.editor}>
-            <div className={c.title}>Редактор{deletedN}</div>
+            <div className={c.title}>Редактор</div>
             <div className={c.editorPlayer}>
                 <div style={{display: 'inline-flex'}}>
                     <div>
                         <div style={{display: 'inline-flex'}}>
-                            {videos.map((v, index) => <EditorLine v={v} index={index}
-                                                                  videoEditor={videoEditor}
-                                                                  scale={scale}
-                                                                  isRunningServer={isRunningServer}
-                                                                  duration={duration}
-                                                                  videos={videos}
+                            {allVideos.map((v, index) => index >= deletedN * 2 && <EditorLine v={v} index={index}
+                                                                                              videoEditor={videoEditor}
+                                                                                              scale={scale}
+                                                                                              isRunningServer={isRunningServer}
+                                                                                              duration={duration}
+                                                                                              videos={videos}
+                                                                                              isMouseDownOverDrop={props.isMouseDownOverDrop}
+                                                                                              videosMP4={videosMP4}
+                                                                                              deletedN={deletedN}
                             />)}
                             <div className={c.editorLine} style={currentDuration !== 0
                                 ? {width: editorStyle.msWidth, height: 140}
@@ -270,7 +273,12 @@ const Editor = (props) => {
                             types={['video']}
                             onDrop={(e) => onDrop(e)}
                         >
-                            <div className={c.droppableVideo}>Перетаскивать сюда из видеоматериалов</div>
+                            <div className={videos.length === 0 ? c.droppableVideoFullWidth : c.droppableVideo} style={{
+                                backgroundColor: props.isMouseDownOverDrop && '#defff0',
+                                border: props.isMouseDownOverDrop && '2px solid'
+                            }}>
+                                Перетаскивать сюда из видеоматериалов
+                            </div>
                         </Droppable>
                     }
                 </div>
@@ -282,7 +290,7 @@ const Editor = (props) => {
                                 Старт
                             </div>
                             {(currentDuration < duration0
-                            && duration1 < currentDuration)
+                                && duration1 < currentDuration)
                                 ? <div className={c.playerButton} style={{opacity: 0.5}}>
                                     Стоп
                                 </div>

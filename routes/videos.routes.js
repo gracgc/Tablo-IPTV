@@ -81,6 +81,8 @@ router.post('/editor/:gameNumber', authMW, function (req, res) {
 
         let video = req.body.video;
 
+        let index = req.body.index;
+
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
@@ -99,7 +101,9 @@ router.post('/editor/:gameNumber', authMW, function (req, res) {
                     "duration": 3000
                 })
         } else {
-            DB.videos.push(
+            DB.videos.splice(
+                index + 2,
+                0,
                 video,
                 {
                     "videoName": "|",
@@ -114,11 +118,12 @@ router.post('/editor/:gameNumber', authMW, function (req, res) {
 
         fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8');
 
-        res.send({resultCode: 0});
-
         const io = req.app.locals.io;
 
         io.emit(`getVideosEditor${gameNumber}`, DB.videos)
+
+        res.send({resultCode: 0});
+
 
     } catch (e) {
         console.log(e)
@@ -170,10 +175,13 @@ router.put('/editor/delete/:gameNumber', authMW, function (req, res) {
         if (isAuto) {
             DB.currentVideo.deletedN += 1
         } else {
-            DB.videos.splice(index, 2);
+            if (DB.videos.length === 3) {
+                DB.videos = []
+            } else {
+                DB.videos.splice(index, 2);
+            }
+
         }
-
-
 
 
         let json = JSON.stringify(DB);
@@ -480,6 +488,63 @@ router.post('/mp4/:videoName', async function (req, res) {
                 }
             }
         )
+
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.put('/mp4/delete', async function (req, res) {
+    try {
+
+
+        const io = req.app.locals.io;
+
+        let index = req.body.index;
+
+        let videoName = req.body.videoName;
+
+        let videoNameEN = cyrillicToTranslit().transform(videoName);
+
+
+        fs.unlinkSync(path.join(__dirname +
+            `/DB/videosMP4/${videoNameEN}.mp4`));
+
+
+
+        if (config.get('port') === 5000) {
+            let data = fs.readFileSync(path.join(__dirname, `/DB/videosMP4_local.json`));
+            let DB = JSON.parse(data);
+
+            DB.videos.splice(index, 1)
+
+            let json = JSON.stringify(DB);
+
+            fs.writeFileSync(path.join(__dirname, `/DB/videosMP4_local.json`), json, 'utf8');
+
+
+
+            io.emit('getVideosMP4', DB.videos);
+
+            res.send({resultCode: 0});
+
+        } else {
+            let data = fs.readFileSync(path.join(__dirname, `/DB/videosMP4.json`));
+            let DB = JSON.parse(data);
+
+            DB.videos.splice(index, 1)
+
+
+            let json = JSON.stringify(DB);
+
+            fs.writeFileSync(path.join(__dirname, `/DB/videosMP4.json`), json, 'utf8');
+
+
+            io.emit('getVideosMP4', DB.videos);
+
+            res.send({resultCode: 0});
+        }
 
 
     } catch (e) {

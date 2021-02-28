@@ -4,22 +4,18 @@ import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import {videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
-import {setPresetAC} from "../../../../redux/games_reducer";
 import socket from "../../../../socket/socket";
 import {
-    getCurrentVideo,
-    getVideos,
     getVideosMP4,
-    setCurrentVideoEditorDataAC,
     setVideosMP4DataAC
 } from "../../../../redux/videos_reducer";
 import {Field, reduxForm, reset} from "redux-form";
 import {Input} from "../../../../common/FormsControls/FormsControls";
 import Button from "@material-ui/core/Button";
-
 import * as axios from "axios";
-import {Draggable, Droppable} from "react-drag-and-drop";
+import {Draggable} from "react-drag-and-drop";
 import {requiredShort} from "../../../../utils/validators";
+import VideoMP4 from "./VideoMP4";
 
 
 const AddVideoMP4 = (props) => {
@@ -91,9 +87,6 @@ const VideosMP4 = (props) => {
 
     }, []);
 
-    let setCurrentVideo = (currentVideo) => {
-        videosAPI.putCurrentVideo(gameNumber, currentVideo, false)
-    };
 
     let uploadVideo = (videoName) => {
 
@@ -146,16 +139,10 @@ const VideosMP4 = (props) => {
                 }
                 <div className={c.videos}>
                     {videos.slice(paginatorScale * paginatorN, paginatorScale + paginatorScale * paginatorN)
-                        .map(v =>
-                            <div className={c.video}>
-                                <Draggable type="video" data={v.videoName}>
-                                    <video src={v.videoURL} width={170}></video>
-                                </Draggable>
-                                <div>
-                                    {v.videoName}
-                                </div>
-                            </div>
-                            )}
+                        .map((v, index) =>
+                            <VideoMP4 v={v} index={index} setIsMouseDownOverDrop={props.setIsMouseDownOverDrop}
+                                      paginatorForIndex={paginatorN * paginatorScale}/>
+                        )}
                 </div>
                 {videos.slice(paginatorScale * (paginatorN + 1), paginatorScale + paginatorScale * (paginatorN + 1)).length !== 0 ?
                     <div className={c.paginator} onClick={(e) => {

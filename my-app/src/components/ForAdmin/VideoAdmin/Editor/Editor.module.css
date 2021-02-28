@@ -40,12 +40,22 @@
     position: absolute;
     right: 0;
     margin-left: 20px;
-    border: 2px solid;
+    border: 1px solid;
     width: 140px;
     background-color: #8cede5;
-    padding: 37px 5px;
+    padding: 36px 5px;
     text-align: center;
 }
+
+.droppableVideoFullWidth {
+    position: absolute;
+    border: 1px solid;
+    width: 770px;
+    background-color: #8cede5;
+    padding: 65px 0;
+    text-align: center;
+}
+
 
 .playerButton {
     border: 1px solid;

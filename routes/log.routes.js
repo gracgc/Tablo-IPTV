@@ -38,9 +38,7 @@ router.post('/:gameNumber', authMW, cors(), function (req, res) {
                 }
             )
         }
-        // if (newLogItem === DB.logData.gameLog[DB.logData.gameLog.length - 1].item && DB.logData.gameLog[DB.logData.gameLog.length - 1].item.indexOf('Конец') !== -1) {
-        //
-        // }
+
         else {
             if (newLogItem === DB.logData.gameLog[DB.logData.gameLog.length - 1].item && DB.logData.gameLog[DB.logData.gameLog.length - 1].item.indexOf('Конец') !== -1) {
 

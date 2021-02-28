@@ -235,6 +235,12 @@ export const videosAPI = {
                 return responce.data
             })
     },
+    deleteVideoMP4(index, videoName) {
+        return instance.put(`videos/mp4/delete`, {index, videoName})
+            .then(responce => {
+                return responce.data
+            })
+    },
     clearEditorVideos(gameNumber) {
         return instance.put(`videos/editor/clear/${gameNumber}`, {})
             .then(responce => {
@@ -247,8 +253,8 @@ export const videosAPI = {
                 return responce.data
             })
     },
-    addVideoEditor(gameNumber, video) {
-        return instance.post(`videos/editor/${gameNumber}`, {video})
+    addVideoEditor(gameNumber, video, index) {
+        return instance.post(`videos/editor/${gameNumber}`, {video, index})
             .then(responce => {
                 return responce.data
             })

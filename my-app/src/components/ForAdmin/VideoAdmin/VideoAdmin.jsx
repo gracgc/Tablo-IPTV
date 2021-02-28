@@ -8,41 +8,61 @@ import Presets from "./Presets/Presets";
 import Cameras from "./Cameras/Cameras";
 import VideosMP4 from "./Videos/VideosMP4";
 import Editor from "./Editor/Editor";
+import {Droppable} from "react-drag-and-drop";
+import {videosAPI} from "../../../api/api";
 
 const VideoAdmin = (props) => {
+
+    let [isMouseDownOverDrop, setIsMouseDownOverDrop] = useState(false)
+
+
+    // window.addEventListener('mouseup', function() {
+    //     setIsMouseDownOverDrop(false)
+    // });
+
+    let onDrop = (data) => {
+
+        setIsMouseDownOverDrop(false)
+
+    };
 
 
     return (
         <div className={c.videoAdmin}>
-            <div className={c.videoAdmin__info}>
-                <Info/>
-            </div>
-            <div className={c.videoAdmin__editor}>
-                <div>
-                    <Editor/>
+            <Droppable
+                types={['video']}
+                onDrop={(e) => onDrop(e)}
+            >
+                <div className={c.videoAdmin__info}>
+                    <Info/>
                 </div>
-                <div>
-                    <TabloEdit/>
+                <div className={c.videoAdmin__editor}>
+                    <div>
+                        <Editor isMouseDownOverDrop={isMouseDownOverDrop}/>
+                    </div>
+                    <div>
+                        <TabloEdit/>
+                    </div>
                 </div>
-            </div>
-            <div className={c.videoAdmin__presetsAndVideos}>
-                <div>
-                    <VideosMP4/>
+                <div className={c.videoAdmin__presetsAndVideos}>
+                    <div>
+                        <VideosMP4 setIsMouseDownOverDrop={setIsMouseDownOverDrop}/>
+                    </div>
+                    <div>
+                        <Presets/>
+                    </div>
                 </div>
-                <div>
-                    <Presets/>
+                <div className={c.videoAdmin__camera}>
+                    <div>
+                        <Cameras/>
+                    </div>
                 </div>
-            </div>
-            <div className={c.videoAdmin__camera}>
-                <div>
-                    <Cameras/>
-                </div>
-            </div>
-            <NavLink to="/">
-                <div className={c.navBackButton}>
-                    Вернуться в меню
-                </div>
-            </NavLink>
+                <NavLink to="/">
+                    <div className={c.navBackButton}>
+                        Вернуться в меню
+                    </div>
+                </NavLink>
+            </Droppable>
         </div>
     )
 };
