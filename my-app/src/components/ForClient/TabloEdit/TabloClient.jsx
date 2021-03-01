@@ -55,9 +55,9 @@ const TabloClient = (props) => {
             dispatch(setCurrentVideoEditorDataAC(currentVideo));
         });
 
-        socket.on(`getVideosEditor${props.gameNumber}`, videos => {
-            dispatch(setVideosEditorAC(videos));
-        });
+        // socket.on(`getVideosEditor${props.gameNumber}`, videos => {
+        //     dispatch(setVideosEditorAC(videos));
+        // });
 
         socket.on(`getCurrentVideo`, currentVideo => {
             dispatch(setCurrentVideoDataAC(currentVideo));

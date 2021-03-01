@@ -11,6 +11,7 @@ import {Field, reduxForm, reset} from "redux-form";
 import {Input} from "../../../../common/FormsControls/FormsControls";
 import {requiredShort} from "../../../../utils/validators";
 import ReactHlsPlayer from "react-hls-player";
+import Camera from "./Camera";
 
 
 const AddCamera = (props) => {
@@ -120,24 +121,8 @@ const Cameras = (props) => {
                 }
                 <div className={c.cameras}>
                     {videos.slice(paginatorScale * paginatorN, paginatorScale + paginatorScale * paginatorN)
-                        .map(v =>
-                            <div className={currentVideoStream.videoURL === v.videoURL ? c.currentCamera : c.camera}
-                                 onClick={(e) => setCurrentVideo(v)}>
-                                <div>
-                                    {/*<ReactHlsPlayer*/}
-                                    {/*    url={v.videoURL}*/}
-                                    {/*    autoplay={false}*/}
-                                    {/*    muted={true}*/}
-                                    {/*    controls={false}*/}
-                                    {/*    width={170}*/}
-                                    {/*/>*/}
-                                </div>
-
-                                <div>
-                                    {v.videoName}
-                                </div>
-
-                            </div>
+                        .map((v, index) =>
+                            <Camera v={v} index={index} paginatorForIndex={paginatorN * paginatorScale} currentVideoStream={currentVideoStream} setCurrentVideo={setCurrentVideo}/>
                         )}
                 </div>
                 {videos.slice(paginatorScale * (paginatorN + 1), paginatorScale + paginatorScale * (paginatorN + 1)).length !== 0 ?

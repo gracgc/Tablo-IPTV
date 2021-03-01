@@ -17,7 +17,7 @@
     text-align: center;
     border: 1px solid;
     box-sizing: border-box;
-    opacity: 0.8;
+    opacity: 1;
     z-index: 1000;
 }
 
@@ -34,6 +34,7 @@
 .editorLine {
     position: absolute;
     background-color: white;
+    opacity: 0.5;
 }
 
 .droppableVideo {

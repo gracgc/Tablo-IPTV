@@ -6,7 +6,7 @@ import {Draggable} from "react-drag-and-drop";
 import {videosAPI} from "../../../../api/api";
 
 
-const VideosMP4 = (props) => {
+const VideoMP4 = (props) => {
 
     const [showDeleteButton, setShowDeleteButton] = useState(false);
 
@@ -35,11 +35,10 @@ const VideosMP4 = (props) => {
             <div className={c.deleteVideo} onClick={e => deleteVideoFromList(props.index, props.v.videoName)}>
                 ✘
             </div>
-
             }
         </div>
 
     )
 };
 
-export default compose(withRouter)(VideosMP4);
+export default compose(withRouter)(VideoMP4);

@@ -26,7 +26,7 @@ router.get('/', function (req, res) {
     }
 });
 
-router.post('/', async function (req, res) {
+router.post('/', authMW, cors(), async function (req, res) {
     try {
 
         let videoName = req.params.videoName;
@@ -40,6 +40,32 @@ router.post('/', async function (req, res) {
             videoName: videoName,
             videoURL: videoURL
         });
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname, `/DB/videos.json`), json, 'utf8');
+
+        res.send({resultCode: 0});
+
+        const io = req.app.locals.io;
+
+        io.emit('getVideos', DB.videos)
+
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.put('/delete', authMW, cors(), async function (req, res) {
+    try {
+
+        let index = req.body.index;
+
+
+        let data = fs.readFileSync(path.join(__dirname, `/DB/videos.json`));
+        let DB = JSON.parse(data);
+
+        DB.videos.splice(index, 1)
 
         let json = JSON.stringify(DB);
 
@@ -74,8 +100,10 @@ router.get('/editor/:gameNumber', function (req, res) {
 });
 
 
-router.post('/editor/:gameNumber', authMW, function (req, res) {
+router.post('/editor/:gameNumber', authMW, cors(), function (req, res) {
     try {
+        const io = req.app.locals.io;
+
 
         let gameNumber = req.params.gameNumber;
 
@@ -88,6 +116,7 @@ router.post('/editor/:gameNumber', authMW, function (req, res) {
         let DB = JSON.parse(data);
 
         if (DB.videos.length === 0) {
+            console.log(0)
             DB.videos.push(
                 {
                     "videoName": "|",
@@ -101,8 +130,9 @@ router.post('/editor/:gameNumber', authMW, function (req, res) {
                     "duration": 3000
                 })
         } else {
+            console.log(1)
             DB.videos.splice(
-                index + 2,
+                index + 1,
                 0,
                 video,
                 {
@@ -116,13 +146,13 @@ router.post('/editor/:gameNumber', authMW, function (req, res) {
 
         let json = JSON.stringify(DB);
 
-        fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8');
+        fs.writeFile(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8', (err) => {
+            res.send({resultCode: 0});
 
-        const io = req.app.locals.io;
+            io.emit(`getVideosEditor${gameNumber}`, DB.videos)
+        });
 
-        io.emit(`getVideosEditor${gameNumber}`, DB.videos)
 
-        res.send({resultCode: 0});
 
 
     } catch (e) {
@@ -130,7 +160,7 @@ router.post('/editor/:gameNumber', authMW, function (req, res) {
     }
 });
 
-router.put('/editor/current/:gameNumber', authMW, function (req, res) {
+router.put('/editor/current/:gameNumber', authMW, cors(), function (req, res) {
     try {
 
         let gameNumber = req.params.gameNumber;
@@ -158,7 +188,7 @@ router.put('/editor/current/:gameNumber', authMW, function (req, res) {
     }
 });
 
-router.put('/editor/delete/:gameNumber', authMW, function (req, res) {
+router.put('/editor/delete/:gameNumber', authMW, cors(), function (req, res) {
     try {
 
         let gameNumber = req.params.gameNumber;
@@ -201,7 +231,7 @@ router.put('/editor/delete/:gameNumber', authMW, function (req, res) {
     }
 });
 
-router.put('/editor/padding/:gameNumber', authMW, function (req, res) {
+router.put('/editor/padding/:gameNumber', authMW, cors(), function (req, res) {
     try {
 
         let gameNumber = req.params.gameNumber;
@@ -229,7 +259,7 @@ router.put('/editor/padding/:gameNumber', authMW, function (req, res) {
 });
 
 
-router.put('/editor/clear/:gameNumber', function (req, res) {
+router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
     try {
 
         let gameNumber = req.params.gameNumber;
@@ -277,7 +307,7 @@ router.get('/current', function (req, res) {
 });
 
 
-router.put('/current/:gameNumber', authMW, function (req, res) {
+router.put('/current/:gameNumber', authMW, cors(), function (req, res) {
     try {
 
         const io = req.app.locals.io;
@@ -363,7 +393,7 @@ router.put('/current/:gameNumber', authMW, function (req, res) {
     }
 });
 
-router.put('/reset', authMW, function (req, res) {
+router.put('/reset', authMW, cors(), function (req, res) {
     try {
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/videos.json`));
@@ -387,7 +417,7 @@ router.put('/reset', authMW, function (req, res) {
     }
 });
 
-router.get('/mp4', function (req, res) {
+router.get('/mp4', cors(), function (req, res) {
     try {
 
 
@@ -411,7 +441,7 @@ router.get('/mp4', function (req, res) {
 });
 
 
-router.get('/mp4/:videoName', function (req, res) {
+router.get('/mp4/:videoName', cors(), function (req, res) {
     try {
 
         let videoName = req.params.videoName;
@@ -426,7 +456,7 @@ router.get('/mp4/:videoName', function (req, res) {
 });
 
 
-router.post('/mp4/:videoName', async function (req, res) {
+router.post('/mp4/:videoName', authMW, cors(), async function (req, res) {
     try {
 
 
@@ -495,7 +525,7 @@ router.post('/mp4/:videoName', async function (req, res) {
     }
 });
 
-router.put('/mp4/delete', async function (req, res) {
+router.put('/mp4/delete', authMW, cors(), async function (req, res) {
     try {
 
 
@@ -512,7 +542,6 @@ router.put('/mp4/delete', async function (req, res) {
             `/DB/videosMP4/${videoNameEN}.mp4`));
 
 
-
         if (config.get('port') === 5000) {
             let data = fs.readFileSync(path.join(__dirname, `/DB/videosMP4_local.json`));
             let DB = JSON.parse(data);
@@ -522,7 +551,6 @@ router.put('/mp4/delete', async function (req, res) {
             let json = JSON.stringify(DB);
 
             fs.writeFileSync(path.join(__dirname, `/DB/videosMP4_local.json`), json, 'utf8');
-
 
 
             io.emit('getVideosMP4', DB.videos);
@@ -553,7 +581,7 @@ router.put('/mp4/delete', async function (req, res) {
 });
 
 
-router.post('/sync/:gameNumber', function (req, res) {
+router.post('/sync/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -574,7 +602,7 @@ router.post('/sync/:gameNumber', function (req, res) {
 });
 
 
-router.put('/isRunning/:gameNumber', authMW, function (req, res) {
+router.put('/isRunning/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 

@@ -17,9 +17,12 @@ const EditorLine = (props) => {
         videosAPI.deleteVideoFromEditor(gameNumber, index, false)
     };
 
-    let onDrop = (data) => {
+    let isDroppable = props.isMouseDownOverDrop && props.v.videoName === '|' && props.index !== props.deletedN * 2
 
-        if (props.index % 2 === 1) {
+    let onDrop = (data) => {
+        // alert(isDroppable + ' ' + props.index)
+
+        if (isDroppable) {
 
             let key = Object.keys(data);
 
@@ -30,7 +33,7 @@ const EditorLine = (props) => {
 
     };
 
-    let isDroppable = props.isMouseDownOverDrop && props.v.videoName === '|' && props.index !== props.deletedN * 2
+
 
 
     return (

@@ -229,6 +229,12 @@ export const videosAPI = {
                 return responce.data
             })
     },
+    deleteVideo(index) {
+        return instance.put(`videos/delete`, {index})
+            .then(responce => {
+                return responce.data
+            })
+    },
     getVideosMP4() {
         return instance.get(`videos/mp4`)
             .then(responce => {
