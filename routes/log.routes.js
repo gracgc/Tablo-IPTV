@@ -29,8 +29,8 @@ router.post('/:gameNumber', authMW, cors(), function (req, res) {
 
         let newLogItem = req.body.newLogItem;
 
-
         if (DB.logData.gameLog.length === 0) {
+
             DB.logData.gameLog.push(
                 {
                     item: newLogItem,
@@ -43,6 +43,7 @@ router.post('/:gameNumber', authMW, cors(), function (req, res) {
             if (newLogItem === DB.logData.gameLog[DB.logData.gameLog.length - 1].item && DB.logData.gameLog[DB.logData.gameLog.length - 1].item.indexOf('Конец') !== -1) {
 
                 } else {
+
                 DB.logData.gameLog.push(
                     {
                         item: newLogItem,
@@ -57,6 +58,8 @@ router.post('/:gameNumber', authMW, cors(), function (req, res) {
         fs.writeFileSync(path.join(__dirname, `/DB/game_${gameNumber}.json`), json, 'utf8');
 
         res.send({resultCode: 0})
+
+
 
         const io = req.app.locals.io;
 

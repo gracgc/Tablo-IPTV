@@ -102,8 +102,6 @@ router.get('/editor/:gameNumber', function (req, res) {
 
 router.post('/editor/:gameNumber', authMW, cors(), function (req, res) {
     try {
-        const io = req.app.locals.io;
-
 
         let gameNumber = req.params.gameNumber;
 
@@ -115,9 +113,13 @@ router.post('/editor/:gameNumber', authMW, cors(), function (req, res) {
         let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
+
+
         if (DB.videos.length === 0) {
-            console.log(0)
-            DB.videos.push(
+
+            DB.videos.splice(
+                index + 1,
+                0,
                 {
                     "videoName": "|",
                     "videoURL": "",
@@ -130,7 +132,6 @@ router.post('/editor/:gameNumber', authMW, cors(), function (req, res) {
                     "duration": 3000
                 })
         } else {
-            console.log(1)
             DB.videos.splice(
                 index + 1,
                 0,
@@ -146,12 +147,14 @@ router.post('/editor/:gameNumber', authMW, cors(), function (req, res) {
 
         let json = JSON.stringify(DB);
 
-        fs.writeFile(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8', (err) => {
-            res.send({resultCode: 0});
+        fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8')
 
-            io.emit(`getVideosEditor${gameNumber}`, DB.videos)
-        });
 
+        res.send({resultCode: 0});
+
+        const io = req.app.locals.io;
+
+        io.emit(`getVideosEditor${gameNumber}`, DB.videos)
 
 
 

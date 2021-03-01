@@ -8,7 +8,7 @@ const authMW = require('../middleware/authMW');
 
 
 
-router.post('/:gameNumber', function (req, res) {
+router.post('/:gameNumber', cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -29,7 +29,7 @@ router.post('/:gameNumber', function (req, res) {
     }
 });
 
-router.post('/sync/:gameNumber', function (req, res) {
+router.post('/sync/:gameNumber', cors(), function (req, res) {
     try {
 
         let dateClient = req.body.dateClient;
@@ -60,7 +60,7 @@ router.get('/timeout/:gameNumber', function (req, res) {
     }
 });
 
-router.put('/isRunning/:gameNumber', authMW, function (req, res) {
+router.put('/isRunning/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -109,7 +109,7 @@ router.put('/isRunning/:gameNumber', authMW, function (req, res) {
     }
 });
 
-router.put('/isRunningTimeout/:gameNumber', authMW, function (req, res) {
+router.put('/isRunningTimeout/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 
@@ -146,7 +146,7 @@ router.put('/isRunningTimeout/:gameNumber', authMW, function (req, res) {
     }
 });
 
-router.put('/deadline/:gameNumber', authMW, function (req, res) {
+router.put('/deadline/:gameNumber', authMW, cors(), function (req, res) {
     try {
         let gameNumber = req.params.gameNumber;
 

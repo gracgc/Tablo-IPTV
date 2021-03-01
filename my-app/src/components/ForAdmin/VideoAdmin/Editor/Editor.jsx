@@ -238,7 +238,7 @@ const Editor = (props) => {
 
         let firstKey = key[0];
 
-        videosAPI.addVideoEditor(gameNumber, videosMP4.find(d => d.videoName === data[firstKey]), allVideos.length - 1)
+        videosAPI.addVideoEditor(gameNumber, videosMP4.find(d => d.videoName === data[firstKey]), allVideos.length)
 
     };
 
