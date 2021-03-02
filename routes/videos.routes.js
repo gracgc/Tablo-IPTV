@@ -621,7 +621,7 @@ router.put('/isRunning/:gameNumber', authMW, cors(), function (req, res) {
         io.emit(`getVideoTime${gameNumber}`, DB);
 
         // if (timeDif !== 0) {
-        //     io.emit('getPlayerStatus', DB.timeData.isRunning)
+            io.emit('getPlayerStatus', DB.timeData.isRunning)
         // }
 
     } catch (e) {
