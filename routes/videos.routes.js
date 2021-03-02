@@ -123,9 +123,7 @@ router.post('/editor/:gameNumber', authMW, cors(), function (req, res) {
 
         let json = JSON.stringify(DB);
 
-        fs.writeFile(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8', () => {
-            console.log(DB)
-        })
+        fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8')
 
         res.send({resultCode: 0});
 
@@ -239,8 +237,6 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
         let gameNumber = req.params.gameNumber;
 
         let timeDif = req.body.timeDif
-
-        console.log(timeDif)
 
         let data = fs.readFileSync(path.join(__dirname + `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
