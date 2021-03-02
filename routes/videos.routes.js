@@ -246,18 +246,24 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
         let DB = JSON.parse(data);
 
 
-
         DB.videos = [];
 
-        if (timeDif !== 0) {
-            DB.currentVideo.padding = false;
 
-            DB.currentVideo.n = 0;
+        DB.currentVideo.padding = false;
 
-            DB.currentVideo.deletedN = 0;
+        DB.currentVideo.n = 0;
 
-            io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
-        }
+        DB.currentVideo.deletedN = 0;
+
+        DB.timeData.isRunning = false;
+        DB.timeData.timeDif = 0;
+        DB.timeData.timeMem = 0;
+
+        DB.timeData.runningTime = Date.now();
+
+
+        io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
+
 
         let json = JSON.stringify(DB);
 
@@ -266,10 +272,7 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
         res.send({resultCode: 0});
 
 
-
         io.emit(`getVideosEditor${gameNumber}`, []);
-
-
 
 
     } catch (e) {
@@ -601,14 +604,12 @@ router.put('/isRunning/:gameNumber', authMW, cors(), function (req, res) {
         let timeDif = req.body.timeDif;
         let timeMem = req.body.timeMem;
 
-        if (isRunning !== undefined) {
-            DB.timeData.isRunning = isRunning;
-        }
 
+        DB.timeData.isRunning = isRunning;
         DB.timeData.timeDif = timeDif;
         DB.timeData.timeMem = timeMem;
-        DB.timeData.runningTime = Date.now();
 
+        DB.timeData.runningTime = Date.now();
 
         let json = JSON.stringify(DB);
 
@@ -620,9 +621,7 @@ router.put('/isRunning/:gameNumber', authMW, cors(), function (req, res) {
 
         io.emit(`getVideoTime${gameNumber}`, DB);
 
-        // if (timeDif !== 0) {
-            io.emit('getPlayerStatus', DB.timeData.isRunning)
-        // }
+        io.emit('getPlayerStatus', DB.timeData.isRunning)
 
     } catch (e) {
         console.log(e)

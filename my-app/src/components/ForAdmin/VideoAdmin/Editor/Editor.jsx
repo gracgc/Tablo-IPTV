@@ -224,9 +224,10 @@ const Editor = (props) => {
 
 
     const clearVideo = () => {
-        videosAPI.putVideoTimeStatus(gameNumber, false,
-            0,
-            0);
+        // videosAPI.putVideoTimeStatus(gameNumber, false,
+        //     0,
+        //     0);
+
         videosAPI.clearEditorVideos(gameNumber, timeDif);
 
         console.log(timeDif)
