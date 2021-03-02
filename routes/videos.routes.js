@@ -234,6 +234,8 @@ router.put('/editor/padding/:gameNumber', authMW, cors(), function (req, res) {
 router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
     try {
 
+        const io = req.app.locals.io;
+
         let gameNumber = req.params.gameNumber;
 
         let timeDif = req.body.timeDif
@@ -243,13 +245,19 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
         let data = fs.readFileSync(path.join(__dirname + `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
-        DB.currentVideo.padding = false;
 
-        DB.currentVideo.n = 0;
-
-        DB.currentVideo.deletedN = 0;
 
         DB.videos = [];
+
+        if (timeDif !== 0) {
+            DB.currentVideo.padding = false;
+
+            DB.currentVideo.n = 0;
+
+            DB.currentVideo.deletedN = 0;
+
+            io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
+        }
 
         let json = JSON.stringify(DB);
 
@@ -257,13 +265,11 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
 
         res.send({resultCode: 0});
 
-        const io = req.app.locals.io;
+
 
         io.emit(`getVideosEditor${gameNumber}`, []);
 
-        if (timeDif !== 0) {
-            io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
-        }
+
 
 
     } catch (e) {
