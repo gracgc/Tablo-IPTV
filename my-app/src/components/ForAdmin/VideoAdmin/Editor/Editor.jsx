@@ -229,6 +229,7 @@ const Editor = (props) => {
             0);
         videosAPI.clearEditorVideos(gameNumber, timeDif);
 
+        console.log(timeDif)
         if (timeDif !== 0) {
             setCurrentVideo(currentVideoStream)
         }

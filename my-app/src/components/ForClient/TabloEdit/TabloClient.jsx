@@ -69,7 +69,7 @@ const TabloClient = (props) => {
 
     useEffect(() => {
         socket.on(`getPlayerStatus`, isRunning => {
-            console.log(isRunning)
+
             if (player) {
                 if (isRunning) {
                     player.unpause();
