@@ -59,7 +59,6 @@ io.on('connection', (socket) => {
         fs.writeFileSync(path.join(__dirname, `/routes/DB/devices.json`), json, 'utf8');
     });
 
-
     socket.on('disconnect', () => {
         console.log('user disconnected');
 
@@ -78,12 +77,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('setGameNumberStart', res => {
-
         let data = fs.readFileSync(path.join(__dirname + `/routes/DB/game_number.json`));
         let DB = JSON.parse(data);
 
         io.emit('getGameNumberStart', DB.gameNumber)
     })
+
 });
 
 

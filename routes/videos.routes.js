@@ -26,6 +26,7 @@ router.get('/', function (req, res) {
     }
 });
 
+
 router.post('/', authMW, cors(), async function (req, res) {
     try {
 
@@ -56,6 +57,7 @@ router.post('/', authMW, cors(), async function (req, res) {
     }
 });
 
+
 router.put('/delete', authMW, cors(), async function (req, res) {
     try {
 
@@ -81,6 +83,7 @@ router.put('/delete', authMW, cors(), async function (req, res) {
         console.log(e)
     }
 });
+
 
 router.get('/editor/:gameNumber', function (req, res) {
     try {
@@ -110,9 +113,12 @@ router.post('/editor/:gameNumber', authMW, cors(), function (req, res) {
         let index = req.body.index;
 
 
+
+
         let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
+        console.log(gameNumber +  ' ' + index + ' ' + Date.now() + ' ' + DB.videos.length)
 
 
         if (DB.videos.length === 0) {
@@ -149,19 +155,17 @@ router.post('/editor/:gameNumber', authMW, cors(), function (req, res) {
 
         fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8')
 
-
         res.send({resultCode: 0});
 
         const io = req.app.locals.io;
 
         io.emit(`getVideosEditor${gameNumber}`, DB.videos)
 
-
-
     } catch (e) {
         console.log(e)
     }
 });
+
 
 router.put('/editor/current/:gameNumber', authMW, cors(), function (req, res) {
     try {
@@ -190,6 +194,7 @@ router.put('/editor/current/:gameNumber', authMW, cors(), function (req, res) {
         console.log(e)
     }
 });
+
 
 router.put('/editor/delete/:gameNumber', authMW, cors(), function (req, res) {
     try {
@@ -233,6 +238,7 @@ router.put('/editor/delete/:gameNumber', authMW, cors(), function (req, res) {
         console.log(e)
     }
 });
+
 
 router.put('/editor/padding/:gameNumber', authMW, cors(), function (req, res) {
     try {
@@ -396,6 +402,7 @@ router.put('/current/:gameNumber', authMW, cors(), function (req, res) {
     }
 });
 
+
 router.put('/reset', authMW, cors(), function (req, res) {
     try {
 
@@ -419,6 +426,7 @@ router.put('/reset', authMW, cors(), function (req, res) {
         console.log(e)
     }
 });
+
 
 router.get('/mp4', cors(), function (req, res) {
     try {
@@ -527,6 +535,7 @@ router.post('/mp4/:videoName', authMW, cors(), async function (req, res) {
         console.log(e)
     }
 });
+
 
 router.put('/mp4/delete', authMW, cors(), async function (req, res) {
     try {
