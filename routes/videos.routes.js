@@ -258,7 +258,11 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
         const io = req.app.locals.io;
 
         io.emit(`getVideosEditor${gameNumber}`, []);
-        io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
+
+        if (DB.timeData.timeDif !== 0) {
+            io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
+        }
+
 
     } catch (e) {
         console.log(e)
