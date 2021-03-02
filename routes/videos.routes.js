@@ -238,6 +238,8 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
 
         let gameNumber = req.params.gameNumber;
 
+        let timeDif = req.body.timeDif
+
         let data = fs.readFileSync(path.join(__dirname + `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
@@ -259,7 +261,7 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
 
         io.emit(`getVideosEditor${gameNumber}`, []);
 
-        if (DB.timeData.timeDif !== 0) {
+        if (timeDif !== 0) {
             io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
         }
 

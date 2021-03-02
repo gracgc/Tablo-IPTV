@@ -247,8 +247,8 @@ export const videosAPI = {
                 return responce.data
             })
     },
-    clearEditorVideos(gameNumber) {
-        return instance.put(`videos/editor/clear/${gameNumber}`, {})
+    clearEditorVideos(gameNumber, timeDif) {
+        return instance.put(`videos/editor/clear/${gameNumber}`, {timeDif})
             .then(responce => {
                 return responce.data
             })
