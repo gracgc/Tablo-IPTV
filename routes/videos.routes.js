@@ -108,58 +108,26 @@ router.post('/editor/:gameNumber', authMW, cors(), function (req, res) {
 
         let gameNumber = req.params.gameNumber;
 
-        let video = req.body.video;
-
-        let index = req.body.index;
-
-
-
+        let videos = req.body.videos;
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
+
         let DB = JSON.parse(data);
 
-        console.log(gameNumber +  ' ' + index + ' ' + Date.now() + ' ' + DB.videos.length)
 
-
-        if (DB.videos.length === 0) {
-
-            DB.videos.splice(
-                index + 1,
-                0,
-                {
-                    "videoName": "|",
-                    "videoURL": "",
-                    "duration": 3000
-                },
-                video,
-                {
-                    "videoName": "|",
-                    "videoURL": "",
-                    "duration": 3000
-                })
-        } else {
-            DB.videos.splice(
-                index + 1,
-                0,
-                video,
-                {
-                    "videoName": "|",
-                    "videoURL": "",
-                    "duration": 3000
-                }
-            )
-        }
-
-
-        let json = JSON.stringify(DB);
-
-        fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8')
-
-        res.send({resultCode: 0});
+        DB.videos = videos
 
         const io = req.app.locals.io;
 
         io.emit(`getVideosEditor${gameNumber}`, DB.videos)
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFile(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8', () => {
+            console.log(DB)
+        })
+
+        res.send({resultCode: 0});
 
     } catch (e) {
         console.log(e)
@@ -221,7 +189,6 @@ router.put('/editor/delete/:gameNumber', authMW, cors(), function (req, res) {
 
         }
 
-
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8');
@@ -245,12 +212,10 @@ router.put('/editor/padding/:gameNumber', authMW, cors(), function (req, res) {
 
         let gameNumber = req.params.gameNumber;
 
-
         let data = fs.readFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
         DB.currentVideo.padding = !DB.currentVideo.padding;
-
 
         let json = JSON.stringify(DB);
 
@@ -284,7 +249,6 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
 
         DB.videos = [];
 
-
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8');
@@ -293,7 +257,7 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
 
         const io = req.app.locals.io;
 
-        io.emit(`getVideosEditor${gameNumber}`, DB.videos);
+        io.emit(`getVideosEditor${gameNumber}`, []);
         io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
 
     } catch (e) {

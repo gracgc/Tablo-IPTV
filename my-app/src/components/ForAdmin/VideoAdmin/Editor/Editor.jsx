@@ -238,7 +238,42 @@ const Editor = (props) => {
 
         let firstKey = key[0];
 
-        videosAPI.addVideoEditor(gameNumber, videosMP4.find(d => d.videoName === data[firstKey]), allVideos.length)
+        let video = videosMP4.find(d => d.videoName === data[firstKey])
+
+        let videos = allVideos.slice()
+
+
+        if (videos.length === 0) {
+
+            videos.splice(
+                videos.length,
+                0,
+                {
+                    "videoName": "|",
+                    "videoURL": "",
+                    "duration": 3000
+                },
+                video,
+                {
+                    "videoName": "|",
+                    "videoURL": "",
+                    "duration": 3000
+                })
+        } else {
+
+            videos.splice(
+                videos.length,
+                0,
+                video,
+                {
+                    "videoName": "|",
+                    "videoURL": "",
+                    "duration": 3000
+                }
+            )
+        }
+
+        videosAPI.addVideoEditor(gameNumber, videos)
 
 
     };
@@ -260,6 +295,7 @@ const Editor = (props) => {
                                                                                               isMouseDownOverDrop={props.isMouseDownOverDrop}
                                                                                               videosMP4={videosMP4}
                                                                                               deletedN={deletedN}
+                                                                                              allVideos={allVideos}
                             />)}
                             <div className={c.editorLine} style={currentDuration !== 0
                                 ? {width: editorStyle.msWidth, height: 140}

@@ -259,8 +259,8 @@ export const videosAPI = {
                 return responce.data
             })
     },
-    addVideoEditor(gameNumber, video, index) {
-        return instance.post(`videos/editor/${gameNumber}`, {video, index})
+    addVideoEditor(gameNumber, videos) {
+        return instance.post(`videos/editor/${gameNumber}`, {videos})
             .then(responce => {
                 return responce.data
             })

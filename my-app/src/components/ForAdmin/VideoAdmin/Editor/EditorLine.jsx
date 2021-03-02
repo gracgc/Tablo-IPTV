@@ -20,7 +20,6 @@ const EditorLine = (props) => {
     let isDroppable = props.isMouseDownOverDrop && props.v.videoName === '|' && props.index !== props.deletedN * 2
 
     let onDrop = (data) => {
-        // alert(isDroppable + ' ' + props.index)
 
         if (isDroppable) {
 
@@ -28,12 +27,45 @@ const EditorLine = (props) => {
 
             let firstKey = key[0];
 
-            videosAPI.addVideoEditor(gameNumber, props.videosMP4.find(d => d.videoName === data[firstKey]), props.index)
+            let video = props.videosMP4.find(d => d.videoName === data[firstKey])
+
+            let videos = props.allVideos.slice()
+
+
+            if (videos.length === 0) {
+
+                videos.splice(
+                    props.index + 1,
+                    0,
+                    {
+                        "videoName": "|",
+                        "videoURL": "",
+                        "duration": 3000
+                    },
+                    video,
+                    {
+                        "videoName": "|",
+                        "videoURL": "",
+                        "duration": 3000
+                    })
+            } else {
+
+                videos.splice(
+                    props.index + 1,
+                    0,
+                    video,
+                    {
+                        "videoName": "|",
+                        "videoURL": "",
+                        "duration": 3000
+                    }
+                )
+            }
+
+            videosAPI.addVideoEditor(gameNumber, videos)
         }
 
     };
-
-
 
 
     return (
