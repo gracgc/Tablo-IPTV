@@ -262,7 +262,6 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
         DB.timeData.runningTime = Date.now();
 
 
-        io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
 
 
         let json = JSON.stringify(DB);
@@ -271,8 +270,12 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
 
         res.send({resultCode: 0});
 
+        io.emit(`getVideoTime${gameNumber}`, DB);
 
         io.emit(`getVideosEditor${gameNumber}`, []);
+
+        io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
+
 
 
     } catch (e) {
