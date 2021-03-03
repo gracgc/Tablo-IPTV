@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import c from './VideosMP4.module.css'
+import c1920 from './VideosMP4_1920.module.css'
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
-import {videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import socket from "../../../../socket/socket";
 import {
@@ -13,21 +13,22 @@ import {Field, reduxForm, reset} from "redux-form";
 import {Input} from "../../../../common/FormsControls/FormsControls";
 import Button from "@material-ui/core/Button";
 import * as axios from "axios";
-import {Draggable} from "react-drag-and-drop";
 import {requiredShort} from "../../../../utils/validators";
 import VideoMP4 from "./VideoMP4";
 
 
 const AddVideoMP4 = (props) => {
 
+    let width = window.innerWidth;
+
     return (
 
-        <div className={c.addVideoForm}>
-            <div className={c.exitForm} onClick={e => props.setShowAddVideoForm(false)}>
+        <div className={width === 1920 ? c1920.addVideoForm : c.addVideoForm}>
+            <div className={width === 1920 ? c1920.exitForm : c.exitForm} onClick={e => props.setShowAddVideoForm(false)}>
                 ✘
             </div>
             <form onSubmit={props.handleSubmit}>
-                <div className={c.videoForm}>
+                <div className={width === 1920 ? c1920.videoForm : c.videoForm}>
                     <Field placeholder={'Название видео'} name={'videoName'}
                            validate={[requiredShort]}
                            component={Input}/>
@@ -44,7 +45,7 @@ const AddVideoMP4 = (props) => {
                         />
                     </Button>
                 </div>
-                <button className={c.addVideoButton}>
+                <button className={width === 1920 ? c1920.addVideoButton : c.addVideoButton}>
                     Добавить
                 </button>
                 {!props.videoMP4 ? <span style={{marginLeft: 10, color: 'red', fontSize: 20}}>Видео не загружено</span>
@@ -59,6 +60,8 @@ const AddVideoMP4 = (props) => {
 const AddVideoReduxForm = reduxForm({form: 'addVideo'})(AddVideoMP4);
 
 const VideosMP4 = (props) => {
+
+    let width = window.innerWidth;
 
     let gameNumber = props.match.params.gameNumber;
 
@@ -121,23 +124,23 @@ const VideosMP4 = (props) => {
 
 
     return (
-        <div className={c.camerasBlock}>
-            <div className={c.title}>Видеоматериалы</div>
+        <div className={width === 1920 ? c1920.camerasBlock : c.camerasBlock}>
+            <div className={width === 1920 ? c1920.title : c.title}>Видеоматериалы</div>
             <div style={{display: 'inline-flex'}}>
-                <div className={c.addButton} onClick={e => setShowAddVideoForm(true)}>
+                <div className={width === 1920 ? c1920.addButton : c.addButton} onClick={e => setShowAddVideoForm(true)}>
                     +
                 </div>
                 {paginatorN > 0 ?
-                    <div className={c.paginator} onClick={(e) => {
+                    <div className={width === 1920 ? c1920.paginator : c.paginator} onClick={(e) => {
                         changePaginatorN('-')
                     }}>
                         ←
                     </div> :
-                    <div className={c.paginator} style={{opacity: '0.5'}}>
+                    <div className={width === 1920 ? c1920.paginator : c.paginator} style={{opacity: '0.5'}}>
                         ←
                     </div>
                 }
-                <div className={c.videos}>
+                <div className={width === 1920 ? c1920.videos : c.videos}>
                     {videos.slice(paginatorScale * paginatorN, paginatorScale + paginatorScale * paginatorN)
                         .map((v, index) =>
                             <VideoMP4 v={v} index={index} setIsMouseDownOverDrop={props.setIsMouseDownOverDrop}
@@ -145,12 +148,12 @@ const VideosMP4 = (props) => {
                         )}
                 </div>
                 {videos.slice(paginatorScale * (paginatorN + 1), paginatorScale + paginatorScale * (paginatorN + 1)).length !== 0 ?
-                    <div className={c.paginator} onClick={(e) => {
+                    <div className={width === 1920 ? c1920.paginator : c.paginator} onClick={(e) => {
                         changePaginatorN('+')
                     }}>
                         →
                     </div> :
-                    <div className={c.paginator} style={{opacity: '0.5'}}>
+                    <div className={width === 1920 ? c1920.paginator : c.paginator} style={{opacity: '0.5'}}>
                         →
                     </div>}
             </div>

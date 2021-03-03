@@ -240,7 +240,6 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
 
         let timeDif = req.body.timeDif
 
-        console.log(timeDif)
 
         let data = fs.readFileSync(path.join(__dirname + `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);

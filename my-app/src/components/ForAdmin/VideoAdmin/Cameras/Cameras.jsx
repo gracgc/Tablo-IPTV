@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react'
 import c from './Cameras.module.css'
+import c1920 from './Cameras_1920.module.css'
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import {videosAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import {setPresetAC} from "../../../../redux/games_reducer";
 import socket from "../../../../socket/socket";
-import {getCurrentVideo, getVideos, setCurrentVideoDataAC, setVideosDataAC} from "../../../../redux/videos_reducer";
+import {getCurrentVideo, getVideos, setVideosDataAC} from "../../../../redux/videos_reducer";
 import {Field, reduxForm, reset} from "redux-form";
 import {Input} from "../../../../common/FormsControls/FormsControls";
 import {requiredShort} from "../../../../utils/validators";
@@ -15,20 +16,23 @@ import Camera from "./Camera";
 
 
 const AddCamera = (props) => {
+
+    let width = window.innerWidth;
+
     return (
-        <div className={c.addCameraForm}>
-            <div className={c.exitForm} onClick={e => props.setShowAddCameraForm(false)}>
+        <div className={width === 1920 ? c1920.addCameraForm : c.addCameraForm}>
+            <div className={width === 1920 ? c1920.exitForm : c.exitForm} onClick={e => props.setShowAddCameraForm(false)}>
                 ✘
             </div>
             <form onSubmit={props.handleSubmit}>
-                <div className={c.cameraForm}>
+                <div className={width === 1920 ? c1920.cameraForm : c.cameraForm}>
                     <Field placeholder={'Название потока'} name={'addCameraName'}
                            validate={[requiredShort]}
                            component={Input}/>
                     <Field placeholder={'URL потока'} name={'addCameraURL'}
                            validate={[requiredShort]}
                            component={Input}/>
-                    <button className={c.addCameraButton}>
+                    <button className={width === 1920 ? c1920.addCameraButton : c.addCameraButton}>
                         Добавить
                     </button>
                 </div>
@@ -40,6 +44,8 @@ const AddCamera = (props) => {
 const AddCameraReduxForm = reduxForm({form: 'addCamera'})(AddCamera);
 
 const Cameras = (props) => {
+
+    let width = window.innerWidth;
 
     let gameNumber = props.match.params.gameNumber;
 
@@ -103,35 +109,35 @@ const Cameras = (props) => {
     const [showAddCameraForm, setShowAddCameraForm] = useState(false);
 
     return (
-        <div className={c.camerasBlock}>
-            <div className={c.title}>Камеры</div>
+        <div className={width === 1920 ? c1920.camerasBlock : c.camerasBlock}>
+            <div className={width === 1920 ? c1920.title : c.title}>Камеры</div>
             <div style={{display: 'inline-flex'}}>
-                <div className={c.addButton} onClick={e => setShowAddCameraForm(true)}>
+                <div className={width === 1920 ? c1920.addButton : c.addButton} onClick={e => setShowAddCameraForm(true)}>
                     +
                 </div>
                 {paginatorN > 0 ?
-                    <div className={c.paginator} onClick={(e) => {
+                    <div className={width === 1920 ? c1920.paginator : c.paginator} onClick={(e) => {
                         changePaginatorN('-')
                     }}>
                         ←
                     </div> :
-                    <div className={c.paginator} style={{opacity: '0.5'}}>
+                    <div className={width === 1920 ? c1920.paginator : c.paginator} style={{opacity: '0.5'}}>
                         ←
                     </div>
                 }
-                <div className={c.cameras}>
+                <div className={width === 1920 ? c1920.cameras : c.cameras}>
                     {videos.slice(paginatorScale * paginatorN, paginatorScale + paginatorScale * paginatorN)
                         .map((v, index) =>
                             <Camera v={v} index={index} paginatorForIndex={paginatorN * paginatorScale} currentVideoStream={currentVideoStream} setCurrentVideo={setCurrentVideo}/>
                         )}
                 </div>
                 {videos.slice(paginatorScale * (paginatorN + 1), paginatorScale + paginatorScale * (paginatorN + 1)).length !== 0 ?
-                    <div className={c.paginator} onClick={(e) => {
+                    <div className={width === 1920 ? c1920.paginator : c.paginator} onClick={(e) => {
                         changePaginatorN('+')
                     }}>
                         →
                     </div> :
-                    <div className={c.paginator} style={{opacity: '0.5'}}>
+                    <div className={width === 1920 ? c1920.paginator : c.paginator} style={{opacity: '0.5'}}>
                         →
                     </div>}
             </div>

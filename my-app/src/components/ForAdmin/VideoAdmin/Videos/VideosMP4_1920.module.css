@@ -1,0 +1,97 @@
+.camerasBlock {
+    font-size: 24px;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    margin-left: 30px;
+}
+
+.videos {
+    display: inline-flex;
+}
+
+.video {
+    position: relative;
+    height: 180px;
+    border: 3px solid;
+    min-width: 240px;
+    text-align: center;
+    margin: 0 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.paginator {
+    border: 3px solid;
+    height: 30px;
+    width: 50px;
+    background: #232961;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    margin: 0 10px;
+}
+
+.addButton {
+    border: 3px solid #232961;
+    height: 30px;
+    text-align: center;
+    padding: 0 20px;
+    margin: 0 10px;
+    font-size: 20px;
+    cursor: pointer;
+    background: white;
+    color: #232961;
+}
+
+.videoForm {
+    display: grid;
+    width: 600px;
+    grid-template-columns: 66% 28%;
+}
+
+.addVideoButton {
+    width: 140px;
+    height: 36px;
+    font-size: 24px;
+}
+
+
+
+.addVideoForm {
+    position: absolute;
+    bottom: 460px;
+    left: 10px;
+    border-radius: 5px;
+    border: 1px solid;
+    width: 800px;
+    z-index: 1000;
+    padding: 20px;
+    background-color: darkcyan;
+}
+
+.exitForm {
+    position: absolute;
+    border: 1px solid;
+    background-color: #e0223b;
+    right: 5px;
+    top: 5px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.deleteVideo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 1px solid;
+    background-color: #e0223b;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+
+

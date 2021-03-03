@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import c from './Editor.module.css'
+import c1920 from './Editor_1920.module.css';
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import {videosAPI} from "../../../../api/api";
@@ -7,6 +8,8 @@ import {Droppable} from 'react-drag-and-drop'
 
 
 const EditorLine = (props) => {
+
+    let width = window.innerWidth;
 
     let gameNumber = props.match.params.gameNumber;
 
@@ -74,7 +77,7 @@ const EditorLine = (props) => {
                 types={['video']}
                 onDrop={(e) => onDrop(e)}
             >
-                <div className={c.video}
+                <div className={width === 1920 ? c1920.video : c.video}
                      style={props.videoEditor.editorData.duration !== 0
                          ? {
                              width: props.v.duration / props.scale,
@@ -85,21 +88,30 @@ const EditorLine = (props) => {
                      onMouseOver={(e) => setShowDeleteButton(true)}
                      onMouseLeave={(e) => setShowDeleteButton(false)}>
                     <div>
-                        {props.v.videoName.slice(0, 5)}
-                        {props.v.videoName.length > 5 && '.'}
+                        {props.v.videoName.slice(0, 4)}
+                        {props.v.videoName.length > 4 && '.'}
                     </div>
 
+                    {width === 1920
+                        ? <video src={props.v.videoURL} style={props.v.duration / props.scale < 200
+                            ? {width: props.v.duration / props.scale, margin: 'auto'}
+                            : {width: 200, margin: 'auto'}}/>
+                        : <video src={props.v.videoURL} style={props.v.duration / props.scale < 155
+                            ? {width: props.v.duration / props.scale, margin: 'auto'}
+                            : {width: 155, margin: 'auto'}}/>
+                    }
 
-                    <video src={props.v.videoURL} style={props.v.duration / props.scale < 155
-                        ? {width: props.v.duration / props.scale, margin: 'auto'}
-                        : {width: 155, margin: 'auto'}}/>
                     {props.v.videoName !== '|' && showDeleteButton
-                    && (props.index !== props.deletedN * 2 + 1 || !props.isRunningServer)
+                    && (props.index !== props.deletedN * 2 + 1 || props.timedif === 0)
 
-                        ? <div className={c.exitForm} onClick={e => deleteVideoFromEditor(props.index)}>
+                        ? <div className={width === 1920 ? c1920.exitForm : c.exitForm}
+                               onClick={e => deleteVideoFromEditor(props.index)}>
                             Удалить
                         </div>
-                        : <div></div>
+                        :
+                        <div>
+
+                        </div>
                     }
                 </div>
             </Droppable>

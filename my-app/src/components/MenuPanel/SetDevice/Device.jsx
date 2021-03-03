@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import c from './SetDevice.module.css';
 import c1920 from './SetDevice_1920.module.css';
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import * as axios from "axios";
 import {devicesAPI} from "../../../api/api";
 
 

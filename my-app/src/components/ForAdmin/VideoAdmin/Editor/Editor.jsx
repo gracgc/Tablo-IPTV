@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import c from './Editor.module.css'
+import c1920 from './Editor_1920.module.css';
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import {videosAPI} from "../../../../api/api";
@@ -15,6 +16,8 @@ import EditorLine from "./EditorLine";
 
 
 const Editor = (props) => {
+
+    let width = window.innerWidth;
 
     let gameNumber = props.match.params.gameNumber;
 
@@ -143,7 +146,8 @@ const Editor = (props) => {
 
     let deletedDuration = allVideos.slice(0, deletedN * 2).map(v => v.duration).reduce((sum, current) => sum + current, 0);
 
-    let scale = duration / 660;
+
+    let scale = duration / (width === 1920 ? 1000 : 660);
 
     let editorStyle = {
         msWidth: (timeDif - deletedDuration) / scale
@@ -175,15 +179,16 @@ const Editor = (props) => {
                 0,
                 0);
 
-            videosAPI.clearEditorVideos(gameNumber)
+            videosAPI.clearEditorVideos(gameNumber, timeDif)
         }
     }, [totalDuration && timeDif >= totalDuration]);
 
 
+
     useEffect(() => {
         if (isRunningServer) {
-            if (currentDuration < duration1
-                && duration2 < currentDuration) {
+            if ((currentDuration < duration1
+                && duration2 < currentDuration)) {
                 //videoSTART
                 videosAPI.putPaddingVideoEditor(gameNumber);
                 videosAPI.putCurrentVideoEditor(gameNumber);
@@ -224,13 +229,9 @@ const Editor = (props) => {
 
 
     const clearVideo = () => {
-        // videosAPI.putVideoTimeStatus(gameNumber, false,
-        //     0,
-        //     0);
 
         videosAPI.clearEditorVideos(gameNumber, timeDif);
 
-        console.log(timeDif)
         if (timeDif !== 0) {
             setCurrentVideo(currentVideoStream)
         }
@@ -281,14 +282,13 @@ const Editor = (props) => {
 
         videosAPI.addVideoEditor(gameNumber, videos)
 
-
     };
 
 
     return (
         <div className={c.editor}>
-            <div className={c.title}>Редактор</div>
-            <div className={c.editorPlayer}>
+            <div className={width === 1920 ? c1920.title : c.title}>Редактор</div>
+            <div className={width === 1920 ? c1920.editorPlayer : c.editorPlayer}>
                 <div style={{display: 'inline-flex'}}>
                     <div>
                         <div style={{display: 'inline-flex'}}>
@@ -302,22 +302,26 @@ const Editor = (props) => {
                                                                                               videosMP4={videosMP4}
                                                                                               deletedN={deletedN}
                                                                                               allVideos={allVideos}
+                                                                                              timedif={timeDif}
+
                             />)}
-                            <div className={c.editorLine} style={currentDuration !== 0
-                                ? {width: editorStyle.msWidth, height: 140}
+                            <div className={width === 1920 ? c1920.editorLine : c.editorLine} style={currentDuration !== 0
+                                ? {width: editorStyle.msWidth, height: (width === 1920 ? 200 : 140)}
                                 : {display: "none"}}>
                             </div>
                         </div>
                     </div>
                     {currentDuration <= 3500 && currentDuration !== 0
-                        ? <div className={c.droppableVideo} style={{opacity: 0.5}}>Перетаскивать сюда из
+                        ? <div className={width === 1920 ? c1920.droppableVideo : c.droppableVideo} style={{opacity: 0.5}}>Перетаскивать сюда из
                             видеоматериалов</div>
 
                         : <Droppable
                             types={['video']}
                             onDrop={(e) => onDrop(e)}
                         >
-                            <div className={videos.length === 0 ? c.droppableVideoFullWidth : c.droppableVideo} style={{
+                            <div className={videos.length === 0
+                                ? (width === 1920 ? c1920.droppableVideoFullWidth : c.droppableVideoFullWidth)
+                                : (width === 1920 ? c1920.droppableVideo : c.droppableVideo)} style={{
                                 backgroundColor: props.isMouseDownOverDrop && '#defff0',
                                 border: props.isMouseDownOverDrop && '2px solid'
                             }}>
@@ -325,30 +329,31 @@ const Editor = (props) => {
                             </div>
                         </Droppable>
                     }
+
                 </div>
                 {videos.length !== 0 &&
-                <div className={c.playerButtons}>
+                <div className={width === 1920 ? c1920.playerButtons : c.playerButtons}>
                     {isRunningServer
                         ? <div style={{display: 'inline-flex'}}>
-                            <div className={c.playerButton} style={{opacity: 0.5}}>
+                            <div className={width === 1920 ? c1920.playerButton : c.playerButton} style={{opacity: 0.5}}>
                                 Старт
                             </div>
                             {(currentDuration < duration0
                                 && duration1 < currentDuration)
                                 ?
                                 <div style={{display: 'inline-flex'}}>
-                                    <div className={c.playerButton} style={{opacity: 0.5}}>
+                                    <div className={width === 1920 ? c1920.playerButton : c.playerButton} style={{opacity: 0.5}}>
                                         Стоп
                                     </div>
-                                    <div className={c.playerButton} style={{opacity: 0.5}}>
+                                    <div className={width === 1920 ? c1920.playerButton : c.playerButton} style={{opacity: 0.5}}>
                                         Очистить
                                     </div>
                                 </div>
                                 : <div style={{display: 'inline-flex'}}>
-                                    <div className={c.playerButton} onClick={(e) => stopVideo()}>
+                                    <div className={width === 1920 ? c1920.playerButton : c.playerButton} onClick={(e) => stopVideo()}>
                                         Стоп
                                     </div>
-                                    <div className={c.playerButton} onClick={(e) => clearVideo()}>
+                                    <div className={width === 1920 ? c1920.playerButton : c.playerButton} onClick={(e) => clearVideo()}>
                                         Очистить
                                     </div>
                                 </div>
@@ -356,19 +361,17 @@ const Editor = (props) => {
 
                         </div>
                         : <div style={{display: 'inline-flex'}}>
-                            <div className={c.playerButton} onClick={(e) => startVideo()}>
+                            <div className={width === 1920 ? c1920.playerButton : c.playerButton} onClick={(e) => startVideo()}>
                                 Старт
                             </div>
-                            <div className={c.playerButton} style={{opacity: 0.5}}>
+                            <div className={width === 1920 ? c1920.playerButton : c.playerButton} style={{opacity: 0.5}}>
                                 Стоп
                             </div>
-                            <div className={c.playerButton} onClick={(e) => clearVideo()}>
+                            <div className={width === 1920 ? c1920.playerButton : c.playerButton} onClick={(e) => clearVideo()}>
                                 Очистить
                             </div>
                         </div>
-
                     }
-
 
                     <div className={c.playerTime}>
                         {minutes}:{seconds}:{ms}

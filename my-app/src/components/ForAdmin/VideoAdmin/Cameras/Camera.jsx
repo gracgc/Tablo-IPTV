@@ -1,19 +1,14 @@
 import React, {useEffect, useState} from 'react'
 import c from './Cameras.module.css'
+import c1920 from './Cameras_1920.module.css'
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import {videosAPI} from "../../../../api/api";
-import {useDispatch, useSelector} from "react-redux";
-import {setPresetAC} from "../../../../redux/games_reducer";
-import socket from "../../../../socket/socket";
-import {getCurrentVideo, getVideos, setCurrentVideoDataAC, setVideosDataAC} from "../../../../redux/videos_reducer";
-import {Field, reduxForm, reset} from "redux-form";
-import {Input} from "../../../../common/FormsControls/FormsControls";
-import {requiredShort} from "../../../../utils/validators";
-import ReactHlsPlayer from "react-hls-player";
 
 
 const Camera = (props) => {
+
+    let width = window.innerWidth;
 
     const [showDeleteButton, setShowDeleteButton] = useState(false);
 
@@ -27,7 +22,9 @@ const Camera = (props) => {
         <div style={{position: 'relative'}}
              onMouseOver={(e) => setShowDeleteButton(true)}
              onMouseLeave={(e) => setShowDeleteButton(false)}>
-            <div className={props.currentVideoStream.videoURL === props.v.videoURL ? c.currentCamera : c.camera}
+            <div className={width === 1920 ? c1920.camera : c.camera}
+                 style={{border: props.currentVideoStream.videoURL === props.v.videoURL && 'forestgreen 4px solid',
+                     backgroundColor: props.currentVideoStream.videoURL === props.v.videoURL     && 'darkcyan'}}
                  onClick={(e) => props.setCurrentVideo(props.v)}>
                 <div>
                     {/*<ReactHlsPlayer*/}
@@ -47,7 +44,7 @@ const Camera = (props) => {
             </div>
 
             {showDeleteButton && props.currentVideoStream.videoURL !== props.v.videoURL &&
-            <div className={c.deleteVideo} onClick={e => deleteVideoFromList(props.index)}>
+            <div className={width === 1920 ? c1920.deleteVideo : c.deleteVideo} onClick={e => deleteVideoFromList(props.index)}>
                 ✘
             </div>
             }

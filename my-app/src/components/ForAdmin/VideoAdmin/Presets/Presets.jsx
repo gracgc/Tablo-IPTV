@@ -1,14 +1,17 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import c from './Presets.module.css'
+import c1920 from './Presets_1920.module.css';
 import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import {gameAPI} from "../../../../api/api";
 import {useDispatch, useSelector} from "react-redux";
 import {getGame, setPresetAC} from "../../../../redux/games_reducer";
 import socket from "../../../../socket/socket";
-import {getVideos} from "../../../../redux/videos_reducer";
+
 
 const Presets = (props) => {
+
+    let width = window.innerWidth;
 
     let gameNumber = props.match.params.gameNumber;
 
@@ -29,8 +32,6 @@ const Presets = (props) => {
     }, [])
 
 
-
-
     let presets = [
         {preset: 1, name: 'Только табло'},
         {preset: 2, name: 'Табло и видео'},
@@ -41,9 +42,15 @@ const Presets = (props) => {
     ]
 
     return (
-        <div className={c.presets}>
-            <div className={c.title}>Пресеты</div>
-            {presets.map(p => <div className={p.preset === preset ? c.currentPreset :c.preset} onClick={(e) => {gameAPI.putPreset(gameNumber, p.preset)}}>
+        <div className={width === 1920 ? c1920.presets : c.presets}>
+            <div className={width === 1920 ? c1920.title : c.title}>Пресеты</div>
+            {presets.map(p => <div className={width === 1920 ? c1920.preset : c.preset} style={{
+                background: p.preset === preset && '#435373',
+                color: p.preset === preset && '#a4e2ed'
+            }}
+                                   onClick={(e) => {
+                                       gameAPI.putPreset(gameNumber, p.preset)
+                                   }}>
                 {p.name}
             </div>)}
         </div>

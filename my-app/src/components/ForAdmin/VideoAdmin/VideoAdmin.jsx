@@ -10,15 +10,13 @@ import VideosMP4 from "./Videos/VideosMP4";
 import Editor from "./Editor/Editor";
 import {Droppable} from "react-drag-and-drop";
 import {videosAPI} from "../../../api/api";
+import c1920 from "../AdminPanel/Parameters/TeamsParameters_1920.module.css";
 
 const VideoAdmin = (props) => {
 
     let [isMouseDownOverDrop, setIsMouseDownOverDrop] = useState(false)
 
-
-    // window.addEventListener('mouseup', function() {
-    //     setIsMouseDownOverDrop(false)
-    // });
+    let width = window.innerWidth;
 
     let onDrop = (data) => {
 
@@ -58,7 +56,7 @@ const VideoAdmin = (props) => {
                     </div>
                 </div>
                 <NavLink to="/">
-                    <div className={c.navBackButton}>
+                    <div className={width === 1920 ? c1920.navBackButton : c.navBackButton}>
                         Вернуться в меню
                     </div>
                 </NavLink>
