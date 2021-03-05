@@ -238,8 +238,6 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
 
         let gameNumber = req.params.gameNumber;
 
-        let timeDif = req.body.timeDif
-
 
         let data = fs.readFileSync(path.join(__dirname + `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
@@ -261,8 +259,6 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
         DB.timeData.runningTime = Date.now();
 
 
-
-
         let json = JSON.stringify(DB);
 
         fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8');
@@ -276,6 +272,40 @@ router.put('/editor/clear/:gameNumber', authMW, cors(), function (req, res) {
         io.emit(`getCurrentVideoEditor${gameNumber}`, DB.currentVideo)
 
 
+    } catch (e) {
+        console.log(e)
+    }
+});
+
+router.put('/editor/nextVideo/:gameNumber', authMW, cors(), function (req, res) {
+    try {
+
+        const io = req.app.locals.io;
+
+        let gameNumber = req.params.gameNumber;
+
+
+        let data = fs.readFileSync(path.join(__dirname + `/DB/video_${gameNumber}.json`));
+        let DB = JSON.parse(data);
+
+        let n = DB.currentVideo.n;
+
+        let cut = DB.videos.slice(0, 2 * n).map(v => v.duration)
+            .reduce((sum, current) => sum + current, 0)
+
+        DB.timeData.timeDif = cut - 100;
+        DB.timeData.timeMem = cut - 100;
+
+        DB.timeData.runningTime = Date.now();
+
+
+        let json = JSON.stringify(DB);
+
+        fs.writeFileSync(path.join(__dirname, `/DB/video_${gameNumber}.json`), json, 'utf8');
+
+        res.send({resultCode: 0});
+
+        io.emit(`getVideoTime${gameNumber}`, DB);
 
     } catch (e) {
         console.log(e)
@@ -602,13 +632,18 @@ router.put('/isRunning/:gameNumber', authMW, cors(), function (req, res) {
         let data = fs.readFileSync(path.join(__dirname + `/DB/video_${gameNumber}.json`));
         let DB = JSON.parse(data);
 
+
         let isRunning = req.body.isRunning;
         let timeDif = req.body.timeDif;
         let timeMem = req.body.timeMem;
 
+        if (isRunning !== undefined) {
+            DB.timeData.isRunning = isRunning;
+        }
 
-        DB.timeData.isRunning = isRunning;
         DB.timeData.timeDif = timeDif;
+
+
         DB.timeData.timeMem = timeMem;
 
         DB.timeData.runningTime = Date.now();

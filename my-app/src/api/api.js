@@ -253,6 +253,12 @@ export const videosAPI = {
                 return responce.data
             })
     },
+    nextEditorVideos(gameNumber) {
+        return instance.put(`videos/editor/nextVideo/${gameNumber}`, {})
+            .then(responce => {
+                return responce.data
+            })
+    },
     getVideoEditor(gameNumber) {
         return instance.get(`videos/editor/${gameNumber}`)
             .then(responce => {

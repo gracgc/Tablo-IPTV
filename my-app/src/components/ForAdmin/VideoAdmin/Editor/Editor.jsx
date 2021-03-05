@@ -230,12 +230,18 @@ const Editor = (props) => {
 
     const clearVideo = () => {
 
-        videosAPI.clearEditorVideos(gameNumber, timeDif);
+        videosAPI.clearEditorVideos(gameNumber, timeDif).then(r => {
+            if (r.resultCode === 0) {
+                if (timeDif !== 0) {
+                    setCurrentVideo(currentVideoStream)
+                }
+            }
+        });
 
-        if (timeDif !== 0) {
-            setCurrentVideo(currentVideoStream)
-        }
+    };
 
+    const nextVideo = () => {
+        videosAPI.nextEditorVideos(gameNumber);
     };
 
 
@@ -348,6 +354,9 @@ const Editor = (props) => {
                                     <div className={width === 1920 ? c1920.playerButton : c.playerButton} style={{opacity: 0.5}}>
                                         Очистить
                                     </div>
+                                    <div className={width === 1920 ? c1920.playerButton : c.playerButton} style={{opacity: 0.5}}>
+                                        След. видео
+                                    </div>
                                 </div>
                                 : <div style={{display: 'inline-flex'}}>
                                     <div className={width === 1920 ? c1920.playerButton : c.playerButton} onClick={(e) => stopVideo()}>
@@ -355,6 +364,9 @@ const Editor = (props) => {
                                     </div>
                                     <div className={width === 1920 ? c1920.playerButton : c.playerButton} onClick={(e) => clearVideo()}>
                                         Очистить
+                                    </div>
+                                    <div className={width === 1920 ? c1920.playerButton : c.playerButton} onClick={(e) => nextVideo()}>
+                                        След. видео
                                     </div>
                                 </div>
                             }
@@ -369,6 +381,9 @@ const Editor = (props) => {
                             </div>
                             <div className={width === 1920 ? c1920.playerButton : c.playerButton} onClick={(e) => clearVideo()}>
                                 Очистить
+                            </div>
+                            <div className={width === 1920 ? c1920.playerButton : c.playerButton} onClick={(e) => nextVideo()}>
+                                След. видео
                             </div>
                         </div>
                     }
