@@ -382,7 +382,7 @@ const Editor = (props) => {
                             <div className={width === 1920 ? c1920.playerButton : c.playerButton} onClick={(e) => clearVideo()}>
                                 Очистить
                             </div>
-                            <div className={width === 1920 ? c1920.playerButton : c.playerButton} onClick={(e) => nextVideo()}>
+                            <div className={width === 1920 ? c1920.playerButton : c.playerButton} style={{opacity: 0.5}}>
                                 След. видео
                             </div>
                         </div>
