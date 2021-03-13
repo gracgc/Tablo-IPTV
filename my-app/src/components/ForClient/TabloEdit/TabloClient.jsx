@@ -113,6 +113,8 @@ const TabloClient = (props) => {
         }
     }, [padding]);
 
+    console.log(1)
+
 
     return (
         <div className={c.tablo}>
@@ -128,6 +130,7 @@ const TabloClient = (props) => {
                 <div className={c.time}>
                     {props.minutesTimer <= 0 ? 0 : props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}
                     {props.secondsTimer <= 0 ? 0 : props.secondsTimer}
+                    {/*:{props.ms}*/}
                 </div>
                 {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> :
                     <div className={c.tempLog}></div>}
@@ -164,28 +167,28 @@ const TabloClient = (props) => {
                     </div>
 
                 </div>
-                <div>
-                    <div className={classNames(c.logo, c.homeLogo)}>
-                        {props.homeTeam.logo &&
-                        <img src={props.homeTeam.logo} style={{width: '500px', height: '500px'}} alt=""/>
-                        }
-                    </div>
-                    <div className={classNames(c.logo, c.guestsLogo)}>
-                        {props.guestsTeam.logo &&
-                        <img src={props.guestsTeam.logo} style={{width: '500px', height: '500px'}} alt=""/>
-                        }
-                    </div>
-                </div>
-                <div>
-                    <div className={classNames(c.counter, c.homeTeam)}>
-                        {props.homeCounter} <br/>
-                        {props.homeTeam.name.slice(0, 3).toUpperCase()}
-                    </div>
-                    <div className={classNames(c.counter, c.guestsTeam)}>
-                        {props.guestsCounter} <br/>
-                        {props.guestsTeam.name.slice(0, 3).toUpperCase()}
-                    </div>
-                </div>
+                {/*<div>*/}
+                {/*    <div className={classNames(c.logo, c.homeLogo)}>*/}
+                {/*        {props.homeTeam.logo &&*/}
+                {/*        <img src={props.homeTeam.logo} style={{width: '500px', height: '500px'}} alt=""/>*/}
+                {/*        }*/}
+                {/*    </div>*/}
+                {/*    <div className={classNames(c.logo, c.guestsLogo)}>*/}
+                {/*        {props.guestsTeam.logo &&*/}
+                {/*        <img src={props.guestsTeam.logo} style={{width: '500px', height: '500px'}} alt=""/>*/}
+                {/*        }*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+                {/*<div>*/}
+                {/*    <div className={classNames(c.counter, c.homeTeam)}>*/}
+                {/*        {props.homeCounter} <br/>*/}
+                {/*        {props.homeTeam.name.slice(0, 3).toUpperCase()}*/}
+                {/*    </div>*/}
+                {/*    <div className={classNames(c.counter, c.guestsTeam)}>*/}
+                {/*        {props.guestsCounter} <br/>*/}
+                {/*        {props.guestsTeam.name.slice(0, 3).toUpperCase()}*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
             }
 

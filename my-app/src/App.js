@@ -86,7 +86,7 @@ function App(props) {
                     <Route path='/tabloClient/:gameNumber?' render={() => <TabloEditClient/>}/>
                     <Route path='/auth' render={() => <Auth/>}/>
                     <Route path='/customGame/:gameNumber?' render={() => <CustomGame/>}/>
-                    <Route path='/video' render={() => <Video/>}/>
+                    <Route path='/test' render={() => <Video/>}/>
                 </Switch>
             </div>
         </ConfirmProvider>

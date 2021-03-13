@@ -9,6 +9,7 @@ import {getLog, setLogDataAC} from "../../../redux/log_reducer";
 import {getTeams, setTeamsAC} from "../../../redux/teams_reducer";
 import socket from "../../../socket/socket";
 import {tabloAPI} from "../../../api/api";
+import useInterval from 'use-interval'
 
 
 const TabloEditClient = (props) => {
@@ -55,7 +56,7 @@ const TabloEditClient = (props) => {
 
         let [dif, setDif] = useState();
         let [ping, setPing] = useState();
-        let [tick, setTick] = useState(1500);
+        let [tick, setTick] = useState(1000);
 
 
         let [startTime, setStartTime] = useState();
@@ -87,8 +88,6 @@ const TabloEditClient = (props) => {
                 }
             );
         }, [])
-
-
 
 
         useEffect(() => {
@@ -151,8 +150,7 @@ const TabloEditClient = (props) => {
             )
         }, [gameNumber])
 
-        useEffect(() => {
-
+        useInterval(() => {
             tabloAPI.getTimerSync(gameNumber, Date.now()).then(r => {
 
                 let serverPing = Math.round((Date.now() - r.dateClient) / 2);
@@ -163,15 +161,8 @@ const TabloEditClient = (props) => {
                     setPing(serverPing);
                 }
 
-                setTimeout(() => {
-                    setCount(count + 1)
-                    if (tick < 5000) {
-                        setTick(tick + 50)
-                    }
-                }, tick)
             })
-
-        }, [count])
+        }, tick);
 
 
         useEffect(() => {
@@ -181,22 +172,18 @@ const TabloEditClient = (props) => {
             }, 5000)
         }, [gameTempLogDep.length]);
 
-    let ms = timeMemTimer % 1000;
+        let ms = timeMemTimer % 1000;
 
 
-
-        useEffect(() => {
-                let interval = setInterval(() => {
-                    if (isRunningServer) {
-                        setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
-                    }
-                    if (isRunningServerTimeout) {
-                        setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
-                    }
-                }, 9);
-                return () => clearInterval(interval);
+        useInterval(() => {
+            if (isRunningServer) {
+                setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
             }
-        );
+            if (isRunningServerTimeout) {
+                setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
+            }
+        }, 9);
+
 
 
         return (

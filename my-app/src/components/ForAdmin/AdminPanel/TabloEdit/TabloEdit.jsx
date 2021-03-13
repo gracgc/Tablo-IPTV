@@ -11,6 +11,7 @@ import {compose} from "redux";
 import {withRouter} from "react-router-dom";
 import socket from "../../../../socket/socket";
 import {tabloAPI} from "../../../../api/api";
+import useInterval from "use-interval";
 
 
 const TabloEdit = (props) => {
@@ -61,9 +62,8 @@ const TabloEdit = (props) => {
     let [dif, setDif] = useState();
 
 
-
     let [ping, setPing] = useState();
-    let [tick, setTick] = useState(1500);
+    let [tick, setTick] = useState(1000);
 
 
     let [period, setPeriod] = useState();
@@ -94,7 +94,6 @@ const TabloEdit = (props) => {
     let minutesTimer = Math.floor(timeMemTimer / (1000 * 60));
 
     let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
-
 
 
     useEffect(() => {
@@ -180,9 +179,7 @@ const TabloEdit = (props) => {
         }, 5000)
     }, [gameTempLogDep.length]);
 
-
-    useEffect(() => {
-
+    useInterval(() => {
         tabloAPI.getTimerSync(gameNumber, Date.now()).then(r => {
 
             let serverPing = Math.round((Date.now() - r.dateClient) / 2);
@@ -192,17 +189,11 @@ const TabloEdit = (props) => {
                 setDif(timeSyncServer + serverPing);
                 setPing(serverPing);
             }
+
             console.log('admin' + dif + ' ' + ping);
-            setTimeout(() => {
-                setCount(count + 1);
-                if (tick < 5000) {
-                    setTick(tick + 50)
-                }
-            }, tick)
+
         })
-
-    }, [count]);
-
+    }, tick);
 
 
     useEffect(() => {
@@ -269,21 +260,17 @@ const TabloEdit = (props) => {
 
     let ms = timeMemTimer % 1000;
 
-
-    useEffect(() => {
-            let interval = setInterval(() => {
-                if (isRunningServer) {
-                    setTimeDif(timeMem + ((Date.now() + dif) - startTime));
-                    setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
-                }
-                if (isRunningServerTimeout) {
-                    setTimeDifTimeout(timeMemTimeout + ((Date.now() + dif) - startTimeout));
-                    setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
-                }
-            }, 9);
-            return () => clearInterval(interval);
+    useInterval(() => {
+        if (isRunningServer) {
+            setTimeDif(timeMem + ((Date.now() + dif) - startTime));
+            setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
         }
-    );
+        if (isRunningServerTimeout) {
+            setTimeDifTimeout(timeMemTimeout + ((Date.now() + dif) - startTimeout));
+            setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
+        }
+    }, 9);
+
 
     const addTeamGoal = async (teamType, teamName, symbol) => {
         dispatch(teamGoal(gameNumber, teamType, symbol));
