@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import c from './TabloClient1.module.css'
 import {useState, useEffect} from 'react';
 import {useDispatch} from "react-redux";
@@ -54,7 +54,6 @@ const TabloTimer = (props) => {
             }
         );
     }, [])
-
 
 
     useEffect(() => {
@@ -118,8 +117,26 @@ const TabloTimer = (props) => {
     }, tick);
 
 
+    // useInterval(() => {
+    //     if (isRunningServer) {
+    //         setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
+    //     }
+    //     if (isRunningServerTimeout) {
+    //         setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
+    //     }
+    // }, 100);
 
-
+    // useEffect(() => {
+    //     let internal = setInterval(() => {
+    //         if (isRunningServer) {
+    //             setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
+    //         }
+    //         if (isRunningServerTimeout) {
+    //             setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
+    //         }
+    //     }, 9)
+    //     return () => clearInterval(internal)
+    // })
 
     useInterval(() => {
         if (isRunningServer) {
@@ -128,11 +145,18 @@ const TabloTimer = (props) => {
         if (isRunningServerTimeout) {
             setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
         }
-    }, 25);
-
+    }, 9);
 
     return (
         <div>
+            <div style={{
+                textAlign: 'center',
+                position: 'absolute',
+                right: '30px',
+                color: 'green'
+            }}>Dif:{dif} Ping:{ping}</div>
+            <div style={{textAlign: 'center', position: 'absolute', left: '30px', color: 'green'}}>{props.pad}</div>
+
             <div className={c.time}>
                 {minutesTimer <= 0 ? 0 : minutesTimer}:{secondsTimer < 10 ? '0' : ''}
                 {secondsTimer <= 0 ? 0 : secondsTimer}

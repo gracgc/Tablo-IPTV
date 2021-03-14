@@ -115,17 +115,11 @@ const TabloClient = (props) => {
 
     return (
         <div className={c.tablo}>
-            <div style={{
-                textAlign: 'center',
-                position: 'absolute',
-                right: '30px',
-                color: 'green'
-            }}>Dif:{props.dif} Ping:{props.ping}</div>
-            <div style={{textAlign: 'center', position: 'absolute', left: '30px', color: 'green'}}>{pad}</div>
+
             {preset === 1 &&
             <div className={c.tablo1}>
                 <div>
-                    <TabloTimer gameConsLog={props.gameConsLog} isShowLog={props.isShowLog} gameTempLog={props.gameTempLog}/>
+                    <TabloTimer gameConsLog={props.gameConsLog} isShowLog={props.isShowLog} gameTempLog={props.gameTempLog} pad={pad}/>
                 </div>
 
                 <div>
@@ -161,7 +155,7 @@ const TabloClient = (props) => {
                         {props.homeTeam.name}
                     </div>
                     <div className={c2.time2}>
-                        Московское время
+                        Время
                     </div>
                     <div className={classNames(c2.counter2, c2.guestsTeam2)}>
                         {props.guestsCounter} <br/>
