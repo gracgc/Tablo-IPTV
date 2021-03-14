@@ -14,6 +14,7 @@ import {
     setVideoEditorDataAC, setVideosEditorAC
 } from "../../../redux/videos_reducer";
 import {videosAPI} from "../../../api/api";
+import TabloTimer from "./TabloTimer";
 
 
 const TabloClient = (props) => {
@@ -54,10 +55,6 @@ const TabloClient = (props) => {
         socket.on(`getCurrentVideoEditor${props.gameNumber}`, currentVideo => {
             dispatch(setCurrentVideoEditorDataAC(currentVideo));
         });
-
-        // socket.on(`getVideosEditor${props.gameNumber}`, videos => {
-        //     dispatch(setVideosEditorAC(videos));
-        // });
 
         socket.on(`getCurrentVideo`, currentVideo => {
             dispatch(setCurrentVideoDataAC(currentVideo));
@@ -127,68 +124,32 @@ const TabloClient = (props) => {
             <div style={{textAlign: 'center', position: 'absolute', left: '30px', color: 'green'}}>{pad}</div>
             {preset === 1 &&
             <div className={c.tablo1}>
-                <div className={c.time}>
-                    {props.minutesTimer <= 0 ? 0 : props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}
-                    {props.secondsTimer <= 0 ? 0 : props.secondsTimer}
-                    {/*:{props.ms}*/}
-                </div>
-                {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> :
-                    <div className={c.tempLog}></div>}
                 <div>
+                    <TabloTimer gameConsLog={props.gameConsLog} isShowLog={props.isShowLog} gameTempLog={props.gameTempLog}/>
+                </div>
 
-                    <div className={props.secondsTimerTimeout < 6 ? c.timeout5sec : c.timeout}>
-                        {(props.timeMemTimerTimeout > 0) &&
-                        `Таймаут ${props.secondsTimerTimeout} секунд`
+                <div>
+                    <div className={classNames(c.logo, c.homeLogo)}>
+                        {props.homeTeam.logo &&
+                        <img src={props.homeTeam.logo} style={{width: '500px', height: '500px'}} alt=""/>
                         }
                     </div>
-                    <div className={c.consLogHome}>
-                        {props.gameConsLog && props.gameConsLog.filter(gcl => (gcl.item !== '' && gcl.teamType === 'home'))
-                            .map((gcl, index) =>
-                                <TabloEventClient key={gcl.id}
-                                                  index={index}
-                                                  item={gcl.item}
-                                                  id={gcl.id}
-                                                  teamType={gcl.teamType}
-                                                  timeMemTimer={props.timeMemTimer}
-                                                  gameNumber={props.gameNumber}
-                                />)}
+                    <div className={classNames(c.logo, c.guestsLogo)}>
+                        {props.guestsTeam.logo &&
+                        <img src={props.guestsTeam.logo} style={{width: '500px', height: '500px'}} alt=""/>
+                        }
                     </div>
-                    <div className={c.consLogGuests}>
-                        {props.gameConsLog && props.gameConsLog.filter(gcl => (gcl.item !== '' && gcl.teamType === 'guests'))
-                            .map((gcl, index) =>
-                                <TabloEventClient key={gcl.id}
-                                                  index={index}
-                                                  item={gcl.item}
-                                                  id={gcl.id}
-                                                  teamType={gcl.teamType}
-                                                  timeMemTimer={props.timeMemTimer}
-                                                  gameNumber={props.gameNumber}
-                                />)}
-                    </div>
-
                 </div>
-                {/*<div>*/}
-                {/*    <div className={classNames(c.logo, c.homeLogo)}>*/}
-                {/*        {props.homeTeam.logo &&*/}
-                {/*        <img src={props.homeTeam.logo} style={{width: '500px', height: '500px'}} alt=""/>*/}
-                {/*        }*/}
-                {/*    </div>*/}
-                {/*    <div className={classNames(c.logo, c.guestsLogo)}>*/}
-                {/*        {props.guestsTeam.logo &&*/}
-                {/*        <img src={props.guestsTeam.logo} style={{width: '500px', height: '500px'}} alt=""/>*/}
-                {/*        }*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/*<div>*/}
-                {/*    <div className={classNames(c.counter, c.homeTeam)}>*/}
-                {/*        {props.homeCounter} <br/>*/}
-                {/*        {props.homeTeam.name.slice(0, 3).toUpperCase()}*/}
-                {/*    </div>*/}
-                {/*    <div className={classNames(c.counter, c.guestsTeam)}>*/}
-                {/*        {props.guestsCounter} <br/>*/}
-                {/*        {props.guestsTeam.name.slice(0, 3).toUpperCase()}*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <div>
+                    <div className={classNames(c.counter, c.homeTeam)}>
+                        {props.homeCounter} <br/>
+                        {props.homeTeam.name.slice(0, 3).toUpperCase()}
+                    </div>
+                    <div className={classNames(c.counter, c.guestsTeam)}>
+                        {props.guestsCounter} <br/>
+                        {props.guestsTeam.name.slice(0, 3).toUpperCase()}
+                    </div>
+                </div>
             </div>
             }
 
@@ -200,8 +161,7 @@ const TabloClient = (props) => {
                         {props.homeTeam.name}
                     </div>
                     <div className={c2.time2}>
-                        {props.minutesTimer <= 0 ? 0 : props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}
-                        {props.secondsTimer <= 0 ? 0 : props.secondsTimer}
+                        Московское время
                     </div>
                     <div className={classNames(c2.counter2, c2.guestsTeam2)}>
                         {props.guestsCounter} <br/>

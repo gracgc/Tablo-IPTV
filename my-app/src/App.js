@@ -17,7 +17,7 @@ import SetDevice from "./components/MenuPanel/SetDevice/SetDevice";
 import {setSocketIDAC} from "./redux/app_reducer";
 import {useHistory} from "react-router";
 import CustomGame from "./components/ForAdmin/AdminPanel/CustomGame/CustomGame";
-import Video from "./components/MenuPanel/Video/Video";
+import Test from "./components/MenuPanel/Test/Test";
 import VideoAdmin from "./components/ForAdmin/VideoAdmin/VideoAdmin";
 
 
@@ -86,7 +86,7 @@ function App(props) {
                     <Route path='/tabloClient/:gameNumber?' render={() => <TabloEditClient/>}/>
                     <Route path='/auth' render={() => <Auth/>}/>
                     <Route path='/customGame/:gameNumber?' render={() => <CustomGame/>}/>
-                    <Route path='/test' render={() => <Video/>}/>
+                    <Route path='/test' render={() => <Test/>}/>
                 </Switch>
             </div>
         </ConfirmProvider>

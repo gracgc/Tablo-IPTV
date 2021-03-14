@@ -46,39 +46,10 @@ const TabloEditClient = (props) => {
             state => state.logPage.logData.tabloLog.tempLog
         );
 
-        let [count, setCount] = useState(0);
 
         let [isShowLog, setIsShowLog] = useState(false);
 
-        let [isRunningServer, setIsRunningServer] = useState(false);
 
-        let [isRunningServerTimeout, setIsRunningServerTimeout] = useState(false);
-
-        let [dif, setDif] = useState();
-        let [ping, setPing] = useState();
-        let [tick, setTick] = useState(1000);
-
-
-        let [startTime, setStartTime] = useState();
-
-        let [startTimeout, setStartTimeout] = useState();
-
-        let [deadLine, setDeadLine] = useState();
-
-        let [deadLineTimeout, setDeadLineTimeout] = useState();
-
-        let [timeMem, setTimeMem] = useState();
-        let [timeMemTimer, setTimeMemTimer] = useState();
-
-
-        let [timeMemTimeout, setTimeMemTimeout] = useState();
-        let [timeMemTimerTimeout, setTimeMemTimerTimeout] = useState();
-
-
-        let secondsTimer = Math.floor(timeMemTimer / 1000) % 60;
-        let minutesTimer = Math.floor(timeMemTimer / (1000 * 60));
-
-        let secondsTimerTimeout = Math.floor(timeMemTimerTimeout / 1000) % 60;
 
         useEffect(() => {
             ////LOAD NEW DATA////
@@ -105,64 +76,8 @@ const TabloEditClient = (props) => {
                 }
             );
 
-
-            ////TIME LOAD////
-            tabloAPI.getTimerStatus(gameNumber, Date.now()).then(r => {
-                let serverPing = Math.round((Date.now() - r.dateClient) / 2);
-                let timeSyncServer = r.dateServer - r.dateClient
-
-                setDif(timeSyncServer + serverPing);
-                setPing(serverPing);
-                setIsRunningServer(r.isRunning)
-                setIsRunningServerTimeout(r.timeoutData.isRunning)
-                return r
-            }).then(r => {
-                ////TIMER////
-                setStartTime(r.runningTime)
-                setTimeMem(r.timeData.timeMem);
-                setTimeMemTimer(r.timeData.timeMemTimer);
-                setDeadLine(r.timeData.deadLine);
-                ////TIMEOUT////
-                setStartTimeout(r.timeoutData.runningTime);
-                setTimeMemTimeout(r.timeoutData.timeData.timeMem);
-                setTimeMemTimerTimeout(r.timeoutData.timeData.timeMemTimer);
-                setDeadLineTimeout(r.timeoutData.timeData.deadLine);
-            })
-
-
-            ////Socket IO////
-            socket.on(`getTime${gameNumber}`, time => {
-                    setIsRunningServer(time.isRunning);
-                    setStartTime(time.runningTime)
-                    setTimeMem(time.timeData.timeMem);
-                    setTimeMemTimer(time.timeData.timeMemTimer);
-                    setDeadLine(time.timeData.deadLine);
-                }
-            );
-
-            socket.on(`getTimeout${gameNumber}`, time => {
-                    setIsRunningServerTimeout(time.isRunning);
-                    setStartTimeout(time.runningTime);
-                    setTimeMemTimeout(time.timeData.timeMem);
-                    setTimeMemTimerTimeout(time.timeData.timeMemTimer);
-                    setDeadLineTimeout(time.timeData.deadLine);
-                }
-            )
         }, [gameNumber])
 
-        useInterval(() => {
-            tabloAPI.getTimerSync(gameNumber, Date.now()).then(r => {
-
-                let serverPing = Math.round((Date.now() - r.dateClient) / 2);
-                let timeSyncServer = r.dateServer - r.dateClient
-
-                if (serverPing < ping) {
-                    setDif(timeSyncServer + serverPing);
-                    setPing(serverPing);
-                }
-
-            })
-        }, tick);
 
 
         useEffect(() => {
@@ -172,28 +87,15 @@ const TabloEditClient = (props) => {
             }, 5000)
         }, [gameTempLogDep.length]);
 
-        let ms = timeMemTimer % 1000;
-
-
-        useInterval(() => {
-            if (isRunningServer) {
-                setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
-            }
-            if (isRunningServerTimeout) {
-                setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
-            }
-        }, 9);
 
 
 
         return (
             <div className={c.tabloEdit}>
                 <TabloClient isShowLog={isShowLog} gameTempLog={gameTempLog} gameConsLog={gameConsLog}
-                             secondsTimer={secondsTimer} minutesTimer={minutesTimer}
-                             timeMemTimerTimeout={timeMemTimerTimeout}
-                             secondsTimerTimeout={secondsTimerTimeout} homeTeam={homeTeam} guestsTeam={guestsTeam}
-                             homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
-                             gameNumber={gameNumber} ping={ping} dif={dif} ms={ms}/>
+                             homeTeam={homeTeam} guestsTeam={guestsTeam}
+                             homeCounter={homeCounter} guestsCounter={guestsCounter}
+                             gameNumber={gameNumber} />
             </div>
         )
     }

@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from "react";
+import c from './Video.module.css'
+import c1920 from './Video_1920.module.css'
+import useInterval from "use-interval";
 
-import useInterval from 'use-interval'
 
-
-const Video = (props) => {
+const Test2 = (props) => {
 
     let [load, setLoad] = useState(0)
     let [load2, setLoad2] = useState(0)
@@ -41,4 +42,4 @@ const Video = (props) => {
     )
 }
 
-export default Video;
+export default Test2;
