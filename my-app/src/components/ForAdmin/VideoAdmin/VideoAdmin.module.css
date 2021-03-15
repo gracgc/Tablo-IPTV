@@ -1,42 +1,27 @@
 .videoAdmin {
-
+    background: #2a2b2b;
+    color: white;
 }
 
 .videoAdmin__info {
-    height: 6vh;
-    background: #D5DEEF;
+    height: 9vh;
 }
 
 .videoAdmin__editor {
     display: grid;
     grid-template-columns: 65% 35%;
-    height: 38vh;
-    background: #B2CAEE;
+    height: 35vh;
 }
 
 .videoAdmin__camera {
     display: grid;
     height: 28vh;
-    background: #89AFE0;
 }
 
 .videoAdmin__presetsAndVideos {
     display: grid;
     grid-template-columns: 82% 18%;
     height: 28vh;
-    background: #89AFE0;
 }
 
-.navBackButton {
-    position: absolute;
-    float: right;
-    right: 30px;
-    bottom: 30px;
-    width: 200px;
-    text-align: center;
-    padding: 20px;
-    font-weight: bold;
-    font-size: 22px;
-    border: solid 2px black;
-}
 

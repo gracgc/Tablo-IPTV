@@ -55,11 +55,6 @@ const VideoAdmin = (props) => {
                         <Cameras/>
                     </div>
                 </div>
-                <NavLink to="/">
-                    <div className={width === 1920 ? c1920.navBackButton : c.navBackButton}>
-                        Вернуться в меню
-                    </div>
-                </NavLink>
             </Droppable>
         </div>
     )

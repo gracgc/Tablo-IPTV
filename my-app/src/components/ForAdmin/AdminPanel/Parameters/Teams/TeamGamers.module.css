@@ -8,7 +8,7 @@
 .gamer {
     cursor: pointer;
     padding-left: 10px;
-    background: #92b9f7;
+    word-break: break-all;
 }
 
 .gamerActive {

@@ -1,23 +1,20 @@
 .adminPanel {
-
+    background: #2a2b2b;
+    color: white;
 }
 
-.adminPanel__info {
-    height: 6vh;
-    background: #D5DEEF;
+.info {
+    height: 9vh;
 }
 
-.adminPanel__mainPanel {
+.mainPanel {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 39vh;
-    background: #B2CAEE;
+    grid-template-columns: 34% 32% 34%;
+    height: 91vh;
 }
 
-.adminPanel__addPanel {
+.addPanel {
     display: grid;
-    grid-template-columns: 75% 25%;
-    height: 55vh;
-    background: #89AFE0;
+    grid-template-rows: 44% 29% 27%;
 }
 

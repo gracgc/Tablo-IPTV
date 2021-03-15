@@ -1,42 +1,41 @@
 .team {
-    padding-left: 40px;
-    width: 92%;
-    height: 100%;
+    width: 600px;
+    margin: auto;
 }
 
 .teamInfo {
     padding-top: 20px;
-    font-size: 22px;
+    font-size: 38px;
 }
 
 .teamGamers {
     display: block;
-    max-height: 380px;
+    max-height: 460px;
     overflow-y: scroll;
 }
 
 .tableInfo {
     display: grid;
-    grid-template-columns: 80% 20%;
+    grid-template-columns: 75% 25%;
+    font-size: 26px;
 }
 
 
 .timeout {
-    border: solid 1px;
-    padding: 0 16px;
-    background-color: #D5DEEF;
     cursor: pointer;
+    text-decoration-line: underline;
+    color: #d18130;
+    text-decoration-color: #d18130;
 }
 
 .timeoutDis {
-    padding: 0 16px;
-    color: #595d61;
-    border: 1px solid #595d61;
-    background: #b6c9db;
+    opacity: 0.5;
 }
+
 .points {
+    margin-top: 18px;
     display: inline-flex;
-    height: 30px;
+    height: 40px;
 }
 
 

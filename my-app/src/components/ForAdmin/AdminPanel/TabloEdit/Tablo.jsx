@@ -10,7 +10,7 @@ const Tablo = (props) => {
     let width = window.innerWidth;
 
     return (
-        <div className={width === 1920 ? c1920.tablo : c.tablo}>
+        <div  style={{border: props.isRunningServer ? 'green solid 1px' : 'red solid 1px'}} className={width === 1920 ? c1920.tablo : c.tablo}>
             <div className={width === 1920 ? c1920.time : c.time}>
                 {props.minutesTimer <= 0 ? 0 : props.minutesTimer}:{props.secondsTimer < 10 ? '0' : ''}
                 {props.secondsTimer <= 0 ? 0 : props.secondsTimer}
@@ -39,23 +39,17 @@ const Tablo = (props) => {
 
             </div>
             <div className={width === 1920 ? c1920.counters : c.counters}>
-                <div className={width === 1920 ? c1920.counter : c.counter}>
-                    <div className={width === 1920 ? c1920.addGoal : c.addGoal}
-                         onClick={(e) => props.addTeamGoal('home', props.homeTeam.name, '+')}>+
-                    </div>
+                <div>
                     <div>
                         {props.homeCounter} <br/>
                         {props.homeTeam.name}
                     </div>
 
                 </div>
-                <div className={width === 1920 ? c1920.counter2 : c.counter2}>
+                <div>
                     <div>
                         {props.guestsCounter} <br/>
                         {props.guestsTeam.name}
-                    </div>
-                    <div className={width === 1920 ? c1920.addGoal : c.addGoal}
-                         onClick={(e) => props.addTeamGoal('guests', props.guestsTeam.name, '+')}>+
                     </div>
                 </div>
             </div>

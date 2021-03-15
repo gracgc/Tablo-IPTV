@@ -18,7 +18,7 @@ const AddLogForm = (props) => {
         <div>
             <form onSubmit={props.handleSubmit}>
                 <div className={c.logForm}>
-                    <Field placeholder={'Добавить лог'} name={'addLog'}
+                    <Field placeholder={'Добавить событие'} name={'addLog'}
                            component={Input}/>
                     <button className={c.addLogButton}>
                         +
@@ -71,7 +71,7 @@ const Log = (props) => {
 
     return (
         <div className={width === 1920 ? c1920.log : c.log}>
-            <div style={{fontSize: width === 1920 ? "36px" : "24px", marginBottom: "1%"}}>Лог</div>
+            <div style={{fontSize: width === 1920 ? "32px" : "20px", marginBottom: "1%"}}>События</div>
             <div className={width === 1920 ? c1920.logWindow : c.logWindow}>
                 {gameLog.map(l => <LogItem gameNumber={gameNumber} key={l.id} id={l.id} logItem={l.item}/>)}
                 <div ref={logEndRef} />

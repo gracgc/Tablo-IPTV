@@ -1,33 +1,39 @@
 .addOptions {
-    margin-top: 20px;
-    margin-left: 40px;
-    padding-left: 20px;
-    padding-top: 10px;
-    width: 230px;
-    background-color: #a4e2ed;
-    border: solid 2px #435373;
+    width: 340px;
+    margin: auto;
+    font-size: 20px;
 }
 
 .overtimeButtons {
     display: inline-flex;
     margin-top: 15px;
-    margin-bottom: 15px;
-    font-size: 18px;
 }
 
 .overtimeButton {
-    border: 1px solid;
-    background-color: #d1fff5;
     cursor: pointer;
-    padding: 5px 20px;
-    margin-right: 20px;
+    text-decoration-line: underline;
+    margin-right: 30px;
+    color: #d18130;
+    text-decoration-color: #d18130;
 }
 
 
 .overtimeButtonDis {
-    color: #595d61;
-    border: 1px solid #595d61;
-    background: #b6c9db;
-    padding: 5px 20px;
-    margin-right: 20px;
+    opacity: 0.5;
+    margin-right: 30px;
+}
+
+.customGameButton {
+    text-decoration-line: underline;
+    text-align: center;
+    color: #2079A3;
+    text-decoration-color: #2079A3;
+}
+
+.resetGameButton {
+    text-decoration-line: underline;
+    text-align: center;
+    cursor: pointer;
+    color: #2079A3;
+    text-decoration-color: #2079A3;
 }

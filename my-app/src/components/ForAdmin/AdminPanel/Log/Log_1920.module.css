@@ -1,23 +1,22 @@
 .log {
-    width: 80%;
-    height: 100%;
-    padding-left: 30px;
+    width: 500px;
+    margin: auto;
 }
 
 .logWindow {
+    background-color: #3d4040;
     position: relative;
-    height: 300px;
-    background: white;
+    height: 160px;
     overflow-y: scroll;
     margin-bottom: 2%;
 }
 
 .addLogButton {
-    background: lightgreen;
+    background: green;
     text-align: center;
     box-sizing: border-box;
     border: 2px solid black;
-    font-size: 34px;
+    font-size: 40px;
 }
 
 .logForm {
@@ -27,9 +26,10 @@
 }
 
 .logItem {
+    word-break: break-all;
     padding-left: 15px;
     padding-top: 2px;
-    font-size: 28px;
+    font-size: 24px;
     display: grid;
     grid-template-columns: 95% 5%
 }

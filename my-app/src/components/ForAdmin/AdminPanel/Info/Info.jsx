@@ -3,10 +3,11 @@ import c from './Info.module.css'
 import c1920 from './Info_1920.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {getGame, setGameDataAC} from "../../../../redux/games_reducer";
-import {withRouter} from "react-router-dom";
+import {NavLink, withRouter} from "react-router-dom";
 import {compose} from "redux";
 import socket from "../../../../socket/socket";
 import {tabloAPI} from "../../../../api/api";
+import logo from './logoIPTVPORTAL.png';
 
 
 const Info = (props) => {
@@ -128,13 +129,29 @@ const Info = (props) => {
 
     return (
         <div className={width === 1920 ? c1920.info : c.info}>
+            <div className={width === 1920 ? c1920.back : c.back}>
+
+                <img src={logo} alt="" width={width === 1920 ? 70 : 50} height={width === 1920 ? 70 : 50}/>
+                <NavLink to="/">
+                    <div className={width === 1920 ? c1920.backButton : c.backButton}>
+                        ВЕРНУТЬСЯ В МЕНЮ
+                    </div>
+                </NavLink>
+            </div>
             <div className={width === 1920 ? c1920.nameAndType : c.nameAndType}>
-                <strong>{gameData.gameName}</strong> — {gameData.gameType}
+                <strong>{gameData.gameName}</strong> <br/>
+                {gameData.gameType}
             </div>
             <div className={width === 1920 ? c1920.statusAndTime : c.statusAndTime}>
-                {period > 3 ? <strong>Овертайм {''}</strong> : <strong>Период {period} {''}</strong>}
-                — <strong>Статус</strong>: {gameData.gameStatus === 'Going' ? 'Идет' : 'Остановлена'} — <strong>Время</strong>
-                : {minutesStopwatch}:{secondsStopwatch < 10 ? '0' : ''}{secondsStopwatch}
+                <div>
+                    {period > 3 ? <strong>Овертайм {''}</strong> : <strong>Период {period} {''}</strong>}
+                    — {gameData.gameStatus === 'Going' ? <span style={{color: 'green'}}>Идет</span> : <span style={{color: 'red'}}>Остановлена</span>}
+                </div>
+                <div style={{float: 'right'}}>
+                    <strong>Время </strong>
+                    — {minutesStopwatch}:{secondsStopwatch < 10 ? '0' : ''}{secondsStopwatch}
+                </div>
+
             </div>
 
         </div>

@@ -29,6 +29,7 @@
 .editorPlayer {
     position: relative;
     left: 20px;
+    color: black;
 }
 
 .editorLine {
@@ -46,6 +47,7 @@
     background-color: #8cede5;
     padding: 36px 5px;
     text-align: center;
+    color: black;
 }
 
 .droppableVideoFullWidth {
@@ -55,6 +57,7 @@
     background-color: #8cede5;
     padding: 65px 0;
     text-align: center;
+    color: black;
 }
 
 

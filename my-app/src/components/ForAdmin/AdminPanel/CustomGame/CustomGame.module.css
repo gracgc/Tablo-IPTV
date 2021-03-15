@@ -1,5 +1,6 @@
 .customGame {
-    background: #77cde0;
+    background: #2a2b2b;
+    color: white;
     width: 100%;
     height: 100%;
 }
@@ -20,7 +21,8 @@ a {
     padding: 20px;
     font-weight: bold;
     font-size: 22px;
-    border: solid 2px black;
+    border: solid 2px white;
+    color: white;
 }
 
 .menuTitle {
@@ -74,9 +76,9 @@ a {
 .choosenPeriod {
     padding: 2px 10px;
     border: 2px solid;
-    border-bottom: #e0223b 5px solid;
+    border-bottom: red 5px solid;
     cursor: pointer;
-    background: #a4e2ed;
+    background: #3d4040;
 }
 
 .customGamers {
@@ -106,6 +108,7 @@ a {
     font-weight: bold;
     font-size: 22px;
     border: solid 2px black;
+    cursor: pointer;
 }
 
 .successSave {

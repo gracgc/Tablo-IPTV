@@ -1,7 +1,7 @@
 .tablo {
     display: grid;
-    grid-template-rows: 23% 10% 39% 28%;
-    background-color: white;
+    grid-template-rows: 23% 10% 38% 28%;
+    background-color: #3d4040;
     height: 100%;
     width: 100%;
 }
@@ -14,33 +14,19 @@
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 30px;
     text-align: center;
-    font-size: 36px;
+    font-size: 26px;
     margin-bottom: 10px;
-}
-
-.counter {
-    box-sizing: border-box;
-    border: black solid 3px;
-    display: grid;
-    grid-template-columns: 35% 65%;
-}
-
-.counter2 {
-    box-sizing: border-box;
-    border: black solid 3px;
-    display: grid;
-    grid-template-columns: 65% 35%;
 }
 
 .time {
     text-align: center;
     padding-top: 5px;
-    font-size: 62px;
+    font-size: 42px;
 }
 
 .tempLog {
     text-align: center;
-    font-size: 28px;
+    font-size: 24px;
 }
 
 .consLogItem {
@@ -53,19 +39,13 @@
     position: relative;
     color: blue;
     text-align: center;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .timeout5sec {
     position: relative;
     color: red;
     text-align: center;
-    font-size: 24px;
+    font-size: 20px;
 }
 
-.addGoal {
-    background: #fc8b8b;
-    font-size: 58px;
-    color: blue;
-    cursor: pointer;
-}

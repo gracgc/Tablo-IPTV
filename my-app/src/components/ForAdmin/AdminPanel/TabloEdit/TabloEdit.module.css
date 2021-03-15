@@ -2,82 +2,56 @@
     position: relative;
     height: 100%;
     width: 100%;
-    top: 15px;
+    padding-top: 10px;
 }
 
 .tablo {
     position: relative;
-    float: right;
-    background-color: white;
-    height:230px;
-    width: 380px;
-    right: 20px;
-}
-
-.allButtons {
-    position: relative;
-    width: 200px;
-    text-align: center;
-    font-weight: bold;
-    left: 10px;
-    cursor: pointer;
+    height:170px;
+    width: 340px;
+    margin: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 .gameButtons {
     font-size: 20px;
+    display: grid;
+    width: 340px;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+    text-align: center;
+    margin: auto;
 }
 
-
 .gameButtons__Disabled {
-    color: #adb0b3;
-    background: #c9e2ff;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    opacity: 0.5;
+    padding-top: 3px;
+    padding-bottom: 3px;
     pointer-events: none;
-    border: 2px solid #595d61;
 }
 
 .gameButtons__Active {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    background: #F1F4FB;
+    padding-top: 3px;
+    padding-bottom: 3px;
     box-sizing: border-box;
-    border: 2px solid #130757;
-}
-
-.gameButtons__stop {
-    margin-top: 15px;
+    cursor: pointer;
 }
 
 .beepButtons {
     display: grid;
+    width: 340px;
     grid-template-columns: 1fr 1fr;
     grid-column-gap: 10px;
     font-size: 18px;
-    margin-top: 12px;
+    margin: auto;
+    text-align: center;
 }
 
 .beepButtons_beep {
     box-sizing: border-box;
-    border: 1px #3A5985 solid;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    cursor: pointer;
+    background-color: #707070;
 }
-
-.goalButtons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 10px;
-    font-size: 18px;
-    margin-top: 12px;
-}
-
-.goalButtons_goal {
-    box-sizing: border-box;
-    background: #77cde0;
-    border: black solid 1px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-

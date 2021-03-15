@@ -304,6 +304,34 @@ const TabloEdit = (props) => {
 
     return (
         <div className={width === 1920 ? c1920.tabloEdit : c.tabloEdit}>
+            {props.history.location.pathname.indexOf('videoAdmin') === -1 &&
+            <div>
+                {isRunningServer ?
+                    <div className={width === 1920 ? c1920.gameButtons : c.gameButtons}>
+                        <div style={{backgroundColor: 'green'}} className={width === 1920 ? c1920.gameButtons__Disabled : c.gameButtons__Disabled}>
+                            СТАРТ
+                        </div>
+                        <div style={{backgroundColor: 'red'}}
+                            className={classNames(width === 1920 ? c1920.gameButtons__Active : c.gameButtons__Active, width === 1920
+                                ? c1920.gameButtons__stop : c.gameButtons__stop)}
+                            onClick={(e) => stopGame()}>
+                            СТОП
+                        </div>
+                    </div>
+                    :
+                    <div className={width === 1920 ? c1920.gameButtons : c.gameButtons}>
+                        <div style={{backgroundColor: 'green'}} className={width === 1920 ? c1920.gameButtons__Active : c.gameButtons__Active}
+                             onClick={(e) => startGame()}>
+                            СТАРТ
+                        </div>
+                        <div style={{backgroundColor: 'red'}}
+                            className={classNames(width === 1920 ? c1920.gameButtons__Disabled : c.gameButtons__Disabled, width === 1920
+                                ? c1920.gameButtons__stop : c.gameButtons__stop)}>
+                            СТОП
+                        </div>
+                    </div>
+                }
+            </div>}
             <div className={width === 1920 ? c1920.tablo : c.tablo}>
                 <Tablo isShowLog={isShowLog} gameTempLog={gameTempLog} gameConsLog={gameConsLog}
                        secondsTimer={secondsTimer} minutesTimer={minutesTimer} timeMemTimerTimeout={timeMemTimerTimeout}
@@ -311,39 +339,15 @@ const TabloEdit = (props) => {
                        homeCounter={homeCounter} guestsCounter={guestsCounter} timeMemTimer={timeMemTimer}
                        timeMem={timeMem}
                        period={period}
+                       isRunningServer={isRunningServer}
                        addTeamGoal={addTeamGoal}
                        gameNumber={gameNumber} ms={ms}/>
             </div>
             {props.history.location.pathname.indexOf('videoAdmin') === -1 &&
-            <div className={width === 1920 ? c1920.allButtons : c.allButtons}>
-                {isRunningServer ?
-                    <div className={width === 1920 ? c1920.gameButtons : c.gameButtons}>
-                        <div className={width === 1920 ? c1920.gameButtons__Disabled : c.gameButtons__Disabled}>
-                            Старт
-                        </div>
-                        <div
-                            className={classNames(width === 1920 ? c1920.gameButtons__Active : c.gameButtons__Active, width === 1920
-                                ? c1920.gameButtons__stop : c.gameButtons__stop)}
-                            onClick={(e) => stopGame()}>
-                            Стоп
-                        </div>
-                    </div>
-                    :
-                    <div className={width === 1920 ? c1920.gameButtons : c.gameButtons}>
-                        <div className={width === 1920 ? c1920.gameButtons__Active : c.gameButtons__Active}
-                             onClick={(e) => startGame()}>
-                            Старт
-                        </div>
-                        <div
-                            className={classNames(width === 1920 ? c1920.gameButtons__Disabled : c.gameButtons__Disabled, width === 1920
-                                ? c1920.gameButtons__stop : c.gameButtons__stop)}>
-                            Стоп
-                        </div>
-                    </div>
-                }
+            <div>
                 <div className={width === 1920 ? c1920.beepButtons : c.beepButtons}>
-                    <div className={width === 1920 ? c1920.beepButtons_beep : c.beepButtons_beep}>Биип</div>
-                    <div className={width === 1920 ? c1920.beepButtons_beep : c.beepButtons_beep}>Биииип</div>
+                    <div className={width === 1920 ? c1920.beepButtons_beep : c.beepButtons_beep}>БИП</div>
+                    <div className={width === 1920 ? c1920.beepButtons_beep : c.beepButtons_beep}>БИИИИИП</div>
                 </div>
             </div>}
         </div>

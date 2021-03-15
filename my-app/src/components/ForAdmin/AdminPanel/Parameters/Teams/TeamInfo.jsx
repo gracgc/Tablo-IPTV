@@ -49,54 +49,72 @@ const TeamInfo = (props) => {
 
     return (
         <div className={width === 1920 ? c1920.team : c.team}>
-            <div className={width === 1920 ? c1920.teamInfo : c.teamInfo}>
-                Название команды: {props.name} <br/>
-                <div className={width === 1920 ? c1920.points : c.points}>
-                    Очки:
-                    <div style={{width: '40px', textAlign: 'center', fontWeight: 'bold', color: 'red', cursor: 'pointer'}}
-                         onClick={(e) => addTeamGoal(props.teamType, '-')}>
-                        −
-                    </div>
-                    {props.teamCounter}
-                    <div style={{width: '40px', textAlign: 'center', fontWeight: 'bold', color: 'green', cursor: 'pointer'}}
-                         onClick={(e) => addTeamGoal(props.teamType, '+')}>
-                        ＋
-                    </div>
-                </div>
-                <br/>
-                Таймаут: {!props.isRunningServer
-                ? <span><span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => startTimeout()}>
-                Старт
-            </span> <span className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => clearTimeout()}>
-                    Очистить
-                    </span> <br/></span>
-                : <span><span className={width === 1920 ? c1920.timeoutDis : c.timeoutDis}>
-                    Старт
-                    </span> <span className={width === 1920 ? c1920.timeout : c.timeout}
-                                  onClick={(e) => clearTimeout()}>
-                    Очистить
-                    </span> <br/></span>}
+            <div className={width === 1920 ? c1920.teamInfo : c.teamInfo} style={{textAlign: props.teamType === 'guests' && 'right'}}>
+                <div style={{display: 'inline-flex'}}>
+                    {props.teamType === 'home' &&
+                    <img src={props.logo} alt="" width={width === 1920 ? 180 : 120} height={width === 1920 ? 180 : 120}/>
+                    }
 
+                    <div style={{marginLeft: 30, marginRight: 30, textAlign: props.teamType === 'guests' && 'right'}}>
+                        <div>
+                            {props.name}
+                        </div>
+                        <div className={width === 1920 ? c1920.points : c.points}>
+                            Очки:
+                            <div style={{width: width === 1920 ? 60 : 40, textAlign: 'center', fontWeight: 'bold', color: 'red', cursor: 'pointer'}}
+                                 onClick={(e) => addTeamGoal(props.teamType, '-')}>
+                                −
+                            </div>
+                            {props.teamCounter}
+                            <div style={{width: width === 1920 ? 60 : 40, textAlign: 'center', fontWeight: 'bold', color: 'green', cursor: 'pointer'}}
+                                 onClick={(e) => addTeamGoal(props.teamType, '+')}>
+                                ＋
+                            </div>
+                        </div>
+                    </div>
+                    {props.teamType === 'guests' &&
+                    <img src={props.logo} alt="" width={width === 1920 ? 180 : 120} height={width === 1920 ? 180 : 120}/>
+                    }
+                </div>
+
+                {!props.isRunningServer ?
+                    <div>
+                        {!props.isRunningServerTimeout
+                            ? <div className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => startTimeout()}>
+                                Взять таймаут 30 сек.
+                            </div>
+                            : <div className={width === 1920 ? c1920.timeout : c.timeout} onClick={(e) => clearTimeout()}>
+                                Отменить таймаут
+                            </div>
+                        }
+                    </div>
+                    : <div className={width === 1920 ? c1920.timeoutDis : c.timeoutDis} onClick={(e) => startTimeout()}>
+                        Взять таймаут 30 сек.
+                    </div>
+                }
+            </div>
+            <div style={{marginTop: width === 1920 ? 50 : 30}}>
                 <div className={width === 1920 ? c1920.tableInfo : c.tableInfo}>
                     <div>
-                        <strong>Игроки:</strong>
+                        <strong>Игроки</strong>
                     </div>
                     <div>
                         На поле
                     </div>
                 </div>
+                <div className={width === 1920 ? c1920.teamGamers : c.teamGamers}>
+                    {props.teamGamers.map(htg => <TeamGamers key={htg.id} timeMem={props.timeMem}
+                                                             timeMemTimer={props.timeMemTimer}
+                                                             period={props.period}
+                                                             id={htg.id}
+                                                             number={htg.gamerNumber}
+                                                             onField={htg.onField}
+                                                             fullName={htg.fullName}
+                                                             status={htg.status} goals={htg.goals}
+                                                             teamType={props.teamType}/>)}
+                </div>
             </div>
-            <div className={width === 1920 ? c1920.teamGamers : c.teamGamers}>
-                {props.teamGamers.map(htg => <TeamGamers key={htg.id} timeMem={props.timeMem}
-                                                         timeMemTimer={props.timeMemTimer}
-                                                         period={props.period}
-                                                         id={htg.id}
-                                                         number={htg.gamerNumber}
-                                                         onField={htg.onField}
-                                                         fullName={htg.fullName}
-                                                         status={htg.status} goals={htg.goals}
-                                                         teamType={props.teamType}/>)}
-            </div>
+
         </div>
     )
 };

@@ -1,19 +1,18 @@
 .log {
-    width: 80%;
-    height: 100%;
-    padding-left: 30px;
+    width: 340px;
+    margin: auto;
 }
 
 .logWindow {
+    background-color: #3d4040;
     position: relative;
-    height: 160px;
-    background: white;
+    height: 96px;
     overflow-y: scroll;
     margin-bottom: 2%;
 }
 
 .addLogButton {
-    background: lightgreen;
+    background: green;
     text-align: center;
     box-sizing: border-box;
     border: 2px solid black;
@@ -27,9 +26,10 @@
 }
 
 .logItem {
+    word-break: break-all;
     padding-left: 15px;
     padding-top: 2px;
-    font-size: 17px;
+    font-size: 15px;
     display: grid;
     grid-template-columns: 95% 5%
 }
