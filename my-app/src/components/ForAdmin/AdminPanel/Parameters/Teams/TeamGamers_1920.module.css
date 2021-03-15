@@ -30,10 +30,10 @@
     border: solid 1px;
     background-color: #fff3eb;
     margin-left: 100px;
-    /*margin-top: -35px;*/
     font-size: 28px;
     cursor: pointer;
     width: 170px;
+    color: black;
 }
 
 .additionalMenuItem {
