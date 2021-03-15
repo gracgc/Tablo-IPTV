@@ -20,10 +20,11 @@ const AddOptions = (props) => {
 
     return (
         <div className={width === 1920 ? c1920.addOptions : c.addOptions}>
-            <div>
-                <div style={{fontSize: width === 1920 ? "32px" : "20px"}}>Доп. время</div>
-                {props.period > 3
-                    ? <div className={width === 1920 ? c1920.overtimeButtons : c.overtimeButtons}>
+            {props.period > 3 ?
+                <div style={{height: width === 1920 ? 200 : 140}}>
+                    <div style={{fontSize: width === 1920 ? "32px" : "20px"}}>Доп. время</div>
+
+                    <div className={width === 1920 ? c1920.overtimeButtons : c.overtimeButtons}>
                         <div className={width === 1920 ? c1920.overtimeButton : c.overtimeButton}
                              onClick={(e) => putNewDeadLine(300000)}>
                             5 мин
@@ -33,29 +34,16 @@ const AddOptions = (props) => {
                             20 мин
                         </div>
                     </div>
-                    : <div className={width === 1920 ? c1920.overtimeButtons : c.overtimeButtons}>
-                        <div className={width === 1920 ? c1920.overtimeButtonDis : c.overtimeButtonDis}>
-                            5 мин
-                        </div>
-                        <div className={width === 1920 ? c1920.overtimeButtonDis : c.overtimeButtonDis}>
-                            20 мин
-                        </div>
-                    </div>}
-            </div>
-            <div style={{ marginTop:width === 1920 ? 60 : 40 }}>
-                {!props.isRunningServer &&
-                <div className={width === 1920 ? c1920.resetGameButton : c.resetGameButton}
-                     onClick={(e) => props.resetGame()}>
-                    РЕЗЕТ ИГРЫ
-                </div>}
-
-                {!props.isRunningServer && <NavLink to={`/customGame/${gameNumber}`}>
-                    <div className={width === 1920 ? c1920.customGameButton : c.customGameButton}>
-                        РЕДАКТИРОВАТЬ ИГРУ
-                    </div>
-                </NavLink>}
-            </div>
-
+                </div>
+                : <div style={{height: width === 1920 ? 200 : 140}}></div>
+            }
+            {!props.isRunningServer &&
+            <NavLink to={`/customGame/${gameNumber}`}>
+                <div className={width === 1920 ? c1920.customGameButton : c.customGameButton}>
+                    РЕДАКТИРОВАТЬ ИГРУ
+                </div>
+            </NavLink>
+            }
         </div>
 
     )

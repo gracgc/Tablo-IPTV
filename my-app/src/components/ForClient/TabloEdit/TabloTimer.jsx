@@ -149,13 +149,17 @@ const TabloTimer = (props) => {
 
     return (
         <div>
-            <div style={{
-                textAlign: 'center',
-                position: 'absolute',
-                right: '30px',
-                color: 'green'
-            }}>Dif:{dif} Ping:{ping}</div>
-            <div style={{textAlign: 'center', position: 'absolute', left: '30px', color: 'green'}}>{props.pad}</div>
+            {props.preset === 1 &&
+            <div>
+                <div style={{
+                    textAlign: 'center',
+                    position: 'absolute',
+                    right: '30px',
+                    color: 'green'
+                }}>Dif:{dif} Ping:{ping}</div>
+                <div style={{textAlign: 'center', position: 'absolute', left: '30px', color: 'green'}}>{props.pad}</div>
+            </div>}
+
 
             <div className={c.time}>
                 {minutesTimer <= 0 ? 0 : minutesTimer}:{secondsTimer < 10 ? '0' : ''}
@@ -163,40 +167,44 @@ const TabloTimer = (props) => {
 
             </div>
 
-            {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> :
-                <div className={c.tempLog}></div>}
+            {props.preset === 1 &&
+            <div>
+                {props.isShowLog ? <div className={c.tempLog}>{props.gameTempLog}</div> :
+                    <div className={c.tempLog}></div>}
 
-            <div className={secondsTimerTimeout < 6 ? c.timeout5sec : c.timeout}>
-                {(timeMemTimerTimeout > 0) &&
-                `Таймаут ${secondsTimerTimeout} секунд`
-                }
-            </div>
+                <div className={secondsTimerTimeout < 6 ? c.timeout5sec : c.timeout}>
+                    {(timeMemTimerTimeout > 0) &&
+                    `Таймаут ${secondsTimerTimeout} секунд`
+                    }
+                </div>
 
 
-            <div className={c.consLogHome}>
-                {props.gameConsLog && props.gameConsLog.filter(gcl => (gcl.item !== '' && gcl.teamType === 'home'))
-                    .map((gcl, index) =>
-                        <TabloEventClient key={gcl.id}
-                                          index={index}
-                                          item={gcl.item}
-                                          id={gcl.id}
-                                          teamType={gcl.teamType}
-                                          timeMemTimer={timeMemTimer}
-                                          gameNumber={props.gameNumber}
-                        />)}
+                <div className={c.consLogHome}>
+                    {props.gameConsLog && props.gameConsLog.filter(gcl => (gcl.item !== '' && gcl.teamType === 'home'))
+                        .map((gcl, index) =>
+                            <TabloEventClient key={gcl.id}
+                                              index={index}
+                                              item={gcl.item}
+                                              id={gcl.id}
+                                              teamType={gcl.teamType}
+                                              timeMemTimer={timeMemTimer}
+                                              gameNumber={props.gameNumber}
+                            />)}
+                </div>
+                <div className={c.consLogGuests}>
+                    {props.gameConsLog && props.gameConsLog.filter(gcl => (gcl.item !== '' && gcl.teamType === 'guests'))
+                        .map((gcl, index) =>
+                            <TabloEventClient key={gcl.id}
+                                              index={index}
+                                              item={gcl.item}
+                                              id={gcl.id}
+                                              teamType={gcl.teamType}
+                                              timeMemTimer={timeMemTimer}
+                                              gameNumber={gameNumber}
+                            />)}
+                </div>
             </div>
-            <div className={c.consLogGuests}>
-                {props.gameConsLog && props.gameConsLog.filter(gcl => (gcl.item !== '' && gcl.teamType === 'guests'))
-                    .map((gcl, index) =>
-                        <TabloEventClient key={gcl.id}
-                                          index={index}
-                                          item={gcl.item}
-                                          id={gcl.id}
-                                          teamType={gcl.teamType}
-                                          timeMemTimer={timeMemTimer}
-                                          gameNumber={gameNumber}
-                        />)}
-            </div>
+            }
         </div>
 
 

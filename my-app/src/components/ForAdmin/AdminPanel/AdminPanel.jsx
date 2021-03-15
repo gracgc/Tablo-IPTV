@@ -109,7 +109,7 @@ const AdminPanel = (props) => {
                         <Log/>
                     </div>
                     <div>
-                        <AddOptions period={period} isRunningServer={isRunningServer} resetGame={resetGame}/>
+                        <AddOptions period={period} isRunningServer={isRunningServer}/>
                     </div>
                 </div>
                 <div>

@@ -21,7 +21,7 @@ const AddLogForm = (props) => {
                     <Field placeholder={'Добавить событие'} name={'addLog'}
                            component={Input}/>
                     <button className={c.addLogButton}>
-                        +
+                        Добавить
                     </button>
                 </div>
             </form>

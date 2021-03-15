@@ -148,3 +148,18 @@ a {
     font-size: 30px;
     cursor: pointer;
 }
+
+.resetButton {
+    position: absolute;
+    float: right;
+    left: 860px;
+    bottom: 30px;
+    width: 560px;
+    text-align: center;
+    padding: 20px;
+    font-weight: bold;
+    font-size: 30px;
+    border: solid 2px white;
+    color: white;
+    cursor: pointer;
+}

@@ -88,7 +88,7 @@ const TeamInfo = (props) => {
                             </div>
                         }
                     </div>
-                    : <div className={width === 1920 ? c1920.timeoutDis : c.timeoutDis} onClick={(e) => startTimeout()}>
+                    : <div className={width === 1920 ? c1920.timeoutDis : c.timeoutDis}>
                         Взять таймаут 30 сек.
                     </div>
                 }
