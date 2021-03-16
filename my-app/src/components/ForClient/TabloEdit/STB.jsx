@@ -4,7 +4,6 @@ import socket from "../../../socket/socket";
 import {compose} from "redux";
 import {withRouter} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {getGame, setPresetAC} from "../../../redux/games_reducer";
 import {
     getCurrentVideo,
     getVideoEditor,
@@ -15,7 +14,6 @@ import {
 
 const STB = (props) => {
 
-    const dispatch = useDispatch();
 
     const currentVideo = useSelector(
         (state => state.videosPage.currentVideo)
@@ -25,11 +23,13 @@ const STB = (props) => {
         (state => state.videosPage.videoEditor)
     );
 
+    const dispatch = useDispatch();
+
+
     let [pad, setPad] = useState();
 
     let padding = videoEditor.currentVideo.padding;
 
-    let player = window.TvipPlayer;
 
     useEffect(() => {
         dispatch(getCurrentVideo());
@@ -49,6 +49,8 @@ const STB = (props) => {
 
 
     }, []);
+
+    let player = window.TvipPlayer;
 
     useEffect(() => {
         socket.on(`getPlayerStatus`, isRunning => {
@@ -85,6 +87,7 @@ const STB = (props) => {
     }, [player, currentVideo]);
 
 
+
     useEffect(() => {
         if (padding) {
             setPad('Переход');
@@ -95,7 +98,6 @@ const STB = (props) => {
             }
         }
     }, [padding]);
-
 
 
     return (

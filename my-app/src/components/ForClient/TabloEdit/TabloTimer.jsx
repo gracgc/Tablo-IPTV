@@ -117,7 +117,6 @@ const TabloTimer = (props) => {
     }, 3000);
 
 
-
     useEffect(() => {
         let internal = setInterval(() => {
             if (isRunningServer) {
@@ -150,16 +149,17 @@ const TabloTimer = (props) => {
 
     return (
         <div>
-            {props.preset === 1 &&
+
             <div>
+                {props.preset === 1 &&
                 <div style={{
                     textAlign: 'center',
                     position: 'absolute',
                     right: '30px',
                     color: 'green'
-                }}>Dif:{dif} Ping:{ping}</div>
+                }}>Dif:{dif} Ping:{ping}</div>}
                 <STB gameNumber={props.gameNumber}/>
-            </div>}
+            </div>
 
 
             <div className={c.time}>

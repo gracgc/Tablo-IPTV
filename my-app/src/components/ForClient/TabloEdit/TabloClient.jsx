@@ -12,6 +12,7 @@ import {
     setCurrentVideoDataAC, setCurrentVideoEditorDataAC,
 } from "../../../redux/videos_reducer";
 import TabloTimer from "./TabloTimer";
+import STB from "./STB";
 
 
 const TabloClient = (props) => {
@@ -90,7 +91,7 @@ const TabloClient = (props) => {
             }
             {preset === 3 &&
             <div>
-
+                <STB gameNumber={props.gameNumber}/>
             </div>
             }
             {preset === 4 &&
