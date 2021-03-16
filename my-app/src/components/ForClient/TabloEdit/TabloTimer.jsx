@@ -114,7 +114,7 @@ const TabloTimer = (props) => {
             }
 
         })
-    }, 2000);
+    }, 3000);
 
 
 
@@ -165,8 +165,7 @@ const TabloTimer = (props) => {
             <div className={c.time}>
                 {minutesTimer <= 0 ? 0 : minutesTimer}:{secondsTimer < 10 ? '0' : ''}
                 {secondsTimer <= 0 ? 0 : secondsTimer}
-
-
+                :{ms}
             </div>
 
             {props.preset === 1 &&
