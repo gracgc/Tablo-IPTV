@@ -4,8 +4,8 @@
 }
 
 .tablo1 {
-    background-image: url("../../../content/img/TABLO-1.png");
-    /*background-color: black;*/
+    /*background-image: url("../../../content/img/TABLO-1.png");*/
+    background-color: black;
     color: #c2d9ff;
     height: 720px;
     width: 1280px;

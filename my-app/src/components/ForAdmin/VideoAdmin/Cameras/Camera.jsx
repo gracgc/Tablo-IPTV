@@ -14,7 +14,6 @@ const Camera = (props) => {
 
     let deleteVideoFromList = (index) => {
         videosAPI.deleteVideo(index + props.paginatorForIndex)
-        alert(index + props.paginatorForIndex)
     };
 
 

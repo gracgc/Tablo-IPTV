@@ -12,7 +12,7 @@ import TabloEventClient from "./TabloEventClient";
 
 const TabloTimer = (props) => {
 
-    let [gameNumber, setGameNumber] = useState(props.match.params.gameNumber);
+    let [gameNumber, setGameNumber] = useState(props.gameNumber);
 
     const dispatch = useDispatch();
 
@@ -22,7 +22,7 @@ const TabloTimer = (props) => {
 
     let [dif, setDif] = useState();
     let [ping, setPing] = useState();
-    let tick = 1000;
+
 
     let [startTime, setStartTime] = useState();
 
@@ -114,38 +114,39 @@ const TabloTimer = (props) => {
             }
 
         })
-    }, tick);
+    }, 2000);
 
+
+
+    useEffect(() => {
+        let internal = setInterval(() => {
+            if (isRunningServer) {
+                setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
+            }
+        }, ms)
+        return () => clearInterval(internal)
+    })
+
+    // useEffect(() => {
+    //     let internal = setInterval(() => {
+    //         if (isRunningServerTimeout) {
+    //             setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
+    //         }
+    //     }, ms)
+    //     return () => clearInterval(internal)
+    // })
 
     // useInterval(() => {
     //     if (isRunningServer) {
     //         setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
     //     }
+    // }, ms + 10);
+    //
+    // useInterval(() => {
     //     if (isRunningServerTimeout) {
     //         setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
     //     }
-    // }, 100);
-
-    // useEffect(() => {
-    //     let internal = setInterval(() => {
-    //         if (isRunningServer) {
-    //             setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
-    //         }
-    //         if (isRunningServerTimeout) {
-    //             setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
-    //         }
-    //     }, 9)
-    //     return () => clearInterval(internal)
-    // })
-
-    useInterval(() => {
-        if (isRunningServer) {
-            setTimeMemTimer(deadLine - (timeMem + ((Date.now() + dif) - startTime)));
-        }
-        if (isRunningServerTimeout) {
-            setTimeMemTimerTimeout(deadLineTimeout - (timeMemTimeout + ((Date.now() + dif) - startTimeout)));
-        }
-    }, 9);
+    // }, ms + 10);
 
     return (
         <div>
@@ -164,6 +165,7 @@ const TabloTimer = (props) => {
             <div className={c.time}>
                 {minutesTimer <= 0 ? 0 : minutesTimer}:{secondsTimer < 10 ? '0' : ''}
                 {secondsTimer <= 0 ? 0 : secondsTimer}
+
 
             </div>
 

@@ -30,8 +30,8 @@ router.get('/', function (req, res) {
 router.post('/', authMW, cors(), async function (req, res) {
     try {
 
-        let videoName = req.params.videoName;
-        let videoURL = req.params.videoURL;
+        let videoName = req.body.videoName;
+        let videoURL = req.body.videoURL;
 
 
         let data = fs.readFileSync(path.join(__dirname, `/DB/videos.json`));

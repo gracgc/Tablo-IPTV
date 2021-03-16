@@ -119,7 +119,7 @@ const TabloClient = (props) => {
             {preset === 1 &&
             <div className={c.tablo1}>
                 <div>
-                    <TabloTimer gameConsLog={props.gameConsLog} isShowLog={props.isShowLog} gameTempLog={props.gameTempLog} pad={pad} preset={preset}/>
+                    <TabloTimer gameNumber={props.gameNumber} gameConsLog={props.gameConsLog} isShowLog={props.isShowLog} gameTempLog={props.gameTempLog} pad={pad} preset={preset}/>
                 </div>
 
                 <div>
@@ -155,7 +155,7 @@ const TabloClient = (props) => {
                         {props.homeTeam.name}
                     </div>
                     <div className={c2.time2}>
-                        <TabloTimer gameConsLog={props.gameConsLog} isShowLog={props.isShowLog} gameTempLog={props.gameTempLog} pad={pad} preset={preset}/>
+                        <TabloTimer gameNumber={props.gameNumber} gameConsLog={props.gameConsLog} isShowLog={props.isShowLog} gameTempLog={props.gameTempLog} pad={pad} preset={preset}/>
                     </div>
                     <div className={classNames(c2.counter2, c2.guestsTeam2)}>
                         {props.guestsCounter} <br/>
