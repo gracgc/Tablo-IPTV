@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react'
 import c from './TabloClient1.module.css'
 import c2 from './TabloClient2.module.css'
 import c3 from './TabloClient3.module.css'
-import TabloEventClient from "./TabloEventClient";
 import {useDispatch, useSelector} from "react-redux";
 import {getGame, setPresetAC} from "../../../redux/games_reducer";
 import socket from "../../../socket/socket";
@@ -11,9 +10,7 @@ import {
     getCurrentVideo,
     getVideoEditor,
     setCurrentVideoDataAC, setCurrentVideoEditorDataAC,
-    setVideoEditorDataAC, setVideosEditorAC
 } from "../../../redux/videos_reducer";
-import {videosAPI} from "../../../api/api";
 import TabloTimer from "./TabloTimer";
 
 
@@ -25,26 +22,11 @@ const TabloClient = (props) => {
         (state => state.gamesPage.gameData.preset)
     );
 
-    const currentVideo = useSelector(
-        (state => state.videosPage.currentVideo)
-    );
-
-    const videoEditor = useSelector(
-        (state => state.videosPage.videoEditor)
-    );
-
-
-    let padding = videoEditor.currentVideo.padding;
-
-    let [pad, setPad] = useState();
-
-    let player = window.TvipPlayer;
 
     useEffect(() => {
         dispatch(getGame(props.gameNumber));
-        dispatch(getCurrentVideo());
-        dispatch(getVideoEditor(props.gameNumber))
     }, [props.gameNumber]);
+
 
     useEffect(() => {
 
@@ -52,65 +34,7 @@ const TabloClient = (props) => {
             dispatch(setPresetAC(preset))
         });
 
-        socket.on(`getCurrentVideoEditor${props.gameNumber}`, currentVideo => {
-            dispatch(setCurrentVideoEditorDataAC(currentVideo));
-        });
-
-        socket.on(`getCurrentVideo`, currentVideo => {
-            dispatch(setCurrentVideoDataAC(currentVideo));
-            console.log(currentVideo)
-        });
-
-
     }, []);
-
-    useEffect(() => {
-        socket.on(`getPlayerStatus`, isRunning => {
-
-            if (player) {
-                if (isRunning) {
-                    player.unpause();
-                } else {
-                    player.pause();
-                }
-            }
-        });
-    }, [player])
-
-
-    useEffect(() => {
-        if (player) {
-            setTimeout(() => {
-                player.unpause();
-            }, 2000)
-        }
-    }, [])
-
-
-    useEffect(() => {
-        if (player) {
-            player.playUrl(currentVideo.videoURL, '');
-            player.pause();
-        }
-        if (window.stb) {
-            window.stb.play(currentVideo.videoURL)
-            window.stb.pause();
-        }
-    }, [player, currentVideo]);
-
-
-    useEffect(() => {
-        if (padding) {
-            setPad('Переход');
-        } else {
-            setPad('');
-            if (player) {
-                player.unpause()
-            }
-        }
-    }, [padding]);
-
-    console.log(1)
 
 
     return (
@@ -119,7 +43,7 @@ const TabloClient = (props) => {
             {preset === 1 &&
             <div className={c.tablo1}>
                 <div>
-                    <TabloTimer gameNumber={props.gameNumber} gameConsLog={props.gameConsLog} isShowLog={props.isShowLog} gameTempLog={props.gameTempLog} pad={pad} preset={preset}/>
+                    <TabloTimer gameNumber={props.gameNumber} gameConsLog={props.gameConsLog} isShowLog={props.isShowLog} gameTempLog={props.gameTempLog} preset={preset}/>
                 </div>
 
                 <div>
@@ -155,7 +79,7 @@ const TabloClient = (props) => {
                         {props.homeTeam.name}
                     </div>
                     <div className={c2.time2}>
-                        <TabloTimer gameNumber={props.gameNumber} gameConsLog={props.gameConsLog} isShowLog={props.isShowLog} gameTempLog={props.gameTempLog} pad={pad} preset={preset}/>
+                        <TabloTimer gameNumber={props.gameNumber} gameConsLog={props.gameConsLog} isShowLog={props.isShowLog} gameTempLog={props.gameTempLog} preset={preset}/>
                     </div>
                     <div className={classNames(c2.counter2, c2.guestsTeam2)}>
                         {props.guestsCounter} <br/>

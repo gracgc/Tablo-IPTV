@@ -8,13 +8,13 @@ import socket from "../../../socket/socket";
 import {tabloAPI} from "../../../api/api";
 import useInterval from 'use-interval'
 import TabloEventClient from "./TabloEventClient";
+import STB from "./STB";
 
 
 const TabloTimer = (props) => {
 
     let [gameNumber, setGameNumber] = useState(props.gameNumber);
 
-    const dispatch = useDispatch();
 
     let [isRunningServer, setIsRunningServer] = useState(false);
 
@@ -158,7 +158,7 @@ const TabloTimer = (props) => {
                     right: '30px',
                     color: 'green'
                 }}>Dif:{dif} Ping:{ping}</div>
-                <div style={{textAlign: 'center', position: 'absolute', left: '30px', color: 'green'}}>{props.pad}</div>
+                <STB gameNumber={props.gameNumber}/>
             </div>}
 
 
